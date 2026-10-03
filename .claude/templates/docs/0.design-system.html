@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{PROJECT_NAME}} · Design System</title>
+<link rel="stylesheet" href="{{CSS_PATH}}">
+</head>
+<body>
+<main class="page">
+
+<header class="doc-header">
+  <p class="eyebrow">{{PROJECT_NAME}} · Kickoff · 0</p>
+  <h1>Design System</h1>
+  <p class="lede">Visual language of the product: tokens, type, components and the screen inventory of the prototype.</p>
+  <div class="meta">
+    <span class="pill">Status: <b><span class="status draft">draft</span></b></span>
+    <span class="pill">Owner: <b>designer</b></span>
+    <span class="pill">Approver: <b>product owner</b></span>
+    <span class="pill">Updated: <b>{{DATE}}</b></span>
+    <span class="pill">Prototype: <a href="../mockups/index.html">.claude/mockups/</a></span>
+  </div>
+</header>
+
+<nav class="toc">
+  <ol>
+    <li><a href="#tone">Tone &amp; principles</a></li>
+    <li><a href="#color">Color tokens</a></li>
+    <li><a href="#type">Typography</a></li>
+    <li><a href="#space">Spacing, layout, radius</a></li>
+    <li><a href="#components">Component inventory</a></li>
+    <li><a href="#screens">Screen inventory</a></li>
+  </ol>
+</nav>
+
+<h2 id="tone">1. Tone &amp; principles</h2>
+<ul><li class="placeholder">3–5 adjectives and what each means in practice …</li></ul>
+
+<h2 id="color">2. Color tokens</h2>
+<p>Tokens are the source of truth and are mirrored in <code>.claude/mockups/styles.css</code>. Give every token a light and a dark value.</p>
+<div class="swatches">
+  <div class="swatch"><div class="chip" style="background:#FAF9F5"></div><div class="info"><code>--bg</code><br>#FAF9F5</div></div>
+  <div class="swatch"><div class="chip" style="background:#F0EEE6"></div><div class="info"><code>--surface</code><br>#F0EEE6</div></div>
+  <div class="swatch"><div class="chip" style="background:#141413"></div><div class="info"><code>--text</code><br>#141413</div></div>
+  <div class="swatch"><div class="chip" style="background:#D97757"></div><div class="info"><code>--accent</code><br>#D97757</div></div>
+</div>
+<p class="muted">Placeholder palette (Claude defaults). Replace with the product palette once decided.</p>
+
+<h2 id="type">3. Typography</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Role</th><th>Family</th><th>Size / line-height</th><th>Weight</th><th>Usage</th></tr></thead>
+  <tbody>
+    <tr><td>Display / H1</td><td class="placeholder">…</td><td></td><td></td><td></td></tr>
+    <tr><td>Body</td><td class="placeholder">…</td><td></td><td></td><td></td></tr>
+    <tr><td>Mono</td><td class="placeholder">…</td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="space">4. Spacing, layout, radius</h2>
+<ul>
+  <li><strong>Spacing scale:</strong> <span class="placeholder">4 · 8 · 12 · 16 · 24 · 32 · 48</span></li>
+  <li><strong>Breakpoints:</strong> <span class="placeholder">…</span></li>
+  <li><strong>Radius:</strong> <span class="placeholder">…</span></li>
+</ul>
+
+<h2 id="components">5. Component inventory</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Component</th><th>Variants / states</th><th>Used in screens</th><th>Mockup</th></tr></thead>
+  <tbody><tr><td class="placeholder">Button</td><td>primary · secondary · ghost · disabled</td><td></td><td><a href="../mockups/index.html#components">view</a></td></tr></tbody>
+</table>
+</div>
+
+<h2 id="screens">6. Screen inventory</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Screen</th><th>Theme</th><th>Purpose</th><th>Mockup</th><th>Status</th></tr></thead>
+  <tbody><tr><td class="placeholder">…</td><td><code>TH-01</code></td><td></td><td><a href="../mockups/index.html">open</a></td><td><span class="status draft">draft</span></td></tr></tbody>
+</table>
+</div>
+
+<footer class="doc-footer">
+  Produced by the <code>kickoff</code> skill · agent: designer · template: <code>.claude/templates/docs/0.design-system.html</code>
+</footer>
+</main>
+</body>
+</html>

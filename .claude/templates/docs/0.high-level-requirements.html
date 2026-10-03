@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{PROJECT_NAME}} · High-level Requirements</title>
+<link rel="stylesheet" href="{{CSS_PATH}}">
+</head>
+<body>
+<main class="page">
+
+<header class="doc-header">
+  <p class="eyebrow">{{PROJECT_NAME}} · Kickoff · 0</p>
+  <h1>High-level Requirements</h1>
+  <p class="lede">What we are building, for whom, and why — at the level of themes, not features.</p>
+  <div class="meta">
+    <span class="pill">Status: <b><span class="status draft">draft</span></b></span>
+    <span class="pill">Owner: <b>analyst</b></span>
+    <span class="pill">Approver: <b>product owner</b></span>
+    <span class="pill">Updated: <b>{{DATE}}</b></span>
+  </div>
+</header>
+
+<nav class="toc">
+  <ol>
+    <li><a href="#problem">Problem statement</a></li>
+    <li><a href="#goals">Goals &amp; non-goals</a></li>
+    <li><a href="#users">Users &amp; personas</a></li>
+    <li><a href="#themes">Theme requirements</a></li>
+    <li><a href="#constraints">Constraints &amp; assumptions</a></li>
+    <li><a href="#metrics">Success metrics</a></li>
+    <li><a href="#clarifications">Clarification log</a></li>
+    <li><a href="#open">Open questions</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<h2 id="problem">1. Problem statement</h2>
+<p class="placeholder">2–4 paragraphs. Who has the problem, what they do today, why it hurts, why now. No solutions here.</p>
+<div class="callout">
+  <span class="label">One-liner</span>
+  <p class="placeholder">“For &lt;user&gt; who &lt;need&gt;, {{PROJECT_NAME}} is a &lt;category&gt; that &lt;key benefit&gt;, unlike &lt;alternative&gt;.”</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="goals">2. Goals &amp; non-goals</h2>
+<div class="grid">
+  <div class="card">
+    <h4>Goals</h4>
+    <ul>
+      <li class="placeholder">G1 — …</li>
+      <li class="placeholder">G2 — …</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Non-goals (explicitly out of scope)</h4>
+    <ul>
+      <li class="placeholder">NG1 — …</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="users">3. Users &amp; personas</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Persona</th><th>Who they are</th><th>Primary jobs</th><th>Pain today</th></tr></thead>
+  <tbody>
+    <tr><td class="placeholder">P1 …</td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="themes">4. Theme requirements</h2>
+<p>A <em>theme</em> is an epic-level capability. Each theme later becomes one or more <code>flows</code> (see <code>.claude/flows/</code>). IDs are stable and referenced from flow documents.</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>ID</th><th>Theme</th><th>Description</th><th>Persona</th><th>Priority</th><th>Outcome / how we know it works</th></tr></thead>
+  <tbody>
+    <tr><td><code>TH-01</code></td><td class="placeholder">…</td><td></td><td></td><td><span class="status open">must</span></td><td></td></tr>
+    <tr><td><code>TH-02</code></td><td class="placeholder">…</td><td></td><td></td><td><span class="status draft">should</span></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+<p class="muted">Priority scale: must · should · could · later.</p>
+
+<!-- ============================================================ -->
+<h2 id="constraints">5. Constraints &amp; assumptions</h2>
+<h3>Constraints</h3>
+<ul>
+  <li class="placeholder">Solo developer; budget / time box …</li>
+  <li class="placeholder">Platform / device / offline requirements …</li>
+</ul>
+<h3>Assumptions</h3>
+<ul>
+  <li class="placeholder">A1 — … (validated: yes / no)</li>
+</ul>
+
+<!-- ============================================================ -->
+<h2 id="metrics">6. Success metrics</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Metric</th><th>Baseline</th><th>Target</th><th>How measured</th></tr></thead>
+  <tbody><tr><td class="placeholder">…</td><td></td><td></td><td></td></tr></tbody>
+</table>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="clarifications">7. Clarification log</h2>
+<p>Questions asked by analyst / designer / architect and answers from the product owner. Keep the history; it explains the decisions.</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>#</th><th>Date</th><th>Asked by</th><th>Question</th><th>Answer</th></tr></thead>
+  <tbody><tr><td>Q1</td><td>{{DATE}}</td><td>analyst</td><td class="placeholder">…</td><td class="placeholder">…</td></tr></tbody>
+</table>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="open">8. Open questions</h2>
+<ul>
+  <li><span class="status open">open</span> <span class="placeholder">…</span></li>
+</ul>
+
+<footer class="doc-footer">
+  Produced by the <code>kickoff</code> skill · agents: analyst, designer, architect · template: <code>.claude/templates/docs/0.high-level-requirements.html</code>
+</footer>
+</main>
+</body>
+</html>

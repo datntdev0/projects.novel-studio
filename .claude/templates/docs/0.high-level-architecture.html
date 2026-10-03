@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{PROJECT_NAME}} · High-level Architecture</title>
+<link rel="stylesheet" href="{{CSS_PATH}}">
+</head>
+<body>
+<main class="page">
+
+<header class="doc-header">
+  <p class="eyebrow">{{PROJECT_NAME}} · Kickoff · 0</p>
+  <h1>High-level Architecture</h1>
+  <p class="lede">Technical stack, system shape and the conventions every flow must follow.</p>
+  <div class="meta">
+    <span class="pill">Status: <b><span class="status draft">draft</span></b></span>
+    <span class="pill">Owner: <b>architect</b></span>
+    <span class="pill">Approver: <b>product owner</b></span>
+    <span class="pill">Updated: <b>{{DATE}}</b></span>
+    <span class="pill">Input: <a href="0.high-level-requirements.html">High-level Requirements</a></span>
+  </div>
+</header>
+
+<nav class="toc">
+  <ol>
+    <li><a href="#principles">Principles</a></li>
+    <li><a href="#stack">Technical stack</a></li>
+    <li><a href="#context">System context</a></li>
+    <li><a href="#components">Components</a></li>
+    <li><a href="#data">Data model</a></li>
+    <li><a href="#crosscutting">Cross-cutting concerns</a></li>
+    <li><a href="#repo">Repository layout &amp; conventions</a></li>
+    <li><a href="#decisions">Decisions (ADR-lite)</a></li>
+    <li><a href="#risks">Risks</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<h2 id="principles">1. Principles</h2>
+<ul>
+  <li class="placeholder">e.g. local-first · boring tech · one deployable · every feature testable via playwright-cli …</li>
+</ul>
+
+<!-- ============================================================ -->
+<h2 id="stack">2. Technical stack</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Layer</th><th>Choice</th><th>Version</th><th>Why</th><th>Alternatives considered</th></tr></thead>
+  <tbody>
+    <tr><td>Language / runtime</td><td class="placeholder">…</td><td></td><td></td><td></td></tr>
+    <tr><td>UI framework</td><td class="placeholder">…</td><td></td><td></td><td></td></tr>
+    <tr><td>State / data</td><td class="placeholder">…</td><td></td><td></td><td></td></tr>
+    <tr><td>Storage</td><td class="placeholder">…</td><td></td><td></td><td></td></tr>
+    <tr><td>Build / tooling</td><td class="placeholder">…</td><td></td><td></td><td></td></tr>
+    <tr><td>Testing</td><td>playwright-cli (e2e) · <span class="placeholder">unit runner …</span></td><td></td><td>Required by the <code>testing</code> skill</td><td></td></tr>
+    <tr><td>Hosting / packaging</td><td class="placeholder">…</td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="context">3. System context</h2>
+<figure class="diagram">
+  <!-- Replace with inline SVG. Keep labels as <text> nodes and use currentColor for strokes so it works in dark mode. -->
+  <pre class="placeholder">[ User ] ──► [ {{PROJECT_NAME}} app ] ──► [ Storage ]
+                       │
+                       └──► [ External service … ]</pre>
+  <figcaption>Figure 1 — Context diagram.</figcaption>
+</figure>
+
+<!-- ============================================================ -->
+<h2 id="components">4. Components</h2>
+<div class="grid">
+  <div class="card"><h4>Component A</h4><p class="placeholder">Responsibility · Owns · Talks to</p></div>
+  <div class="card"><h4>Component B</h4><p class="placeholder">Responsibility · Owns · Talks to</p></div>
+</div>
+<h3>Theme → component map</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Theme</th><th>Components involved</th><th>Notes</th></tr></thead>
+  <tbody><tr><td><code>TH-01</code></td><td class="placeholder">…</td><td></td></tr></tbody>
+</table>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="data">5. Data model (high level)</h2>
+<p class="placeholder">Main entities and relationships only. Field-level detail lives in each flow's solution document.</p>
+<pre class="placeholder">Entity ──&lt; Entity
+Entity ──&lt; Entity</pre>
+
+<!-- ============================================================ -->
+<h2 id="crosscutting">6. Cross-cutting concerns</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Concern</th><th>Approach</th></tr></thead>
+  <tbody>
+    <tr><td>Auth / identity</td><td class="placeholder">…</td></tr>
+    <tr><td>Persistence &amp; migrations</td><td class="placeholder">…</td></tr>
+    <tr><td>Error handling &amp; logging</td><td class="placeholder">…</td></tr>
+    <tr><td>Configuration &amp; secrets</td><td class="placeholder">…</td></tr>
+    <tr><td>Testing strategy</td><td class="placeholder">unit · integration · e2e (playwright-cli) — what goes where</td></tr>
+    <tr><td>Performance budgets</td><td class="placeholder">…</td></tr>
+    <tr><td>Accessibility &amp; i18n</td><td class="placeholder">…</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="repo">7. Repository layout &amp; conventions</h2>
+<pre class="placeholder">/
+├── src/            …
+├── tests/          unit + e2e
+├── .claude/        framework docs, flows, templates
+└── …</pre>
+<ul>
+  <li><strong>Branching:</strong> <span class="placeholder">one branch per flow: <code>flow/&lt;name&gt;</code></span></li>
+  <li><strong>Commits:</strong> one level-1 task = one commit — <code>&lt;type&gt;(&lt;flow&gt;): &lt;title&gt; [T&lt;n&gt;]</code></li>
+  <li><strong>Code style:</strong> <span class="placeholder">formatter / linter …</span></li>
+  <li><strong>Definition of done:</strong> reviewer approved · tests green · plan status updated</li>
+</ul>
+
+<!-- ============================================================ -->
+<h2 id="decisions">8. Decisions (ADR-lite)</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>ID</th><th>Date</th><th>Decision</th><th>Context</th><th>Consequences</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td><code>AD-01</code></td><td>{{DATE}}</td><td class="placeholder">…</td><td></td><td></td><td><span class="status approved">accepted</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="risks">9. Risks</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Risk</th><th>Likelihood</th><th>Impact</th><th>Mitigation</th></tr></thead>
+  <tbody><tr><td class="placeholder">…</td><td></td><td></td><td></td></tr></tbody>
+</table>
+</div>
+
+<footer class="doc-footer">
+  Produced by the <code>kickoff</code> skill · agent: architect · template: <code>.claude/templates/docs/0.high-level-architecture.html</code>
+</footer>
+</main>
+</body>
+</html>

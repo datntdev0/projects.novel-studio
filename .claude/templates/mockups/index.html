@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{PROJECT_NAME}} · Prototype</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<!--
+  UX/UI prototype — static HTML/CSS/JS, no build step.
+  One <section class="screen" id="..."> per screen; app.js switches screens by URL hash.
+  Keep screens listed in the sidebar in the same order as the Screen inventory
+  in .claude/docs/0.design-system.html.
+-->
+<div class="shell">
+  <aside class="sidebar">
+    <p class="brand">{{PROJECT_NAME}}<small>prototype</small></p>
+    <nav>
+      <p class="group">Screens</p>
+      <a href="#home" data-screen="home">Home</a>
+      <a href="#example" data-screen="example">Example screen</a>
+      <p class="group">Reference</p>
+      <a href="#components" data-screen="components">Components</a>
+    </nav>
+    <p class="foot">Design system: <a href="../docs/0.design-system.html">doc</a></p>
+  </aside>
+
+  <main class="stage">
+    <!-- ================= screen: home ================= -->
+    <section class="screen" id="home" data-title="Home">
+      <header class="screen-header">
+        <h1>Home</h1>
+        <p class="muted">Theme <code>TH-01</code> · covers <code>AC-?</code></p>
+      </header>
+      <div class="frame">
+        <p class="placeholder">Build the screen here with real components from styles.css.</p>
+        <button class="btn primary" data-go="example">Go to example →</button>
+      </div>
+      <aside class="annotations">
+        <h4>Annotations</h4>
+        <ol>
+          <li>What this element does / state changes.</li>
+        </ol>
+      </aside>
+    </section>
+
+    <!-- ================= screen: example ================= -->
+    <section class="screen" id="example" data-title="Example screen">
+      <header class="screen-header">
+        <h1>Example screen</h1>
+        <p class="muted">Theme <code>TH-01</code></p>
+      </header>
+      <div class="frame">
+        <div class="field">
+          <label for="ex-input">Label</label>
+          <input id="ex-input" placeholder="Placeholder">
+        </div>
+        <div class="row">
+          <button class="btn primary">Primary</button>
+          <button class="btn">Secondary</button>
+          <button class="btn ghost" data-go="home">← Back</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= reference: components ================= -->
+    <section class="screen" id="components" data-title="Components">
+      <header class="screen-header"><h1>Components</h1><p class="muted">Living inventory — every component used by a screen appears here with its states.</p></header>
+      <div class="frame">
+        <h3>Buttons</h3>
+        <div class="row">
+          <button class="btn primary">Primary</button>
+          <button class="btn">Secondary</button>
+          <button class="btn ghost">Ghost</button>
+          <button class="btn" disabled>Disabled</button>
+        </div>
+        <h3>Form field</h3>
+        <div class="field"><label>Label</label><input placeholder="Placeholder"><small>Helper text</small></div>
+        <div class="field error"><label>Label</label><input value="Bad value"><small>Error message</small></div>
+        <h3>Card</h3>
+        <div class="card"><h4>Card title</h4><p>Body text.</p></div>
+        <h3>Status</h3>
+        <div class="row"><span class="status ok">ok</span><span class="status warn">warn</span><span class="status bad">bad</span><span class="status info">info</span></div>
+      </div>
+    </section>
+  </main>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

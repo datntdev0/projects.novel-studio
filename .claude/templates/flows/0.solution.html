@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{FLOW_NAME}} · Solution</title>
+<link rel="stylesheet" href="{{CSS_PATH}}">
+</head>
+<body>
+<main class="page">
+
+<header class="doc-header">
+  <p class="eyebrow">{{PROJECT_NAME}} · Flow · {{FLOW_NAME}} · 0</p>
+  <h1>Solution</h1>
+  <p class="lede">How we will satisfy the requirements: user experience, technical design and the way it will be verified.</p>
+  <div class="meta">
+    <span class="pill">Status: <b><span class="status draft">draft</span></b></span>
+    <span class="pill">Owner: <b>architect</b> + <b>designer</b></span>
+    <span class="pill">Approver: <b>product owner</b></span>
+    <span class="pill">Updated: <b>{{DATE}}</b></span>
+    <span class="pill">Input: <a href="0.requirements.html">Requirements</a></span>
+    <span class="pill">Next: <a href="1.plan.md">Plan</a></span>
+  </div>
+</header>
+
+<nav class="toc">
+  <ol>
+    <li><a href="#approach">Approach</a></li>
+    <li><a href="#ux">UX flow &amp; mockups</a></li>
+    <li><a href="#design">Technical design</a></li>
+    <li><a href="#alternatives">Alternatives considered</a></li>
+    <li><a href="#impact">Impact on architecture</a></li>
+    <li><a href="#verification">Verification strategy</a></li>
+    <li><a href="#risks">Risks &amp; rollout</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<h2 id="approach">1. Approach</h2>
+<p class="placeholder">One or two paragraphs. The chosen direction and the single most important reason for it.</p>
+<div class="callout ok">
+  <span class="label">Decision</span>
+  <p class="placeholder">We will … instead of … because …</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="ux">2. UX flow &amp; mockups</h2>
+<p>Screens and steps as the user experiences them. Link each screen to its prototype page in <code>.claude/mockups/</code>.</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Step</th><th>Screen</th><th>User does</th><th>System shows</th><th>Covers</th><th>Mockup</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td class="placeholder">…</td><td></td><td></td><td><code>AC-1</code></td><td><a href="../../mockups/index.html">open</a></td></tr>
+  </tbody>
+</table>
+</div>
+<h3>Mockup changes in this flow</h3>
+<ul><li class="placeholder">New screen … · Updated component … (designer)</li></ul>
+
+<!-- ============================================================ -->
+<h2 id="design">3. Technical design</h2>
+<h3>Components touched</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Component / module</th><th>Change</th><th>New or modified files (expected)</th></tr></thead>
+  <tbody><tr><td class="placeholder">…</td><td class="placeholder">add · modify · remove</td><td><code class="placeholder">src/…</code></td></tr></tbody>
+</table>
+</div>
+<h3>Data changes</h3>
+<p class="placeholder">Entities, fields, migrations, storage keys …</p>
+<h3>Interfaces / API / state</h3>
+<pre class="placeholder">// signatures, routes, events, store shape …</pre>
+<h3>Sequence</h3>
+<figure class="diagram">
+  <pre class="placeholder">User → UI → Service → Storage
+          ← result ←</pre>
+  <figcaption>Figure 1 — Main happy path.</figcaption>
+</figure>
+<h3>Edge cases &amp; error handling</h3>
+<ul><li class="placeholder">…</li></ul>
+
+<!-- ============================================================ -->
+<h2 id="alternatives">4. Alternatives considered</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Option</th><th>Pros</th><th>Cons</th><th>Verdict</th></tr></thead>
+  <tbody>
+    <tr><td class="placeholder">A (chosen)</td><td></td><td></td><td><span class="status approved">chosen</span></td></tr>
+    <tr><td class="placeholder">B</td><td></td><td></td><td><span class="status rejected">rejected</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="impact">5. Impact on architecture</h2>
+<p>Anything here must also be applied to <a href="../../docs/0.high-level-architecture.html">High-level Architecture</a> (new decision row, stack change, new component).</p>
+<ul><li class="placeholder">None · or: adds <code>AD-0n</code> …</li></ul>
+
+<!-- ============================================================ -->
+<h2 id="verification">6. Verification strategy</h2>
+<p>Read by the <code>planning</code> skill to create the test task, and by the verifier.</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>AC</th><th>Level</th><th>How to verify</th><th>Automated with</th></tr></thead>
+  <tbody>
+    <tr><td><code>AC-1</code></td><td>e2e</td><td class="placeholder">…</td><td>playwright-cli</td></tr>
+    <tr><td><code>AC-2</code></td><td>unit</td><td class="placeholder">…</td><td class="placeholder">test runner</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="risks">7. Risks &amp; rollout</h2>
+<ul>
+  <li><strong>Risks:</strong> <span class="placeholder">…</span></li>
+  <li><strong>Rollout / migration:</strong> <span class="placeholder">…</span></li>
+  <li><strong>Rollback:</strong> <span class="placeholder">…</span></li>
+</ul>
+
+<footer class="doc-footer">
+  Produced by the <code>solution</code> skill · agents: architect, designer · template: <code>.claude/templates/flows/0.solution.html</code>
+</footer>
+</main>
+</body>
+</html>

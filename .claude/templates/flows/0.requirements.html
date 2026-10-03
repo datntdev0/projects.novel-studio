@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{FLOW_NAME}} · Requirements</title>
+<link rel="stylesheet" href="{{CSS_PATH}}">
+</head>
+<body>
+<main class="page">
+
+<header class="doc-header">
+  <p class="eyebrow">{{PROJECT_NAME}} · Flow · {{FLOW_NAME}} · 0</p>
+  <h1>Requirements</h1>
+  <p class="lede">What this flow must deliver, clarified with the product owner, written as testable stories.</p>
+  <div class="meta">
+    <span class="pill">Status: <b><span class="status draft">draft</span></b></span>
+    <span class="pill">Owner: <b>analyst</b></span>
+    <span class="pill">Approver: <b>product owner</b></span>
+    <span class="pill">Updated: <b>{{DATE}}</b></span>
+    <span class="pill">Theme: <a href="../../docs/0.high-level-requirements.html#themes"><code>TH-??</code></a></span>
+    <span class="pill">Next: <a href="0.solution.html">Solution</a></span>
+  </div>
+</header>
+
+<nav class="toc">
+  <ol>
+    <li><a href="#summary">Summary</a></li>
+    <li><a href="#stories">User stories &amp; acceptance criteria</a></li>
+    <li><a href="#scope">Scope</a></li>
+    <li><a href="#clarifications">Clarification log</a></li>
+    <li><a href="#deps">Dependencies &amp; assumptions</a></li>
+    <li><a href="#open">Open questions</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<h2 id="summary">1. Summary</h2>
+<p class="placeholder">One paragraph: the request as the product owner phrased it, and the outcome they expect.</p>
+<div class="callout note">
+  <span class="label">Original request</span>
+  <p class="placeholder">Verbatim quote from the product owner, {{DATE}}.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="stories">2. User stories &amp; acceptance criteria</h2>
+<p>Acceptance criteria IDs (<code>AC-n</code>) are referenced by the plan, the e2e tests and the test report. Do not renumber once the plan is approved.</p>
+
+<h3>US-1 — <span class="placeholder">title</span></h3>
+<p><em>As a</em> <span class="placeholder">persona</span>, <em>I want</em> <span class="placeholder">…</span>, <em>so that</em> <span class="placeholder">…</span>.</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>ID</th><th>Given</th><th>When</th><th>Then</th><th>Priority</th></tr></thead>
+  <tbody>
+    <tr><td><code>AC-1</code></td><td class="placeholder">…</td><td class="placeholder">…</td><td class="placeholder">…</td><td><span class="status open">must</span></td></tr>
+    <tr><td><code>AC-2</code></td><td></td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>US-2 — <span class="placeholder">title</span></h3>
+<p class="placeholder">…</p>
+
+<h3>Non-functional requirements</h3>
+<ul>
+  <li class="placeholder">NFR-1 — performance / accessibility / offline / data retention …</li>
+</ul>
+
+<!-- ============================================================ -->
+<h2 id="scope">3. Scope</h2>
+<div class="grid">
+  <div class="card"><h4>In scope</h4><ul><li class="placeholder">…</li></ul></div>
+  <div class="card"><h4>Out of scope</h4><ul><li class="placeholder">…</li></ul></div>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="clarifications">4. Clarification log</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>#</th><th>Date</th><th>Asked by</th><th>Question</th><th>Answer</th><th>Affects</th></tr></thead>
+  <tbody><tr><td>Q1</td><td>{{DATE}}</td><td>analyst</td><td class="placeholder">…</td><td class="placeholder">…</td><td><code>AC-1</code></td></tr></tbody>
+</table>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="deps">5. Dependencies &amp; assumptions</h2>
+<ul>
+  <li><strong>Depends on flows:</strong> <span class="placeholder">…</span></li>
+  <li><strong>Assumes:</strong> <span class="placeholder">…</span></li>
+</ul>
+
+<!-- ============================================================ -->
+<h2 id="open">6. Open questions</h2>
+<ul><li><span class="status open">open</span> <span class="placeholder">…</span></li></ul>
+
+<footer class="doc-footer">
+  Produced by the <code>solution</code> skill · agent: analyst · template: <code>.claude/templates/flows/0.requirements.html</code>
+</footer>
+</main>
+</body>
+</html>

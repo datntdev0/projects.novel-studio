@@ -1,0 +1,135 @@
+/* ------------------------------------------------------------------
+   claude.css — shared stylesheet for all .claude HTML documents
+   Palette & type follow the Claude design system (warm ivory, ink,
+   terracotta accent, serif headings, sans body). Light + dark mode.
+   ------------------------------------------------------------------ */
+:root {
+  --bg: #FAF9F5;
+  --surface: #F0EEE6;
+  --surface-2: #E8E6DC;
+  --border: #DAD8CC;
+  --text: #141413;
+  --muted: #6B6A64;
+  --accent: #D97757;
+  --accent-strong: #C4633F;
+  --accent-soft: #F7E4DA;
+  --ok: #3F7D4E;   --ok-soft: #E3EFE5;
+  --warn: #B7791F; --warn-soft: #F8EDD6;
+  --bad: #B4443B;  --bad-soft: #F6E0DD;
+  --info: #4F6D9B; --info-soft: #E2E8F2;
+  --serif: "Tiempos Text", "Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans: "Styrene A", Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", Consolas, "SFMono-Regular", Menlo, monospace;
+  --radius: 10px;
+  --measure: 840px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #262624; --surface: #30302E; --surface-2: #3A3936; --border: #46453F;
+    --text: #F5F4EF; --muted: #B0AEA5;
+    --accent: #D97757; --accent-strong: #E8906F; --accent-soft: #4A3028;
+    --ok-soft: #27392B; --warn-soft: #3F3420; --bad-soft: #43282A; --info-soft: #28313F;
+  }
+}
+
+/* Base ----------------------------------------------------------- */
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 16px/1.65 var(--sans);
+}
+.page { max-width: var(--measure); margin: 0 auto; padding: 48px 20px 96px; }
+a { color: var(--accent-strong); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1, h2, h3, h4 { font-family: var(--serif); font-weight: 500; line-height: 1.25; letter-spacing: -0.01em; }
+h1 { font-size: 2.4rem; margin: 0 0 12px; }
+h2 { font-size: 1.6rem; margin: 56px 0 12px; padding-top: 24px; border-top: 1px solid var(--border); }
+h3 { font-size: 1.2rem; margin: 32px 0 8px; }
+h4 { font-size: 1rem; margin: 24px 0 6px; font-family: var(--sans); font-weight: 600; }
+p, ul, ol { margin: 0 0 14px; }
+li { margin: 4px 0; }
+hr { border: 0; border-top: 1px solid var(--border); margin: 40px 0; }
+small, .muted { color: var(--muted); }
+
+/* Header --------------------------------------------------------- */
+.doc-header { margin-bottom: 40px; }
+.eyebrow { font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: var(--accent-strong); margin: 0 0 10px; }
+.lede { font-size: 1.15rem; color: var(--muted); margin: 0 0 18px; font-family: var(--serif); }
+.meta { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill {
+  display: inline-block; padding: 3px 10px; border-radius: 999px;
+  background: var(--surface); border: 1px solid var(--border);
+  font-size: .8rem; color: var(--muted);
+}
+.pill b { color: var(--text); font-weight: 600; }
+
+/* Table of contents --------------------------------------------- */
+.toc { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; margin: 0 0 32px; }
+.toc ol { margin: 0; padding-left: 20px; columns: 2; column-gap: 32px; }
+.toc li { break-inside: avoid; }
+@media (max-width: 600px) { .toc ol { columns: 1; } }
+
+/* Tables --------------------------------------------------------- */
+table { width: 100%; border-collapse: collapse; margin: 12px 0 24px; font-size: .93rem; }
+th, td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--border); }
+th { font-weight: 600; font-size: .8rem; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); background: var(--surface); }
+tr:last-child td { border-bottom: 0; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); }
+.table-wrap table { margin: 0; }
+
+/* Callouts ------------------------------------------------------- */
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 12px 16px; border-radius: 0 var(--radius) var(--radius) 0; margin: 16px 0 20px; }
+.callout > :last-child { margin-bottom: 0; }
+.callout.note { border-color: var(--info); background: var(--info-soft); }
+.callout.warn { border-color: var(--warn); background: var(--warn-soft); }
+.callout.bad  { border-color: var(--bad);  background: var(--bad-soft); }
+.callout.ok   { border-color: var(--ok);   background: var(--ok-soft); }
+.callout .label { display: block; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; margin-bottom: 4px; }
+
+/* Status --------------------------------------------------------- */
+.status { display: inline-block; padding: 2px 9px; border-radius: 6px; font-size: .78rem; font-weight: 600; letter-spacing: .02em; }
+.status.draft, .status.todo     { background: var(--surface-2); color: var(--muted); }
+.status.review, .status.doing   { background: var(--warn-soft); color: var(--warn); }
+.status.approved, .status.done, .status.pass { background: var(--ok-soft); color: var(--ok); }
+.status.blocked, .status.fail, .status.rejected { background: var(--bad-soft); color: var(--bad); }
+.status.open, .status.info      { background: var(--info-soft); color: var(--info); }
+
+/* Cards / grid --------------------------------------------------- */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; margin: 12px 0 24px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; }
+.card h4 { margin: 0 0 6px; }
+.card p:last-child { margin: 0; }
+
+/* Code ----------------------------------------------------------- */
+code, pre { font-family: var(--mono); font-size: .88em; }
+code { background: var(--surface-2); padding: 1px 6px; border-radius: 5px; }
+pre { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; overflow-x: auto; line-height: 1.5; }
+pre code { background: none; padding: 0; }
+
+/* Figures / diagrams -------------------------------------------- */
+figure { margin: 16px 0 24px; }
+figure svg, figure img { max-width: 100%; height: auto; display: block; }
+figcaption { font-size: .85rem; color: var(--muted); margin-top: 6px; }
+.diagram { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+
+/* Swatches (design-system doc) --------------------------------- */
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; margin: 12px 0 24px; }
+.swatch { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; font-size: .78rem; }
+.swatch .chip { height: 56px; }
+.swatch .info { padding: 6px 10px; background: var(--surface); }
+.swatch code { background: none; padding: 0; }
+
+/* Misc ----------------------------------------------------------- */
+details { border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 16px; margin: 12px 0; background: var(--surface); }
+summary { cursor: pointer; font-weight: 600; }
+kbd { font-family: var(--mono); font-size: .8em; border: 1px solid var(--border); border-bottom-width: 2px; border-radius: 5px; padding: 1px 6px; background: var(--surface); }
+.doc-footer { margin-top: 72px; padding-top: 16px; border-top: 1px solid var(--border); font-size: .85rem; color: var(--muted); }
+.placeholder { color: var(--muted); font-style: italic; }
+
+@media print {
+  body { background: #fff; color: #000; font-size: 11pt; }
+  .page { max-width: none; padding: 0; }
+  h2 { break-after: avoid; }
+  .toc, .doc-footer { display: none; }
+}

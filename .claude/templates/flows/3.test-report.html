@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{FLOW_NAME}} · Test Report</title>
+<link rel="stylesheet" href="{{CSS_PATH}}">
+</head>
+<body>
+<main class="page">
+
+<header class="doc-header">
+  <p class="eyebrow">{{PROJECT_NAME}} · Flow · {{FLOW_NAME}} · 3</p>
+  <h1>Test Report</h1>
+  <p class="lede">Final verification of the implemented plan against the acceptance criteria.</p>
+  <div class="meta">
+    <span class="pill">Verdict: <b><span class="status draft">pending</span></b></span>
+    <span class="pill">Owner: <b>verifier</b></span>
+    <span class="pill">Run: <b>{{DATE}}</b></span>
+    <span class="pill">Commit: <b><code>&lt;sha&gt;</code></b></span>
+    <span class="pill">Inputs: <a href="0.requirements.html">Requirements</a> · <a href="1.plan.md">Plan</a></span>
+  </div>
+</header>
+
+<nav class="toc">
+  <ol>
+    <li><a href="#summary">Summary</a></li>
+    <li><a href="#env">Environment</a></li>
+    <li><a href="#coverage">Acceptance-criteria coverage</a></li>
+    <li><a href="#scenarios">Scenarios</a></li>
+    <li><a href="#defects">Defects</a></li>
+    <li><a href="#verdict">Verdict &amp; follow-ups</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<h2 id="summary">1. Summary</h2>
+<div class="grid">
+  <div class="card"><h4>Scenarios</h4><p><b class="placeholder">0</b> total · <span class="status pass">0 pass</span> <span class="status fail">0 fail</span> <span class="status todo">0 skipped</span></p></div>
+  <div class="card"><h4>Acceptance criteria</h4><p><b class="placeholder">0 / 0</b> covered by automation</p></div>
+  <div class="card"><h4>Defects</h4><p><b class="placeholder">0</b> open · <b class="placeholder">0</b> fixed during testing</p></div>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="env">2. Environment</h2>
+<div class="table-wrap">
+<table>
+  <tbody>
+    <tr><th>Tool</th><td>playwright-cli <span class="placeholder">version</span></td></tr>
+    <tr><th>Browser(s)</th><td class="placeholder">chromium …</td></tr>
+    <tr><th>App under test</th><td class="placeholder">URL / build command</td></tr>
+    <tr><th>Command</th><td><code class="placeholder">playwright-cli …</code></td></tr>
+    <tr><th>Spec location</th><td><code>tests/e2e/{{FLOW_NAME}}/</code></td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="coverage">3. Acceptance-criteria coverage</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>AC</th><th>Priority</th><th>Scenario(s)</th><th>Result</th></tr></thead>
+  <tbody>
+    <tr><td><code>AC-1</code></td><td>must</td><td><code>S1</code></td><td><span class="status pass">pass</span></td></tr>
+    <tr><td><code>AC-2</code></td><td>should</td><td>—</td><td><span class="status todo">not automated</span> <span class="muted">(manual: …)</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="scenarios">4. Scenarios</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>ID</th><th>Scenario</th><th>Steps (short)</th><th>Expected</th><th>Result</th><th>Evidence</th></tr></thead>
+  <tbody>
+    <tr><td><code>S1</code></td><td class="placeholder">…</td><td class="placeholder">1. … 2. …</td><td class="placeholder">…</td><td><span class="status pass">pass</span></td><td><a href="evidence/S1.png">screenshot</a></td></tr>
+  </tbody>
+</table>
+</div>
+<p class="muted">Evidence (screenshots, traces) is stored next to this report in <code>evidence/</code>.</p>
+
+<!-- ============================================================ -->
+<h2 id="defects">5. Defects</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>ID</th><th>Severity</th><th>Scenario</th><th>Description</th><th>Status</th></tr></thead>
+  <tbody><tr><td><code>D1</code></td><td class="placeholder">major</td><td><code>S1</code></td><td class="placeholder">…</td><td><span class="status open">open</span></td></tr></tbody>
+</table>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="verdict">6. Verdict &amp; follow-ups</h2>
+<div class="callout ok">
+  <span class="label">Verdict</span>
+  <p class="placeholder"><b>Accepted</b> / <b>Rejected</b> — reason. Product owner sign-off: …</p>
+</div>
+<ul>
+  <li class="placeholder">Follow-up flow / task for deferred items …</li>
+</ul>
+
+<footer class="doc-footer">
+  Produced by the <code>testing</code> skill · agent: verifier · template: <code>.claude/templates/flows/3.test-report.html</code>
+</footer>
+</main>
+</body>
+</html>
