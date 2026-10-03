@@ -18,6 +18,8 @@
   --bad: #B4443B;  --bad-soft: #F6E0DD;
   --info: #4F6D9B; --info-soft: #E2E8F2;
   --serif: "Tiempos Text", "Source Serif 4", Georgia, "Times New Roman", serif;
+  /* Georgia lacks many Vietnamese tone-mark glyphs; Cambria / Times New Roman have them all. */
+  --serif-vi: "Tiempos Text", "Source Serif 4", Cambria, "Times New Roman", serif;
   --sans: "Styrene A", Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono: "JetBrains Mono", Consolas, "SFMono-Regular", Menlo, monospace;
   --radius: 10px;
@@ -96,7 +98,12 @@ tr:last-child td { border-bottom: 0; }
 .status.open, .status.info      { background: var(--info-soft); color: var(--info); }
 
 /* Cards / grid --------------------------------------------------- */
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; margin: 12px 0 24px; }
+/* auto-fit (not auto-fill) collapses empty tracks, so two cards fill the row
+   instead of sitting in a 3-column grid. Use .cols-2 / .cols-3 for a fixed count. */
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin: 12px 0 24px; }
+.grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 600px) { .grid.cols-2, .grid.cols-3 { grid-template-columns: 1fr; } }
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; }
 .card h4 { margin: 0 0 6px; }
 .card p:last-child { margin: 0; }
@@ -120,6 +127,21 @@ figcaption { font-size: .85rem; color: var(--muted); margin-top: 6px; }
 .swatch .info { padding: 6px 10px; background: var(--surface); }
 .swatch code { background: none; padding: 0; }
 
+/* Language (EN / VI) --------------------------------------------
+   Documents are bilingual in one file. Translatable text is written twice,
+   as sibling elements with lang="en" and lang="vi"; IDs, code, dates and
+   status pills carry no lang attribute and are always shown.
+   <html data-lang="en|vi"> selects the visible language (claude.js toggles it). */
+[data-lang="en"] [lang="vi"], [data-lang="vi"] [lang="en"] { display: none !important; }
+:is(h1, h2, h3, .lede):lang(vi), :is(h1, h2, h3, .lede) :lang(vi) { font-family: var(--serif-vi); }
+.lang-switch { display: inline-flex; border: 1px solid var(--border); border-radius: 999px; overflow: hidden; background: var(--surface); }
+.lang-switch button {
+  border: 0; background: none; color: var(--muted); cursor: pointer;
+  font: 600 .78rem/1 var(--sans); letter-spacing: .04em; padding: 6px 12px;
+}
+.lang-switch button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+.lang-switch button:hover:not([aria-pressed="true"]) { color: var(--text); }
+
 /* Misc ----------------------------------------------------------- */
 details { border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 16px; margin: 12px 0; background: var(--surface); }
 summary { cursor: pointer; font-weight: 600; }
@@ -131,5 +153,5 @@ kbd { font-family: var(--mono); font-size: .8em; border: 1px solid var(--border)
   body { background: #fff; color: #000; font-size: 11pt; }
   .page { max-width: none; padding: 0; }
   h2 { break-after: avoid; }
-  .toc, .doc-footer { display: none; }
+  .toc, .doc-footer, .lang-switch { display: none; }
 }

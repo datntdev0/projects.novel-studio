@@ -8,7 +8,7 @@ Usage:
   python .claude/scripts/scaffold.py ... --force         # overwrite existing files
 
 Placeholders replaced in every copied text file:
-  {{PROJECT_NAME}}  {{FLOW_NAME}}  {{DATE}}  {{CSS_PATH}}
+  {{PROJECT_NAME}}  {{FLOW_NAME}}  {{DATE}}  {{CSS_PATH}}  {{JS_PATH}}
 """
 from __future__ import annotations
 
@@ -21,7 +21,7 @@ from pathlib import Path
 CLAUDE_DIR = Path(__file__).resolve().parent.parent
 REPO_DIR = CLAUDE_DIR.parent
 TEMPLATES = CLAUDE_DIR / "templates"
-CSS = TEMPLATES / "assets" / "claude.css"
+ASSETS = TEMPLATES / "assets"
 
 
 def project_name(override: str | None) -> str:
@@ -55,16 +55,19 @@ def copy_tree(src: Path, dst: Path, values: dict[str, str], force: bool) -> list
     return written
 
 
-def css_path_from(folder: Path) -> str:
-    return Path(*[".."] * len(folder.relative_to(CLAUDE_DIR).parts)).joinpath(
-        CSS.relative_to(CLAUDE_DIR)
-    ).as_posix()
+def asset_paths_from(folder: Path) -> dict[str, str]:
+    """Relative paths from folder to the shared stylesheet and script."""
+    up = Path(*[".."] * len(folder.relative_to(CLAUDE_DIR).parts))
+    return {
+        "CSS_PATH": up.joinpath((ASSETS / "claude.css").relative_to(CLAUDE_DIR)).as_posix(),
+        "JS_PATH": up.joinpath((ASSETS / "claude.js").relative_to(CLAUDE_DIR)).as_posix(),
+    }
 
 
 def scaffold_docs(values: dict[str, str], force: bool) -> None:
     docs = CLAUDE_DIR / "docs"
     print("Kickoff documents:")
-    copy_tree(TEMPLATES / "docs", docs, {**values, "CSS_PATH": css_path_from(docs)}, force)
+    copy_tree(TEMPLATES / "docs", docs, {**values, **asset_paths_from(docs)}, force)
     print("Prototype:")
     copy_tree(TEMPLATES / "mockups", CLAUDE_DIR / "mockups", values, force)
 
@@ -77,7 +80,7 @@ def scaffold_flow(name: str, values: dict[str, str], force: bool) -> None:
     copy_tree(
         TEMPLATES / "flows",
         folder,
-        {**values, "FLOW_NAME": name, "CSS_PATH": css_path_from(folder)},
+        {**values, "FLOW_NAME": name, **asset_paths_from(folder)},
         force,
     )
     (folder / "evidence").mkdir(exist_ok=True)
@@ -86,10 +89,11 @@ def scaffold_flow(name: str, values: dict[str, str], force: bool) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
-    sub.add_parser("docs", help="scaffold kickoff docs and mockups")
+    docs = sub.add_parser("docs", help="scaffold kickoff docs and mockups")
     flow = sub.add_parser("flow", help="scaffold a flow folder")
     flow.add_argument("name")
-    for p in (parser,):
+    # accept the options before or after the subcommand
+    for p in (parser, docs, flow):
         p.add_argument("--project", help="project name (default: README heading or folder name)")
         p.add_argument("--force", action="store_true", help="overwrite existing files")
     args = parser.parse_args()

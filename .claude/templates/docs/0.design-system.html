@@ -1,55 +1,74 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{PROJECT_NAME}} · Design System</title>
 <link rel="stylesheet" href="{{CSS_PATH}}">
+<script src="{{JS_PATH}}" defer></script>
 </head>
 <body>
 <main class="page">
+<!--
+  Bilingual document (EN / VI) in one file.
+  Write every sentence twice as sibling elements: lang="en" then lang="vi"
+  (<span> inline, <p>/<li> block). Token names, <code>, hex values and status pills carry no lang attribute.
+-->
 
 <header class="doc-header">
   <p class="eyebrow">{{PROJECT_NAME}} · Kickoff · 0</p>
-  <h1>Design System</h1>
-  <p class="lede">Visual language of the product: tokens, type, components and the screen inventory of the prototype.</p>
+  <h1><span lang="en">Design System</span><span lang="vi">Hệ thống thiết kế</span></h1>
+  <p class="lede" lang="en">Visual language of the product: tokens, type, components and the screen inventory of the prototype.</p>
+  <p class="lede" lang="vi">Ngôn ngữ hình ảnh của sản phẩm: token, chữ, thành phần và danh sách màn hình của bản mẫu.</p>
   <div class="meta">
-    <span class="pill">Status: <b><span class="status draft">draft</span></b></span>
-    <span class="pill">Owner: <b>designer</b></span>
-    <span class="pill">Approver: <b>product owner</b></span>
-    <span class="pill">Updated: <b>{{DATE}}</b></span>
-    <span class="pill">Prototype: <a href="../mockups/index.html">.claude/mockups/</a></span>
+    <span class="lang-switch" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="vi" aria-pressed="false">VI</button></span>
+    <span class="pill"><span lang="en">Status</span><span lang="vi">Trạng thái</span>: <b><span class="status draft">draft</span></b></span>
+    <span class="pill"><span lang="en">Owner</span><span lang="vi">Phụ trách</span>: <b>designer</b></span>
+    <span class="pill"><span lang="en">Approver</span><span lang="vi">Người duyệt</span>: <b>product owner</b></span>
+    <span class="pill"><span lang="en">Updated</span><span lang="vi">Cập nhật</span>: <b>{{DATE}}</b></span>
+    <span class="pill"><span lang="en">Prototype</span><span lang="vi">Bản mẫu</span>: <a href="../mockups/index.html">.claude/mockups/</a></span>
   </div>
 </header>
 
 <nav class="toc">
   <ol>
-    <li><a href="#tone">Tone &amp; principles</a></li>
-    <li><a href="#color">Color tokens</a></li>
-    <li><a href="#type">Typography</a></li>
-    <li><a href="#space">Spacing, layout, radius</a></li>
-    <li><a href="#components">Component inventory</a></li>
-    <li><a href="#screens">Screen inventory</a></li>
+    <li><a href="#tone"><span lang="en">Tone &amp; principles</span><span lang="vi">Tông &amp; nguyên tắc</span></a></li>
+    <li><a href="#color"><span lang="en">Color tokens</span><span lang="vi">Token màu</span></a></li>
+    <li><a href="#type"><span lang="en">Typography</span><span lang="vi">Kiểu chữ</span></a></li>
+    <li><a href="#space"><span lang="en">Spacing, layout, radius</span><span lang="vi">Khoảng cách, bố cục, bo góc</span></a></li>
+    <li><a href="#components"><span lang="en">Component inventory</span><span lang="vi">Danh sách thành phần</span></a></li>
+    <li><a href="#screens"><span lang="en">Screen inventory</span><span lang="vi">Danh sách màn hình</span></a></li>
   </ol>
 </nav>
 
-<h2 id="tone">1. Tone &amp; principles</h2>
-<ul><li class="placeholder">3–5 adjectives and what each means in practice …</li></ul>
+<h2 id="tone">1. <span lang="en">Tone &amp; principles</span><span lang="vi">Tông &amp; nguyên tắc</span></h2>
+<ul>
+  <li class="placeholder" lang="en">3–5 adjectives and what each means in practice …</li>
+  <li class="placeholder" lang="vi">3–5 tính từ và ý nghĩa thực tế của từng tính từ …</li>
+</ul>
 
-<h2 id="color">2. Color tokens</h2>
-<p>Tokens are the source of truth and are mirrored in <code>.claude/mockups/styles.css</code>. Give every token a light and a dark value.</p>
+<h2 id="color">2. <span lang="en">Color tokens</span><span lang="vi">Token màu</span></h2>
+<p lang="en">Tokens are the source of truth and are mirrored in <code>.claude/mockups/styles.css</code>. Give every token a light and a dark value.</p>
+<p lang="vi">Token là nguồn chân lý và được phản chiếu trong <code>.claude/mockups/styles.css</code>. Mỗi token phải có giá trị cho cả nền sáng và nền tối.</p>
 <div class="swatches">
   <div class="swatch"><div class="chip" style="background:#FAF9F5"></div><div class="info"><code>--bg</code><br>#FAF9F5</div></div>
   <div class="swatch"><div class="chip" style="background:#F0EEE6"></div><div class="info"><code>--surface</code><br>#F0EEE6</div></div>
   <div class="swatch"><div class="chip" style="background:#141413"></div><div class="info"><code>--text</code><br>#141413</div></div>
   <div class="swatch"><div class="chip" style="background:#D97757"></div><div class="info"><code>--accent</code><br>#D97757</div></div>
 </div>
-<p class="muted">Placeholder palette (Claude defaults). Replace with the product palette once decided.</p>
+<p class="muted" lang="en">Placeholder palette (Claude defaults). Replace with the product palette once decided.</p>
+<p class="muted" lang="vi">Bảng màu tạm (mặc định của Claude). Thay bằng bảng màu sản phẩm khi đã quyết định.</p>
 
-<h2 id="type">3. Typography</h2>
+<h2 id="type">3. <span lang="en">Typography</span><span lang="vi">Kiểu chữ</span></h2>
 <div class="table-wrap">
 <table>
-  <thead><tr><th>Role</th><th>Family</th><th>Size / line-height</th><th>Weight</th><th>Usage</th></tr></thead>
+  <thead><tr>
+    <th><span lang="en">Role</span><span lang="vi">Vai trò</span></th>
+    <th><span lang="en">Family</span><span lang="vi">Họ chữ</span></th>
+    <th><span lang="en">Size / line-height</span><span lang="vi">Cỡ / chiều cao dòng</span></th>
+    <th><span lang="en">Weight</span><span lang="vi">Độ đậm</span></th>
+    <th><span lang="en">Usage</span><span lang="vi">Dùng cho</span></th>
+  </tr></thead>
   <tbody>
     <tr><td>Display / H1</td><td class="placeholder">…</td><td></td><td></td><td></td></tr>
     <tr><td>Body</td><td class="placeholder">…</td><td></td><td></td><td></td></tr>
@@ -58,31 +77,44 @@
 </table>
 </div>
 
-<h2 id="space">4. Spacing, layout, radius</h2>
+<h2 id="space">4. <span lang="en">Spacing, layout, radius</span><span lang="vi">Khoảng cách, bố cục, bo góc</span></h2>
 <ul>
-  <li><strong>Spacing scale:</strong> <span class="placeholder">4 · 8 · 12 · 16 · 24 · 32 · 48</span></li>
+  <li><strong><span lang="en">Spacing scale</span><span lang="vi">Thang khoảng cách</span>:</strong> <span class="placeholder">4 · 8 · 12 · 16 · 24 · 32 · 48</span></li>
   <li><strong>Breakpoints:</strong> <span class="placeholder">…</span></li>
-  <li><strong>Radius:</strong> <span class="placeholder">…</span></li>
+  <li><strong><span lang="en">Radius</span><span lang="vi">Bo góc</span>:</strong> <span class="placeholder">…</span></li>
 </ul>
 
-<h2 id="components">5. Component inventory</h2>
+<h2 id="components">5. <span lang="en">Component inventory</span><span lang="vi">Danh sách thành phần</span></h2>
 <div class="table-wrap">
 <table>
-  <thead><tr><th>Component</th><th>Variants / states</th><th>Used in screens</th><th>Mockup</th></tr></thead>
-  <tbody><tr><td class="placeholder">Button</td><td>primary · secondary · ghost · disabled</td><td></td><td><a href="../mockups/index.html#components">view</a></td></tr></tbody>
+  <thead><tr>
+    <th><span lang="en">Component</span><span lang="vi">Thành phần</span></th>
+    <th><span lang="en">Variants / states</span><span lang="vi">Biến thể / trạng thái</span></th>
+    <th><span lang="en">Used in screens</span><span lang="vi">Dùng ở màn hình</span></th>
+    <th>Mockup</th>
+  </tr></thead>
+  <tbody><tr><td class="placeholder">Button</td><td>primary · secondary · ghost · disabled</td><td></td><td><a href="../mockups/index.html#components"><span lang="en">view</span><span lang="vi">xem</span></a></td></tr></tbody>
 </table>
 </div>
 
-<h2 id="screens">6. Screen inventory</h2>
+<h2 id="screens">6. <span lang="en">Screen inventory</span><span lang="vi">Danh sách màn hình</span></h2>
 <div class="table-wrap">
 <table>
-  <thead><tr><th>Screen</th><th>Theme</th><th>Purpose</th><th>Mockup</th><th>Status</th></tr></thead>
-  <tbody><tr><td class="placeholder">…</td><td><code>TH-01</code></td><td></td><td><a href="../mockups/index.html">open</a></td><td><span class="status draft">draft</span></td></tr></tbody>
+  <thead><tr>
+    <th><span lang="en">Screen</span><span lang="vi">Màn hình</span></th>
+    <th><span lang="en">Theme</span><span lang="vi">Chủ đề</span></th>
+    <th><span lang="en">Purpose</span><span lang="vi">Mục đích</span></th>
+    <th>Mockup</th>
+    <th><span lang="en">Status</span><span lang="vi">Trạng thái</span></th>
+  </tr></thead>
+  <tbody><tr><td><span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></td><td><code>TH-01</code></td><td></td><td><a href="../mockups/index.html"><span lang="en">open</span><span lang="vi">mở</span></a></td><td><span class="status draft">draft</span></td></tr></tbody>
 </table>
 </div>
 
 <footer class="doc-footer">
-  Produced by the <code>kickoff</code> skill · agent: designer · template: <code>.claude/templates/docs/0.design-system.html</code>
+  <span lang="en">Produced by the <code>kickoff</code> skill · agent: designer · template:</span>
+  <span lang="vi">Tạo bởi skill <code>kickoff</code> · agent: designer · template:</span>
+  <code>.claude/templates/docs/0.design-system.html</code>
 </footer>
 </main>
 </body>

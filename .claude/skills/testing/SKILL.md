@@ -25,3 +25,4 @@ disable-model-invocation: true
 - The report must be reproducible: commands, versions and commit SHA are mandatory.
 - Verifier never edits application code; fixes go through coders and review.
 - An AC without automation is reported as *not automated*, never silently passed.
+- The report is bilingual (EN + VI in one file, sibling `lang="en"` / `lang="vi"` elements). Commands, versions, IDs and SHAs are language-neutral and written once.

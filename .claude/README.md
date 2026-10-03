@@ -43,7 +43,7 @@ Every artifact is a local file in this repository; nothing lives in Claude.ai ar
 ├── docs/          project-level HTML documents (kickoff outputs)
 ├── mockups/       static HTML/CSS/JS prototype (designer owns)
 ├── flows/<name>/  per-feature documents: 0.requirements · 0.solution · 1.plan · 2.review · 3.test-report · evidence/
-├── templates/     sources for every document above + assets/claude.css (shared stylesheet)
+├── templates/     sources for every document above + assets/claude.css, claude.js (shared stylesheet + EN/VI switch)
 └── scripts/       scaffold.py (create docs / flows from templates) · status.py (state of all flows)
 ```
 
@@ -54,6 +54,9 @@ Every artifact is a local file in this repository; nothing lives in Claude.ai ar
 - **Plan tasks**: level 1 = one sequential commit; level 2 = parallel subagents with disjoint file ownership; last task is always e2e automation with `playwright-cli`.
 - **Commits**: `<type>(<flow>): <title> [T<n>]` on branch `flow/<name>`.
 - **Documents**: HTML for anything the product owner reads and approves (styled by `templates/assets/claude.css`, light + dark); Markdown for files agents update continuously (`1.plan.md`, `2.review.md`).
+- **Bilingual (EN + VI)**: every HTML document holds both languages in one file. Each sentence is written twice as sibling elements `lang="en"` then `lang="vi"`; IDs, code, dates and status pills are written once without `lang`. The EN/VI switch in the document header (`templates/assets/claude.js`) hides the other language and remembers the choice.
+- **Theme priority** (`TH-nn`) is a build order: a unique number per theme, 1 = built first, `later` for themes outside the first release. MoSCoW (must / should / could) applies only to acceptance criteria inside a flow.
+- **Question level**: kickoff asks product-level questions only (about 8 at most); feature-level detail is asked in `/solution` of the flow that needs it.
 
 ## Quick start
 

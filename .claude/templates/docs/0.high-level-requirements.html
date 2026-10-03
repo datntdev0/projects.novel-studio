@@ -1,129 +1,173 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{PROJECT_NAME}} · High-level Requirements</title>
 <link rel="stylesheet" href="{{CSS_PATH}}">
+<script src="{{JS_PATH}}" defer></script>
 </head>
 <body>
 <main class="page">
+<!--
+  Bilingual document (EN / VI) in one file.
+  - Write every sentence twice as sibling elements: lang="en" then lang="vi".
+    Inline:  <span lang="en">…</span><span lang="vi">…</span>
+    Block:   <p lang="en">…</p><p lang="vi">…</p>   (also li, h3, td content)
+  - IDs (TH-nn, G1, Q1), <code>, dates, numbers and status pills carry no lang attribute.
+  - The EN/VI switch in the header hides the other language (claude.css + claude.js).
+-->
 
 <header class="doc-header">
   <p class="eyebrow">{{PROJECT_NAME}} · Kickoff · 0</p>
-  <h1>High-level Requirements</h1>
-  <p class="lede">What we are building, for whom, and why — at the level of themes, not features.</p>
+  <h1><span lang="en">High-level Requirements</span><span lang="vi">Yêu cầu tổng quan</span></h1>
+  <p class="lede" lang="en">What we are building, for whom, and why — at the level of themes, not features.</p>
+  <p class="lede" lang="vi">Chúng ta xây dựng gì, cho ai và vì sao — ở mức chủ đề, chưa đi vào tính năng.</p>
   <div class="meta">
-    <span class="pill">Status: <b><span class="status draft">draft</span></b></span>
-    <span class="pill">Owner: <b>analyst</b></span>
-    <span class="pill">Approver: <b>product owner</b></span>
-    <span class="pill">Updated: <b>{{DATE}}</b></span>
+    <span class="lang-switch" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="vi" aria-pressed="false">VI</button></span>
+    <span class="pill"><span lang="en">Status</span><span lang="vi">Trạng thái</span>: <b><span class="status draft">draft</span></b></span>
+    <span class="pill"><span lang="en">Owner</span><span lang="vi">Phụ trách</span>: <b>analyst</b></span>
+    <span class="pill"><span lang="en">Approver</span><span lang="vi">Người duyệt</span>: <b>product owner</b></span>
+    <span class="pill"><span lang="en">Updated</span><span lang="vi">Cập nhật</span>: <b>{{DATE}}</b></span>
   </div>
 </header>
 
 <nav class="toc">
   <ol>
-    <li><a href="#problem">Problem statement</a></li>
-    <li><a href="#goals">Goals &amp; non-goals</a></li>
-    <li><a href="#users">Users &amp; personas</a></li>
-    <li><a href="#themes">Theme requirements</a></li>
-    <li><a href="#constraints">Constraints &amp; assumptions</a></li>
-    <li><a href="#metrics">Success metrics</a></li>
-    <li><a href="#clarifications">Clarification log</a></li>
-    <li><a href="#open">Open questions</a></li>
+    <li><a href="#problem"><span lang="en">Problem statement</span><span lang="vi">Phát biểu vấn đề</span></a></li>
+    <li><a href="#goals"><span lang="en">Goals &amp; non-goals</span><span lang="vi">Mục tiêu &amp; ngoài mục tiêu</span></a></li>
+    <li><a href="#users"><span lang="en">Users &amp; personas</span><span lang="vi">Người dùng &amp; chân dung</span></a></li>
+    <li><a href="#themes"><span lang="en">Theme requirements</span><span lang="vi">Yêu cầu theo chủ đề</span></a></li>
+    <li><a href="#constraints"><span lang="en">Constraints &amp; assumptions</span><span lang="vi">Ràng buộc &amp; giả định</span></a></li>
+    <li><a href="#metrics"><span lang="en">Success metrics</span><span lang="vi">Chỉ số thành công</span></a></li>
+    <li><a href="#clarifications"><span lang="en">Clarification log</span><span lang="vi">Nhật ký làm rõ</span></a></li>
+    <li><a href="#open"><span lang="en">Open questions</span><span lang="vi">Câu hỏi còn mở</span></a></li>
   </ol>
 </nav>
 
 <!-- ============================================================ -->
-<h2 id="problem">1. Problem statement</h2>
-<p class="placeholder">2–4 paragraphs. Who has the problem, what they do today, why it hurts, why now. No solutions here.</p>
+<h2 id="problem">1. <span lang="en">Problem statement</span><span lang="vi">Phát biểu vấn đề</span></h2>
+<p class="placeholder" lang="en">2–4 paragraphs. Who has the problem, what they do today, why it hurts, why now. No solutions here.</p>
+<p class="placeholder" lang="vi">2–4 đoạn. Ai gặp vấn đề, hiện họ làm gì, vì sao khó chịu, vì sao là lúc này. Không nêu giải pháp ở đây.</p>
 <div class="callout">
-  <span class="label">One-liner</span>
-  <p class="placeholder">“For &lt;user&gt; who &lt;need&gt;, {{PROJECT_NAME}} is a &lt;category&gt; that &lt;key benefit&gt;, unlike &lt;alternative&gt;.”</p>
+  <span class="label"><span lang="en">One-liner</span><span lang="vi">Một câu tóm tắt</span></span>
+  <p class="placeholder" lang="en">“For &lt;user&gt; who &lt;need&gt;, {{PROJECT_NAME}} is a &lt;category&gt; that &lt;key benefit&gt;, unlike &lt;alternative&gt;.”</p>
+  <p class="placeholder" lang="vi">“Dành cho &lt;người dùng&gt; cần &lt;nhu cầu&gt;, {{PROJECT_NAME}} là &lt;loại sản phẩm&gt; giúp &lt;lợi ích chính&gt;, khác với &lt;giải pháp thay thế&gt;.”</p>
 </div>
 
 <!-- ============================================================ -->
-<h2 id="goals">2. Goals &amp; non-goals</h2>
-<div class="grid">
+<h2 id="goals">2. <span lang="en">Goals &amp; non-goals</span><span lang="vi">Mục tiêu &amp; ngoài mục tiêu</span></h2>
+<div class="grid cols-2">
   <div class="card">
-    <h4>Goals</h4>
+    <h4><span lang="en">Goals</span><span lang="vi">Mục tiêu</span></h4>
     <ul>
-      <li class="placeholder">G1 — …</li>
-      <li class="placeholder">G2 — …</li>
+      <li>G1 — <span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></li>
+      <li>G2 — <span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></li>
     </ul>
   </div>
   <div class="card">
-    <h4>Non-goals (explicitly out of scope)</h4>
+    <h4><span lang="en">Non-goals (explicitly out of scope)</span><span lang="vi">Ngoài mục tiêu (chủ động không làm)</span></h4>
     <ul>
-      <li class="placeholder">NG1 — …</li>
+      <li>NG1 — <span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></li>
     </ul>
   </div>
 </div>
 
 <!-- ============================================================ -->
-<h2 id="users">3. Users &amp; personas</h2>
+<h2 id="users">3. <span lang="en">Users &amp; personas</span><span lang="vi">Người dùng &amp; chân dung</span></h2>
 <div class="table-wrap">
 <table>
-  <thead><tr><th>Persona</th><th>Who they are</th><th>Primary jobs</th><th>Pain today</th></tr></thead>
+  <thead><tr>
+    <th><span lang="en">Persona</span><span lang="vi">Chân dung</span></th>
+    <th><span lang="en">Who they are</span><span lang="vi">Họ là ai</span></th>
+    <th><span lang="en">Primary jobs</span><span lang="vi">Việc chính</span></th>
+    <th><span lang="en">Pain today</span><span lang="vi">Khó khăn hiện tại</span></th>
+  </tr></thead>
   <tbody>
-    <tr><td class="placeholder">P1 …</td><td></td><td></td><td></td></tr>
+    <tr><td>P1 — <span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></td><td></td><td></td><td></td></tr>
   </tbody>
 </table>
 </div>
 
 <!-- ============================================================ -->
-<h2 id="themes">4. Theme requirements</h2>
-<p>A <em>theme</em> is an epic-level capability. Each theme later becomes one or more <code>flows</code> (see <code>.claude/flows/</code>). IDs are stable and referenced from flow documents.</p>
+<h2 id="themes">4. <span lang="en">Theme requirements</span><span lang="vi">Yêu cầu theo chủ đề</span></h2>
+<p lang="en">A <em>theme</em> is an epic-level capability. Each theme later becomes one or more <code>flows</code> (see <code>.claude/flows/</code>). IDs are stable and referenced from flow documents.</p>
+<p lang="vi"><em>Chủ đề</em> là một năng lực ở mức epic. Mỗi chủ đề sau này sẽ thành một hoặc nhiều <code>flow</code> (xem <code>.claude/flows/</code>). ID cố định và được tham chiếu từ tài liệu của flow.</p>
 <div class="table-wrap">
 <table>
-  <thead><tr><th>ID</th><th>Theme</th><th>Description</th><th>Persona</th><th>Priority</th><th>Outcome / how we know it works</th></tr></thead>
+  <thead><tr>
+    <th>ID</th>
+    <th><span lang="en">Theme</span><span lang="vi">Chủ đề</span></th>
+    <th><span lang="en">Description</span><span lang="vi">Mô tả</span></th>
+    <th><span lang="en">Persona</span><span lang="vi">Chân dung</span></th>
+    <th><span lang="en">Priority</span><span lang="vi">Ưu tiên</span></th>
+    <th><span lang="en">Outcome / how we know it works</span><span lang="vi">Kết quả / cách biết là đạt</span></th>
+  </tr></thead>
   <tbody>
-    <tr><td><code>TH-01</code></td><td class="placeholder">…</td><td></td><td></td><td><span class="status open">must</span></td><td></td></tr>
-    <tr><td><code>TH-02</code></td><td class="placeholder">…</td><td></td><td></td><td><span class="status draft">should</span></td><td></td></tr>
+    <tr><td><code>TH-01</code></td><td><span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></td><td></td><td></td><td><span class="status open">1</span></td><td></td></tr>
+    <tr><td><code>TH-02</code></td><td><span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></td><td></td><td></td><td><span class="status open">2</span></td><td></td></tr>
+    <tr><td><code>TH-03</code></td><td><span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></td><td></td><td></td><td><span class="status todo">later</span></td><td></td></tr>
   </tbody>
 </table>
 </div>
-<p class="muted">Priority scale: must · should · could · later.</p>
+<p class="muted" lang="en">Priority = build order: <b>1</b> is built first, then 2, 3 … Every theme gets a unique number (no ties, no must/should/could). Themes not planned for the first release are marked <code>later</code>.</p>
+<p class="muted" lang="vi">Ưu tiên = thứ tự làm: <b>1</b> làm trước, rồi 2, 3 … Mỗi chủ đề một số duy nhất (không trùng, không dùng must/should/could). Chủ đề chưa làm trong bản đầu đánh dấu <code>later</code>.</p>
 
 <!-- ============================================================ -->
-<h2 id="constraints">5. Constraints &amp; assumptions</h2>
-<h3>Constraints</h3>
+<h2 id="constraints">5. <span lang="en">Constraints &amp; assumptions</span><span lang="vi">Ràng buộc &amp; giả định</span></h2>
+<h3><span lang="en">Constraints</span><span lang="vi">Ràng buộc</span></h3>
 <ul>
-  <li class="placeholder">Solo developer; budget / time box …</li>
-  <li class="placeholder">Platform / device / offline requirements …</li>
+  <li class="placeholder" lang="en">Solo developer; budget / time box …</li>
+  <li class="placeholder" lang="vi">Một lập trình viên; ngân sách / khung thời gian …</li>
+  <li class="placeholder" lang="en">Platform / device / offline requirements …</li>
+  <li class="placeholder" lang="vi">Nền tảng / thiết bị / yêu cầu offline …</li>
 </ul>
-<h3>Assumptions</h3>
+<h3><span lang="en">Assumptions</span><span lang="vi">Giả định</span></h3>
 <ul>
-  <li class="placeholder">A1 — … (validated: yes / no)</li>
+  <li>A1 — <span class="placeholder" lang="en">… (validated: yes / no)</span><span class="placeholder" lang="vi">… (đã xác nhận: có / chưa)</span></li>
 </ul>
 
 <!-- ============================================================ -->
-<h2 id="metrics">6. Success metrics</h2>
+<h2 id="metrics">6. <span lang="en">Success metrics</span><span lang="vi">Chỉ số thành công</span></h2>
 <div class="table-wrap">
 <table>
-  <thead><tr><th>Metric</th><th>Baseline</th><th>Target</th><th>How measured</th></tr></thead>
-  <tbody><tr><td class="placeholder">…</td><td></td><td></td><td></td></tr></tbody>
+  <thead><tr>
+    <th><span lang="en">Metric</span><span lang="vi">Chỉ số</span></th>
+    <th><span lang="en">Baseline</span><span lang="vi">Hiện trạng</span></th>
+    <th><span lang="en">Target</span><span lang="vi">Mục tiêu</span></th>
+    <th><span lang="en">How measured</span><span lang="vi">Cách đo</span></th>
+  </tr></thead>
+  <tbody><tr><td>M1 — <span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></td><td></td><td></td><td></td></tr></tbody>
 </table>
 </div>
 
 <!-- ============================================================ -->
-<h2 id="clarifications">7. Clarification log</h2>
-<p>Questions asked by analyst / designer / architect and answers from the product owner. Keep the history; it explains the decisions.</p>
+<h2 id="clarifications">7. <span lang="en">Clarification log</span><span lang="vi">Nhật ký làm rõ</span></h2>
+<p lang="en">Questions asked by analyst / designer / architect and answers from the product owner. Keep the history; it explains the decisions.</p>
+<p lang="vi">Câu hỏi của analyst / designer / architect và câu trả lời của product owner. Giữ lại lịch sử; nó giải thích các quyết định.</p>
 <div class="table-wrap">
 <table>
-  <thead><tr><th>#</th><th>Date</th><th>Asked by</th><th>Question</th><th>Answer</th></tr></thead>
-  <tbody><tr><td>Q1</td><td>{{DATE}}</td><td>analyst</td><td class="placeholder">…</td><td class="placeholder">…</td></tr></tbody>
+  <thead><tr>
+    <th>#</th>
+    <th><span lang="en">Date</span><span lang="vi">Ngày</span></th>
+    <th><span lang="en">Asked by</span><span lang="vi">Người hỏi</span></th>
+    <th><span lang="en">Question</span><span lang="vi">Câu hỏi</span></th>
+    <th><span lang="en">Answer</span><span lang="vi">Trả lời</span></th>
+  </tr></thead>
+  <tbody><tr><td>Q1</td><td>{{DATE}}</td><td>analyst</td><td><span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></td><td><span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></td></tr></tbody>
 </table>
 </div>
 
 <!-- ============================================================ -->
-<h2 id="open">8. Open questions</h2>
+<h2 id="open">8. <span lang="en">Open questions</span><span lang="vi">Câu hỏi còn mở</span></h2>
 <ul>
-  <li><span class="status open">open</span> <span class="placeholder">…</span></li>
+  <li><code>Q2</code> <span class="status open">open</span> <span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></li>
 </ul>
 
 <footer class="doc-footer">
-  Produced by the <code>kickoff</code> skill · agents: analyst, designer, architect · template: <code>.claude/templates/docs/0.high-level-requirements.html</code>
+  <span lang="en">Produced by the <code>kickoff</code> skill · agents: analyst, designer, architect · template:</span>
+  <span lang="vi">Tạo bởi skill <code>kickoff</code> · agent: analyst, designer, architect · template:</span>
+  <code>.claude/templates/docs/0.high-level-requirements.html</code>
 </footer>
 </main>
 </body>

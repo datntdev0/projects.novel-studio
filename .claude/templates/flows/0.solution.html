@@ -1,124 +1,167 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{FLOW_NAME}} · Solution</title>
 <link rel="stylesheet" href="{{CSS_PATH}}">
+<script src="{{JS_PATH}}" defer></script>
 </head>
 <body>
 <main class="page">
+<!--
+  Bilingual document (EN / VI) in one file.
+  Write every sentence twice as sibling elements: lang="en" then lang="vi"
+  (<span> inline, <p>/<li> block). IDs (AC-n, AD-nn), <code>, file paths and status pills carry no lang attribute.
+-->
 
 <header class="doc-header">
   <p class="eyebrow">{{PROJECT_NAME}} · Flow · {{FLOW_NAME}} · 0</p>
-  <h1>Solution</h1>
-  <p class="lede">How we will satisfy the requirements: user experience, technical design and the way it will be verified.</p>
+  <h1><span lang="en">Solution</span><span lang="vi">Giải pháp</span></h1>
+  <p class="lede" lang="en">How we will satisfy the requirements: user experience, technical design and the way it will be verified.</p>
+  <p class="lede" lang="vi">Cách đáp ứng yêu cầu: trải nghiệm người dùng, thiết kế kỹ thuật và cách kiểm chứng.</p>
   <div class="meta">
-    <span class="pill">Status: <b><span class="status draft">draft</span></b></span>
-    <span class="pill">Owner: <b>architect</b> + <b>designer</b></span>
-    <span class="pill">Approver: <b>product owner</b></span>
-    <span class="pill">Updated: <b>{{DATE}}</b></span>
-    <span class="pill">Input: <a href="0.requirements.html">Requirements</a></span>
-    <span class="pill">Next: <a href="1.plan.md">Plan</a></span>
+    <span class="lang-switch" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="vi" aria-pressed="false">VI</button></span>
+    <span class="pill"><span lang="en">Status</span><span lang="vi">Trạng thái</span>: <b><span class="status draft">draft</span></b></span>
+    <span class="pill"><span lang="en">Owner</span><span lang="vi">Phụ trách</span>: <b>architect</b> + <b>designer</b></span>
+    <span class="pill"><span lang="en">Approver</span><span lang="vi">Người duyệt</span>: <b>product owner</b></span>
+    <span class="pill"><span lang="en">Updated</span><span lang="vi">Cập nhật</span>: <b>{{DATE}}</b></span>
+    <span class="pill"><span lang="en">Input</span><span lang="vi">Đầu vào</span>: <a href="0.requirements.html"><span lang="en">Requirements</span><span lang="vi">Yêu cầu</span></a></span>
+    <span class="pill"><span lang="en">Next</span><span lang="vi">Tiếp theo</span>: <a href="1.plan.md">Plan</a></span>
   </div>
 </header>
 
 <nav class="toc">
   <ol>
-    <li><a href="#approach">Approach</a></li>
-    <li><a href="#ux">UX flow &amp; mockups</a></li>
-    <li><a href="#design">Technical design</a></li>
-    <li><a href="#alternatives">Alternatives considered</a></li>
-    <li><a href="#impact">Impact on architecture</a></li>
-    <li><a href="#verification">Verification strategy</a></li>
-    <li><a href="#risks">Risks &amp; rollout</a></li>
+    <li><a href="#approach"><span lang="en">Approach</span><span lang="vi">Hướng tiếp cận</span></a></li>
+    <li><a href="#ux"><span lang="en">UX flow &amp; mockups</span><span lang="vi">Luồng UX &amp; mockup</span></a></li>
+    <li><a href="#design"><span lang="en">Technical design</span><span lang="vi">Thiết kế kỹ thuật</span></a></li>
+    <li><a href="#alternatives"><span lang="en">Alternatives considered</span><span lang="vi">Phương án đã cân nhắc</span></a></li>
+    <li><a href="#impact"><span lang="en">Impact on architecture</span><span lang="vi">Ảnh hưởng tới kiến trúc</span></a></li>
+    <li><a href="#verification"><span lang="en">Verification strategy</span><span lang="vi">Chiến lược kiểm chứng</span></a></li>
+    <li><a href="#risks"><span lang="en">Risks &amp; rollout</span><span lang="vi">Rủi ro &amp; triển khai</span></a></li>
   </ol>
 </nav>
 
 <!-- ============================================================ -->
-<h2 id="approach">1. Approach</h2>
-<p class="placeholder">One or two paragraphs. The chosen direction and the single most important reason for it.</p>
+<h2 id="approach">1. <span lang="en">Approach</span><span lang="vi">Hướng tiếp cận</span></h2>
+<p class="placeholder" lang="en">One or two paragraphs. The chosen direction and the single most important reason for it.</p>
+<p class="placeholder" lang="vi">Một hoặc hai đoạn. Hướng đã chọn và lý do quan trọng nhất.</p>
 <div class="callout ok">
-  <span class="label">Decision</span>
-  <p class="placeholder">We will … instead of … because …</p>
+  <span class="label"><span lang="en">Decision</span><span lang="vi">Quyết định</span></span>
+  <p class="placeholder" lang="en">We will … instead of … because …</p>
+  <p class="placeholder" lang="vi">Chúng ta sẽ … thay vì … vì …</p>
 </div>
 
 <!-- ============================================================ -->
-<h2 id="ux">2. UX flow &amp; mockups</h2>
-<p>Screens and steps as the user experiences them. Link each screen to its prototype page in <code>.claude/mockups/</code>.</p>
+<h2 id="ux">2. <span lang="en">UX flow &amp; mockups</span><span lang="vi">Luồng UX &amp; mockup</span></h2>
+<p lang="en">Screens and steps as the user experiences them. Link each screen to its prototype page in <code>.claude/mockups/</code>.</p>
+<p lang="vi">Màn hình và các bước theo trải nghiệm của người dùng. Liên kết mỗi màn hình tới trang bản mẫu trong <code>.claude/mockups/</code>.</p>
 <div class="table-wrap">
 <table>
-  <thead><tr><th>Step</th><th>Screen</th><th>User does</th><th>System shows</th><th>Covers</th><th>Mockup</th></tr></thead>
+  <thead><tr>
+    <th><span lang="en">Step</span><span lang="vi">Bước</span></th>
+    <th><span lang="en">Screen</span><span lang="vi">Màn hình</span></th>
+    <th><span lang="en">User does</span><span lang="vi">Người dùng làm</span></th>
+    <th><span lang="en">System shows</span><span lang="vi">Hệ thống hiển thị</span></th>
+    <th><span lang="en">Covers</span><span lang="vi">Đáp ứng</span></th>
+    <th>Mockup</th>
+  </tr></thead>
   <tbody>
-    <tr><td>1</td><td class="placeholder">…</td><td></td><td></td><td><code>AC-1</code></td><td><a href="../../mockups/index.html">open</a></td></tr>
+    <tr><td>1</td><td><span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></td><td></td><td></td><td><code>AC-1</code></td><td><a href="../../mockups/index.html"><span lang="en">open</span><span lang="vi">mở</span></a></td></tr>
   </tbody>
 </table>
 </div>
-<h3>Mockup changes in this flow</h3>
-<ul><li class="placeholder">New screen … · Updated component … (designer)</li></ul>
+<h3><span lang="en">Mockup changes in this flow</span><span lang="vi">Thay đổi mockup trong flow này</span></h3>
+<ul>
+  <li class="placeholder" lang="en">New screen … · Updated component … (designer)</li>
+  <li class="placeholder" lang="vi">Màn hình mới … · Thành phần cập nhật … (designer)</li>
+</ul>
 
 <!-- ============================================================ -->
-<h2 id="design">3. Technical design</h2>
-<h3>Components touched</h3>
+<h2 id="design">3. <span lang="en">Technical design</span><span lang="vi">Thiết kế kỹ thuật</span></h2>
+<h3><span lang="en">Components touched</span><span lang="vi">Thành phần bị ảnh hưởng</span></h3>
 <div class="table-wrap">
 <table>
-  <thead><tr><th>Component / module</th><th>Change</th><th>New or modified files (expected)</th></tr></thead>
+  <thead><tr>
+    <th><span lang="en">Component / module</span><span lang="vi">Thành phần / module</span></th>
+    <th><span lang="en">Change</span><span lang="vi">Thay đổi</span></th>
+    <th><span lang="en">New or modified files (expected)</span><span lang="vi">File mới hoặc sửa (dự kiến)</span></th>
+  </tr></thead>
   <tbody><tr><td class="placeholder">…</td><td class="placeholder">add · modify · remove</td><td><code class="placeholder">src/…</code></td></tr></tbody>
 </table>
 </div>
-<h3>Data changes</h3>
-<p class="placeholder">Entities, fields, migrations, storage keys …</p>
-<h3>Interfaces / API / state</h3>
+<h3><span lang="en">Data changes</span><span lang="vi">Thay đổi dữ liệu</span></h3>
+<p class="placeholder" lang="en">Entities, fields, migrations, storage keys …</p>
+<p class="placeholder" lang="vi">Thực thể, trường, migration, khóa lưu trữ …</p>
+<h3><span lang="en">Interfaces / API / state</span><span lang="vi">Giao diện / API / state</span></h3>
 <pre class="placeholder">// signatures, routes, events, store shape …</pre>
-<h3>Sequence</h3>
+<h3><span lang="en">Sequence</span><span lang="vi">Trình tự</span></h3>
 <figure class="diagram">
   <pre class="placeholder">User → UI → Service → Storage
           ← result ←</pre>
-  <figcaption>Figure 1 — Main happy path.</figcaption>
+  <figcaption><span lang="en">Figure 1 — Main happy path.</span><span lang="vi">Hình 1 — Luồng chính.</span></figcaption>
 </figure>
-<h3>Edge cases &amp; error handling</h3>
-<ul><li class="placeholder">…</li></ul>
+<h3><span lang="en">Edge cases &amp; error handling</span><span lang="vi">Trường hợp biên &amp; xử lý lỗi</span></h3>
+<ul><li><span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></li></ul>
 
 <!-- ============================================================ -->
-<h2 id="alternatives">4. Alternatives considered</h2>
+<h2 id="alternatives">4. <span lang="en">Alternatives considered</span><span lang="vi">Phương án đã cân nhắc</span></h2>
 <div class="table-wrap">
 <table>
-  <thead><tr><th>Option</th><th>Pros</th><th>Cons</th><th>Verdict</th></tr></thead>
+  <thead><tr>
+    <th><span lang="en">Option</span><span lang="vi">Phương án</span></th>
+    <th><span lang="en">Pros</span><span lang="vi">Ưu điểm</span></th>
+    <th><span lang="en">Cons</span><span lang="vi">Nhược điểm</span></th>
+    <th><span lang="en">Verdict</span><span lang="vi">Kết luận</span></th>
+  </tr></thead>
   <tbody>
-    <tr><td class="placeholder">A (chosen)</td><td></td><td></td><td><span class="status approved">chosen</span></td></tr>
-    <tr><td class="placeholder">B</td><td></td><td></td><td><span class="status rejected">rejected</span></td></tr>
+    <tr><td>A — <span class="placeholder" lang="en">chosen</span><span class="placeholder" lang="vi">được chọn</span></td><td></td><td></td><td><span class="status approved">chosen</span></td></tr>
+    <tr><td>B — <span class="placeholder">…</span></td><td></td><td></td><td><span class="status rejected">rejected</span></td></tr>
   </tbody>
 </table>
 </div>
 
 <!-- ============================================================ -->
-<h2 id="impact">5. Impact on architecture</h2>
-<p>Anything here must also be applied to <a href="../../docs/0.high-level-architecture.html">High-level Architecture</a> (new decision row, stack change, new component).</p>
-<ul><li class="placeholder">None · or: adds <code>AD-0n</code> …</li></ul>
-
-<!-- ============================================================ -->
-<h2 id="verification">6. Verification strategy</h2>
-<p>Read by the <code>planning</code> skill to create the test task, and by the verifier.</p>
-<div class="table-wrap">
-<table>
-  <thead><tr><th>AC</th><th>Level</th><th>How to verify</th><th>Automated with</th></tr></thead>
-  <tbody>
-    <tr><td><code>AC-1</code></td><td>e2e</td><td class="placeholder">…</td><td>playwright-cli</td></tr>
-    <tr><td><code>AC-2</code></td><td>unit</td><td class="placeholder">…</td><td class="placeholder">test runner</td></tr>
-  </tbody>
-</table>
-</div>
-
-<!-- ============================================================ -->
-<h2 id="risks">7. Risks &amp; rollout</h2>
+<h2 id="impact">5. <span lang="en">Impact on architecture</span><span lang="vi">Ảnh hưởng tới kiến trúc</span></h2>
+<p lang="en">Anything here must also be applied to <a href="../../docs/0.high-level-architecture.html">High-level Architecture</a> (new decision row, stack change, new component).</p>
+<p lang="vi">Mọi mục ở đây cũng phải được cập nhật vào <a href="../../docs/0.high-level-architecture.html">Kiến trúc tổng quan</a> (dòng quyết định mới, thay đổi stack, thành phần mới).</p>
 <ul>
-  <li><strong>Risks:</strong> <span class="placeholder">…</span></li>
-  <li><strong>Rollout / migration:</strong> <span class="placeholder">…</span></li>
-  <li><strong>Rollback:</strong> <span class="placeholder">…</span></li>
+  <li class="placeholder" lang="en">None · or: adds <code>AD-0n</code> …</li>
+  <li class="placeholder" lang="vi">Không · hoặc: thêm <code>AD-0n</code> …</li>
+</ul>
+
+<!-- ============================================================ -->
+<h2 id="verification">6. <span lang="en">Verification strategy</span><span lang="vi">Chiến lược kiểm chứng</span></h2>
+<p lang="en">Read by the <code>planning</code> skill to create the test task, and by the verifier.</p>
+<p lang="vi">Được skill <code>planning</code> đọc để tạo task kiểm thử, và được verifier đọc.</p>
+<div class="table-wrap">
+<table>
+  <thead><tr>
+    <th>AC</th>
+    <th><span lang="en">Level</span><span lang="vi">Mức</span></th>
+    <th><span lang="en">How to verify</span><span lang="vi">Cách kiểm chứng</span></th>
+    <th><span lang="en">Automated with</span><span lang="vi">Tự động hóa bằng</span></th>
+  </tr></thead>
+  <tbody>
+    <tr><td><code>AC-1</code></td><td>e2e</td><td><span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></td><td>playwright-cli</td></tr>
+    <tr><td><code>AC-2</code></td><td>unit</td><td><span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></td><td class="placeholder">test runner</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="risks">7. <span lang="en">Risks &amp; rollout</span><span lang="vi">Rủi ro &amp; triển khai</span></h2>
+<ul>
+  <li><strong><span lang="en">Risks</span><span lang="vi">Rủi ro</span>:</strong> <span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></li>
+  <li><strong><span lang="en">Rollout / migration</span><span lang="vi">Triển khai / migration</span>:</strong> <span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></li>
+  <li><strong>Rollback:</strong> <span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></li>
 </ul>
 
 <footer class="doc-footer">
-  Produced by the <code>solution</code> skill · agents: architect, designer · template: <code>.claude/templates/flows/0.solution.html</code>
+  <span lang="en">Produced by the <code>solution</code> skill · agents: architect, designer · template:</span>
+  <span lang="vi">Tạo bởi skill <code>solution</code> · agent: architect, designer · template:</span>
+  <code>.claude/templates/flows/0.solution.html</code>
 </footer>
 </main>
 </body>

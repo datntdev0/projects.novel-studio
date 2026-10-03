@@ -38,3 +38,5 @@ Scaffold with: `python .claude/scripts/scaffold.py flow <name>` (creates the fol
 ## Rules
 - One flow = one coherent increment that can be planned as a short sequence of commits. If it grows beyond roughly five level-1 tasks, split into two flows.
 - Never skip Gate 1: planning without approved ACs produces untestable tasks.
+- Detailed questions (formats, fields, thresholds, edge cases) belong here, not in kickoff. Still group them and offer defaults.
+- Documents are bilingual (EN + VI in one file, sibling `lang="en"` / `lang="vi"` elements), same rule as kickoff.

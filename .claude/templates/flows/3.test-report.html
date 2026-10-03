@@ -1,105 +1,136 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{FLOW_NAME}} · Test Report</title>
 <link rel="stylesheet" href="{{CSS_PATH}}">
+<script src="{{JS_PATH}}" defer></script>
 </head>
 <body>
 <main class="page">
+<!--
+  Bilingual document (EN / VI) in one file.
+  Write every sentence twice as sibling elements: lang="en" then lang="vi"
+  (<span> inline, <p>/<li> block). IDs (AC-n, S<n>, D<n>), <code>, commands, versions and status pills carry no lang attribute.
+-->
 
 <header class="doc-header">
   <p class="eyebrow">{{PROJECT_NAME}} · Flow · {{FLOW_NAME}} · 3</p>
-  <h1>Test Report</h1>
-  <p class="lede">Final verification of the implemented plan against the acceptance criteria.</p>
+  <h1><span lang="en">Test Report</span><span lang="vi">Báo cáo kiểm thử</span></h1>
+  <p class="lede" lang="en">Final verification of the implemented plan against the acceptance criteria.</p>
+  <p class="lede" lang="vi">Kiểm chứng cuối cùng của plan đã triển khai so với các tiêu chí chấp nhận.</p>
   <div class="meta">
-    <span class="pill">Verdict: <b><span class="status draft">pending</span></b></span>
-    <span class="pill">Owner: <b>verifier</b></span>
-    <span class="pill">Run: <b>{{DATE}}</b></span>
+    <span class="lang-switch" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="vi" aria-pressed="false">VI</button></span>
+    <span class="pill"><span lang="en">Verdict</span><span lang="vi">Kết luận</span>: <b><span class="status draft">pending</span></b></span>
+    <span class="pill"><span lang="en">Owner</span><span lang="vi">Phụ trách</span>: <b>verifier</b></span>
+    <span class="pill"><span lang="en">Run</span><span lang="vi">Chạy</span>: <b>{{DATE}}</b></span>
     <span class="pill">Commit: <b><code>&lt;sha&gt;</code></b></span>
-    <span class="pill">Inputs: <a href="0.requirements.html">Requirements</a> · <a href="1.plan.md">Plan</a></span>
+    <span class="pill"><span lang="en">Inputs</span><span lang="vi">Đầu vào</span>: <a href="0.requirements.html"><span lang="en">Requirements</span><span lang="vi">Yêu cầu</span></a> · <a href="1.plan.md">Plan</a></span>
   </div>
 </header>
 
 <nav class="toc">
   <ol>
-    <li><a href="#summary">Summary</a></li>
-    <li><a href="#env">Environment</a></li>
-    <li><a href="#coverage">Acceptance-criteria coverage</a></li>
-    <li><a href="#scenarios">Scenarios</a></li>
-    <li><a href="#defects">Defects</a></li>
-    <li><a href="#verdict">Verdict &amp; follow-ups</a></li>
+    <li><a href="#summary"><span lang="en">Summary</span><span lang="vi">Tóm tắt</span></a></li>
+    <li><a href="#env"><span lang="en">Environment</span><span lang="vi">Môi trường</span></a></li>
+    <li><a href="#coverage"><span lang="en">Acceptance-criteria coverage</span><span lang="vi">Độ phủ tiêu chí chấp nhận</span></a></li>
+    <li><a href="#scenarios"><span lang="en">Scenarios</span><span lang="vi">Kịch bản</span></a></li>
+    <li><a href="#defects"><span lang="en">Defects</span><span lang="vi">Lỗi</span></a></li>
+    <li><a href="#verdict"><span lang="en">Verdict &amp; follow-ups</span><span lang="vi">Kết luận &amp; việc tiếp theo</span></a></li>
   </ol>
 </nav>
 
 <!-- ============================================================ -->
-<h2 id="summary">1. Summary</h2>
-<div class="grid">
-  <div class="card"><h4>Scenarios</h4><p><b class="placeholder">0</b> total · <span class="status pass">0 pass</span> <span class="status fail">0 fail</span> <span class="status todo">0 skipped</span></p></div>
-  <div class="card"><h4>Acceptance criteria</h4><p><b class="placeholder">0 / 0</b> covered by automation</p></div>
-  <div class="card"><h4>Defects</h4><p><b class="placeholder">0</b> open · <b class="placeholder">0</b> fixed during testing</p></div>
+<h2 id="summary">1. <span lang="en">Summary</span><span lang="vi">Tóm tắt</span></h2>
+<div class="grid cols-3">
+  <div class="card"><h4><span lang="en">Scenarios</span><span lang="vi">Kịch bản</span></h4><p><b class="placeholder">0</b> <span lang="en">total</span><span lang="vi">tổng</span> · <span class="status pass">0 pass</span> <span class="status fail">0 fail</span> <span class="status todo">0 skipped</span></p></div>
+  <div class="card"><h4><span lang="en">Acceptance criteria</span><span lang="vi">Tiêu chí chấp nhận</span></h4><p><b class="placeholder">0 / 0</b> <span lang="en">covered by automation</span><span lang="vi">được tự động hóa</span></p></div>
+  <div class="card"><h4><span lang="en">Defects</span><span lang="vi">Lỗi</span></h4><p><b class="placeholder">0</b> <span lang="en">open</span><span lang="vi">còn mở</span> · <b class="placeholder">0</b> <span lang="en">fixed during testing</span><span lang="vi">đã sửa trong lúc kiểm thử</span></p></div>
 </div>
 
 <!-- ============================================================ -->
-<h2 id="env">2. Environment</h2>
+<h2 id="env">2. <span lang="en">Environment</span><span lang="vi">Môi trường</span></h2>
 <div class="table-wrap">
 <table>
   <tbody>
-    <tr><th>Tool</th><td>playwright-cli <span class="placeholder">version</span></td></tr>
-    <tr><th>Browser(s)</th><td class="placeholder">chromium …</td></tr>
-    <tr><th>App under test</th><td class="placeholder">URL / build command</td></tr>
-    <tr><th>Command</th><td><code class="placeholder">playwright-cli …</code></td></tr>
-    <tr><th>Spec location</th><td><code>tests/e2e/{{FLOW_NAME}}/</code></td></tr>
+    <tr><th><span lang="en">Tool</span><span lang="vi">Công cụ</span></th><td>playwright-cli <span class="placeholder">version</span></td></tr>
+    <tr><th><span lang="en">Browser(s)</span><span lang="vi">Trình duyệt</span></th><td class="placeholder">chromium …</td></tr>
+    <tr><th><span lang="en">App under test</span><span lang="vi">Ứng dụng kiểm thử</span></th><td class="placeholder">URL / build command</td></tr>
+    <tr><th><span lang="en">Command</span><span lang="vi">Lệnh</span></th><td><code class="placeholder">playwright-cli …</code></td></tr>
+    <tr><th><span lang="en">Spec location</span><span lang="vi">Vị trí spec</span></th><td><code>tests/e2e/{{FLOW_NAME}}/</code></td></tr>
   </tbody>
 </table>
 </div>
 
 <!-- ============================================================ -->
-<h2 id="coverage">3. Acceptance-criteria coverage</h2>
+<h2 id="coverage">3. <span lang="en">Acceptance-criteria coverage</span><span lang="vi">Độ phủ tiêu chí chấp nhận</span></h2>
 <div class="table-wrap">
 <table>
-  <thead><tr><th>AC</th><th>Priority</th><th>Scenario(s)</th><th>Result</th></tr></thead>
+  <thead><tr>
+    <th>AC</th>
+    <th><span lang="en">Priority</span><span lang="vi">Ưu tiên</span></th>
+    <th><span lang="en">Scenario(s)</span><span lang="vi">Kịch bản</span></th>
+    <th><span lang="en">Result</span><span lang="vi">Kết quả</span></th>
+  </tr></thead>
   <tbody>
     <tr><td><code>AC-1</code></td><td>must</td><td><code>S1</code></td><td><span class="status pass">pass</span></td></tr>
-    <tr><td><code>AC-2</code></td><td>should</td><td>—</td><td><span class="status todo">not automated</span> <span class="muted">(manual: …)</span></td></tr>
+    <tr><td><code>AC-2</code></td><td>should</td><td>—</td><td><span class="status todo">not automated</span> <span class="muted"><span lang="en">(manual: …)</span><span lang="vi">(thủ công: …)</span></span></td></tr>
   </tbody>
 </table>
 </div>
 
 <!-- ============================================================ -->
-<h2 id="scenarios">4. Scenarios</h2>
+<h2 id="scenarios">4. <span lang="en">Scenarios</span><span lang="vi">Kịch bản</span></h2>
 <div class="table-wrap">
 <table>
-  <thead><tr><th>ID</th><th>Scenario</th><th>Steps (short)</th><th>Expected</th><th>Result</th><th>Evidence</th></tr></thead>
+  <thead><tr>
+    <th>ID</th>
+    <th><span lang="en">Scenario</span><span lang="vi">Kịch bản</span></th>
+    <th><span lang="en">Steps (short)</span><span lang="vi">Các bước (ngắn)</span></th>
+    <th><span lang="en">Expected</span><span lang="vi">Mong đợi</span></th>
+    <th><span lang="en">Result</span><span lang="vi">Kết quả</span></th>
+    <th><span lang="en">Evidence</span><span lang="vi">Bằng chứng</span></th>
+  </tr></thead>
   <tbody>
-    <tr><td><code>S1</code></td><td class="placeholder">…</td><td class="placeholder">1. … 2. …</td><td class="placeholder">…</td><td><span class="status pass">pass</span></td><td><a href="evidence/S1.png">screenshot</a></td></tr>
+    <tr><td><code>S1</code></td><td><span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></td><td class="placeholder">1. … 2. …</td><td><span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></td><td><span class="status pass">pass</span></td><td><a href="evidence/S1.png"><span lang="en">screenshot</span><span lang="vi">ảnh chụp</span></a></td></tr>
   </tbody>
 </table>
 </div>
-<p class="muted">Evidence (screenshots, traces) is stored next to this report in <code>evidence/</code>.</p>
+<p class="muted" lang="en">Evidence (screenshots, traces) is stored next to this report in <code>evidence/</code>.</p>
+<p class="muted" lang="vi">Bằng chứng (ảnh chụp, trace) được lưu cạnh báo cáo này trong <code>evidence/</code>.</p>
 
 <!-- ============================================================ -->
-<h2 id="defects">5. Defects</h2>
+<h2 id="defects">5. <span lang="en">Defects</span><span lang="vi">Lỗi</span></h2>
 <div class="table-wrap">
 <table>
-  <thead><tr><th>ID</th><th>Severity</th><th>Scenario</th><th>Description</th><th>Status</th></tr></thead>
-  <tbody><tr><td><code>D1</code></td><td class="placeholder">major</td><td><code>S1</code></td><td class="placeholder">…</td><td><span class="status open">open</span></td></tr></tbody>
+  <thead><tr>
+    <th>ID</th>
+    <th><span lang="en">Severity</span><span lang="vi">Mức độ</span></th>
+    <th><span lang="en">Scenario</span><span lang="vi">Kịch bản</span></th>
+    <th><span lang="en">Description</span><span lang="vi">Mô tả</span></th>
+    <th><span lang="en">Status</span><span lang="vi">Trạng thái</span></th>
+  </tr></thead>
+  <tbody><tr><td><code>D1</code></td><td class="placeholder">major</td><td><code>S1</code></td><td><span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></td><td><span class="status open">open</span></td></tr></tbody>
 </table>
 </div>
 
 <!-- ============================================================ -->
-<h2 id="verdict">6. Verdict &amp; follow-ups</h2>
+<h2 id="verdict">6. <span lang="en">Verdict &amp; follow-ups</span><span lang="vi">Kết luận &amp; việc tiếp theo</span></h2>
 <div class="callout ok">
-  <span class="label">Verdict</span>
-  <p class="placeholder"><b>Accepted</b> / <b>Rejected</b> — reason. Product owner sign-off: …</p>
+  <span class="label"><span lang="en">Verdict</span><span lang="vi">Kết luận</span></span>
+  <p class="placeholder" lang="en"><b>Accepted</b> / <b>Rejected</b> — reason. Product owner sign-off: …</p>
+  <p class="placeholder" lang="vi"><b>Chấp nhận</b> / <b>Từ chối</b> — lý do. Product owner ký duyệt: …</p>
 </div>
 <ul>
-  <li class="placeholder">Follow-up flow / task for deferred items …</li>
+  <li class="placeholder" lang="en">Follow-up flow / task for deferred items …</li>
+  <li class="placeholder" lang="vi">Flow / task tiếp theo cho các mục hoãn lại …</li>
 </ul>
 
 <footer class="doc-footer">
-  Produced by the <code>testing</code> skill · agent: verifier · template: <code>.claude/templates/flows/3.test-report.html</code>
+  <span lang="en">Produced by the <code>testing</code> skill · agent: verifier · template:</span>
+  <span lang="vi">Tạo bởi skill <code>testing</code> · agent: verifier · template:</span>
+  <code>.claude/templates/flows/3.test-report.html</code>
 </footer>
 </main>
 </body>

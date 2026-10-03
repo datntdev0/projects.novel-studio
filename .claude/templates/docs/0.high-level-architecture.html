@@ -1,147 +1,184 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{PROJECT_NAME}} · High-level Architecture</title>
 <link rel="stylesheet" href="{{CSS_PATH}}">
+<script src="{{JS_PATH}}" defer></script>
 </head>
 <body>
 <main class="page">
+<!--
+  Bilingual document (EN / VI) in one file.
+  Write every sentence twice as sibling elements: lang="en" then lang="vi"
+  (<span> inline, <p>/<li> block). IDs, <code>, dates, versions and status pills carry no lang attribute.
+-->
 
 <header class="doc-header">
   <p class="eyebrow">{{PROJECT_NAME}} · Kickoff · 0</p>
-  <h1>High-level Architecture</h1>
-  <p class="lede">Technical stack, system shape and the conventions every flow must follow.</p>
+  <h1><span lang="en">High-level Architecture</span><span lang="vi">Kiến trúc tổng quan</span></h1>
+  <p class="lede" lang="en">Technical stack, system shape and the conventions every flow must follow.</p>
+  <p class="lede" lang="vi">Công nghệ sử dụng, hình dạng hệ thống và các quy ước mọi flow phải tuân theo.</p>
   <div class="meta">
-    <span class="pill">Status: <b><span class="status draft">draft</span></b></span>
-    <span class="pill">Owner: <b>architect</b></span>
-    <span class="pill">Approver: <b>product owner</b></span>
-    <span class="pill">Updated: <b>{{DATE}}</b></span>
-    <span class="pill">Input: <a href="0.high-level-requirements.html">High-level Requirements</a></span>
+    <span class="lang-switch" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="vi" aria-pressed="false">VI</button></span>
+    <span class="pill"><span lang="en">Status</span><span lang="vi">Trạng thái</span>: <b><span class="status draft">draft</span></b></span>
+    <span class="pill"><span lang="en">Owner</span><span lang="vi">Phụ trách</span>: <b>architect</b></span>
+    <span class="pill"><span lang="en">Approver</span><span lang="vi">Người duyệt</span>: <b>product owner</b></span>
+    <span class="pill"><span lang="en">Updated</span><span lang="vi">Cập nhật</span>: <b>{{DATE}}</b></span>
+    <span class="pill"><span lang="en">Input</span><span lang="vi">Đầu vào</span>: <a href="0.high-level-requirements.html"><span lang="en">High-level Requirements</span><span lang="vi">Yêu cầu tổng quan</span></a></span>
   </div>
 </header>
 
 <nav class="toc">
   <ol>
-    <li><a href="#principles">Principles</a></li>
-    <li><a href="#stack">Technical stack</a></li>
-    <li><a href="#context">System context</a></li>
-    <li><a href="#components">Components</a></li>
-    <li><a href="#data">Data model</a></li>
-    <li><a href="#crosscutting">Cross-cutting concerns</a></li>
-    <li><a href="#repo">Repository layout &amp; conventions</a></li>
-    <li><a href="#decisions">Decisions (ADR-lite)</a></li>
-    <li><a href="#risks">Risks</a></li>
+    <li><a href="#principles"><span lang="en">Principles</span><span lang="vi">Nguyên tắc</span></a></li>
+    <li><a href="#stack"><span lang="en">Technical stack</span><span lang="vi">Công nghệ sử dụng</span></a></li>
+    <li><a href="#context"><span lang="en">System context</span><span lang="vi">Bối cảnh hệ thống</span></a></li>
+    <li><a href="#components"><span lang="en">Components</span><span lang="vi">Thành phần</span></a></li>
+    <li><a href="#data"><span lang="en">Data model</span><span lang="vi">Mô hình dữ liệu</span></a></li>
+    <li><a href="#crosscutting"><span lang="en">Cross-cutting concerns</span><span lang="vi">Mối quan tâm xuyên suốt</span></a></li>
+    <li><a href="#repo"><span lang="en">Repository layout &amp; conventions</span><span lang="vi">Cấu trúc repo &amp; quy ước</span></a></li>
+    <li><a href="#decisions"><span lang="en">Decisions (ADR-lite)</span><span lang="vi">Quyết định (ADR-lite)</span></a></li>
+    <li><a href="#risks"><span lang="en">Risks</span><span lang="vi">Rủi ro</span></a></li>
   </ol>
 </nav>
 
 <!-- ============================================================ -->
-<h2 id="principles">1. Principles</h2>
+<h2 id="principles">1. <span lang="en">Principles</span><span lang="vi">Nguyên tắc</span></h2>
 <ul>
-  <li class="placeholder">e.g. local-first · boring tech · one deployable · every feature testable via playwright-cli …</li>
+  <li class="placeholder" lang="en">e.g. local-first · boring tech · one deployable · every feature testable via playwright-cli …</li>
+  <li class="placeholder" lang="vi">ví dụ: local-first · công nghệ quen thuộc · một gói triển khai · mọi tính năng kiểm thử được bằng playwright-cli …</li>
 </ul>
 
 <!-- ============================================================ -->
-<h2 id="stack">2. Technical stack</h2>
+<h2 id="stack">2. <span lang="en">Technical stack</span><span lang="vi">Công nghệ sử dụng</span></h2>
 <div class="table-wrap">
 <table>
-  <thead><tr><th>Layer</th><th>Choice</th><th>Version</th><th>Why</th><th>Alternatives considered</th></tr></thead>
+  <thead><tr>
+    <th><span lang="en">Layer</span><span lang="vi">Tầng</span></th>
+    <th><span lang="en">Choice</span><span lang="vi">Lựa chọn</span></th>
+    <th><span lang="en">Version</span><span lang="vi">Phiên bản</span></th>
+    <th><span lang="en">Why</span><span lang="vi">Lý do</span></th>
+    <th><span lang="en">Alternatives considered</span><span lang="vi">Phương án đã cân nhắc</span></th>
+  </tr></thead>
   <tbody>
-    <tr><td>Language / runtime</td><td class="placeholder">…</td><td></td><td></td><td></td></tr>
-    <tr><td>UI framework</td><td class="placeholder">…</td><td></td><td></td><td></td></tr>
-    <tr><td>State / data</td><td class="placeholder">…</td><td></td><td></td><td></td></tr>
-    <tr><td>Storage</td><td class="placeholder">…</td><td></td><td></td><td></td></tr>
-    <tr><td>Build / tooling</td><td class="placeholder">…</td><td></td><td></td><td></td></tr>
-    <tr><td>Testing</td><td>playwright-cli (e2e) · <span class="placeholder">unit runner …</span></td><td></td><td>Required by the <code>testing</code> skill</td><td></td></tr>
-    <tr><td>Hosting / packaging</td><td class="placeholder">…</td><td></td><td></td><td></td></tr>
+    <tr><td><span lang="en">Language / runtime</span><span lang="vi">Ngôn ngữ / runtime</span></td><td class="placeholder">…</td><td></td><td></td><td></td></tr>
+    <tr><td><span lang="en">UI framework</span><span lang="vi">Framework UI</span></td><td class="placeholder">…</td><td></td><td></td><td></td></tr>
+    <tr><td><span lang="en">State / data</span><span lang="vi">State / dữ liệu</span></td><td class="placeholder">…</td><td></td><td></td><td></td></tr>
+    <tr><td><span lang="en">Storage</span><span lang="vi">Lưu trữ</span></td><td class="placeholder">…</td><td></td><td></td><td></td></tr>
+    <tr><td><span lang="en">Build / tooling</span><span lang="vi">Build / công cụ</span></td><td class="placeholder">…</td><td></td><td></td><td></td></tr>
+    <tr><td><span lang="en">Testing</span><span lang="vi">Kiểm thử</span></td><td>playwright-cli (e2e) · <span class="placeholder" lang="en">unit runner …</span><span class="placeholder" lang="vi">unit runner …</span></td><td></td><td><span lang="en">Required by the <code>testing</code> skill</span><span lang="vi">Bắt buộc bởi skill <code>testing</code></span></td><td></td></tr>
+    <tr><td><span lang="en">Hosting / packaging</span><span lang="vi">Hosting / đóng gói</span></td><td class="placeholder">…</td><td></td><td></td><td></td></tr>
   </tbody>
 </table>
 </div>
 
 <!-- ============================================================ -->
-<h2 id="context">3. System context</h2>
+<h2 id="context">3. <span lang="en">System context</span><span lang="vi">Bối cảnh hệ thống</span></h2>
 <figure class="diagram">
   <!-- Replace with inline SVG. Keep labels as <text> nodes and use currentColor for strokes so it works in dark mode. -->
   <pre class="placeholder">[ User ] ──► [ {{PROJECT_NAME}} app ] ──► [ Storage ]
                        │
                        └──► [ External service … ]</pre>
-  <figcaption>Figure 1 — Context diagram.</figcaption>
+  <figcaption><span lang="en">Figure 1 — Context diagram.</span><span lang="vi">Hình 1 — Sơ đồ bối cảnh.</span></figcaption>
 </figure>
 
 <!-- ============================================================ -->
-<h2 id="components">4. Components</h2>
-<div class="grid">
-  <div class="card"><h4>Component A</h4><p class="placeholder">Responsibility · Owns · Talks to</p></div>
-  <div class="card"><h4>Component B</h4><p class="placeholder">Responsibility · Owns · Talks to</p></div>
+<h2 id="components">4. <span lang="en">Components</span><span lang="vi">Thành phần</span></h2>
+<div class="grid cols-2">
+  <div class="card"><h4>Component A</h4><p class="placeholder" lang="en">Responsibility · Owns · Talks to</p><p class="placeholder" lang="vi">Trách nhiệm · Sở hữu · Giao tiếp với</p></div>
+  <div class="card"><h4>Component B</h4><p class="placeholder" lang="en">Responsibility · Owns · Talks to</p><p class="placeholder" lang="vi">Trách nhiệm · Sở hữu · Giao tiếp với</p></div>
 </div>
-<h3>Theme → component map</h3>
+<h3><span lang="en">Theme → component map</span><span lang="vi">Ánh xạ chủ đề → thành phần</span></h3>
 <div class="table-wrap">
 <table>
-  <thead><tr><th>Theme</th><th>Components involved</th><th>Notes</th></tr></thead>
+  <thead><tr>
+    <th><span lang="en">Theme</span><span lang="vi">Chủ đề</span></th>
+    <th><span lang="en">Components involved</span><span lang="vi">Thành phần liên quan</span></th>
+    <th><span lang="en">Notes</span><span lang="vi">Ghi chú</span></th>
+  </tr></thead>
   <tbody><tr><td><code>TH-01</code></td><td class="placeholder">…</td><td></td></tr></tbody>
 </table>
 </div>
 
 <!-- ============================================================ -->
-<h2 id="data">5. Data model (high level)</h2>
-<p class="placeholder">Main entities and relationships only. Field-level detail lives in each flow's solution document.</p>
+<h2 id="data">5. <span lang="en">Data model (high level)</span><span lang="vi">Mô hình dữ liệu (tổng quan)</span></h2>
+<p class="placeholder" lang="en">Main entities and relationships only. Field-level detail lives in each flow's solution document.</p>
+<p class="placeholder" lang="vi">Chỉ các thực thể chính và quan hệ. Chi tiết đến từng trường nằm trong tài liệu solution của mỗi flow.</p>
 <pre class="placeholder">Entity ──&lt; Entity
 Entity ──&lt; Entity</pre>
 
 <!-- ============================================================ -->
-<h2 id="crosscutting">6. Cross-cutting concerns</h2>
+<h2 id="crosscutting">6. <span lang="en">Cross-cutting concerns</span><span lang="vi">Mối quan tâm xuyên suốt</span></h2>
 <div class="table-wrap">
 <table>
-  <thead><tr><th>Concern</th><th>Approach</th></tr></thead>
+  <thead><tr>
+    <th><span lang="en">Concern</span><span lang="vi">Mối quan tâm</span></th>
+    <th><span lang="en">Approach</span><span lang="vi">Cách tiếp cận</span></th>
+  </tr></thead>
   <tbody>
-    <tr><td>Auth / identity</td><td class="placeholder">…</td></tr>
-    <tr><td>Persistence &amp; migrations</td><td class="placeholder">…</td></tr>
-    <tr><td>Error handling &amp; logging</td><td class="placeholder">…</td></tr>
-    <tr><td>Configuration &amp; secrets</td><td class="placeholder">…</td></tr>
-    <tr><td>Testing strategy</td><td class="placeholder">unit · integration · e2e (playwright-cli) — what goes where</td></tr>
-    <tr><td>Performance budgets</td><td class="placeholder">…</td></tr>
-    <tr><td>Accessibility &amp; i18n</td><td class="placeholder">…</td></tr>
+    <tr><td><span lang="en">Auth / identity</span><span lang="vi">Xác thực / danh tính</span></td><td class="placeholder">…</td></tr>
+    <tr><td><span lang="en">Persistence &amp; migrations</span><span lang="vi">Lưu trữ &amp; migration</span></td><td class="placeholder">…</td></tr>
+    <tr><td><span lang="en">Error handling &amp; logging</span><span lang="vi">Xử lý lỗi &amp; logging</span></td><td class="placeholder">…</td></tr>
+    <tr><td><span lang="en">Configuration &amp; secrets</span><span lang="vi">Cấu hình &amp; bí mật</span></td><td class="placeholder">…</td></tr>
+    <tr><td><span lang="en">Testing strategy</span><span lang="vi">Chiến lược kiểm thử</span></td><td><span class="placeholder" lang="en">unit · integration · e2e (playwright-cli) — what goes where</span><span class="placeholder" lang="vi">unit · integration · e2e (playwright-cli) — cái gì kiểm ở đâu</span></td></tr>
+    <tr><td><span lang="en">Performance budgets</span><span lang="vi">Ngân sách hiệu năng</span></td><td class="placeholder">…</td></tr>
+    <tr><td><span lang="en">Accessibility &amp; i18n</span><span lang="vi">Khả năng tiếp cận &amp; i18n</span></td><td class="placeholder">…</td></tr>
   </tbody>
 </table>
 </div>
 
 <!-- ============================================================ -->
-<h2 id="repo">7. Repository layout &amp; conventions</h2>
+<h2 id="repo">7. <span lang="en">Repository layout &amp; conventions</span><span lang="vi">Cấu trúc repo &amp; quy ước</span></h2>
 <pre class="placeholder">/
 ├── src/            …
 ├── tests/          unit + e2e
 ├── .claude/        framework docs, flows, templates
 └── …</pre>
 <ul>
-  <li><strong>Branching:</strong> <span class="placeholder">one branch per flow: <code>flow/&lt;name&gt;</code></span></li>
-  <li><strong>Commits:</strong> one level-1 task = one commit — <code>&lt;type&gt;(&lt;flow&gt;): &lt;title&gt; [T&lt;n&gt;]</code></li>
-  <li><strong>Code style:</strong> <span class="placeholder">formatter / linter …</span></li>
-  <li><strong>Definition of done:</strong> reviewer approved · tests green · plan status updated</li>
+  <li><strong><span lang="en">Branching</span><span lang="vi">Nhánh</span>:</strong> <span class="placeholder" lang="en">one branch per flow: <code>flow/&lt;name&gt;</code></span><span class="placeholder" lang="vi">mỗi flow một nhánh: <code>flow/&lt;name&gt;</code></span></li>
+  <li><strong>Commits:</strong> <span lang="en">one level-1 task = one commit</span><span lang="vi">một task cấp 1 = một commit</span> — <code>&lt;type&gt;(&lt;flow&gt;): &lt;title&gt; [T&lt;n&gt;]</code></li>
+  <li><strong><span lang="en">Code style</span><span lang="vi">Quy ước code</span>:</strong> <span class="placeholder">formatter / linter …</span></li>
+  <li><strong>Definition of done:</strong> <span lang="en">reviewer approved · tests green · plan status updated</span><span lang="vi">reviewer đã duyệt · test xanh · trạng thái plan đã cập nhật</span></li>
 </ul>
 
 <!-- ============================================================ -->
-<h2 id="decisions">8. Decisions (ADR-lite)</h2>
+<h2 id="decisions">8. <span lang="en">Decisions (ADR-lite)</span><span lang="vi">Quyết định (ADR-lite)</span></h2>
 <div class="table-wrap">
 <table>
-  <thead><tr><th>ID</th><th>Date</th><th>Decision</th><th>Context</th><th>Consequences</th><th>Status</th></tr></thead>
+  <thead><tr>
+    <th>ID</th>
+    <th><span lang="en">Date</span><span lang="vi">Ngày</span></th>
+    <th><span lang="en">Decision</span><span lang="vi">Quyết định</span></th>
+    <th><span lang="en">Context</span><span lang="vi">Bối cảnh</span></th>
+    <th><span lang="en">Consequences</span><span lang="vi">Hệ quả</span></th>
+    <th><span lang="en">Status</span><span lang="vi">Trạng thái</span></th>
+  </tr></thead>
   <tbody>
-    <tr><td><code>AD-01</code></td><td>{{DATE}}</td><td class="placeholder">…</td><td></td><td></td><td><span class="status approved">accepted</span></td></tr>
+    <tr><td><code>AD-01</code></td><td>{{DATE}}</td><td><span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></td><td></td><td></td><td><span class="status approved">accepted</span></td></tr>
   </tbody>
 </table>
 </div>
 
 <!-- ============================================================ -->
-<h2 id="risks">9. Risks</h2>
+<h2 id="risks">9. <span lang="en">Risks</span><span lang="vi">Rủi ro</span></h2>
 <div class="table-wrap">
 <table>
-  <thead><tr><th>Risk</th><th>Likelihood</th><th>Impact</th><th>Mitigation</th></tr></thead>
-  <tbody><tr><td class="placeholder">…</td><td></td><td></td><td></td></tr></tbody>
+  <thead><tr>
+    <th><span lang="en">Risk</span><span lang="vi">Rủi ro</span></th>
+    <th><span lang="en">Likelihood</span><span lang="vi">Khả năng</span></th>
+    <th><span lang="en">Impact</span><span lang="vi">Ảnh hưởng</span></th>
+    <th><span lang="en">Mitigation</span><span lang="vi">Giảm thiểu</span></th>
+  </tr></thead>
+  <tbody><tr><td><span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></td><td></td><td></td><td></td></tr></tbody>
 </table>
 </div>
 
 <footer class="doc-footer">
-  Produced by the <code>kickoff</code> skill · agent: architect · template: <code>.claude/templates/docs/0.high-level-architecture.html</code>
+  <span lang="en">Produced by the <code>kickoff</code> skill · agent: architect · template:</span>
+  <span lang="vi">Tạo bởi skill <code>kickoff</code> · agent: architect · template:</span>
+  <code>.claude/templates/docs/0.high-level-architecture.html</code>
 </footer>
 </main>
 </body>
