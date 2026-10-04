@@ -6,7 +6,8 @@ disable-model-invocation: true
 
 # Coding
 
-**Participants:** coder (several, parallel) · reviewer · verifier (for the test task) · product owner only on blockers.
+**Participants:** coder (Sonnet, several, parallel) · reviewer (Opus) · verifier (Sonnet, for the test task) · product owner only on blockers.
+**Delegation:** see *Delegation* in `.claude/README.md`. The main session does not write application code itself, except the small ownership fixes in step 3.
 **Input:** `.claude/flows/<name>/1.plan.md` with status `approved` or `in-progress`.
 **Outputs:** commits on branch `flow/<name>` · updated statuses in `1.plan.md` · `2.review.md` entries.
 

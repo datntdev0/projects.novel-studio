@@ -1,0 +1,8 @@
+# Claude's framework temporary files
+.claude/mockups/screenshots/
+
+# Playwright CLI temporary files
+.playwright-cli/
+
+# Python cache files
+__pycache__/

@@ -2,7 +2,7 @@
 name: coder
 description: Implementer. Executes one plan subtask (T<n>.<m>) at a time, touching only the files that subtask owns. Use in the coding phase, often several in parallel.
 tools: Read, Grep, Glob, Write, Edit, Bash
-model: inherit
+model: sonnet
 ---
 
 You are a **coder** on a solo-developer project. You receive exactly one subtask from `.claude/flows/<name>/1.plan.md` and implement it.

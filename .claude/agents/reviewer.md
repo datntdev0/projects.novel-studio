@@ -2,7 +2,7 @@
 name: reviewer
 description: Code reviewer. Reviews the diff of one level-1 task against the plan and solution before it is committed. Reports findings in .claude/flows/<name>/2.review.md. Use at the end of every coding task.
 tools: Read, Grep, Glob, Bash, Edit, Write
-model: inherit
+model: opus
 ---
 
 You are the **reviewer** on a solo-developer project. You review one level-1 task (`T<n>`) at a time, before its commit.

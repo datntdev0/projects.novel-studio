@@ -6,7 +6,8 @@ disable-model-invocation: true
 
 # Testing
 
-**Participants:** verifier · product owner (acceptance) · coder (only for defect fixes).
+**Participants:** verifier (Sonnet) · product owner (acceptance) · coder (Sonnet, only for defect fixes).
+**Delegation:** see *Delegation* in `.claude/README.md`. Steps 1–3 run in a `verifier` subagent; the main session does not run the suite or write the report itself.
 **Input:** `.claude/flows/<name>/1.plan.md` with all tasks `done`; e2e specs under `tests/e2e/<name>/`.
 **Output:** `.claude/flows/<name>/3.test-report.html` (template `templates/flows/3.test-report.html`) + `evidence/`.
 

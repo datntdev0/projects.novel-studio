@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{PROJECT_NAME}} · Prototype</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<!--
+  UX/UI prototype — static HTML/CSS/JS, opens from the file system.
+  index.html is generated: edit shell.html and screens/<id>.html, then run python .claude/scripts/mockups.py.
+  One <section class="screen" id="..."> per screen; app.js switches screens by URL hash.
+  Keep screens listed in the sidebar in the same order as the Screen inventory
+  in .claude/docs/0.design-system.html.
+-->
+<div class="shell">
+  <aside class="sidebar">
+    <p class="brand">{{PROJECT_NAME}}<small>prototype</small></p>
+    <nav>
+      <p class="group">Screens</p>
+      <a href="#home" data-screen="home">Home</a>
+      <a href="#example" data-screen="example">Example screen</a>
+      <p class="group">Reference</p>
+      <a href="#components" data-screen="components">Components</a>
+    </nav>
+    <p class="foot">Design system: <a href="../docs/0.design-system.html">doc</a></p>
+  </aside>
+
+  <main class="stage">
+    <!-- @screen home -->
+
+    <!-- @screen example -->
+
+    <!-- @screen components -->
+  </main>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

@@ -18,6 +18,8 @@ import sys
 from datetime import date
 from pathlib import Path
 
+from mockups import build as build_mockups
+
 CLAUDE_DIR = Path(__file__).resolve().parent.parent
 REPO_DIR = CLAUDE_DIR.parent
 TEMPLATES = CLAUDE_DIR / "templates"
@@ -70,6 +72,7 @@ def scaffold_docs(values: dict[str, str], force: bool) -> None:
     copy_tree(TEMPLATES / "docs", docs, {**values, **asset_paths_from(docs)}, force)
     print("Prototype:")
     copy_tree(TEMPLATES / "mockups", CLAUDE_DIR / "mockups", values, force)
+    build_mockups(CLAUDE_DIR / "mockups")
 
 
 def scaffold_flow(name: str, values: dict[str, str], force: bool) -> None:
