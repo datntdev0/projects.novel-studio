@@ -1,0 +1,113 @@
+  <!-- ================= screen: import (TH-02 · M04-F02) ================= -->
+  <section class="screen" id="import" data-title="Import" data-layout="">
+    <aside class="panel left" data-testid="import-left">
+      <div class="panel-head"><h3><span lang="en">Source</span><span lang="vi">Nguồn</span></h3><button class="btn ghost icon" data-toggle-panel="left" title="Collapse (Ctrl+B)"><svg class="icon"><use href="#i-panel-left"/></svg></button></div>
+      <div class="panel-body">
+        <div class="dropzone" data-testid="import-dropzone">
+          <svg class="icon xl"><use href="#i-upload"/></svg>
+          <b><span lang="en">Drop a file or folder here</span><span lang="vi">Thả tệp hoặc thư mục vào đây</span></b>
+          <span class="meta">.txt · .epub · .md · <span lang="en">folder of chapter files</span><span lang="vi">thư mục chứa tệp chương</span></span>
+          <div class="row"><button class="btn sm" data-action="choose-folder"><span lang="en">Choose file…</span><span lang="vi">Chọn tệp…</span></button><button class="btn sm" data-action="choose-folder"><span lang="en">Choose folder…</span><span lang="vi">Chọn thư mục…</span></button></div>
+        </div>
+        <div class="panel-section">
+          <h4><span lang="en">Selected</span><span lang="vi">Đã chọn</span></h4>
+          <div class="file-row selected"><svg class="icon"><use href="#i-file"/></svg><span class="truncate">庆余年.txt</span><span class="size">5.1 MB</span></div>
+          <dl class="kv" style="padding:var(--sp-sm)">
+            <dt><span lang="en">Encoding</span><span lang="vi">Mã hoá</span></dt><dd>UTF-8 <span class="meta">(detected)</span></dd>
+            <dt><span lang="en">Language</span><span lang="vi">Ngôn ngữ</span></dt><dd>中文 · zh <span class="meta">(detected)</span></dd>
+            <dt><span lang="en">Lines</span><span lang="vi">Dòng</span></dt><dd class="num">148,220</dd>
+          </dl>
+        </div>
+        <div class="panel-section">
+          <h4><span lang="en">Recent imports</span><span lang="vi">Nhập gần đây</span></h4>
+          <div class="file-row"><svg class="icon"><use href="#i-file"/></svg><span class="truncate">fanren.txt</span><span class="size">38.2 MB</span></div>
+          <div class="file-row"><svg class="icon"><use href="#i-folder"/></svg><span class="truncate">solo-leveling\</span><span class="size">270 files</span></div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="workspace" data-testid="import-workspace">
+      <div class="ws-toolbar">
+        <h2><span lang="en">Import novel</span><span lang="vi">Nhập truyện</span></h2>
+        <span class="sep"></span>
+        <div class="steps">
+          <span class="step done"><i>1</i><span lang="en">Source</span><span lang="vi">Nguồn</span></span><span class="arrow">›</span>
+          <span class="step current"><i>2</i><span lang="en">Chapter split</span><span lang="vi">Tách chương</span></span><span class="arrow">›</span>
+          <span class="step"><i>3</i><span lang="en">Metadata</span><span lang="vi">Thông tin</span></span><span class="arrow">›</span>
+          <span class="step"><i>4</i><span lang="en">Import</span><span lang="vi">Nhập</span></span>
+        </div>
+        <span class="spacer"></span>
+        <span class="pill warning"><span lang="en">3 warnings</span><span lang="vi">3 cảnh báo</span></span>
+        <button class="btn ghost sm" data-go="library"><span lang="en">Cancel</span><span lang="vi">Huỷ</span></button>
+        <button class="btn primary sm" data-open="dlg-import" data-testid="import-next"><span lang="en">Import 746 chapters</span><span lang="vi">Nhập 746 chương</span><svg class="icon sm"><use href="#i-arrow-right"/></svg></button>
+      </div>
+      <div class="ws-body flush split-preview">
+        <div class="table-wrap" data-testid="import-split-table-wrap">
+          <table class="table" data-testid="import-split-table">
+            <thead><tr><th style="width:28px"></th><th>#</th><th><span lang="en">Detected title</span><span lang="vi">Tiêu đề phát hiện</span></th><th><span lang="en">First line</span><span lang="vi">Dòng đầu</span></th><th class="num"><span lang="en">Chars</span><span lang="vi">Ký tự</span></th><th><span lang="en">Check</span><span lang="vi">Kiểm tra</span></th></tr></thead>
+            <tbody>
+              <tr><td><label class="check"><input type="checkbox" checked></label></td><td class="num">0001</td><td><input class="input" value="第一章 殿前欢"></td><td class="snippet">范闲睁开眼睛的时候，屋子里还是一片昏暗……</td><td class="num">3,412</td><td><span class="pill success plain">OK</span></td></tr>
+              <tr><td><label class="check"><input type="checkbox" checked></label></td><td class="num">0002</td><td><input class="input" value="第二章 老仆人"></td><td class="snippet">五竹不说话，只是把那只木箱推到床边……</td><td class="num">3,088</td><td><span class="pill success plain">OK</span></td></tr>
+              <tr class="warn"><td><label class="check"><input type="checkbox" checked></label></td><td class="num">0003</td><td><input class="input" value="第三章 费介"></td><td class="snippet">那人提着一个小药箱，笑眯眯地走进院子……</td><td class="num">2,975</td><td><span class="pill warning"><span lang="en">Short title line</span><span lang="vi">Dòng tiêu đề ngắn</span></span></td></tr>
+              <tr><td><label class="check"><input type="checkbox" checked></label></td><td class="num">0004</td><td><input class="input" value="第四章 毒"></td><td class="snippet">第一口药下去，范闲只觉得喉咙里像烧着一团火……</td><td class="num">3,201</td><td><span class="pill success plain">OK</span></td></tr>
+              <tr class="bad"><td><label class="check"><input type="checkbox" checked></label></td><td class="num">0005</td><td><input class="input" value="第六章 澹州"></td><td class="snippet">海边的小城一年到头都是咸湿的风……</td><td class="num">3,540</td><td><span class="pill danger"><span lang="en">Number skipped (5)</span><span lang="vi">Nhảy số (thiếu 5)</span></span></td></tr>
+              <tr><td><label class="check"><input type="checkbox" checked></label></td><td class="num">0006</td><td><input class="input" value="第七章 书房"></td><td class="snippet">书房里的灯一直亮到后半夜……</td><td class="num">3,118</td><td><span class="pill success plain">OK</span></td></tr>
+              <tr class="warn"><td><label class="check"><input type="checkbox"></label></td><td class="num">0007</td><td><input class="input" value="第七章 书房"></td><td class="snippet">书房里的灯一直亮到后半夜……</td><td class="num">3,118</td><td><span class="pill warning"><span lang="en">Duplicate of 0006 — skipped</span><span lang="vi">Trùng 0006 — bỏ qua</span></span></td></tr>
+              <tr><td><label class="check"><input type="checkbox" checked></label></td><td class="num">0008</td><td><input class="input" value="第八章 夜访"></td><td class="snippet">夜里有人翻墙进来，脚步很轻……</td><td class="num">2,864</td><td><span class="pill success plain">OK</span></td></tr>
+              <tr><td><label class="check"><input type="checkbox" checked></label></td><td class="num">0009</td><td><input class="input" value="第九章 京都来信"></td><td class="snippet">信纸很薄，字却写得极重……</td><td class="num">3,377</td><td><span class="pill success plain">OK</span></td></tr>
+              <tr class="warn"><td><label class="check"><input type="checkbox" checked></label></td><td class="num">0010</td><td><input class="input" value="第十章"></td><td class="snippet">（无法读取部分内容）</td><td class="num">412</td><td><span class="pill warning"><span lang="en">Unreadable fragment</span><span lang="vi">Đoạn không đọc được</span></span></td></tr>
+              <tr><td><label class="check"><input type="checkbox" checked></label></td><td class="num">0011</td><td><input class="input" value="第十一章 启程"></td><td class="snippet">马车在清晨出发，范闲回头看了一眼……</td><td class="num">3,254</td><td><span class="pill success plain">OK</span></td></tr>
+              <tr><td><label class="check"><input type="checkbox" checked></label></td><td class="num">0012</td><td><input class="input" value="第十二章 官道"></td><td class="snippet">官道两旁的树已经开始落叶……</td><td class="num">3,190</td><td><span class="pill success plain">OK</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="virtual-note"><svg class="icon sm"><use href="#i-list"/></svg><span lang="en">Virtualised preview · showing 12 of 746 detected chapters</span><span lang="vi">Xem trước ảo hoá · hiển thị 12 / 746 chương phát hiện</span></div>
+      </div>
+    </main>
+
+    <aside class="panel right" data-testid="import-options">
+      <div class="panel-head"><h3><span lang="en">Split & metadata</span><span lang="vi">Tách & thông tin</span></h3><button class="btn ghost icon" data-toggle-panel="right" title="Collapse (Ctrl+Alt+B)"><svg class="icon"><use href="#i-panel-right"/></svg></button></div>
+      <div class="panel-body">
+        <div class="panel-section col" style="gap:var(--sp-md)">
+          <h4><span lang="en">Chapter detection</span><span lang="vi">Nhận diện chương</span></h4>
+          <div class="field" style="padding:0 var(--sp-sm)"><label><span lang="en">Rule</span><span lang="vi">Quy tắc</span></label><select class="select" data-testid="import-rule"><option data-opt-en="第N章 … (Chinese numbering)" data-opt-vi="第N章 … (đánh số kiểu Trung)">第N章 … (Chinese numbering)</option><option data-opt-en="Chapter N / Ch. N" data-opt-vi="Chapter N / Ch. N (tiếng Anh)">Chapter N / Ch. N</option><option>Chương N</option><option>第N話 / 第N话</option><option data-opt-en="Custom regular expression…" data-opt-vi="Biểu thức chính quy tùy chỉnh…">Custom regular expression…</option></select></div>
+          <div class="field" style="padding:0 var(--sp-sm)"><label><span lang="en">Pattern</span><span lang="vi">Mẫu</span></label><input class="input mono" value="^第[一二三四五六七八九十百千零〇\d]+章\s*.*$"><small><span lang="en">Matches 747 lines · 1 duplicate removed</span><span lang="vi">Khớp 747 dòng · bỏ 1 trùng</span></small></div>
+          <label class="check" style="padding:0 var(--sp-sm)"><input type="checkbox" checked><span lang="en">Renumber sequentially (fixes skipped numbers)</span><span lang="vi">Đánh số lại liên tục (sửa nhảy số)</span></label>
+          <label class="check" style="padding:0 var(--sp-sm)"><input type="checkbox" checked><span lang="en">Skip duplicate chapters</span><span lang="vi">Bỏ qua chương trùng</span></label>
+          <label class="check" style="padding:0 var(--sp-sm)"><input type="checkbox"><span lang="en">Keep unreadable fragments as chapters</span><span lang="vi">Giữ đoạn không đọc được thành chương</span></label>
+        </div>
+        <div class="panel-section col" style="gap:var(--sp-md)">
+          <h4><span lang="en">Novel</span><span lang="vi">Truyện</span></h4>
+          <div class="field" style="padding:0 var(--sp-sm)"><label><span lang="en">Original title</span><span lang="vi">Tên gốc</span></label><input class="input" value="庆余年"></div>
+          <div class="field" style="padding:0 var(--sp-sm)"><label><span lang="en">Display title</span><span lang="vi">Tên hiển thị</span></label><input class="input" value="Khánh Dư Niên"></div>
+          <div class="field" style="padding:0 var(--sp-sm)"><label><span lang="en">Author</span><span lang="vi">Tác giả</span></label><input class="input" value="猫腻 · Miêu Nị"></div>
+          <div class="row" style="padding:0 var(--sp-sm)"><div class="field grow"><label><span lang="en">Source language</span><span lang="vi">Ngôn ngữ nguồn</span></label><select class="select"><option>中文 · zh</option><option>日本語 · ja</option><option>한국어 · ko</option><option>English · en</option><option>Tiếng Việt · vi</option></select></div><div class="field grow"><label><span lang="en">Genre</span><span lang="vi">Thể loại</span></label><select class="select"><option>历史 · Cổ trang</option><option>仙侠 · Tiên hiệp</option><option>武侠 · Võ hiệp</option><option data-opt-en="General" data-opt-vi="Chung">General</option></select></div></div>
+          <div class="field" style="padding:0 var(--sp-sm)"><label><span lang="en">Cover</span><span lang="vi">Bìa</span></label><div class="row"><span class="cover sm" style="--c:#b5bcb8"><span class="cjk">庆余年</span></span><button class="btn sm"><span lang="en">Choose image…</span><span lang="vi">Chọn ảnh…</span></button></div></div>
+        </div>
+        <div class="panel-section">
+          <div class="callout info"><svg class="icon"><use href="#i-info"/></svg><div><span lang="en">Large imports run in the background. You can keep reading while 746 chapters are written to </span><span lang="vi">Nhập dữ liệu lớn chạy nền. Bạn có thể tiếp tục đọc trong khi 746 chương được ghi vào </span><code>novels\n-0008\chapters\</code>.</div></div>
+        </div>
+      </div>
+    </aside>
+
+    <aside class="panel bottom" data-testid="import-warnings">
+      <div class="panel-head"><h3><span lang="en">Checks</span><span lang="vi">Kiểm tra</span> <span class="meta">· 1 <span lang="en">error</span><span lang="vi">lỗi</span> · 3 <span lang="en">warnings</span><span lang="vi">cảnh báo</span></span></h3><button class="btn ghost icon" data-toggle-panel="bottom" title="Collapse (Ctrl+J)"><svg class="icon"><use href="#i-panel-bottom"/></svg></button></div>
+      <div class="panel-body">
+        <div class="issue-row bad"><svg class="icon"><use href="#i-alert-circle"/></svg><div><b><span lang="en">Chapter number skipped</span><span lang="vi">Nhảy số chương</span></b> — 第四章 → 第六章 <div class="where"><span lang="en">row 0005 · fixed by “renumber sequentially”</span><span lang="vi">dòng 0005 · được sửa bởi “đánh số lại liên tục”</span></div></div></div>
+        <div class="issue-row warn"><svg class="icon"><use href="#i-alert-triangle"/></svg><div><b><span lang="en">Duplicate chapter</span><span lang="vi">Chương trùng</span></b> — 第七章 书房 <div class="where"><span lang="en">rows 0006 / 0007 · second copy skipped</span><span lang="vi">dòng 0006 / 0007 · bỏ bản thứ hai</span></div></div></div>
+        <div class="issue-row warn"><svg class="icon"><use href="#i-alert-triangle"/></svg><div><b><span lang="en">Unreadable fragment</span><span lang="vi">Đoạn không đọc được</span></b> — 412 <span lang="en">characters, invalid bytes at line 4,118</span><span lang="vi">ký tự, byte không hợp lệ ở dòng 4.118</span> <div class="where"><span lang="en">row 0010 · imported as a chapter with a warning flag</span><span lang="vi">dòng 0010 · nhập thành chương kèm cờ cảnh báo</span></div></div></div>
+        <div class="issue-row warn"><svg class="icon"><use href="#i-alert-triangle"/></svg><div><b><span lang="en">Short title line</span><span lang="vi">Dòng tiêu đề ngắn</span></b> — 第三章 费介 <div class="where"><span lang="en">row 0003 · check the title before import</span><span lang="vi">dòng 0003 · kiểm tra tiêu đề trước khi nhập</span></div></div></div>
+      </div>
+    </aside>
+
+    <aside class="annotations"><ol>
+      <li lang="en"><span class="ac">M04-F02</span> Import is a full-screen studio mode (like Lightroom's import): left = source file/folder, centre = chapter split preview, right = split rule and metadata, bottom = checks.</li>
+      <li lang="vi"><span class="ac">M04-F02</span> Nhập truyện là một chế độ studio toàn màn hình (như Import của Lightroom): trái = tệp/thư mục nguồn, giữa = xem trước tách chương, phải = quy tắc tách và thông tin, dưới = kiểm tra.</li>
+      <li lang="en">Titles and numbers are editable inline in the preview; a row can be unchecked to exclude it. Row colour stripes mark warnings (amber) and errors (red).</li>
+      <li lang="vi">Tiêu đề và số thứ tự sửa trực tiếp trong bảng xem trước; bỏ chọn một dòng để loại nó. Vạch màu ở dòng đánh dấu cảnh báo (vàng) và lỗi (đỏ).</li>
+      <li lang="en">Duplicate, skipped-number and unreadable chapters are detected and listed in the bottom panel with the fix that will be applied.</li>
+      <li lang="vi">Chương trùng, nhảy số và không đọc được được phát hiện và liệt kê ở panel dưới kèm cách sửa sẽ áp dụng.</li>
+      <li lang="en">The primary button opens a confirmation dialog, then the import runs as a background job (visible in the top-bar progress pill and the Task Center). Formats and split rules are still Q8 — the controls shown are a proposal.</li>
+      <li lang="vi">Nút chính mở hộp thoại xác nhận, rồi việc nhập chạy như một job nền (thấy ở pill tiến độ trên thanh trên cùng và trong Task Center). Định dạng và quy tắc tách vẫn là Q8 — các điều khiển ở đây là đề xuất.</li>
+    </ol></aside>
+  </section>

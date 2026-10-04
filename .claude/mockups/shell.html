@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="en" data-lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Novel Studio · Prototype</title>
+<link rel="stylesheet" href="styles.css">
+<script>(function(){try{var t=JSON.parse(localStorage.getItem("ns.theme")||'"dark"');if(t==="system")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t);var l=JSON.parse(localStorage.getItem("ns.lang")||'"en"');document.documentElement.setAttribute("data-lang",l);document.documentElement.setAttribute("lang",l);}catch(e){}})();</script>
+</head>
+<body>
+<!--
+  UX/UI prototype — static HTML/CSS/JS, opens from the file system.
+  index.html is generated: edit shell.html and screens/<id>.html, then run python .claude/scripts/mockups.py.
+  One persistent studio shell; one <section class="screen" id="..."> per screen (display: contents),
+  whose children (.panel.left / .workspace / .panel.right / .panel.bottom) land in the shell grid.
+  Every UI sentence is written twice: lang="en" then lang="vi" (the shell language switch toggles them).
+  Screens are listed in the prototype drawer in the same order (rail groups) as the Screen inventory in
+  .claude/docs/0.design-system.html.
+-->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-chevron-up" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></symbol>
+  <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
+  <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-chevrons-left" viewBox="0 0 24 24"><path d="M11 6l-6 6 6 6M18 6l-6 6 6 6"/></symbol>
+  <symbol id="i-chevrons-right" viewBox="0 0 24 24"><path d="M13 6l6 6-6 6M6 6l6 6-6 6"/></symbol>
+  <symbol id="i-library" viewBox="0 0 24 24"><path d="M4 4h4v16H4zM9 4h4v16H9zM14.5 5.2l3.8-1 4 15.4-3.8 1z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2zM22 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7z"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
+  <symbol id="i-network" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5v3.5M12 11l-5.5 5.8M12 11l5.5 5.8"/></symbol>
+  <symbol id="i-tasks" viewBox="0 0 24 24"><path d="M10 6h11M10 12h11M10 18h11M3 6l1.5 1.5L7 5M3 12l1.5 1.5L7 11M3 18l1.5 1.5L7 17"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><path d="M3 6h10M19 6h2M3 12h5M13 12h8M3 18h13M21 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></symbol>
+  <symbol id="i-panel-left" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></symbol>
+  <symbol id="i-panel-right" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M15 4v16"/></symbol>
+  <symbol id="i-panel-bottom" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 15h18"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 5l12 7-12 7z"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+  <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1.5"/></symbol>
+  <symbol id="i-retry" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7M21 3v6h-6"/></symbol>
+  <symbol id="i-skip" viewBox="0 0 24 24"><path d="M5 5l10 7-10 7zM19 5v14"/></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+  <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></symbol>
+  <symbol id="i-command" viewBox="0 0 24 24"><path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"/></symbol>
+  <symbol id="i-keyboard" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M8 14h8"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l4 4L19 6"/></symbol>
+  <symbol id="i-alert-triangle" viewBox="0 0 24 24"><path d="M12 3L2 20h20zM12 9v5M12 17h.01"/></symbol>
+  <symbol id="i-alert-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20l4-1 11-11-3-3L5 16zM13 6l3 3"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M5 3h11l3 3v15H5zM8 3v6h8V3M8 21v-7h8v7"/></symbol>
+  <symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 14L4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/></symbol>
+  <symbol id="i-redo" viewBox="0 0 24 24"><path d="M15 14l5-5-5-5M20 9H10a6 6 0 0 0 0 12h3"/></symbol>
+  <symbol id="i-type" viewBox="0 0 24 24"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></symbol>
+  <symbol id="i-maximize" viewBox="0 0 24 24"><path d="M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8z"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 2h8l5 5v15H6zM14 2v5h5M9 13h6M9 17h6"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a1 1 0 0 1 1-1h5l2 2h9a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 22s7-7 7-12a7 7 0 1 0-14 0c0 5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+  <symbol id="i-building" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M9 7h.01M15 7h.01M9 11h.01M15 11h.01M9 15h.01M15 15h.01M10 21v-4h4v4"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8zM7 8h.01"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></symbol>
+  <symbol id="i-terminal" viewBox="0 0 24 24"><path d="M4 17l6-5-6-5M12 19h8"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M6 9l6 6 6-6M4 21h16"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 21V9M6 15l6-6 6 6M4 3h16"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+  <symbol id="i-languages" viewBox="0 0 24 24"><path d="M4 5h8M8 3v2M11 5c-.5 4-3 7-7 9M6 9c1 2.5 3 4 6 5M14 20l4-10 4 10M15.5 17h5"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="i-merge" viewBox="0 0 24 24"><circle cx="6" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="12" r="2"/><path d="M6 7v10M6 7a8 8 0 0 0 10 5"/></symbol>
+  <symbol id="i-columns" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M12 4v16"/></symbol>
+  <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 17l.8 2.2L22 20l-2.2.8L19 23l-.8-2.2L16 20l2.2-.8z"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 21h4"/></symbol>
+  <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10h-6v-6H9v6H3z"/></symbol>
+  <symbol id="i-diamond" viewBox="0 0 24 24"><path d="M12 2l10 10-10 10L2 12z"/></symbol>
+  <symbol id="i-hash" viewBox="0 0 24 24"><path d="M4 9h16M4 15h16M10 3L8 21M16 3l-2 18"/></symbol>
+  <symbol id="i-message" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></symbol>
+  <symbol id="i-headphones" viewBox="0 0 24 24"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/></symbol>
+  <symbol id="i-film" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M9 21h6"/></symbol>
+  <symbol id="i-pronounce" viewBox="0 0 24 24"><path d="M3 19l5-13 5 13M5 15h6"/><path d="M16 9a4 4 0 0 1 0 6M19 6.5a8 8 0 0 1 0 11"/></symbol>
+  <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l11-2v13"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/></symbol>
+  <symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="12" rx="2"/><path d="M10 6.5v5l4-2.5z"/><path d="M3 19h18M8 17v4M15 17v4"/></symbol>
+  <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M3 13l2.5-8h13L21 13v6H3z"/><path d="M3 13h5l1.5 2.5h5L16 13h5"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3L10 14"/><path d="M21 3l-7 18-4-7-7-4z"/></symbol>
+  <symbol id="i-volume" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4zM16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></symbol>
+  <symbol id="i-waveform" viewBox="0 0 24 24"><path d="M3 12h1M7 8v8M11 4v16M15 7v10M19 10v4M21 12h0"/></symbol>
+  <symbol id="i-scissors" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><path d="M8 7.5L20 18M8 16.5L20 6"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3M14 9l2 2"/></symbol>
+  <symbol id="i-repeat" viewBox="0 0 24 24"><path d="M17 2l3 3-3 3M4 11V9a4 4 0 0 1 4-4h12M7 22l-3-3 3-3M20 13v2a4 4 0 0 1-4 4H4"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></symbol>
+  <symbol id="i-puzzle" viewBox="0 0 24 24"><path d="M10 4a2 2 0 1 1 4 0v2h4v4h-2a2 2 0 1 0 0 4h2v4h-4v-2a2 2 0 1 0-4 0v2H6v-4h2a2 2 0 1 0 0-4H6V6h4z"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M3 7l9-4 9 4v10l-9 4-9-4zM3 7l9 4 9-4M12 11v10"/></symbol>
+  <symbol id="i-record" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.5"/></symbol>
+</svg>
+
+<div class="app" data-testid="app-shell">
+  <!-- ================= top bar ================= -->
+  <header class="topbar" data-testid="topbar">
+    <button class="brand" data-action="toggle-rail" data-testid="topbar-brand" aria-pressed="false" title="Expand or collapse the module rail"><span class="mark">NS</span><span>Novel Studio</span><small>0.1</small></button>
+    <nav class="crumbs" aria-label="Context" data-crumbs data-testid="topbar-crumbs"></nav>
+    <span class="spacer"></span>
+    <button class="palette-btn" data-open="palette" data-testid="topbar-palette" title="Ctrl+K">
+      <svg class="icon"><use href="#i-search"/></svg>
+      <span class="grow"><span lang="en">Search or run a command…</span><span lang="vi">Tìm hoặc chạy lệnh…</span></span>
+      <kbd>Ctrl</kbd><kbd>K</kbd>
+    </button>
+    <button class="tray" data-go="tasks" data-testid="topbar-tray" title="Task Center (Ctrl+Shift+T)">
+      <span class="dot run"></span>
+      <span class="label"><b><span lang="en">Translating</span><span lang="vi">Đang dịch</span></b> · <span class="num" data-job-done>37</span>/100</span>
+      <span class="progress" data-job-progress style="--p:37%;--f:1%"><i></i><i class="fail"></i></span>
+      <span class="badge" title="Running jobs">2</span>
+    </button>
+    <div class="cli-dots" title="AI tools detected" data-testid="topbar-cli">
+      <span class="dot ok"></span>claude<span class="dot warn"></span>codex
+    </div>
+    <div class="panel-toggles" data-testid="topbar-panel-toggles">
+      <button class="btn ghost icon" data-toggle-panel="left" aria-pressed="true" data-testid="topbar-toggle-left" title="Left panel · Ctrl+B"><svg class="icon"><use href="#i-panel-left"/></svg></button>
+      <button class="btn ghost icon" data-toggle-panel="bottom" aria-pressed="true" data-testid="topbar-toggle-bottom" title="Bottom panel · Ctrl+J"><svg class="icon"><use href="#i-panel-bottom"/></svg></button>
+      <button class="btn ghost icon" data-toggle-panel="right" aria-pressed="true" data-testid="topbar-toggle-right" title="Inspector · Ctrl+Alt+B"><svg class="icon"><use href="#i-panel-right"/></svg></button>
+    </div>
+    <button class="btn ghost sm" data-action="toggle-lang" data-testid="topbar-lang" title="Ctrl+Shift+U"><svg class="icon sm"><use href="#i-languages"/></svg><span data-lang-label>EN</span></button>
+    <button class="btn ghost icon" data-action="toggle-theme" data-theme-icon data-testid="topbar-theme" title="Ctrl+Shift+L"><svg class="icon"><use href="#i-moon"/></svg></button>
+    <button class="btn ghost icon" data-go="settings" data-testid="topbar-settings" title="Ctrl+,"><svg class="icon"><use href="#i-settings"/></svg></button>
+  </header>
+
+  <!-- ================= module rail ================= -->
+  <!-- Every module of the product has an entry (module map: design-system section 7). Library-level groups are always shown;
+       data-rail-scope="novel" groups (Workspace, Production) appear only while a novel is open. Every entry opens its screen. -->
+  <nav class="rail" aria-label="Modules" data-testid="rail">
+    <div class="rail-group" data-testid="rail-group-library">
+      <span class="rail-title"><span lang="en">Library</span><span lang="vi">Thư viện</span></span>
+      <a href="#home" data-screen="home" data-go="home" data-keys="Ctrl+1" title="Home · Ctrl+1" data-testid="rail-home"><svg class="icon"><use href="#i-home"/></svg><span class="label"><span lang="en">Home</span><span lang="vi">Trang chủ</span></span></a>
+      <a href="#library" data-screen="library" data-go="library" data-keys="Ctrl+2" title="Library · Ctrl+2" data-testid="rail-library"><svg class="icon"><use href="#i-library"/></svg><span class="label"><span lang="en">Library</span><span lang="vi">Thư viện</span></span></a>
+    </div>
+    <div class="rail-scroll" data-testid="rail-scroll">
+      <div class="rail-group hidden" data-rail-scope="novel" data-testid="rail-group-workspace">
+        <span class="sep"></span>
+        <span class="rail-title"><span lang="en">Workspace</span><span lang="vi">Không gian làm việc</span></span>
+        <a href="#reader" data-screen="reader" data-go="reader" data-keys="Ctrl+3" title="Content · Ctrl+3" data-testid="rail-reader"><svg class="icon"><use href="#i-book"/></svg><span class="label"><span lang="en">Content</span><span lang="vi">Nội dung</span></span></a>
+        <a href="#storyworld" data-screen="storyworld" data-go="storyworld" data-keys="Ctrl+4" title="Omniscient · Ctrl+4" data-testid="rail-storyworld"><svg class="icon"><use href="#i-network"/></svg><span class="label"><span lang="en">Omniscient</span><span lang="vi">Toàn tri</span></span></a>
+        <a href="#translation" data-screen="translation" data-go="translation" data-keys="Ctrl+5" title="Translation · Ctrl+5" data-testid="rail-translation"><svg class="icon"><use href="#i-globe"/></svg><span class="label"><span lang="en">Translation</span><span lang="vi">Dịch</span></span></a>
+        <a href="#storychat" data-screen="storychat" data-go="storychat" title="Story chat" data-testid="rail-storychat"><svg class="icon"><use href="#i-message"/></svg><span class="label"><span lang="en">Story chat</span><span lang="vi">Hỏi đáp truyện</span></span></a>
+      </div>
+      <div class="rail-group" data-testid="rail-group-media">
+        <span class="sep"></span>
+        <span class="rail-title"><span lang="en">Media</span><span lang="vi">Media</span></span>
+        <a href="#voicelab" data-screen="voicelab" data-go="voicelab" title="Voice Lab" data-testid="rail-voicelab"><svg class="icon"><use href="#i-mic"/></svg><span class="label"><span lang="en">Voice Lab</span><span lang="vi">Phòng giọng nói</span></span></a>
+        <a href="#pronunciation" data-screen="pronunciation" data-go="pronunciation" title="Pronunciation" data-testid="rail-pronunciation"><svg class="icon"><use href="#i-pronounce"/></svg><span class="label"><span lang="en">Pronunciation</span><span lang="vi">Từ điển phát âm</span></span></a>
+        <a href="#assets" data-screen="assets" data-go="assets" title="Media Assets" data-testid="rail-assets"><svg class="icon"><use href="#i-image"/></svg><span class="label"><span lang="en">Media Assets</span><span lang="vi">Kho tài nguyên</span></span></a>
+        <a href="#sound" data-screen="sound" data-go="sound" title="Sound and Music" data-testid="rail-sound"><svg class="icon"><use href="#i-music"/></svg><span class="label"><span lang="en">Sound and Music</span><span lang="vi">Âm thanh &amp; nhạc</span></span></a>
+      </div>
+      <div class="rail-group hidden" data-rail-scope="novel" data-testid="rail-group-production">
+        <span class="sep"></span>
+        <span class="rail-title"><span lang="en">Production</span><span lang="vi">Sản xuất</span></span>
+        <a href="#audiobook" data-screen="audiobook" data-go="audiobook" title="Audiobook" data-testid="rail-audiobook"><svg class="icon"><use href="#i-headphones"/></svg><span class="label"><span lang="en">Audiobook</span><span lang="vi">Sách nói</span></span></a>
+        <a href="#film" data-screen="film" data-go="film" title="Film Series" data-testid="rail-film"><svg class="icon"><use href="#i-film"/></svg><span class="label"><span lang="en">Film Series</span><span lang="vi">Phim bộ</span></span></a>
+        <a href="#videoeditor" data-screen="videoeditor" data-go="videoeditor" title="Video editor" data-testid="rail-videoeditor"><svg class="icon"><use href="#i-video"/></svg><span class="label"><span lang="en">Video editor</span><span lang="vi">Dựng video</span></span></a>
+      </div>
+      <div class="rail-group" data-testid="rail-group-distribution">
+        <span class="sep"></span>
+        <span class="rail-title"><span lang="en">Distribution</span><span lang="vi">Phân phối</span></span>
+        <a href="#inbox" data-screen="inbox" data-go="inbox" title="Media inbox" data-testid="rail-inbox"><svg class="icon"><use href="#i-inbox"/></svg><span class="label"><span lang="en">Media inbox</span><span lang="vi">Hộp thư media</span></span></a>
+        <a href="#publishing" data-screen="publishing" data-go="publishing" title="Publishing" data-testid="rail-publishing"><svg class="icon"><use href="#i-send"/></svg><span class="label"><span lang="en">Publishing</span><span lang="vi">Xuất bản &amp; kênh</span></span></a>
+      </div>
+    </div>
+    <div class="rail-group" data-testid="rail-group-system">
+      <span class="sep"></span>
+      <span class="rail-title"><span lang="en">System</span><span lang="vi">Hệ thống</span></span>
+      <a href="#tasks" data-screen="tasks" data-go="tasks" data-keys="Ctrl+6" title="Task Center · Ctrl+6" data-testid="rail-tasks"><svg class="icon"><use href="#i-tasks"/></svg><span class="label"><span lang="en">Task Center</span><span lang="vi">Trung tâm tác vụ</span></span><span class="badge">2</span></a>
+      <a href="#settings" data-screen="settings" data-go="settings" data-keys="Ctrl+7" title="Settings · Ctrl+7" data-testid="rail-settings"><svg class="icon"><use href="#i-settings"/></svg><span class="label"><span lang="en">Settings</span><span lang="vi">Cài đặt</span></span></a>
+    </div>
+  </nav>
+
+  <div class="resizer left" title="Drag to resize · double-click to reset"></div>
+  <div class="resizer right" title="Drag to resize · double-click to reset"></div>
+  <div class="resizer bottom" title="Drag to resize · double-click to reset"></div>
+
+  <!-- @screen home -->
+
+  <!-- @screen library -->
+
+  <!-- @screen import -->
+
+  <!-- @screen reader -->
+
+  <!-- @screen tasks -->
+
+  <!-- @screen settings -->
+
+  <!-- @screen storyworld -->
+
+  <!-- @screen translation -->
+
+  <!-- @screen storychat -->
+
+  <!-- @screen voicelab -->
+
+  <!-- @screen pronunciation -->
+
+  <!-- @screen assets -->
+
+  <!-- @screen sound -->
+
+  <!-- @screen audiobook -->
+
+  <!-- @screen film -->
+
+  <!-- @screen videoeditor -->
+
+  <!-- @screen inbox -->
+
+  <!-- @screen publishing -->
+
+  <!-- @screen components -->
+
+  <!-- ================= status bar ================= -->
+  <footer class="statusbar" data-testid="statusbar">
+    <span class="item"><svg class="icon"><use href="#i-folder"/></svg>D:\NovelStudio\Library</span>
+    <span class="item"><span class="dot ok"></span>claude 2.1.288</span>
+    <span class="item"><span class="dot warn"></span>codex <span lang="en">not logged in</span><span lang="vi">chưa đăng nhập</span></span>
+    <span class="item" data-go="tasks" style="cursor:pointer"><span class="dot run"></span><span lang="en">Translating</span><span lang="vi">Đang dịch</span> <span class="num" data-job-done>37</span>/100 · <span data-job-pct>37%</span></span>
+    <span class="spacer"></span>
+    <span class="item"><span lang="en">Ch. 0012 · 3,208 chars</span><span lang="vi">Ch. 0012 · 3.208 ký tự</span></span>
+    <span class="item hint"><kbd>Ctrl</kbd><kbd>K</kbd> <span lang="en">commands</span><span lang="vi">lệnh</span></span>
+    <span class="item hint"><kbd>Ctrl</kbd><kbd>/</kbd> <span lang="en">shortcuts</span><span lang="vi">phím tắt</span></span>
+    <span class="item"><span data-lang-label>EN</span> · <span data-effective-theme>dark</span></span>
+    <button class="item proto-fab" data-testid="proto-fab" title="Prototype screens and notes (not part of the product)"><svg class="icon"><use href="#i-info"/></svg>Prototype</button>
+  </footer>
+</div><!-- /.app -->
+
+<div class="toasts" aria-live="polite"></div>
+
+<!-- ================= command palette (Ctrl+K) ================= -->
+<div class="scrim" id="palette" data-testid="palette">
+  <div class="palette" role="dialog" aria-label="Command palette">
+    <div class="search"><svg class="icon"><use href="#i-search"/></svg><input class="input" placeholder="Type a command, screen or novel…" data-ph-en="Type a command, screen or novel…" data-ph-vi="Gõ lệnh, màn hình hoặc tên truyện…" autofocus data-testid="palette-input"></div>
+    <div class="results">
+      <div class="group"><span lang="en">Go to module · Library</span><span lang="vi">Đi tới module · Thư viện</span></div>
+      <div class="cmd" data-go="home" data-keywords="app shell first launch library folder" data-testid="palette-module-home"><svg class="icon"><use href="#i-home"/></svg><span class="text"><span class="name"><span lang="en">Home</span><span lang="vi">Trang chủ</span></span></span><code class="mod-id">M01 · M06</code><span class="keys"><kbd>Ctrl</kbd><kbd>1</kbd></span></div>
+      <div class="cmd" data-go="library" data-keywords="novel library import" data-testid="palette-module-library"><svg class="icon"><use href="#i-library"/></svg><span class="text"><span class="name"><span lang="en">Library</span><span lang="vi">Thư viện</span></span></span><code class="mod-id">M04</code><span class="keys"><kbd>Ctrl</kbd><kbd>2</kbd></span></div>
+      <div class="group"><span lang="en">Go to module · Workspace</span><span lang="vi">Đi tới module · Không gian làm việc</span></div>
+      <div class="cmd" data-go="reader" data-keywords="content reader chapter editor đọc" data-testid="palette-module-reader"><svg class="icon"><use href="#i-book"/></svg><span class="text"><span class="name"><span lang="en">Content</span><span lang="vi">Nội dung</span></span></span><code class="mod-id">M05</code><span class="keys"><kbd>Ctrl</kbd><kbd>3</kbd></span></div>
+      <div class="cmd" data-go="storyworld" data-keywords="omniscient story world thế giới truyện graph catalog relationship map timeline entities" data-testid="palette-module-storyworld"><svg class="icon"><use href="#i-network"/></svg><span class="text"><span class="name"><span lang="en">Omniscient</span><span lang="vi">Toàn tri</span></span></span><code class="mod-id">M07 · M08</code><span class="keys"><kbd>Ctrl</kbd><kbd>4</kbd></span></div>
+      <div class="cmd" data-go="translation" data-keywords="translation workspace quality review" data-testid="palette-module-translation"><svg class="icon"><use href="#i-globe"/></svg><span class="text"><span class="name"><span lang="en">Translation</span><span lang="vi">Dịch</span></span></span><code class="mod-id">M09</code><span class="keys"><kbd>Ctrl</kbd><kbd>5</kbd></span></div>
+      <div class="cmd" data-go="storychat" data-keywords="story chat chatbot questions" data-testid="palette-module-storychat"><svg class="icon"><use href="#i-message"/></svg><span class="text"><span class="name"><span lang="en">Story chat</span><span lang="vi">Hỏi đáp truyện</span></span></span><code class="mod-id">M13</code></div>
+      <div class="group"><span lang="en">Go to module · Media</span><span lang="vi">Đi tới module · Media</span></div>
+      <div class="cmd" data-go="voicelab" data-keywords="voice lab character casting audio clone" data-testid="palette-module-voicelab"><svg class="icon"><use href="#i-mic"/></svg><span class="text"><span class="name"><span lang="en">Voice Lab</span><span lang="vi">Phòng giọng nói</span></span></span><code class="mod-id">M14</code></div>
+      <div class="cmd" data-go="pronunciation" data-keywords="pronunciation dictionary audio tts" data-testid="palette-module-pronunciation"><svg class="icon"><use href="#i-pronounce"/></svg><span class="text"><span class="name"><span lang="en">Pronunciation</span><span lang="vi">Từ điển phát âm</span></span></span><code class="mod-id">M15</code></div>
+      <div class="cmd" data-go="assets" data-keywords="media asset library images voices" data-testid="palette-module-assets"><svg class="icon"><use href="#i-image"/></svg><span class="text"><span class="name"><span lang="en">Media Assets</span><span lang="vi">Kho tài nguyên</span></span></span><code class="mod-id">M10</code></div>
+      <div class="cmd" data-go="sound" data-keywords="sound music ambience studio audio bgm sfx" data-testid="palette-module-sound"><svg class="icon"><use href="#i-music"/></svg><span class="text"><span class="name"><span lang="en">Sound and Music</span><span lang="vi">Âm thanh &amp; nhạc</span></span></span><code class="mod-id">M16</code></div>
+      <div class="group"><span lang="en">Go to module · Production</span><span lang="vi">Đi tới module · Sản xuất</span></div>
+      <div class="cmd" data-go="audiobook" data-keywords="audiobook studio audio finishing mastering speech" data-testid="palette-module-audiobook"><svg class="icon"><use href="#i-headphones"/></svg><span class="text"><span class="name"><span lang="en">Audiobook</span><span lang="vi">Sách nói</span></span></span><code class="mod-id">M11 · M17</code></div>
+      <div class="cmd" data-go="film" data-keywords="film series studio episodes storyboard script" data-testid="palette-module-film"><svg class="icon"><use href="#i-film"/></svg><span class="text"><span class="name"><span lang="en">Film Series</span><span lang="vi">Phim bộ</span></span></span><code class="mod-id">M12</code></div>
+      <div class="cmd" data-go="videoeditor" data-keywords="video editor render timeline assemble" data-testid="palette-module-videoeditor"><svg class="icon"><use href="#i-video"/></svg><span class="text"><span class="name"><span lang="en">Video editor</span><span lang="vi">Dựng video</span></span></span><code class="mod-id">M18</code></div>
+      <div class="group"><span lang="en">Go to module · Distribution</span><span lang="vi">Đi tới module · Phân phối</span></div>
+      <div class="cmd" data-go="inbox" data-keywords="external media inbox download" data-testid="palette-module-inbox"><svg class="icon"><use href="#i-inbox"/></svg><span class="text"><span class="name"><span lang="en">Media inbox</span><span lang="vi">Hộp thư media</span></span></span><code class="mod-id">M19</code></div>
+      <div class="cmd" data-go="publishing" data-keywords="publishing channel hub release package" data-testid="palette-module-publishing"><svg class="icon"><use href="#i-send"/></svg><span class="text"><span class="name"><span lang="en">Publishing</span><span lang="vi">Xuất bản &amp; kênh</span></span></span><code class="mod-id">M20</code></div>
+      <div class="group"><span lang="en">Go to module · System</span><span lang="vi">Đi tới module · Hệ thống</span></div>
+      <div class="cmd" data-go="tasks" data-keywords="task center jobs" data-testid="palette-module-tasks"><svg class="icon"><use href="#i-tasks"/></svg><span class="text"><span class="name"><span lang="en">Task Center</span><span lang="vi">Trung tâm tác vụ</span></span></span><code class="mod-id">M03</code><span class="keys"><kbd>Ctrl</kbd><kbd>6</kbd></span></div>
+      <div class="cmd" data-go="settings" data-keywords="settings ai backends models integrations extensions system information diagnostics about export" data-testid="palette-module-settings"><svg class="icon"><use href="#i-settings"/></svg><span class="text"><span class="name"><span lang="en">Settings</span><span lang="vi">Cài đặt</span></span></span><code class="mod-id">M02 · M06 · M21 · M22</code><span class="keys"><kbd>Ctrl</kbd><kbd>,</kbd></span></div>
+      <div class="group"><span lang="en">Commands</span><span lang="vi">Lệnh</span></div>
+      <div class="cmd" data-go="import"><svg class="icon"><use href="#i-download"/></svg><span class="text"><span lang="en">Import novel…</span><span lang="vi">Nhập truyện…</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>O</kbd></span></div>
+      <div class="cmd" data-open="dlg-export"><svg class="icon"><use href="#i-upload"/></svg><span class="text"><span lang="en">Export translation…</span><span lang="vi">Xuất bản dịch…</span></span></div>
+      <div class="cmd" data-open="dlg-voice-clone" data-keywords="voice clone record sample consent" data-testid="palette-cmd-voice-clone"><svg class="icon"><use href="#i-mic"/></svg><span class="text"><span lang="en">Clone a voice…</span><span lang="vi">Nhân bản giọng…</span></span></div>
+      <div class="cmd" data-open="dlg-add-links" data-keywords="media links download inbox" data-testid="palette-cmd-add-links"><svg class="icon"><use href="#i-link"/></svg><span class="text"><span lang="en">Add media links…</span><span lang="vi">Thêm liên kết media…</span></span></div>
+      <div class="cmd" data-open="dlg-render" data-keywords="render video export episode" data-testid="palette-cmd-render"><svg class="icon"><use href="#i-video"/></svg><span class="text"><span lang="en">Render video…</span><span lang="vi">Render video…</span></span></div>
+      <div class="cmd" data-action="toggle-theme"><svg class="icon"><use href="#i-moon"/></svg><span class="text"><span lang="en">Toggle theme</span><span lang="vi">Đổi giao diện sáng/tối</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>L</kbd></span></div>
+      <div class="cmd" data-action="toggle-lang"><svg class="icon"><use href="#i-languages"/></svg><span class="text"><span lang="en">Switch UI language</span><span lang="vi">Đổi ngôn ngữ giao diện</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>U</kbd></span></div>
+      <div class="cmd" data-action="toggle-left"><svg class="icon"><use href="#i-panel-left"/></svg><span class="text"><span lang="en">Toggle left panel</span><span lang="vi">Ẩn/hiện panel trái</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>B</kbd></span></div>
+      <div class="cmd" data-action="toggle-right"><svg class="icon"><use href="#i-panel-right"/></svg><span class="text"><span lang="en">Toggle inspector</span><span lang="vi">Ẩn/hiện inspector</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>B</kbd></span></div>
+      <div class="cmd" data-action="toggle-bottom"><svg class="icon"><use href="#i-panel-bottom"/></svg><span class="text"><span lang="en">Toggle bottom panel</span><span lang="vi">Ẩn/hiện panel dưới</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>J</kbd></span></div>
+      <div class="cmd" data-action="toggle-rail"><svg class="icon"><use href="#i-panel-left"/></svg><span class="text"><span lang="en">Expand / collapse module rail</span><span lang="vi">Mở rộng / thu gọn thanh module</span></span></div>
+      <div class="cmd" data-action="reset-layout"><svg class="icon"><use href="#i-retry"/></svg><span class="text"><span lang="en">Reset layout</span><span lang="vi">Khôi phục bố cục</span></span></div>
+      <div class="cmd" data-action="zen"><svg class="icon"><use href="#i-maximize"/></svg><span class="text"><span lang="en">Focus mode</span><span lang="vi">Chế độ tập trung</span></span><span class="keys"><kbd>Shift</kbd><kbd>F</kbd></span></div>
+      <div class="cmd" data-action="shortcuts"><svg class="icon"><use href="#i-keyboard"/></svg><span class="text"><span lang="en">Keyboard shortcuts</span><span lang="vi">Phím tắt</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>/</kbd></span></div>
+      <div class="group" data-palette-novels><span lang="en">Novels</span><span lang="vi">Truyện</span></div>
+      <div class="cmd" data-select-novel="凡人修仙传" data-action="open-novel" data-keywords="novel truyện switch" data-testid="palette-novel-1"><svg class="icon"><use href="#i-book"/></svg><span class="text">凡人修仙传 · Phàm Nhân Tu Tiên<small>2,446 <span lang="en">chapters · last read 0012</span><span lang="vi">chương · đọc gần nhất 0012</span></small></span></div>
+      <div class="cmd" data-select-novel="斗破苍穹" data-action="open-novel" data-keywords="novel truyện switch" data-testid="palette-novel-2"><svg class="icon"><use href="#i-book"/></svg><span class="text">斗破苍穹 · Đấu Phá Thương Khung<small>1,648 <span lang="en">chapters</span><span lang="vi">chương</span></small></span></div>
+      <div class="cmd" data-select-novel="全职高手" data-action="open-novel" data-keywords="novel truyện switch" data-testid="palette-novel-3"><svg class="icon"><use href="#i-book"/></svg><span class="text">全职高手 · Toàn Chức Cao Thủ<small>1,728 <span lang="en">chapters</span><span lang="vi">chương</span></small></span></div>
+      <div class="cmd" data-select-novel="나 혼자만 레벨업" data-action="open-novel" data-keywords="novel truyện switch" data-testid="palette-novel-4"><svg class="icon"><use href="#i-book"/></svg><span class="text">나 혼자만 레벨업 · Solo Leveling<small>270 <span lang="en">chapters</span><span lang="vi">chương</span></small></span></div>
+      <div class="cmd" data-select-novel="転生したらスライムだった件" data-action="open-novel" data-keywords="novel truyện switch" data-testid="palette-novel-5"><svg class="icon"><use href="#i-book"/></svg><span class="text">転生したらスライムだった件 · Tensei Slime<small>304 <span lang="en">chapters</span><span lang="vi">chương</span></small></span></div>
+      <div class="cmd" data-select-novel="庆余年" data-action="open-novel" data-keywords="novel truyện switch" data-testid="palette-novel-6"><svg class="icon"><use href="#i-book"/></svg><span class="text">庆余年 · Khánh Dư Niên<small>746 <span lang="en">chapters</span><span lang="vi">chương</span></small></span></div>
+      <div class="cmd" data-select-novel="Mother of Learning" data-action="open-novel" data-keywords="novel truyện switch" data-testid="palette-novel-7"><svg class="icon"><use href="#i-book"/></svg><span class="text">Mother of Learning<small>108 <span lang="en">chapters</span><span lang="vi">chương</span></small></span></div>
+    </div>
+    <div class="foot"><span><kbd>↑</kbd><kbd>↓</kbd> <span lang="en">navigate</span><span lang="vi">di chuyển</span></span><span><kbd>Enter</kbd> <span lang="en">run</span><span lang="vi">chạy</span></span><span><kbd>Esc</kbd> <span lang="en">close</span><span lang="vi">đóng</span></span></div>
+  </div>
+</div>
+
+<!-- ================= shortcut sheet (Ctrl+/) ================= -->
+<div class="scrim" id="shortcuts" data-testid="shortcuts">
+  <div class="dialog wide shortcut-sheet" role="dialog" aria-label="Keyboard shortcuts">
+    <div class="dialog-head"><svg class="icon lg"><use href="#i-keyboard"/></svg><h2><span lang="en">Keyboard shortcuts</span><span lang="vi">Phím tắt</span></h2><span class="meta"><span lang="en">Default set · proposal for Q5</span><span lang="vi">Bộ mặc định · đề xuất cho Q5</span></span><button class="btn ghost icon" data-close aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button></div>
+    <div class="dialog-body">
+      <div class="groups">
+        <div><h4><span lang="en">Global</span><span lang="vi">Toàn cục</span></h4>
+          <div class="sc"><span><span lang="en">Command palette</span><span lang="vi">Bảng lệnh</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>K</kbd></span></div>
+          <div class="sc"><span><span lang="en">This list</span><span lang="vi">Danh sách này</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>/</kbd> · <kbd>?</kbd></span></div>
+          <div class="sc"><span><span lang="en">Settings</span><span lang="vi">Cài đặt</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>,</kbd></span></div>
+          <div class="sc"><span><span lang="en">Task Center</span><span lang="vi">Trung tâm tác vụ</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>T</kbd></span></div>
+          <div class="sc"><span><span lang="en">Import novel</span><span lang="vi">Nhập truyện</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>O</kbd></span></div>
+          <div class="sc"><span><span lang="en">Toggle theme</span><span lang="vi">Đổi giao diện</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>L</kbd></span></div>
+          <div class="sc"><span><span lang="en">Toggle UI language</span><span lang="vi">Đổi ngôn ngữ</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>U</kbd></span></div>
+          <div class="sc"><span><span lang="en">Close overlay / leave focus</span><span lang="vi">Đóng overlay / thoát tập trung</span></span><span class="keys"><kbd>Esc</kbd></span></div>
+        </div>
+        <div><h4><span lang="en">Modules & panels</span><span lang="vi">Module & panel</span></h4>
+          <div class="sc"><span><span lang="en">Home · Library · Content</span><span lang="vi">Trang chủ · Thư viện · Nội dung</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>1</kbd>…<kbd>3</kbd></span></div>
+          <div class="sc"><span><span lang="en">Omniscient · Translation</span><span lang="vi">Toàn tri · Dịch</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>4</kbd>…<kbd>5</kbd></span></div>
+          <div class="sc"><span><span lang="en">Tasks · Settings</span><span lang="vi">Tác vụ · Cài đặt</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>6</kbd>…<kbd>7</kbd></span></div>
+          <div class="sc"><span><span lang="en">Left panel</span><span lang="vi">Panel trái</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>B</kbd></span></div>
+          <div class="sc"><span><span lang="en">Inspector (right)</span><span lang="vi">Inspector (phải)</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>B</kbd></span></div>
+          <div class="sc"><span><span lang="en">Bottom panel</span><span lang="vi">Panel dưới</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>J</kbd></span></div>
+          <div class="sc"><span><span lang="en">Focus mode</span><span lang="vi">Chế độ tập trung</span></span><span class="keys"><kbd>Shift</kbd><kbd>F</kbd></span></div>
+          <div class="sc"><span><span lang="en">Reset panel (gutter)</span><span lang="vi">Đặt lại panel (rãnh)</span></span><span class="keys"><span lang="en">double-click</span><span lang="vi">nhấp đúp</span></span></div>
+        </div>
+        <div><h4><span lang="en">Content & editor</span><span lang="vi">Nội dung & sửa</span></h4>
+          <div class="sc"><span><span lang="en">Previous / next chapter</span><span lang="vi">Chương trước / sau</span></span><span class="keys"><kbd>Alt</kbd><kbd>←</kbd> <kbd>Alt</kbd><kbd>→</kbd></span></div>
+          <div class="sc"><span><span lang="en">Find in chapter</span><span lang="vi">Tìm trong chương</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>F</kbd></span></div>
+          <div class="sc"><span><span lang="en">Search whole novel</span><span lang="vi">Tìm toàn truyện</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>F</kbd></span></div>
+          <div class="sc"><span><span lang="en">Edit source on/off</span><span lang="vi">Bật/tắt sửa nguồn</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>E</kbd></span></div>
+          <div class="sc"><span><span lang="en">Save</span><span lang="vi">Lưu</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>S</kbd></span></div>
+          <div class="sc"><span><span lang="en">Undo / redo</span><span lang="vi">Hoàn tác / làm lại</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>Z</kbd> <kbd>Ctrl</kbd><kbd>Y</kbd></span></div>
+          <div class="sc"><span><span lang="en">Bigger / smaller text</span><span lang="vi">Chữ to / nhỏ</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>+</kbd> <kbd>Ctrl</kbd><kbd>−</kbd></span></div>
+        </div>
+        <div><h4><span lang="en">Tasks & lists</span><span lang="vi">Tác vụ & danh sách</span></h4>
+          <div class="sc"><span><span lang="en">Pause / resume selected job</span><span lang="vi">Tạm dừng / chạy tiếp job đã chọn</span></span><span class="keys"><kbd>Space</kbd></span></div>
+          <div class="sc"><span><span lang="en">Retry failed items</span><span lang="vi">Thử lại mục lỗi</span></span><span class="keys"><kbd>R</kbd></span></div>
+          <div class="sc"><span><span lang="en">Move in lists</span><span lang="vi">Di chuyển trong danh sách</span></span><span class="keys"><kbd>↑</kbd><kbd>↓</kbd> <kbd>Home</kbd><kbd>End</kbd></span></div>
+          <div class="sc"><span><span lang="en">Open selected</span><span lang="vi">Mở mục đã chọn</span></span><span class="keys"><kbd>Enter</kbd></span></div>
+          <div class="sc"><span><span lang="en">Grid / list view</span><span lang="vi">Lưới / danh sách</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>1</kbd> <kbd>2</kbd></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="dialog-foot"><span class="meta left"><span lang="en">Shortcuts are registered per module (TH-01 framework). Custom bindings: Q5 follow-up.</span><span lang="vi">Phím tắt đăng ký theo module (khung TH-01). Tuỳ chỉnh phím: việc tiếp theo của Q5.</span></span><button class="btn" data-close><span lang="en">Close</span><span lang="vi">Đóng</span></button></div>
+  </div>
+</div>
+
+<!-- ================= dialogs ================= -->
+<div class="scrim" id="dlg-export" data-testid="dlg-export">
+  <div class="dialog" role="dialog" aria-label="Export translation">
+    <div class="dialog-head"><svg class="icon lg"><use href="#i-upload"/></svg><h2><span lang="en">Export translation</span><span lang="vi">Xuất bản dịch</span></h2><button class="btn ghost icon" data-close aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button></div>
+    <div class="dialog-body col" style="gap:var(--sp-md)">
+      <div class="row" style="gap:var(--sp-md)"><div class="field grow"><label><span lang="en">Novel</span><span lang="vi">Truyện</span></label><input class="input" value="凡人修仙传 · Phàm Nhân Tu Tiên" disabled></div><div class="field" style="width:160px"><label><span lang="en">Language</span><span lang="vi">Ngôn ngữ</span></label><select class="select"><option>Tiếng Việt · vi</option><option>English · en</option></select></div></div>
+      <div class="row" style="gap:var(--sp-md)"><div class="field grow"><label><span lang="en">Chapter range</span><span lang="vi">Phạm vi chương</span></label><div class="row"><input class="input" value="0001" style="width:80px"> – <input class="input" value="0100" style="width:80px"><span class="meta">100 <span lang="en">chapters</span><span lang="vi">chương</span></span></div></div><div class="field" style="width:160px"><label><span lang="en">Format</span><span lang="vi">Định dạng</span></label><select class="select"><option>.txt · <span>one file per chapter</span></option><option data-opt-en=".txt · single file" data-opt-vi=".txt · một tệp">.txt · single file</option><option>.md</option></select></div></div>
+      <div class="field"><label><span lang="en">Output folder</span><span lang="vi">Thư mục đầu ra</span></label><div class="row"><input class="input mono grow" value="D:\NovelStudio\Library\novels\n-0001\exports\vi\"><button class="btn" data-action="choose-folder"><span lang="en">Browse…</span><span lang="vi">Chọn…</span></button></div></div>
+      <label class="check"><input type="checkbox" checked><span lang="en">Only chapters marked “Approved” (62 of 100)</span><span lang="vi">Chỉ chương đã “Duyệt” (62 / 100)</span></label>
+      <label class="check"><input type="checkbox"><span lang="en">Overwrite existing files (3 duplicates found)</span><span lang="vi">Ghi đè tệp có sẵn (phát hiện 3 trùng)</span></label>
+      <div class="callout warning"><svg class="icon"><use href="#i-alert-triangle"/></svg><div><span lang="en">38 chapters are still “Needs review” and will be skipped. Export format is open (Q12).</span><span lang="vi">38 chương vẫn “Cần rà soát” và sẽ bị bỏ qua. Định dạng xuất còn mở (Q12).</span></div></div>
+    </div>
+    <div class="dialog-foot"><button class="btn" data-close><span lang="en">Cancel</span><span lang="vi">Huỷ</span></button><button class="btn primary" data-action="export-done" data-testid="dlg-export-confirm"><span lang="en">Export 62 chapters</span><span lang="vi">Xuất 62 chương</span></button></div>
+  </div>
+</div>
+
+<div class="scrim" id="dlg-delete" data-testid="dlg-delete">
+  <div class="dialog" role="dialog" aria-label="Delete novel">
+    <div class="dialog-head"><svg class="icon lg danger"><use href="#i-alert-triangle"/></svg><h2><span lang="en">Delete “斗破苍穹”?</span><span lang="vi">Xoá “斗破苍穹”?</span></h2><button class="btn ghost icon" data-close aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button></div>
+    <div class="dialog-body">
+      <p lang="en">This removes the novel from the library and deletes its folder <code>novels\n-0002\</code> from disk:</p>
+      <p lang="vi">Thao tác này gỡ truyện khỏi thư viện và xoá thư mục <code>novels\n-0002\</code> khỏi đĩa:</p>
+      <ul style="margin:0 0 var(--sp-md);padding-left:18px"><li>1,648 <span lang="en">source chapters (12.4 MB)</span><span lang="vi">chương nguồn (12,4 MB)</span></li><li>1,648 <span lang="en">translated chapters · vi</span><span lang="vi">chương đã dịch · vi</span></li><li><span lang="en">Omniscient: 212 entities, 388 relationships</span><span lang="vi">Toàn tri: 212 thực thể, 388 quan hệ</span></li><li><span lang="en">Job history for this novel (6 jobs)</span><span lang="vi">Lịch sử job của truyện này (6 job)</span></li></ul>
+      <div class="callout danger"><svg class="icon"><use href="#i-alert-circle"/></svg><div><span lang="en">Exports in </span><span lang="vi">Các tệp đã xuất trong </span><code>exports\</code><span lang="en"> are kept. Everything else cannot be recovered.</span><span lang="vi"> được giữ lại. Mọi thứ khác không thể khôi phục.</span></div></div>
+      <div class="field" style="margin-top:var(--sp-md)"><label><span lang="en">Type the title to confirm</span><span lang="vi">Gõ tên truyện để xác nhận</span></label><input class="input" placeholder="斗破苍穹" data-testid="dlg-delete-confirm-input"></div>
+    </div>
+    <div class="dialog-foot"><button class="btn" data-close><span lang="en">Cancel</span><span lang="vi">Huỷ</span></button><button class="btn danger solid" data-action="delete-novel" data-testid="dlg-delete-confirm"><svg class="icon sm"><use href="#i-trash"/></svg><span lang="en">Delete novel</span><span lang="vi">Xoá truyện</span></button></div>
+  </div>
+</div>
+
+<div class="scrim" id="dlg-import" data-testid="dlg-import">
+  <div class="dialog" role="dialog" aria-label="Start import">
+    <div class="dialog-head"><svg class="icon lg"><use href="#i-download"/></svg><h2><span lang="en">Import 746 chapters?</span><span lang="vi">Nhập 746 chương?</span></h2><button class="btn ghost icon" data-close aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button></div>
+    <div class="dialog-body">
+      <dl class="kv" style="grid-template-columns:140px 1fr"><dt><span lang="en">Novel</span><span lang="vi">Truyện</span></dt><dd>庆余年 · Khánh Dư Niên · 猫腻</dd><dt><span lang="en">Source</span><span lang="vi">Nguồn</span></dt><dd>庆余年.txt · 5.1 MB · UTF-8 · zh</dd><dt><span lang="en">Chapters</span><span lang="vi">Chương</span></dt><dd>746 <span lang="en">imported · 1 duplicate skipped · numbers renumbered</span><span lang="vi">được nhập · bỏ 1 trùng · đánh số lại</span></dd><dt><span lang="en">Destination</span><span lang="vi">Đích</span></dt><dd><code>novels\n-0008\chapters\</code></dd></dl>
+      <div class="callout info" style="margin-top:var(--sp-md)"><svg class="icon"><use href="#i-info"/></svg><div><span lang="en">The import runs as a background job. You can keep working; progress shows in the top bar and in the Task Center.</span><span lang="vi">Việc nhập chạy như một job nền. Bạn có thể tiếp tục làm việc; tiến độ hiển thị trên thanh trên và trong Trung tâm tác vụ.</span></div></div>
+    </div>
+    <div class="dialog-foot"><button class="btn" data-close><span lang="en">Back</span><span lang="vi">Quay lại</span></button><button class="btn primary" data-action="import-start" data-testid="dlg-import-confirm"><span lang="en">Start import</span><span lang="vi">Bắt đầu nhập</span></button></div>
+  </div>
+</div>
+
+<div class="scrim" id="dlg-voice-clone" data-testid="dlg-voice-clone">
+  <div class="dialog wide" role="dialog" aria-label="Clone a voice">
+    <div class="dialog-head"><svg class="icon lg"><use href="#i-mic"/></svg><h2><span lang="en">Clone a voice</span><span lang="vi">Nhân bản giọng</span></h2><button class="btn ghost icon" data-close aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button></div>
+    <div class="dialog-body col" style="gap:var(--sp-md)">
+      <div class="segmented" data-select-group><button type="button" data-select aria-pressed="false"><svg class="icon sm"><use href="#i-record"/></svg><span lang="en">Microphone</span><span lang="vi">Micro</span></button><button type="button" data-select aria-pressed="false"><svg class="icon sm"><use href="#i-monitor"/></svg><span lang="en">System audio</span><span lang="vi">Âm thanh hệ thống</span></button><button type="button" data-select aria-pressed="true"><svg class="icon sm"><use href="#i-upload"/></svg><span lang="en">Upload WAV / MP3</span><span lang="vi">Tải lên WAV / MP3</span></button></div>
+      <div class="player" data-player><button class="play" data-play aria-pressed="false" title="Play sample"><svg class="icon"><use href="#i-play"/></svg></button><span class="truncate" style="max-width:220px">mac-dai-phu-sample-01.wav</span><span class="wave" data-wave="31"></span><span class="time">0:42 · 48 kHz</span></div>
+      <div class="col" style="gap:2px">
+        <div class="issue-row ok"><svg class="icon"><use href="#i-check"/></svg><div><span lang="en">Length 42 s (minimum 30 s)</span><span lang="vi">Độ dài 42 giây (tối thiểu 30 giây)</span></div></div>
+        <div class="issue-row ok"><svg class="icon"><use href="#i-check"/></svg><div><span lang="en">Clean sample · noise floor −58 dB · no music</span><span lang="vi">Mẫu sạch · nền nhiễu −58 dB · không có nhạc</span></div></div>
+        <div class="issue-row warn"><svg class="icon"><use href="#i-alert-triangle"/></svg><div><span lang="en">Transcript matches 94% · 2 words differ, check them before extracting</span><span lang="vi">Bản chép khớp 94% · lệch 2 từ, kiểm tra trước khi trích xuất</span></div></div>
+      </div>
+      <div class="row" style="gap:var(--sp-md);align-items:flex-start"><div class="field grow"><label><span lang="en">Profile name</span><span lang="vi">Tên hồ sơ</span></label><input class="input" value="Mặc Đại Phu · trầm, khàn"></div><div class="field" style="width:220px"><label><span lang="en">Usage rights</span><span lang="vi">Quyền sử dụng</span></label><select class="select"><option data-opt-en="Consent from the speaker" data-opt-vi="Người nói đã đồng ý">Consent from the speaker</option><option data-opt-en="Own recording" data-opt-vi="Bản ghi của bạn">Own recording</option><option data-opt-en="Licensed sample" data-opt-vi="Mẫu có giấy phép">Licensed sample</option></select></div></div>
+      <div class="field"><label><span lang="en">Provenance</span><span lang="vi">Nguồn gốc</span></label><textarea class="textarea" rows="2">Recorded by voice actor Trần Minh, 2026-09-28. Signed consent: rights\vp-031-consent.pdf. Scope: Phàm Nhân Tu Tiên audiobook and episodes only.</textarea></div>
+      <label class="check"><input type="checkbox" checked><span lang="en">I have the right to clone this voice and use it within the stated scope</span><span lang="vi">Tôi có quyền nhân bản giọng này và dùng nó trong phạm vi đã nêu</span></label>
+      <div class="callout info"><svg class="icon"><use href="#i-info"/></svg><div><span lang="en">Extracting the voice embedding runs as a background job in the Task Center; the profile appears in Voice Lab when it finishes.</span><span lang="vi">Trích xuất embedding giọng chạy như một job nền trong Trung tâm tác vụ; hồ sơ xuất hiện trong Phòng giọng nói khi xong.</span></div></div>
+    </div>
+    <div class="dialog-foot"><button class="btn" data-close><span lang="en">Cancel</span><span lang="vi">Huỷ</span></button><button class="btn primary" data-close data-toast="Voice extraction added to the Task Center" data-toast-vi="Đã thêm job trích xuất giọng vào Trung tâm tác vụ" data-toast-kind="success" data-testid="dlg-voice-clone-confirm"><span lang="en">Extract and save profile</span><span lang="vi">Trích xuất và lưu hồ sơ</span></button></div>
+  </div>
+</div>
+
+<div class="scrim" id="dlg-render" data-testid="dlg-render">
+  <div class="dialog" role="dialog" aria-label="Render video">
+    <div class="dialog-head"><svg class="icon lg"><use href="#i-video"/></svg><h2><span lang="en">Render “Tập 01 · Thất Huyền Môn”</span><span lang="vi">Render “Tập 01 · Thất Huyền Môn”</span></h2><button class="btn ghost icon" data-close aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button></div>
+    <div class="dialog-body col" style="gap:var(--sp-md)">
+      <div class="field"><label><span lang="en">Aspect ratio</span><span lang="vi">Tỉ lệ khung</span></label><div class="segmented" data-select-group><button type="button" data-select aria-pressed="true">9:16</button><button type="button" data-select aria-pressed="false">16:9</button><button type="button" data-select aria-pressed="false">1:1</button></div></div>
+      <div class="row" style="gap:var(--sp-md)"><div class="field grow"><label><span lang="en">Resolution</span><span lang="vi">Độ phân giải</span></label><select class="select"><option>1080 × 1920</option><option>720 × 1280</option></select></div><div class="field" style="width:96px"><label>FPS</label><select class="select"><option>30</option><option>24</option><option>60</option></select></div><div class="field grow"><label><span lang="en">Quality</span><span lang="vi">Chất lượng</span></label><select class="select"><option data-opt-en="High · H.264 CRF 18" data-opt-vi="Cao · H.264 CRF 18">High · H.264 CRF 18</option><option data-opt-en="Draft · H.264 CRF 28" data-opt-vi="Nháp · H.264 CRF 28">Draft · H.264 CRF 28</option></select></div></div>
+      <div class="field"><label><span lang="en">Subtitles</span><span lang="vi">Phụ đề</span></label><div class="segmented" data-select-group><button type="button" data-select aria-pressed="true"><span lang="en">Burn in</span><span lang="vi">In cứng</span></button><button type="button" data-select aria-pressed="false"><span lang="en">Separate .srt</span><span lang="vi">Tệp .srt riêng</span></button><button type="button" data-select aria-pressed="false"><span lang="en">None</span><span lang="vi">Không</span></button></div></div>
+      <dl class="kv"><dt><span lang="en">Duration</span><span lang="vi">Thời lượng</span></dt><dd>03:42 · 46 clips</dd><dt><span lang="en">Estimated size</span><span lang="vi">Dung lượng ước tính</span></dt><dd>~180 MB</dd><dt><span lang="en">Output</span><span lang="vi">Đầu ra</span></dt><dd><code>novels\n-0001\renders\ep01-9x16.mp4</code></dd></dl>
+      <div class="callout info"><svg class="icon"><use href="#i-info"/></svg><div><span lang="en">The render runs in the background in the Task Center; you can keep editing, cancel it and resume it later.</span><span lang="vi">Render chạy nền trong Trung tâm tác vụ; bạn có thể tiếp tục dựng, huỷ và chạy tiếp sau.</span></div></div>
+    </div>
+    <div class="dialog-foot"><button class="btn" data-close><span lang="en">Cancel</span><span lang="vi">Huỷ</span></button><button class="btn primary" data-close data-toast="Render added to the Task Center" data-toast-vi="Đã thêm job render vào Trung tâm tác vụ" data-toast-kind="success" data-testid="dlg-render-confirm"><span lang="en">Render</span><span lang="vi">Render</span></button></div>
+  </div>
+</div>
+
+<div class="scrim" id="dlg-add-links" data-testid="dlg-add-links">
+  <div class="dialog wide" role="dialog" aria-label="Add media links">
+    <div class="dialog-head"><svg class="icon lg"><use href="#i-link"/></svg><h2><span lang="en">Add media links</span><span lang="vi">Thêm liên kết media</span></h2><button class="btn ghost icon" data-close aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button></div>
+    <div class="dialog-body col" style="gap:var(--sp-md)">
+      <div class="field"><label><span lang="en">One link per line</span><span lang="vi">Mỗi dòng một liên kết</span></label><textarea class="textarea" rows="3" style="font-family:var(--font-mono)">https://www.youtube.com/watch?v=pN7xQ2rLk0s
+https://soundcloud.com/hanlap-studio/thanh-van-mon-theme
+https://novel-reader.example/book/fanren/chapter-12</textarea></div>
+      <div class="table-wrap"><table class="table"><thead><tr><th><span lang="en">Detected</span><span lang="vi">Nhận diện</span></th><th class="num"><span lang="en">Length</span><span lang="vi">Độ dài</span></th><th><span lang="en">Download</span><span lang="vi">Tải về</span></th><th></th></tr></thead><tbody>
+        <tr><td>YouTube · <span lang="en">Phàm Nhân trailer (own channel)</span><span lang="vi">Trailer Phàm Nhân (kênh của bạn)</span></td><td class="num">01:58</td><td><div class="row" style="gap:6px"><label class="check"><input type="checkbox" checked>MP4</label><label class="check"><input type="checkbox" checked><span lang="en">Audio</span><span lang="vi">Âm thanh</span></label><label class="check"><input type="checkbox" checked>SRT</label><label class="check"><input type="checkbox">JSON</label></div></td><td><span class="pill success"><span lang="en">Ready</span><span lang="vi">Sẵn sàng</span></span></td></tr>
+        <tr><td>SoundCloud · Thanh Vân Môn theme</td><td class="num">03:24</td><td><div class="row" style="gap:6px"><label class="check"><input type="checkbox" checked><span lang="en">Audio</span><span lang="vi">Âm thanh</span></label><label class="check"><input type="checkbox" checked>JSON</label></div></td><td><span class="pill success"><span lang="en">Ready</span><span lang="vi">Sẵn sàng</span></span></td></tr>
+        <tr><td class="snippet" style="max-width:280px">novel-reader.example/book/fanren/chapter-12</td><td class="num">—</td><td class="meta"><span lang="en">Novel text page</span><span lang="vi">Trang chữ truyện</span></td><td><span class="pill danger"><span lang="en">Blocked</span><span lang="vi">Bị chặn</span></span></td></tr>
+      </tbody></table></div>
+      <div class="callout warning"><svg class="icon"><use href="#i-alert-triangle"/></svg><div><span lang="en">Links to novel text are never downloaded. Import novels from local files in the Library.</span><span lang="vi">Liên kết tới chữ truyện không bao giờ được tải. Hãy nhập truyện từ tệp cục bộ trong Thư viện.</span></div></div>
+      <label class="check"><input type="checkbox" checked><span lang="en">I own these media or have the rights to use them</span><span lang="vi">Tôi sở hữu hoặc có quyền sử dụng các media này</span></label>
+    </div>
+    <div class="dialog-foot"><button class="btn" data-close><span lang="en">Cancel</span><span lang="vi">Huỷ</span></button><button class="btn primary" data-close data-toast="2 links added to the download queue" data-toast-vi="Đã thêm 2 liên kết vào hàng đợi tải" data-toast-kind="success" data-testid="dlg-add-links-confirm"><span lang="en">Add 2 to the queue</span><span lang="vi">Thêm 2 vào hàng đợi</span></button></div>
+  </div>
+</div>
+
+<!-- ================= prototype drawer (not part of the product) ================= -->
+<aside class="proto-drawer" data-testid="proto-drawer">
+  <div class="panel-head"><h3>Prototype · <span lang="en">screens & notes</span><span lang="vi">màn hình & ghi chú</span></h3><button class="btn ghost icon" data-drawer-close aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button></div>
+  <div class="panel-body">
+    <div class="row" style="margin-bottom:var(--sp-md)"><div class="segmented"><button data-set-lang="vi" aria-pressed="false">VI</button><button data-set-lang="en" aria-pressed="true">EN</button></div><div class="segmented"><button data-set-theme="light"><span lang="en">Light</span><span lang="vi">Sáng</span></button><button data-set-theme="dark" aria-pressed="true"><span lang="en">Dark</span><span lang="vi">Tối</span></button><button data-set-theme="system"><span lang="en">System</span><span lang="vi">Hệ thống</span></button></div></div>
+    <div class="screens">
+      <div class="group"><span lang="en">Library</span><span lang="vi">Thư viện</span></div>
+      <a href="#home" data-screen="home" data-go="home"><span><span lang="en">Home / first launch</span><span lang="vi">Trang chủ / lần đầu</span></span><code>TH-01</code></a>
+      <a href="#library" data-screen="library" data-go="library"><span><span lang="en">Library</span><span lang="vi">Thư viện</span></span><code>TH-02</code></a>
+      <a href="#import" data-screen="import" data-go="import"><span><span lang="en">Import novel</span><span lang="vi">Nhập truyện</span></span><code>TH-02</code></a>
+      <div class="group"><span lang="en">Workspace</span><span lang="vi">Không gian làm việc</span></div>
+      <a href="#reader" data-screen="reader" data-go="reader"><span><span lang="en">Content · reader &amp; source editor</span><span lang="vi">Nội dung · đọc &amp; sửa nguồn</span></span><code>TH-02</code></a>
+      <a href="#storyworld" data-screen="storyworld" data-go="storyworld"><span><span lang="en">Omniscient</span><span lang="vi">Toàn tri</span></span><code>TH-04</code></a>
+      <a href="#translation" data-screen="translation" data-go="translation"><span><span lang="en">Translation review</span><span lang="vi">Rà soát bản dịch</span></span><code>TH-05</code></a>
+      <a href="#storychat" data-screen="storychat" data-go="storychat"><span><span lang="en">Story chat</span><span lang="vi">Hỏi đáp truyện</span></span><code>TH-09</code></a>
+      <div class="group"><span lang="en">Media</span><span lang="vi">Media</span></div>
+      <a href="#voicelab" data-screen="voicelab" data-go="voicelab"><span><span lang="en">Voice Lab</span><span lang="vi">Phòng giọng nói</span></span><code>TH-07</code></a>
+      <a href="#pronunciation" data-screen="pronunciation" data-go="pronunciation"><span><span lang="en">Pronunciation</span><span lang="vi">Từ điển phát âm</span></span><code>TH-07</code></a>
+      <a href="#assets" data-screen="assets" data-go="assets"><span><span lang="en">Media Assets</span><span lang="vi">Kho tài nguyên</span></span><code>TH-06</code></a>
+      <a href="#sound" data-screen="sound" data-go="sound"><span><span lang="en">Sound and Music</span><span lang="vi">Âm thanh &amp; nhạc</span></span><code>TH-10</code></a>
+      <div class="group"><span lang="en">Production</span><span lang="vi">Sản xuất</span></div>
+      <a href="#audiobook" data-screen="audiobook" data-go="audiobook"><span><span lang="en">Audiobook · finishing</span><span lang="vi">Sách nói · hoàn thiện</span></span><code>TH-07</code></a>
+      <a href="#film" data-screen="film" data-go="film"><span><span lang="en">Film Series</span><span lang="vi">Phim bộ</span></span><code>TH-08</code></a>
+      <a href="#videoeditor" data-screen="videoeditor" data-go="videoeditor"><span><span lang="en">Video editor</span><span lang="vi">Dựng video</span></span><code>TH-14</code></a>
+      <div class="group"><span lang="en">Distribution</span><span lang="vi">Phân phối</span></div>
+      <a href="#inbox" data-screen="inbox" data-go="inbox"><span><span lang="en">Media inbox</span><span lang="vi">Hộp thư media</span></span><code>TH-11</code></a>
+      <a href="#publishing" data-screen="publishing" data-go="publishing"><span><span lang="en">Publishing</span><span lang="vi">Xuất bản &amp; kênh</span></span><code>TH-12</code></a>
+      <div class="group"><span lang="en">System</span><span lang="vi">Hệ thống</span></div>
+      <a href="#tasks" data-screen="tasks" data-go="tasks"><span><span lang="en">Task Center</span><span lang="vi">Trung tâm tác vụ</span></span><code>TH-01</code></a>
+      <a href="#settings" data-screen="settings" data-go="settings"><span><span lang="en">Settings</span><span lang="vi">Cài đặt</span></span><code>TH-03 · TH-13</code></a>
+      <div class="group"><span lang="en">Reference</span><span lang="vi">Tham chiếu</span></div>
+      <a href="#components" data-screen="components" data-go="components"><span><span lang="en">Components</span><span lang="vi">Thành phần</span></span><code>ref</code></a>
+    </div>
+    <div class="divider"></div>
+    <h4><span lang="en">Notes for this screen</span><span lang="vi">Ghi chú cho màn hình này</span></h4>
+    <div class="notes"></div>
+    <div class="divider"></div>
+    <p class="meta"><span lang="en">Design system:</span><span lang="vi">Hệ thống thiết kế:</span> <a href="../docs/0.design-system.html">0.design-system.html</a> · <span lang="en">Requirements:</span><span lang="vi">Yêu cầu:</span> <a href="../docs/0.high-level-requirements.html">HLR</a></p>
+  </div>
+</aside>
+
+<script src="app.js"></script>
+</body>
+</html>

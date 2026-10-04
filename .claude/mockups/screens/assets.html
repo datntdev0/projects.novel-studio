@@ -1,0 +1,184 @@
+  <!-- ================= screen: assets (TH-06 · M10) ================= -->
+  <section class="screen" id="assets" data-title="Media Assets" data-layout="">
+    <aside class="panel left" data-testid="as-left">
+      <div class="panel-head"><h3><span lang="en">Assets</span><span lang="vi">Tài nguyên</span></h3><button class="btn ghost icon" data-toggle-panel="left" title="Collapse (Ctrl+B)"><svg class="icon"><use href="#i-panel-left"/></svg></button></div>
+      <div class="panel-body">
+        <div class="panel-section">
+          <select class="select" data-testid="as-novel"><option data-opt-en="All novels" data-opt-vi="Tất cả truyện">All novels</option><option selected>凡人修仙传 · Phàm Nhân Tu Tiên</option><option>斗破苍穹 · Đấu Phá Thương Khung</option><option>庆余年 · Khánh Dư Niên</option></select>
+        </div>
+        <div class="panel-section">
+          <div class="list" data-select-group data-testid="as-entities">
+            <a class="list-item compact" data-select data-testid="as-entity-all"><svg class="icon"><use href="#i-image"/></svg><span class="text"><span lang="en">All assets</span><span lang="vi">Tất cả tài nguyên</span></span><span class="n">1,284</span></a>
+            <h4 style="padding:var(--sp-sm) var(--sp-sm) 2px"><span lang="en">Characters</span><span lang="vi">Nhân vật</span></h4>
+            <a class="list-item compact selected" data-select data-testid="as-entity-han-lap"><span class="type-dot character"></span><span class="text">韩立 · Hàn Lập</span><span class="n">24</span></a>
+            <a class="list-item compact" data-select><span class="type-dot character"></span><span class="text">墨大夫 · Mặc Đại Phu</span><span class="n">11</span></a>
+            <a class="list-item compact" data-select><span class="type-dot character"></span><span class="text">厉飞雨 · Lệ Phi Vũ</span><span class="n">8</span></a>
+            <a class="list-item compact" data-select><span class="type-dot character"></span><span class="text">张铁 · Trương Thiết</span><span class="n">5</span></a>
+            <h4 style="padding:var(--sp-sm) var(--sp-sm) 2px"><span lang="en">Places</span><span lang="vi">Địa điểm</span></h4>
+            <a class="list-item compact" data-select><span class="type-dot place"></span><span class="text">彩霞山 · Thải Hà Sơn</span><span class="n">6</span></a>
+            <a class="list-item compact" data-select><span class="type-dot place"></span><span class="text">药园 · vườn thuốc</span><span class="n">7</span></a>
+            <h4 style="padding:var(--sp-sm) var(--sp-sm) 2px"><span lang="en">Organisations</span><span lang="vi">Tổ chức</span></h4>
+            <a class="list-item compact" data-select><span class="type-dot org"></span><span class="text">七玄门 · Thất Huyền Môn</span><span class="n">9</span></a>
+            <h4 style="padding:var(--sp-sm) var(--sp-sm) 2px"><span lang="en">Props</span><span lang="vi">Vật phẩm</span></h4>
+            <a class="list-item compact" data-select><span class="type-dot term"></span><span class="text"><span lang="en">Green jade bottle</span><span lang="vi">Bình ngọc xanh</span></span><span class="n">3</span></a>
+          </div>
+        </div>
+        <div class="panel-section">
+          <h4><span lang="en">Type</span><span lang="vi">Loại</span></h4>
+          <div class="chips" style="padding:0 var(--sp-sm)" data-testid="as-types">
+            <button type="button" class="chip" data-toggle aria-pressed="true">IMG <span class="n">612</span></button>
+            <button type="button" class="chip" data-toggle aria-pressed="false">VOICE <span class="n">148</span></button>
+            <button type="button" class="chip" data-toggle aria-pressed="false">AUDIO <span class="n">96</span></button>
+            <button type="button" class="chip" data-toggle aria-pressed="false">VIDEO <span class="n">41</span></button>
+            <button type="button" class="chip" data-toggle aria-pressed="false">PROP <span class="n">83</span></button>
+            <button type="button" class="chip" data-toggle aria-pressed="false">BG <span class="n">127</span></button>
+            <button type="button" class="chip" data-toggle aria-pressed="false">PROMPT <span class="n">139</span></button>
+            <button type="button" class="chip" data-toggle aria-pressed="false">REF <span class="n">38</span></button>
+          </div>
+        </div>
+        <div class="panel-section">
+          <h4><span lang="en">Status</span><span lang="vi">Trạng thái</span></h4>
+          <div class="segmented" style="margin:0 var(--sp-sm)" data-select-group data-testid="as-status">
+            <button data-select aria-pressed="true"><span lang="en">All</span><span lang="vi">Tất cả</span></button>
+            <button data-select aria-pressed="false"><span lang="en">Approved</span><span lang="vi">Đã duyệt</span></button>
+            <button data-select aria-pressed="false"><span lang="en">Needs review</span><span lang="vi">Cần xem</span></button>
+            <button data-select aria-pressed="false"><span lang="en">Rejected</span><span lang="vi">Từ chối</span></button>
+          </div>
+        </div>
+        <div class="panel-section">
+          <div class="callout warning" data-testid="as-folder-check"><svg class="icon"><use href="#i-alert-triangle"/></svg><div><span lang="en">3 files changed outside the app · 1 missing</span><span lang="vi">3 tệp bị đổi ngoài ứng dụng · 1 tệp thiếu</span></div></div>
+          <div style="padding:var(--sp-sm) 0 0"><button class="btn sm" data-action="rescan" data-testid="as-rescan"><svg class="icon sm"><use href="#i-retry"/></svg><span lang="en">Rescan</span><span lang="vi">Quét lại</span></button></div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="workspace" data-testid="as-workspace">
+      <div class="ws-toolbar">
+        <h2>Hàn Lập <span class="meta">· <span lang="en">24 assets · 3 canonical</span><span lang="vi">24 tài nguyên · 3 chuẩn</span></span></h2>
+        <span class="spacer"></span>
+        <div class="search" style="width:140px;flex:none"><svg class="icon"><use href="#i-search"/></svg><input class="input" placeholder="Search assets…" data-ph-en="Search assets…" data-ph-vi="Tìm tài nguyên…" data-testid="as-search"></div>
+        <div class="btn-group" data-view-for="#as-grid" data-testid="as-view"><button class="btn sm icon" data-view="grid" aria-pressed="true" title="Grid" data-testid="as-view-grid"><svg class="icon sm"><use href="#i-grid"/></svg></button><button class="btn sm icon" data-view="list" aria-pressed="false" title="List" data-testid="as-view-list"><svg class="icon sm"><use href="#i-list"/></svg></button></div>
+        <button class="btn sm icon" title="Import…" data-action="choose-folder" data-testid="as-import"><svg class="icon sm"><use href="#i-download"/></svg></button>
+        <button class="btn primary sm" data-toast="4 image variants added to the Task Center" data-toast-vi="Đã thêm 4 biến thể ảnh vào Trung tâm tác vụ" data-toast-kind="success" data-testid="as-generate"><svg class="icon sm"><use href="#i-sparkles"/></svg><span lang="en">Generate variants</span><span lang="vi">Tạo biến thể</span></button>
+      </div>
+      <div class="ws-body">
+        <div class="asset-grid" id="as-grid" data-select-group data-testid="as-grid">
+          <div class="asset-tile selected" data-select data-testid="as-tile-1"><div class="thumb portrait" style="--c:var(--color-primary)"><span class="cjk">韩立</span><span class="corner nw"><span class="type-badge">img</span></span><span class="corner ne"><span class="type-badge canon"><svg class="icon"><use href="#i-star"/></svg><span lang="en">canonical</span><span lang="vi">chuẩn</span></span></span><span class="corner se"><span class="type-badge mono">v3</span></span></div><div class="name"><span lang="en">Hàn Lập · portrait</span><span lang="vi">Hàn Lập · chân dung</span></div><div class="sub"><span class="pill success"><span lang="en">Approved</span><span lang="vi">Đã duyệt</span></span><span><span lang="en">4 uses</span><span lang="vi">4 lượt dùng</span></span></div></div>
+          <div class="asset-tile" data-select data-testid="as-tile-2"><div class="thumb portrait" style="--c:var(--color-link)"><span class="cjk">韩立</span><span class="corner nw"><span class="type-badge">img</span></span><span class="corner se"><span class="type-badge mono">v4</span></span></div><div class="name"><span lang="en">Hàn Lập · portrait</span><span lang="vi">Hàn Lập · chân dung</span></div><div class="sub"><span class="pill warning"><span lang="en">Needs review</span><span lang="vi">Cần xem</span></span></div></div>
+          <div class="asset-tile rejected" data-select data-testid="as-tile-3"><div class="thumb portrait" style="--c:var(--color-danger)"><span class="cjk">韩立</span><span class="corner nw"><span class="type-badge">img</span></span><span class="corner se"><span class="type-badge mono">v2</span></span></div><div class="name"><span lang="en">Hàn Lập · portrait</span><span lang="vi">Hàn Lập · chân dung</span></div><div class="sub"><span class="pill danger"><span lang="en">Rejected</span><span lang="vi">Từ chối</span></span></div></div>
+          <div class="asset-tile" data-select data-testid="as-tile-4"><div class="thumb portrait" style="--c:var(--color-primary)"><svg class="icon"><use href="#i-sparkles"/></svg><span class="corner nw"><span class="type-badge">img</span></span><span class="corner ne"><span class="type-badge mono">v5</span></span><span class="progress indeterminate"><i></i></span></div><div class="name"><span lang="en">Hàn Lập · portrait</span><span lang="vi">Hàn Lập · chân dung</span></div><div class="sub"><span class="pill running"><span lang="en">Generating</span><span lang="vi">Đang tạo</span></span></div></div>
+          <div class="asset-tile" data-select data-testid="as-tile-5"><div class="thumb portrait" style="--c:var(--color-warning)"><span class="cjk">七玄</span><span class="corner nw"><span class="type-badge">img</span></span><span class="corner ne"><span class="type-badge canon"><svg class="icon"><use href="#i-star"/></svg><span lang="en">canonical</span><span lang="vi">chuẩn</span></span></span><span class="corner se"><span class="type-badge mono">v1</span></span></div><div class="name"><span lang="en">Full body · Thất Huyền Môn robe</span><span lang="vi">Toàn thân · áo đệ tử Thất Huyền Môn</span></div><div class="sub"><span class="pill success"><span lang="en">Approved</span><span lang="vi">Đã duyệt</span></span></div></div>
+          <div class="asset-tile" data-select data-testid="as-tile-6"><div class="thumb square" style="--c:var(--color-primary)"><span class="wave" data-wave="7" data-played="35"></span><span class="corner nw"><span class="type-badge">voice</span></span><span class="corner ne"><span class="type-badge canon"><svg class="icon"><use href="#i-star"/></svg><span lang="en">canonical</span><span lang="vi">chuẩn</span></span></span><span class="corner se"><span class="type-badge mono">0:12</span></span></div><div class="name"><span lang="en">Hàn Lập · young</span><span lang="vi">Hàn Lập · thiếu niên</span></div><div class="sub"><span class="pill success"><span lang="en">Approved</span><span lang="vi">Đã duyệt</span></span></div></div>
+          <div class="asset-tile" data-select data-testid="as-tile-7"><div class="thumb square" style="--c:var(--color-link)"><span class="wave" data-wave="13"></span><span class="corner nw"><span class="type-badge">voice</span></span><span class="corner se"><span class="type-badge mono">0:09</span></span></div><div class="name"><span lang="en">Hàn Lập · mature</span><span lang="vi">Hàn Lập · trưởng thành</span></div><div class="sub"><span class="pill warning"><span lang="en">Needs review</span><span lang="vi">Cần xem</span></span></div></div>
+          <div class="asset-tile" data-select data-testid="as-tile-8"><div class="thumb"><svg class="icon"><use href="#i-type"/></svg><span class="corner nw"><span class="type-badge">prompt</span></span></div><div class="name"><span lang="en">Prompt · cultivator robe</span><span lang="vi">Prompt · áo tu sĩ</span></div><div class="sub"><span class="pill success"><span lang="en">Approved</span><span lang="vi">Đã duyệt</span></span></div></div>
+          <div class="asset-tile" data-select data-testid="as-tile-9"><div class="thumb"><svg class="icon"><use href="#i-file"/></svg><span class="corner nw"><span class="type-badge">ref</span></span></div><div class="name">Concept sheet.pdf</div><div class="sub"><span class="pill success"><span lang="en">Approved</span><span lang="vi">Đã duyệt</span></span></div></div>
+          <div class="asset-tile missing" data-select data-testid="as-tile-10"><div class="thumb" style="--c:var(--color-warning)"><svg class="icon"><use href="#i-image"/></svg><span class="corner nw"><span class="type-badge">bg</span></span></div><div class="name"><span lang="en">Night garden · background</span><span lang="vi">Vườn đêm · phông nền</span></div><div class="sub"><span class="pill danger"><span lang="en">File missing</span><span lang="vi">Thiếu tệp</span></span></div></div>
+        </div>
+      </div>
+    </main>
+
+    <aside class="panel right" data-testid="as-right" data-tab-scope>
+      <div class="panel-head">
+        <div class="panel-tabs" data-tabs role="tablist">
+          <button role="tab" data-tab="details" aria-selected="true" data-testid="as-tab-details"><span lang="en">Details</span><span lang="vi">Chi tiết</span></button>
+          <button role="tab" data-tab="generation" aria-selected="false" data-testid="as-tab-generation"><span lang="en">Generation</span><span lang="vi">Tạo sinh</span></button>
+          <button role="tab" data-tab="usage" aria-selected="false" data-testid="as-tab-usage"><span lang="en">Usage</span><span lang="vi">Sử dụng</span></button>
+        </div>
+        <button class="btn ghost icon" data-toggle-panel="right" title="Collapse (Ctrl+Alt+B)"><svg class="icon"><use href="#i-panel-right"/></svg></button>
+      </div>
+
+      <div class="panel-body active" data-pane="details" data-testid="as-pane-details">
+        <div class="thumb portrait" style="--c:var(--color-primary);width:100%;max-width:180px;margin:0 auto var(--sp-sm)"><span class="cjk">韩立</span><span class="corner ne"><span class="type-badge canon"><svg class="icon"><use href="#i-star"/></svg><span lang="en">canonical</span><span lang="vi">chuẩn</span></span></span></div>
+        <div class="row between" style="flex-wrap:nowrap;padding:0 var(--sp-xs)"><div class="name truncate" style="font-weight:600"><span lang="en">Hàn Lập · portrait</span><span lang="vi">Hàn Lập · chân dung</span></div><button class="btn ghost sm icon" title="Rename"><svg class="icon sm"><use href="#i-pencil"/></svg></button></div>
+        <dl class="kv" style="padding:var(--sp-xs)" data-testid="as-meta">
+          <dt><span lang="en">Type</span><span lang="vi">Loại</span></dt><dd><span lang="en">Image</span><span lang="vi">Ảnh</span> · PNG · 1024 × 1365</dd>
+          <dt><span lang="en">Version</span><span lang="vi">Phiên bản</span></dt><dd><span lang="en">v3 of 5</span><span lang="vi">v3 trên 5</span></dd>
+          <dt><span lang="en">Source</span><span lang="vi">Nguồn</span></dt><dd><span lang="en">Generated</span><span lang="vi">Tạo sinh</span> · SDXL 1.0 · local · 2026-09-30</dd>
+          <dt><span lang="en">Licence</span><span lang="vi">Giấy phép</span></dt><dd><span lang="en">Own · generated</span><span lang="vi">Tự có · tạo sinh</span></dd>
+          <dt><span lang="en">Approval</span><span lang="vi">Duyệt</span></dt><dd><span lang="en">Approved</span><span lang="vi">Đã duyệt</span> · 2026-10-01 · <span lang="en">“matches the ch 0004 description”</span><span lang="vi">“khớp mô tả ở ch 0004”</span></dd>
+          <dt><span lang="en">File</span><span lang="vi">Tệp</span></dt><dd><code>novels\n-0001\assets\han-lap\portrait-v3.png</code></dd>
+        </dl>
+        <div class="panel-section">
+          <h4><span lang="en">Bound to</span><span lang="vi">Gắn với</span></h4>
+          <div class="chips" style="padding:0 var(--sp-sm)"><span class="chip"><span class="type-dot character"></span>Hàn Lập <span class="n"><span lang="en">character</span><span lang="vi">nhân vật</span></span></span></div>
+        </div>
+        <div class="panel-section" data-testid="as-allowed">
+          <h4><span lang="en">Allowed variants downstream</span><span lang="vi">Biến thể được dùng ở khâu sau</span></h4>
+          <div class="col" style="padding:0 var(--sp-sm)">
+            <label class="check"><input type="checkbox" checked><span>v3</span> <span class="meta"><span lang="en">portrait</span><span lang="vi">chân dung</span></span></label>
+            <label class="check"><input type="checkbox" checked><span lang="en">Full body v1</span><span lang="vi">Toàn thân v1</span></label>
+            <label class="check"><input type="checkbox"><span>v4</span> <span class="meta"><span lang="en">portrait · needs review</span><span lang="vi">chân dung · cần xem</span></span></label>
+          </div>
+        </div>
+      </div>
+      <div class="panel-foot active" data-pane="details" data-testid="as-foot-details">
+          <div class="row" style="gap:4px">
+            <button class="btn sm" disabled data-testid="as-approve"><svg class="icon sm"><use href="#i-check"/></svg><span lang="en">Approve</span><span lang="vi">Duyệt</span></button>
+            <button class="btn sm" data-toast="Asset rejected" data-toast-vi="Đã từ chối tài nguyên" data-toast-kind="warning" data-testid="as-reject"><svg class="icon sm"><use href="#i-x"/></svg><span lang="en">Reject</span><span lang="vi">Từ chối</span></button>
+            <button class="btn sm" data-toast="Duplicated as v6" data-toast-vi="Đã nhân bản thành v6" data-toast-kind="success" data-testid="as-duplicate"><svg class="icon sm"><use href="#i-copy"/></svg><span lang="en">Duplicate</span><span lang="vi">Nhân bản</span></button>
+            <button class="btn ghost sm danger" data-open="dlg-delete" data-testid="as-delete"><svg class="icon sm"><use href="#i-trash"/></svg><span lang="en">Delete</span><span lang="vi">Xoá</span></button>
+          </div>
+          <div class="row" style="gap:4px">
+            <button class="btn ghost sm" data-action="choose-folder" data-testid="as-open-folder"><svg class="icon sm"><use href="#i-folder"/></svg><span lang="en">Open folder</span><span lang="vi">Mở thư mục</span></button>
+            <button class="btn ghost sm" data-toast="Exported portrait-v3.png with metadata" data-toast-vi="Đã xuất portrait-v3.png kèm metadata" data-toast-kind="success" data-testid="as-export"><svg class="icon sm"><use href="#i-upload"/></svg><span lang="en">Export with metadata</span><span lang="vi">Xuất kèm metadata</span></button>
+            <button class="btn ghost sm" data-toast="Copied to the chosen novel with metadata" data-toast-vi="Đã sao chép sang truyện đã chọn kèm metadata" data-toast-kind="success" data-testid="as-copy"><svg class="icon sm"><use href="#i-copy"/></svg><span lang="en">Copy to novel…</span><span lang="vi">Sao chép sang truyện…</span></button>
+          </div>
+      </div>
+
+      <div class="panel-body" data-pane="generation" data-testid="as-pane-generation">
+        <div class="col" style="gap:var(--sp-md)">
+          <div class="field"><label><span lang="en">Preset</span><span lang="vi">Mẫu cài sẵn</span></label><select class="select" data-testid="as-preset"><option>Tu tiên cổ phong · thiếu niên</option><option>Tu tiên cổ phong · trưởng thành</option></select></div>
+          <div class="field"><label><span lang="en">Prompt</span><span lang="vi">Prompt</span></label><textarea class="textarea" rows="4" data-testid="as-prompt">thiếu niên 16 tuổi, tóc đen buộc gọn, áo xanh đệ tử Thất Huyền Môn, ánh mắt bình tĩnh, tranh thủy mặc</textarea></div>
+          <div class="field"><label><span lang="en">Negative prompt</span><span lang="vi">Prompt phủ định</span></label><textarea class="textarea" rows="2" data-testid="as-negative">hiện đại, kính, chữ</textarea></div>
+          <div class="field" data-testid="as-locked">
+            <label><span lang="en">Locked identity</span><span lang="vi">Đặc điểm khoá</span></label>
+            <div class="row between" style="flex-wrap:nowrap"><span class="chip"><span lang="en">black tied hair</span><span lang="vi">tóc đen buộc gọn</span></span><button class="tog" data-toggle aria-pressed="true" title="Locked"><svg class="icon"><use href="#i-lock"/></svg></button></div>
+            <div class="row between" style="flex-wrap:nowrap"><span class="chip"><span lang="en">sect robe</span><span lang="vi">áo đệ tử môn phái</span></span><button class="tog" data-toggle aria-pressed="true" title="Locked"><svg class="icon"><use href="#i-lock"/></svg></button></div>
+            <div class="row between" style="flex-wrap:nowrap"><span class="chip"><span lang="en">narrow eyes</span><span lang="vi">mắt hẹp</span></span><button class="tog" data-toggle aria-pressed="true" title="Locked"><svg class="icon"><use href="#i-lock"/></svg></button></div>
+          </div>
+          <div class="field"><label><span lang="en">Model</span><span lang="vi">Mô hình</span></label><select class="select" data-testid="as-model"><option>SDXL 1.0 · local</option></select></div>
+          <div class="field"><label>Seed</label><div class="row" style="flex-wrap:nowrap"><input class="input mono" value="771024" data-testid="as-seed"><button class="tog" data-toggle aria-pressed="true" title="Lock seed"><svg class="icon"><use href="#i-lock"/></svg></button></div></div>
+          <div class="mix-row" style="grid-template-columns:minmax(72px,112px) minmax(0,1fr) 52px"><span class="name"><span lang="en">Steps</span><span lang="vi">Số bước</span></span><input class="range" type="range" min="10" max="60" value="30" data-output="as-steps"><span class="num" data-value="as-steps">30</span></div>
+          <div class="mix-row" style="grid-template-columns:minmax(72px,112px) minmax(0,1fr) 52px"><span class="name"><span lang="en">Guidance</span><span lang="vi">Độ bám prompt</span></span><input class="range" type="range" min="1" max="12" step="0.5" value="6.5" data-output="as-guidance"><span class="num" data-value="as-guidance">6.5</span></div>
+          <button class="btn primary sm" data-toast="4 image variants added to the Task Center" data-toast-vi="Đã thêm 4 biến thể ảnh vào Trung tâm tác vụ" data-toast-kind="success" data-testid="as-generate-4"><svg class="icon sm"><use href="#i-sparkles"/></svg><span lang="en">Generate 4 variants</span><span lang="vi">Tạo 4 biến thể</span></button>
+        </div>
+      </div>
+
+      <div class="panel-body" data-pane="usage" data-testid="as-pane-usage">
+        <div class="list" data-testid="as-usage">
+          <a class="list-item" data-go="audiobook" data-testid="as-usage-audiobook"><svg class="icon"><use href="#i-headphones"/></svg><span class="text"><span lang="en">Audiobook · cover ch 0001–0012</span><span lang="vi">Sách nói · bìa ch 0001–0012</span></span></a>
+          <a class="list-item" data-go="film" data-testid="as-usage-film"><svg class="icon"><use href="#i-film"/></svg><span class="text"><span lang="en">Film Series · Tập 01 shot S1·02</span><span lang="vi">Phim bộ · Tập 01 cảnh S1·02</span></span></a>
+          <a class="list-item" data-go="videoeditor" data-testid="as-usage-videoeditor"><svg class="icon"><use href="#i-video"/></svg><span class="text"><span lang="en">Video editor · Tập 01 · 9:16</span><span lang="vi">Dựng video · Tập 01 · 9:16</span></span></a>
+          <a class="list-item" data-go="publishing" data-testid="as-usage-publishing"><svg class="icon"><use href="#i-send"/></svg><span class="text"><span lang="en">Publishing · thumbnail Tập 01</span><span lang="vi">Xuất bản · thumbnail Tập 01</span></span></a>
+        </div>
+      </div>
+    </aside>
+
+    <aside class="panel bottom" data-testid="as-bottom">
+      <div class="panel-head"><h3><span lang="en">Compare variants</span><span lang="vi">So sánh biến thể</span> <span class="meta">· Hàn Lập · <span lang="en">portrait</span><span lang="vi">chân dung</span></span></h3><button class="btn sm" data-toast="v4 approved as a variant of Hàn Lập" data-toast-vi="Đã duyệt v4 làm biến thể của Hàn Lập" data-toast-kind="success" data-testid="as-approve-v4"><span lang="en">Approve v4</span><span lang="vi">Duyệt v4</span></button><button class="btn sm danger" data-toast="v4 rejected" data-toast-vi="Đã từ chối v4" data-toast-kind="warning" data-testid="as-reject-v4"><span lang="en">Reject v4</span><span lang="vi">Từ chối v4</span></button><button class="btn ghost icon" data-toggle-panel="bottom" title="Collapse (Ctrl+J)"><svg class="icon"><use href="#i-panel-bottom"/></svg></button></div>
+      <div class="panel-body">
+        <div class="row" style="align-items:flex-start;gap:var(--sp-md);flex-wrap:nowrap" data-testid="as-compare">
+          <div class="col" style="gap:4px;width:92px;flex:none"><div class="thumb portrait" style="--c:var(--color-primary);width:88px"><span class="cjk">韩立</span></div><div><b>v3</b> <span class="type-badge canon"><svg class="icon"><use href="#i-star"/></svg></span></div><span class="pill success">3/3 <span lang="en">traits</span><span lang="vi">đặc điểm</span></span></div>
+          <div class="col" style="gap:4px;width:92px;flex:none"><div class="thumb portrait" style="--c:var(--color-link);width:88px"><span class="cjk">韩立</span></div><div><b>v4</b></div><span class="pill success">3/3 <span lang="en">traits</span><span lang="vi">đặc điểm</span></span></div>
+          <div class="col" style="gap:4px;width:92px;flex:none"><div class="thumb portrait" style="--c:var(--color-primary);width:88px"><svg class="icon"><use href="#i-sparkles"/></svg><span class="progress indeterminate"><i></i></span></div><div><b>v5</b></div><span class="pill running"><span lang="en">Generating</span><span lang="vi">Đang tạo</span></span></div>
+          <div class="col" style="gap:4px;width:92px;flex:none"><div class="thumb portrait" style="--c:var(--color-danger);width:88px"><span class="cjk">韩立</span></div><div><b>v2</b></div><span class="pill warning"><span lang="en">hair differs</span><span lang="vi">tóc khác</span></span></div>
+          <div class="callout info grow" style="min-width:140px"><svg class="icon"><use href="#i-info"/></svg><div><span lang="en">Consistency is checked against the locked identity traits before approval.</span><span lang="vi">Độ nhất quán được kiểm tra theo các đặc điểm danh tính đã khoá trước khi duyệt.</span></div></div>
+        </div>
+      </div>
+    </aside>
+
+    <aside class="annotations"><ol>
+      <li lang="en"><span class="ac">M10-F01</span> Catalog filtered by novel, entity, type and status; previews per type (image thumb, waveform for voices, icons for prompts and references); grid / list.</li>
+      <li lang="vi"><span class="ac">M10-F01</span> Danh mục lọc theo truyện, thực thể, loại và trạng thái; xem trước theo loại (ảnh thu nhỏ, dạng sóng cho giọng, biểu tượng cho prompt và tham chiếu); dạng lưới / danh sách.</li>
+      <li lang="en"><span class="ac">M10-F02</span> Each asset binds to entities; the star marks the canonical asset; allowed variants are chosen for downstream projects; Usage lists every audiobook, episode, edit and release using it.</li>
+      <li lang="vi"><span class="ac">M10-F02</span> Mỗi tài nguyên gắn với thực thể; ngôi sao đánh dấu tài nguyên chuẩn; biến thể được phép dùng ở khâu sau do người dùng chọn; tab Sử dụng liệt kê mọi sách nói, tập phim, bản dựng và bản phát hành đang dùng nó.</li>
+      <li lang="en"><span class="ac">M10-F03</span> Generation tab stores prompt, negative prompt, preset, model, seed and parameters; locked identity traits keep results consistent.</li>
+      <li lang="vi"><span class="ac">M10-F03</span> Tab Tạo sinh lưu prompt, prompt phủ định, mẫu cài sẵn, mô hình, seed và tham số; các đặc điểm danh tính đã khoá giữ kết quả nhất quán.</li>
+      <li lang="en"><span class="ac">M10-F04</span> Variants carry version, source, licence and approval note; the bottom panel compares variants and checks the locked traits before approval.</li>
+      <li lang="vi"><span class="ac">M10-F04</span> Biến thể có phiên bản, nguồn, giấy phép và ghi chú duyệt; panel dưới so sánh các biến thể và kiểm tra các đặc điểm đã khoá trước khi duyệt.</li>
+      <li lang="en"><span class="ac">M10-F05</span> Open folder, export with metadata, copy to another novel; the folder check flags missing and externally changed files.</li>
+      <li lang="vi"><span class="ac">M10-F05</span> Mở thư mục, xuất kèm metadata, sao chép sang truyện khác; bước kiểm tra thư mục báo tệp thiếu và tệp bị đổi bên ngoài.</li>
+      <li lang="en">1280×720: the grid keeps 150px tiles (3–4 per row); the compare strip shows four variants side by side (about 4 × 92px) and fits the 648px workspace. Model names are sample data until Q13.</li>
+      <li lang="vi">1280×720: lưới giữ ô 150px (3–4 ô mỗi hàng); dải so sánh hiện bốn biến thể cạnh nhau (khoảng 4 × 92px) và vừa vùng làm việc 648px. Tên mô hình là dữ liệu mẫu cho đến Q13.</li>
+    </ol></aside>
+  </section>

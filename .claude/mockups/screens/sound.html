@@ -1,0 +1,261 @@
+  <!-- ================= screen: sound (TH-10 · M16) ================= -->
+  <section class="screen" id="sound" data-title="Sound and Music" data-layout="" data-tab-scope>
+    <aside class="panel left" data-testid="so-left">
+      <div class="panel-head"><h3><span lang="en">Sound and Music</span><span lang="vi">Âm thanh &amp; nhạc</span></h3><button class="btn ghost icon" data-toggle-panel="left" title="Collapse (Ctrl+B)"><svg class="icon"><use href="#i-panel-left"/></svg></button></div>
+      <div class="panel-body">
+        <div class="panel-section">
+          <h4><span lang="en">Studios</span><span lang="vi">Phòng thu</span></h4>
+          <div class="list" data-tabs role="tablist" data-testid="so-studios">
+            <button type="button" class="list-item" role="tab" data-tab="library" aria-selected="true" data-testid="so-tab-library" style="width:100%;border:0;background:none;font:inherit;text-align:left"><svg class="icon"><use href="#i-library"/></svg><span class="text"><span lang="en">Library</span><span lang="vi">Thư viện</span></span></button>
+            <button type="button" class="list-item" role="tab" data-tab="ambience" aria-selected="false" data-testid="so-tab-ambience" style="width:100%;border:0;background:none;font:inherit;text-align:left"><svg class="icon"><use href="#i-waveform"/></svg><span class="text"><span lang="en">Ambience</span><span lang="vi">Âm nền</span></span></button>
+            <button type="button" class="list-item" role="tab" data-tab="song" aria-selected="false" data-testid="so-tab-song" style="width:100%;border:0;background:none;font:inherit;text-align:left"><svg class="icon"><use href="#i-music"/></svg><span class="text"><span lang="en">Song &amp; score</span><span lang="vi">Bài hát &amp; bản nhạc</span></span></button>
+            <button type="button" class="list-item" role="tab" data-tab="instruments" aria-selected="false" data-testid="so-tab-instruments" style="width:100%;border:0;background:none;font:inherit;text-align:left"><svg class="icon"><use href="#i-mic"/></svg><span class="text"><span lang="en">Instruments</span><span lang="vi">Nhạc cụ</span></span></button>
+            <button type="button" class="list-item" role="tab" data-tab="soundscape" aria-selected="false" data-testid="so-tab-soundscape" style="width:100%;border:0;background:none;font:inherit;text-align:left"><svg class="icon"><use href="#i-layers"/></svg><span class="text"><span lang="en">Soundscape</span><span lang="vi">Không gian âm thanh</span></span></button>
+          </div>
+        </div>
+        <div class="panel-section">
+          <h4><span lang="en">Collections</span><span lang="vi">Bộ sưu tập</span></h4>
+          <div class="list" data-select-group data-testid="so-collections">
+            <a class="list-item" data-select><svg class="icon"><use href="#i-folder"/></svg><span class="text"><span lang="en">All audio</span><span lang="vi">Tất cả âm thanh</span></span><span class="badge neutral">642</span></a>
+            <a class="list-item" data-select><svg class="icon"><use href="#i-music"/></svg><span class="text">BGM</span><span class="badge neutral">88</span></a>
+            <a class="list-item" data-select><svg class="icon"><use href="#i-star"/></svg><span class="text"><span lang="en">Themes</span><span lang="vi">Chủ đề</span></span><span class="badge neutral">24</span></a>
+            <a class="list-item" data-select><svg class="icon"><use href="#i-waveform"/></svg><span class="text"><span lang="en">Ambience</span><span lang="vi">Âm nền</span></span><span class="badge neutral">130</span></a>
+            <a class="list-item" data-select><svg class="icon"><use href="#i-zap"/></svg><span class="text">SFX</span><span class="badge neutral">380</span></a>
+            <a class="list-item" data-select><svg class="icon"><use href="#i-mic"/></svg><span class="text"><span lang="en">Instrument tracks</span><span lang="vi">Bản nhạc cụ</span></span><span class="badge neutral">20</span></a>
+            <a class="list-item selected" data-select data-testid="so-collection-palette"><svg class="icon"><use href="#i-book"/></svg><span class="text">凡人修仙传 · sound palette</span><span class="badge neutral">37</span></a>
+          </div>
+        </div>
+        <div class="panel-section">
+          <h4><span lang="en">Novel</span><span lang="vi">Truyện</span></h4>
+          <div style="padding:0 var(--sp-sm)"><select class="select" data-testid="so-novel-filter"><option data-opt-en="All novels" data-opt-vi="Tất cả truyện">All novels</option><option selected>凡人修仙传</option><option>斗破苍穹</option><option>庆余年</option></select></div>
+        </div>
+        <div class="panel-section">
+          <h4><span lang="en">Tags</span><span lang="vi">Thẻ</span></h4>
+          <div class="chips" style="padding:0 var(--sp-sm)" data-testid="so-tags"><button type="button" class="chip" data-toggle aria-pressed="false">cổ phong</button><button type="button" class="chip" data-toggle aria-pressed="false">đêm</button><button type="button" class="chip" data-toggle aria-pressed="true">tông môn</button><button type="button" class="chip" data-toggle aria-pressed="false">chiến đấu</button><button type="button" class="chip" data-toggle aria-pressed="false">mưa</button></div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="workspace" data-testid="so-workspace">
+      <div data-pane="library" class="active" data-testid="so-pane-library">
+        <div class="ws-toolbar">
+          <h2>凡人修仙传 · sound palette <span class="meta">· 37</span></h2>
+          <span class="spacer"></span>
+          <div class="search" style="width:150px"><svg class="icon"><use href="#i-search"/></svg><input class="input" placeholder="Search sounds…" data-ph-en="Search sounds…" data-ph-vi="Tìm âm thanh…" data-testid="so-search"></div>
+          <div class="segmented" data-select-group data-testid="so-type-filter"><button aria-pressed="true" data-select><span lang="en">All</span><span lang="vi">Tất cả</span></button><button aria-pressed="false" data-select>BGM</button><button aria-pressed="false" data-select><span lang="en">Ambience</span><span lang="vi">Âm nền</span></button><button aria-pressed="false" data-select>SFX</button></div>
+          <button class="btn ghost sm icon" data-open="dlg-import" title="Import…" data-testid="so-import"><svg class="icon sm"><use href="#i-upload"/></svg></button>
+          <button class="btn ghost sm icon" data-go="audiobook" title="Loop and master in Audiobook › Finishing" data-testid="so-send-finishing"><svg class="icon sm"><use href="#i-arrow-right"/></svg></button>
+        </div>
+        <div class="ws-body flush">
+          <div class="table-wrap">
+            <table class="table" data-testid="so-table">
+              <thead><tr><th></th><th><span lang="en">Name</span><span lang="vi">Tên</span></th><th><span lang="en">Type</span><span lang="vi">Loại</span></th><th><span lang="en">Waveform</span><span lang="vi">Dạng sóng</span></th><th class="num"><span lang="en">Duration</span><span lang="vi">Thời lượng</span></th><th><span lang="en">Linked to</span><span lang="vi">Liên kết</span></th><th class="num"><span lang="en">Uses</span><span lang="vi">Dùng</span></th></tr></thead>
+              <tbody data-select-group>
+                <tr class="selected" data-select data-testid="so-row-selected"><td><button class="play sm" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button></td><td class="truncate" style="max-width:120px">Thất Huyền Môn · <span lang="en">theme</span><span lang="vi">chủ đề</span></td><td><span class="pill info"><span lang="en">Theme</span><span lang="vi">Chủ đề</span></span></td><td><span class="wave sm" data-wave="11" style="width:80px"></span></td><td class="num" style="white-space:nowrap">2:48</td><td class="truncate" style="max-width:110px"><div class="chips" style="flex-wrap:nowrap"><span class="chip">Thất Huyền Môn</span></div></td><td class="num" style="white-space:nowrap">6</td></tr>
+                <tr data-select><td><button class="play sm" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button></td><td class="truncate" style="max-width:120px">Hàn Lập · <span lang="en">theme</span><span lang="vi">chủ đề</span></td><td><span class="pill info"><span lang="en">Theme</span><span lang="vi">Chủ đề</span></span></td><td><span class="wave sm" data-wave="23" style="width:80px"></span></td><td class="num" style="white-space:nowrap">3:05</td><td class="truncate" style="max-width:110px"><div class="chips" style="flex-wrap:nowrap"><span class="chip">Hàn Lập</span></div></td><td class="num" style="white-space:nowrap">4</td></tr>
+                <tr data-select><td><button class="play sm" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button></td><td class="truncate" style="max-width:120px">Đêm vườn thuốc · <span lang="en">backdrop</span><span lang="vi">nền</span></td><td><span class="pill success"><span lang="en">Bed</span><span lang="vi">Nền</span></span></td><td><span class="wave sm" data-wave="37" style="width:80px"></span></td><td class="num" style="white-space:nowrap"><svg class="icon sm" style="vertical-align:-2px;margin-right:4px" title="Loop"><use href="#i-repeat"/></svg>10:00</td><td class="truncate" style="max-width:110px"><div class="chips" style="flex-wrap:nowrap"><span class="chip">vườn thuốc</span></div></td><td class="num" style="white-space:nowrap">3</td></tr>
+                <tr data-select><td><button class="play sm" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button></td><td class="truncate" style="max-width:120px">Gió núi Thải Hà</td><td><span class="pill success"><span lang="en">Bed</span><span lang="vi">Nền</span></span></td><td><span class="wave sm" data-wave="41" style="width:80px"></span></td><td class="num" style="white-space:nowrap"><svg class="icon sm" style="vertical-align:-2px;margin-right:4px" title="Loop"><use href="#i-repeat"/></svg>5:00</td><td class="truncate" style="max-width:110px"><div class="chips" style="flex-wrap:nowrap"><span class="chip">Thải Hà Sơn</span></div></td><td class="num" style="white-space:nowrap">2</td></tr>
+                <tr data-select><td><button class="play sm" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button></td><td class="truncate" style="max-width:120px">Mưa trên mái ngói</td><td><span class="pill success"><span lang="en">Bed</span><span lang="vi">Nền</span></span></td><td><span class="wave sm" data-wave="53" style="width:80px"></span></td><td class="num" style="white-space:nowrap">30:00</td><td class="truncate" style="max-width:110px"><div class="chips" style="flex-wrap:nowrap"><span class="chip"><span lang="en">scene: rainy night</span><span lang="vi">cảnh: đêm mưa</span></span></div></td><td class="num" style="white-space:nowrap">1</td></tr>
+                <tr data-select><td><button class="play sm" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button></td><td class="truncate" style="max-width:120px">Tiếng ho khẽ</td><td><span class="pill warning">SFX</span></td><td><span class="wave sm" data-wave="67" style="width:80px"></span></td><td class="num" style="white-space:nowrap">0:01</td><td class="truncate" style="max-width:110px"><div class="chips" style="flex-wrap:nowrap"><span class="chip">Mặc Đại Phu</span></div></td><td class="num" style="white-space:nowrap">2</td></tr>
+                <tr data-select><td><button class="play sm" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button></td><td class="truncate" style="max-width:120px">Kiếm khí xé gió</td><td><span class="pill warning">SFX</span></td><td><span class="wave sm" data-wave="71" style="width:80px"></span></td><td class="num" style="white-space:nowrap">0:02</td><td class="truncate" style="max-width:110px"><div class="chips" style="flex-wrap:nowrap"><span class="chip"><span lang="en">scene: combat</span><span lang="vi">cảnh: chiến đấu</span></span></div></td><td class="num" style="white-space:nowrap">5</td></tr>
+                <tr data-select><td><button class="play sm" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button></td><td class="truncate" style="max-width:120px">Luyện đan · lửa lò</td><td><span class="pill warning">SFX</span></td><td><span class="wave sm" data-wave="83" style="width:80px"></span></td><td class="num" style="white-space:nowrap"><svg class="icon sm" style="vertical-align:-2px;margin-right:4px" title="Loop"><use href="#i-repeat"/></svg>0:45</td><td class="truncate" style="max-width:110px"><div class="chips" style="flex-wrap:nowrap"><span class="chip"><span lang="en">scene: alchemy</span><span lang="vi">cảnh: luyện đan</span></span></div></td><td class="num" style="white-space:nowrap">1</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div data-pane="ambience" data-testid="so-pane-ambience">
+        <div class="ws-toolbar"><h2><span lang="en">Ambience generator</span><span lang="vi">Trình tạo âm nền</span></h2><span class="spacer"></span><button class="btn primary sm" data-toast="Ambience render added to the Task Center" data-toast-vi="Đã thêm lượt render âm nền vào Trung tâm tác vụ" data-toast-kind="success" data-testid="so-generate"><svg class="icon sm"><use href="#i-sparkles"/></svg><span lang="en">Generate</span><span lang="vi">Tạo</span></button></div>
+        <div class="ws-body">
+          <div class="col" style="gap:var(--sp-md)">
+            <div class="chips" data-testid="so-ambience-presets"><button type="button" class="chip" data-toggle aria-pressed="true"><span lang="en">Rain</span><span lang="vi">Mưa</span></button><button type="button" class="chip" data-toggle aria-pressed="false"><span lang="en">Stream</span><span lang="vi">Suối</span></button><button type="button" class="chip" data-toggle aria-pressed="false"><span lang="en">Fire</span><span lang="vi">Lửa</span></button><button type="button" class="chip" data-toggle aria-pressed="false"><span lang="en">Sea</span><span lang="vi">Biển</span></button><button type="button" class="chip" data-toggle aria-pressed="false"><span lang="en">Wind</span><span lang="vi">Gió</span></button><button type="button" class="chip" data-toggle aria-pressed="false"><span lang="en">Birds</span><span lang="vi">Chim</span></button><button type="button" class="chip" data-toggle aria-pressed="false"><span lang="en">Insects</span><span lang="vi">Côn trùng</span></button><button type="button" class="chip" data-toggle aria-pressed="false"><span lang="en">Bells</span><span lang="vi">Chuông</span></button><button type="button" class="chip" data-toggle aria-pressed="false"><span lang="en">Crowd</span><span lang="vi">Đám đông</span></button><button type="button" class="chip" data-toggle aria-pressed="false"><span lang="en">Vehicles</span><span lang="vi">Xe cộ</span></button></div>
+            <div class="row" style="align-items:flex-end">
+              <div class="field" style="min-width:160px"><label><span lang="en">Environment</span><span lang="vi">Môi trường</span></label><select class="select"><option>Mái ngói · sân đá</option><option>Rừng trúc</option><option>Hang động</option></select></div>
+              <div class="field" style="width:100px"><label><span lang="en">Duration</span><span lang="vi">Thời lượng</span></label><select class="select"><option>10:00</option><option>5:00</option><option>30:00</option></select></div>
+              <label class="switch" style="height:28px"><input type="checkbox" checked><span class="track"></span><span><span lang="en">Seamless loop</span><span lang="vi">Lặp liền mạch</span></span></label>
+            </div>
+            <div class="col" style="gap:2px" data-testid="so-ambience-layers">
+              <div class="mix-row"><svg class="icon"><use href="#i-waveform"/></svg><span class="name"><span lang="en">Base rain</span><span lang="vi">Mưa nền</span></span><input class="range" type="range" min="0" max="100" value="70" data-output="so-amb-1"><span class="num" data-value="so-amb-1">70</span><span class="tools"><button class="tog m" data-toggle aria-pressed="false" title="Mute">M</button><button class="tog s" data-toggle aria-pressed="false" title="Solo">S</button></span></div>
+              <div class="mix-row"><svg class="icon"><use href="#i-waveform"/></svg><span class="name"><span lang="en">Drop density</span><span lang="vi">Mật độ hạt mưa</span></span><input class="range" type="range" min="0" max="100" value="55" data-output="so-amb-2"><span class="num" data-value="so-amb-2">55</span><span class="tools"><button class="tog m" data-toggle aria-pressed="false" title="Mute">M</button><button class="tog s" data-toggle aria-pressed="false" title="Solo">S</button></span></div>
+              <div class="mix-row"><svg class="icon"><use href="#i-waveform"/></svg><span class="name"><span lang="en">Resonance</span><span lang="vi">Cộng hưởng</span></span><input class="range" type="range" min="0" max="100" value="40" data-output="so-amb-3"><span class="num" data-value="so-amb-3">40</span><span class="tools"><button class="tog m" data-toggle aria-pressed="false" title="Mute">M</button><button class="tog s" data-toggle aria-pressed="false" title="Solo">S</button></span></div>
+              <div class="mix-row muted"><svg class="icon"><use href="#i-zap"/></svg><span class="name"><span lang="en">Thunder</span><span lang="vi">Sấm</span></span><input class="range" type="range" min="0" max="100" value="20" data-output="so-amb-4"><span class="num" data-value="so-amb-4">20</span><span class="tools"><button class="tog m" data-toggle aria-pressed="true" title="Mute">M</button><button class="tog s" data-toggle aria-pressed="false" title="Solo">S</button></span></div>
+              <div class="mix-row"><svg class="icon"><use href="#i-waveform"/></svg><span class="name"><span lang="en">Wind</span><span lang="vi">Gió</span></span><input class="range" type="range" min="0" max="100" value="35" data-output="so-amb-5"><span class="num" data-value="so-amb-5">35</span><span class="tools"><button class="tog m" data-toggle aria-pressed="false" title="Mute">M</button><button class="tog s" data-toggle aria-pressed="false" title="Solo">S</button></span></div>
+              <div class="mix-row"><svg class="icon"><use href="#i-waveform"/></svg><span class="name"><span lang="en">Insects</span><span lang="vi">Côn trùng</span></span><input class="range" type="range" min="0" max="100" value="15" data-output="so-amb-6"><span class="num" data-value="so-amb-6">15</span><span class="tools"><button class="tog m" data-toggle aria-pressed="false" title="Mute">M</button><button class="tog s" data-toggle aria-pressed="false" title="Solo">S</button></span></div>
+            </div>
+            <div class="row" style="align-items:flex-end" data-testid="so-ambience-output">
+              <div class="field" style="width:96px"><label><span lang="en">Sample rate</span><span lang="vi">Tần số mẫu</span></label><select class="select"><option>48 kHz</option><option>44.1 kHz</option></select></div>
+              <div class="field" style="width:84px"><label><span lang="en">Bit depth</span><span lang="vi">Độ sâu bit</span></label><select class="select"><option>24-bit</option><option>16-bit</option></select></div>
+              <div class="field" style="width:130px"><label>Seed</label><div class="row" style="gap:4px;flex-wrap:nowrap"><input class="input mono" value="90412"><button class="tog" data-toggle aria-pressed="true" title="Lock seed"><svg class="icon sm"><use href="#i-lock"/></svg></button></div></div>
+              <div class="field" style="width:150px"><label><span lang="en">Random range</span><span lang="vi">Khoảng ngẫu nhiên</span></label><div class="row" style="gap:4px;flex-wrap:nowrap"><input class="input mono" value="−3 dB"><input class="input mono" value="+3 dB"></div></div>
+            </div>
+            <div class="player" data-player data-testid="so-ambience-preview"><button class="play" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button><span class="time">0:00</span><span class="wave" data-wave="29"></span><span class="time">10:00</span><button class="btn ghost sm icon" title="Loop"><svg class="icon sm"><use href="#i-repeat"/></svg></button></div>
+          </div>
+        </div>
+      </div>
+
+      <div data-pane="song" data-testid="so-pane-song">
+        <div class="ws-toolbar"><h2><span lang="en">Song &amp; score</span><span lang="vi">Bài hát &amp; bản nhạc</span></h2><span class="spacer"></span><button class="btn sm" data-toast="Scanning sheet music with Qwen2.5-VL 7B (local)…" data-toast-vi="Đang quét bản nhạc bằng Qwen2.5-VL 7B (cục bộ)…" data-testid="so-scan"><svg class="icon sm"><use href="#i-image"/></svg><span lang="en">Scan sheet music</span><span lang="vi">Quét bản nhạc</span></button><button class="btn primary sm" data-toast="Song render added to the Task Center" data-toast-vi="Đã thêm lượt render bài hát vào Trung tâm tác vụ" data-toast-kind="success" data-testid="so-render"><svg class="icon sm"><use href="#i-play"/></svg><span lang="en">Render</span><span lang="vi">Render</span></button></div>
+        <div class="ws-body">
+          <div class="row" style="align-items:flex-start;gap:var(--sp-lg)">
+            <div class="field" style="flex:1 1 240px;min-width:0"><label><span lang="en">Lyrics and chords</span><span lang="vi">Lời và hợp âm</span></label><textarea class="textarea mono" rows="9" data-testid="so-lyrics">[Dm] Trăng soi vườn thuốc [Am] lạnh
+[Bb] Gió đêm lùa qua [F] mái ngói
+[Gm] Một mình bước giữa [Dm] sương
+[A7] Lòng theo đường tiên [Dm] xa</textarea></div>
+            <div class="col" style="flex:1 1 240px;min-width:0">
+              <div class="row" style="align-items:flex-end">
+                <div class="field" style="width:64px"><label>BPM</label><input class="input mono" value="72"></div>
+                <div class="field" style="width:72px"><label><span lang="en">Time sig.</span><span lang="vi">Nhịp</span></label><input class="input mono" value="4/4"></div>
+                <div class="field" style="width:80px"><label><span lang="en">Key</span><span lang="vi">Giọng</span></label><input class="input mono" value="D minor"></div>
+                <div class="field" style="width:52px"><label>Capo</label><input class="input mono" value="0"></div>
+                <div class="field" style="width:96px"><label><span lang="en">Beats / chord</span><span lang="vi">Phách / hợp âm</span></label><input class="input mono" value="4"></div>
+              </div>
+              <div class="field"><label><span lang="en">Rhythm style</span><span lang="vi">Điệu nhạc</span></label><select class="select"><option>Cổ phong ballad</option><option>Waltz</option><option>Slow march</option></select></div>
+              <div class="field"><label><span lang="en">Structure</span><span lang="vi">Cấu trúc</span></label><div class="chips" data-testid="so-structure"><span class="chip">Intro</span><span class="chip">Verse</span><span class="chip">Chorus</span><span class="chip">Verse</span><span class="chip">Bridge</span><span class="chip">Outro</span></div></div>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <h4><span lang="en">Arrangement</span><span lang="vi">Phối khí</span></h4>
+          <div class="col" style="gap:2px;margin-top:var(--sp-xs)" data-testid="so-arrangement">
+            <div class="mix-row"><svg class="icon"><use href="#i-music"/></svg><span class="name"><span lang="en">Guzheng</span><span lang="vi">Cổ tranh</span></span><input class="range" type="range" min="0" max="100" value="80" data-output="so-arr-1"><span class="num" data-value="so-arr-1">80</span><span class="tools"><button class="tog m" data-toggle aria-pressed="false" title="Mute">M</button><button class="tog s" data-toggle aria-pressed="false" title="Solo">S</button></span></div>
+            <div class="mix-row"><svg class="icon"><use href="#i-music"/></svg><span class="name"><span lang="en">Dizi (flute)</span><span lang="vi">Sáo trúc</span></span><input class="range" type="range" min="0" max="100" value="62" data-output="so-arr-2"><span class="num" data-value="so-arr-2">62</span><span class="tools"><button class="tog m" data-toggle aria-pressed="false" title="Mute">M</button><button class="tog s" data-toggle aria-pressed="false" title="Solo">S</button></span></div>
+            <div class="mix-row"><svg class="icon"><use href="#i-music"/></svg><span class="name"><span lang="en">Erhu</span><span lang="vi">Nhị hồ</span></span><input class="range" type="range" min="0" max="100" value="55" data-output="so-arr-3"><span class="num" data-value="so-arr-3">55</span><span class="tools"><button class="tog m" data-toggle aria-pressed="false" title="Mute">M</button><button class="tog s" data-toggle aria-pressed="false" title="Solo">S</button></span></div>
+            <div class="mix-row"><svg class="icon"><use href="#i-music"/></svg><span class="name"><span lang="en">Strings</span><span lang="vi">Dàn dây</span></span><input class="range" type="range" min="0" max="100" value="40" data-output="so-arr-4"><span class="num" data-value="so-arr-4">40</span><span class="tools"><button class="tog m" data-toggle aria-pressed="false" title="Mute">M</button><button class="tog s" data-toggle aria-pressed="false" title="Solo">S</button></span></div>
+            <div class="mix-row"><svg class="icon"><use href="#i-music"/></svg><span class="name"><span lang="en">Percussion</span><span lang="vi">Bộ gõ</span></span><input class="range" type="range" min="0" max="100" value="30" data-output="so-arr-5"><span class="num" data-value="so-arr-5">30</span><span class="tools"><button class="tog m" data-toggle aria-pressed="false" title="Mute">M</button><button class="tog s" data-toggle aria-pressed="false" title="Solo">S</button></span></div>
+            <div class="mix-row"><svg class="icon"><use href="#i-mic"/></svg><span class="name"><span lang="en">Vocal</span><span lang="vi">Giọng hát</span></span><input class="range" type="range" min="0" max="100" value="75" data-output="so-arr-6"><span class="num" data-value="so-arr-6">75</span><span class="tools"><button class="tog m" data-toggle aria-pressed="false" title="Mute">M</button><button class="tog s" data-toggle aria-pressed="false" title="Solo">S</button></span></div>
+          </div>
+          <div class="divider"></div>
+          <div class="row" data-testid="so-outputs"><span class="label"><span lang="en">Outputs</span><span lang="vi">Đầu ra</span></span>
+            <label class="check"><input type="checkbox" checked><span lang="en">Full mix</span><span lang="vi">Bản đầy đủ</span></label>
+            <label class="check"><input type="checkbox" checked><span lang="en">Vocal</span><span lang="vi">Giọng hát</span></label>
+            <label class="check"><input type="checkbox" checked><span lang="en">Instrumental</span><span lang="vi">Nhạc nền</span></label>
+            <label class="check"><input type="checkbox"><span lang="en">Sheet (PDF)</span><span lang="vi">Bản nhạc (PDF)</span></label>
+            <label class="check"><input type="checkbox" checked>WAV</label>
+          </div>
+        </div>
+      </div>
+
+      <div data-pane="instruments" data-testid="so-pane-instruments">
+        <div class="ws-toolbar"><h2><span lang="en">Instrument studio</span><span lang="vi">Phòng thu nhạc cụ</span></h2><span class="spacer"></span><button class="btn sm" data-toast="Preset saved: Tiêu · sương sớm" data-toast-vi="Đã lưu preset: Tiêu · sương sớm" data-toast-kind="success" data-testid="so-save-preset"><svg class="icon sm"><use href="#i-save"/></svg><span lang="en">Save preset</span><span lang="vi">Lưu preset</span></button><button class="btn primary sm" data-toast="Phrase render added to the Task Center and saved to the library" data-toast-vi="Đã thêm lượt render đoạn nhạc vào Trung tâm tác vụ và lưu vào thư viện" data-toast-kind="success" data-testid="so-save-library"><svg class="icon sm"><use href="#i-download"/></svg><span lang="en">Save to library</span><span lang="vi">Lưu vào thư viện</span></button></div>
+        <div class="ws-body">
+          <div class="col" style="gap:var(--sp-md)">
+            <div class="row" style="align-items:flex-end">
+              <div class="segmented" data-select-group data-testid="so-instrument"><button aria-pressed="false" data-select>Guitar</button><button aria-pressed="true" data-select><span lang="en">Flute · Xiao</span><span lang="vi">Sáo · Tiêu</span></button><button aria-pressed="false" data-select>Saxophone</button><button aria-pressed="false" data-select><span lang="en">Guzheng</span><span lang="vi">Cổ tranh</span></button></div>
+              <div class="field" style="min-width:160px"><label>Preset</label><select class="select"><option>Tiêu · sương sớm</option><option>Tiêu · đêm trăng</option></select></div>
+            </div>
+            <div class="chips" data-testid="so-techniques"><button type="button" class="chip" data-toggle aria-pressed="true">vibrato</button><button type="button" class="chip" data-toggle aria-pressed="false">tremolo</button><button type="button" class="chip" data-toggle aria-pressed="false">flutter</button><button type="button" class="chip" data-toggle aria-pressed="false">slide</button></div>
+            <div class="col" style="gap:2px">
+              <div class="mix-row"><svg class="icon"><use href="#i-pencil"/></svg><span class="name"><span lang="en">Articulation</span><span lang="vi">Cách nhả hơi</span></span><input class="range" type="range" min="0" max="100" value="60" data-output="so-ins-1"><span class="num" data-value="so-ins-1">60</span><span class="tools"></span></div>
+              <div class="mix-row"><svg class="icon"><use href="#i-pencil"/></svg><span class="name">Vibrato</span><input class="range" type="range" min="0" max="100" value="45" data-output="so-ins-2"><span class="num" data-value="so-ins-2">45</span><span class="tools"></span></div>
+              <div class="mix-row"><svg class="icon"><use href="#i-pencil"/></svg><span class="name"><span lang="en">Randomness</span><span lang="vi">Ngẫu nhiên</span></span><input class="range" type="range" min="0" max="100" value="25" data-output="so-ins-3"><span class="num" data-value="so-ins-3">25</span><span class="tools"></span></div>
+              <div class="mix-row"><svg class="icon"><use href="#i-pencil"/></svg><span class="name">Velocity</span><input class="range" type="range" min="0" max="127" value="84" data-output="so-ins-4"><span class="num" data-value="so-ins-4">84</span><span class="tools"></span></div>
+              <div class="mix-row"><svg class="icon"><use href="#i-clock"/></svg><span class="name"><span lang="en">Tempo</span><span lang="vi">Nhịp độ</span></span><input class="range" type="range" min="40" max="160" value="64" data-output="so-ins-5" data-unit=" BPM"><span class="num" data-value="so-ins-5">64 BPM</span><span class="tools"></span></div>
+            </div>
+            <h4><span lang="en">Phrases</span><span lang="vi">Đoạn nhạc</span></h4>
+            <div class="col" style="gap:var(--sp-xs)" data-testid="so-phrases">
+              <div class="row" style="flex-wrap:nowrap"><span class="num meta" style="width:76px"><span lang="en">Bars</span><span lang="vi">Ô nhịp</span> 1–4</span><button class="play sm" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button><span class="wave sm grow" data-wave="101"></span></div>
+              <div class="row" style="flex-wrap:nowrap"><span class="num meta" style="width:76px"><span lang="en">Bars</span><span lang="vi">Ô nhịp</span> 5–8</span><button class="play sm" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button><span class="wave sm grow" data-wave="113"></span></div>
+              <div class="row" style="flex-wrap:nowrap"><span class="num meta" style="width:76px"><span lang="en">Bars</span><span lang="vi">Ô nhịp</span> 9–12</span><button class="play sm" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button><span class="wave sm grow" data-wave="127"></span></div>
+              <div class="row" style="flex-wrap:nowrap"><span class="num meta" style="width:76px"><span lang="en">Bars</span><span lang="vi">Ô nhịp</span> 13–16</span><button class="play sm" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button><span class="wave sm grow" data-wave="139"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div data-pane="soundscape" data-testid="so-pane-soundscape">
+        <div class="ws-toolbar"><h2><span lang="en">Spa &amp; meditation soundscape</span><span lang="vi">Không gian thư giãn &amp; thiền</span></h2><span class="spacer"></span><button class="btn primary sm" data-toast="Soundscape render (30:00) added to the Task Center" data-toast-vi="Đã thêm lượt render soundscape (30:00) vào Trung tâm tác vụ" data-toast-kind="success" data-testid="so-render-soundscape"><svg class="icon sm"><use href="#i-play"/></svg><span lang="en">Render 30:00</span><span lang="vi">Render 30:00</span></button></div>
+        <div class="ws-body">
+          <div class="col" style="gap:var(--sp-md)">
+            <div class="chips" data-testid="so-soundscape-presets"><button type="button" class="chip" data-toggle aria-pressed="true"><span lang="en">Meditation</span><span lang="vi">Thiền</span></button><button type="button" class="chip" data-toggle aria-pressed="false"><span lang="en">Healing</span><span lang="vi">Chữa lành</span></button><button type="button" class="chip" data-toggle aria-pressed="false"><span lang="en">Deep sleep</span><span lang="vi">Ngủ sâu</span></button><button type="button" class="chip" data-toggle aria-pressed="false"><span lang="en">Forest temple</span><span lang="vi">Chùa trong rừng</span></button></div>
+            <div class="col" style="gap:var(--sp-xs)" data-testid="so-soundscape-layers">
+              <div class="mix-row"><svg class="icon"><use href="#i-record"/></svg><span class="name"><span lang="en">Wooden fish (mõ)</span><span lang="vi">Mõ gỗ</span></span><input class="range" type="range" min="0" max="100" value="50" data-output="so-spa-1"><span class="num" data-value="so-spa-1">50</span><span class="tools"><button class="tog m" data-toggle aria-pressed="false" title="Mute">M</button><button class="tog s" data-toggle aria-pressed="false" title="Solo">S</button></span></div>
+              <div class="meta" style="padding-left:28px"><span lang="en">every 8–14 s · −24 to −12 dB</span><span lang="vi">mỗi 8–14 giây · −24 đến −12 dB</span></div>
+              <div class="mix-row"><svg class="icon"><use href="#i-music"/></svg><span class="name"><span lang="en">Flute</span><span lang="vi">Sáo</span></span><input class="range" type="range" min="0" max="100" value="45" data-output="so-spa-2"><span class="num" data-value="so-spa-2">45</span><span class="tools"><button class="tog m" data-toggle aria-pressed="false" title="Mute">M</button><button class="tog s" data-toggle aria-pressed="false" title="Solo">S</button></span></div>
+              <div class="meta" style="padding-left:28px"><span lang="en">every 8–14 s · −24 to −12 dB</span><span lang="vi">mỗi 8–14 giây · −24 đến −12 dB</span></div>
+              <div class="mix-row"><svg class="icon"><use href="#i-bell"/></svg><span class="name"><span lang="en">Bells</span><span lang="vi">Chuông</span></span><input class="range" type="range" min="0" max="100" value="40" data-output="so-spa-3"><span class="num" data-value="so-spa-3">40</span><span class="tools"><button class="tog m" data-toggle aria-pressed="false" title="Mute">M</button><button class="tog s" data-toggle aria-pressed="false" title="Solo">S</button></span></div>
+              <div class="meta" style="padding-left:28px"><span lang="en">every 8–14 s · −24 to −12 dB</span><span lang="vi">mỗi 8–14 giây · −24 đến −12 dB</span></div>
+              <div class="mix-row"><svg class="icon"><use href="#i-sparkles"/></svg><span class="name"><span lang="en">Wind chime</span><span lang="vi">Chuông gió</span></span><input class="range" type="range" min="0" max="100" value="35" data-output="so-spa-4"><span class="num" data-value="so-spa-4">35</span><span class="tools"><button class="tog m" data-toggle aria-pressed="false" title="Mute">M</button><button class="tog s" data-toggle aria-pressed="false" title="Solo">S</button></span></div>
+              <div class="meta" style="padding-left:28px"><span lang="en">every 8–14 s · −24 to −12 dB</span><span lang="vi">mỗi 8–14 giây · −24 đến −12 dB</span></div>
+              <div class="mix-row"><svg class="icon"><use href="#i-waveform"/></svg><span class="name"><span lang="en">Birds</span><span lang="vi">Chim</span></span><input class="range" type="range" min="0" max="100" value="30" data-output="so-spa-5"><span class="num" data-value="so-spa-5">30</span><span class="tools"><button class="tog m" data-toggle aria-pressed="false" title="Mute">M</button><button class="tog s" data-toggle aria-pressed="false" title="Solo">S</button></span></div>
+              <div class="meta" style="padding-left:28px"><span lang="en">every 8–14 s · −24 to −12 dB</span><span lang="vi">mỗi 8–14 giây · −24 đến −12 dB</span></div>
+              <div class="mix-row"><svg class="icon"><use href="#i-waveform"/></svg><span class="name"><span lang="en">Water</span><span lang="vi">Nước</span></span><input class="range" type="range" min="0" max="100" value="55" data-output="so-spa-6"><span class="num" data-value="so-spa-6">55</span><span class="tools"><button class="tog m" data-toggle aria-pressed="false" title="Mute">M</button><button class="tog s" data-toggle aria-pressed="false" title="Solo">S</button></span></div>
+              <div class="meta" style="padding-left:28px"><span lang="en">every 8–14 s · −24 to −12 dB</span><span lang="vi">mỗi 8–14 giây · −24 đến −12 dB</span></div>
+            </div>
+            <div class="player" data-player data-testid="so-soundscape-preview"><button class="play" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button><span class="time">0:00</span><span class="wave" data-wave="149"></span><span class="time">30:00</span></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <aside class="panel right" data-testid="so-right">
+      <div class="panel-head"><h3><span lang="en">Details</span><span lang="vi">Chi tiết</span></h3><button class="btn ghost icon" data-toggle-panel="right" title="Collapse (Ctrl+Alt+B)"><svg class="icon"><use href="#i-panel-right"/></svg></button></div>
+      <div class="panel-body">
+        <div class="col" style="gap:var(--sp-md)">
+          <h3 style="font-size:14px">Thất Huyền Môn · <span lang="en">theme</span><span lang="vi">chủ đề</span></h3>
+          <div class="player" data-player data-testid="so-detail-player" style="flex-wrap:wrap"><button class="play" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button><span class="time">0:00 / 2:48</span><button class="btn ghost sm icon" style="margin-left:auto" title="Loop"><svg class="icon sm"><use href="#i-repeat"/></svg></button><span class="wave lg" data-wave="11" style="flex:1 1 100%"></span></div>
+          <dl class="kv" data-testid="so-detail-meta">
+            <dt><span lang="en">Source</span><span lang="vi">Nguồn</span></dt><dd><span lang="en">Generated · MusicGen · medium · local</span><span lang="vi">Tạo bằng AI · MusicGen · medium · cục bộ</span></dd>
+            <dt><span lang="en">Licence</span><span lang="vi">Giấy phép</span></dt><dd><span lang="en">Own · generated</span><span lang="vi">Của bạn · tự tạo</span></dd>
+            <dt><span lang="en">Duration</span><span lang="vi">Thời lượng</span></dt><dd class="num">2:48</dd>
+            <dt><span lang="en">Sample rate</span><span lang="vi">Tần số mẫu</span></dt><dd>48 kHz · 24-bit</dd>
+            <dt>BPM / key</dt><dd>72 · D minor</dd>
+            <dt><span lang="en">File</span><span lang="vi">Tệp</span></dt><dd><code>novels\n-0001\audio\themes\that-huyen-mon.wav</code></dd>
+          </dl>
+          <div>
+            <h4><span lang="en">Linked to</span><span lang="vi">Liên kết với</span></h4>
+            <div class="chips" style="margin-top:var(--sp-xs)" data-testid="so-linked"><span class="chip"><span class="type-dot org"></span>Thất Huyền Môn</span><span class="chip"><span lang="en">scene type: Sect · daytime</span><span lang="vi">loại cảnh: Tông môn · ban ngày</span></span></div>
+          </div>
+          <div>
+            <h4><span lang="en">Used in</span><span lang="vi">Được dùng trong</span></h4>
+            <div class="list" style="margin-top:var(--sp-xs)" data-testid="so-used-in">
+              <a class="list-item" data-go="audiobook"><svg class="icon"><use href="#i-headphones"/></svg><span class="text"><span lang="en">Audiobook ch 0003–0012</span><span lang="vi">Sách nói ch 0003–0012</span></span></a>
+              <a class="list-item" data-go="film"><svg class="icon"><use href="#i-film"/></svg><span class="text">Tập 01 · Thất Huyền Môn</span></a>
+              <a class="list-item" data-go="videoeditor"><svg class="icon"><use href="#i-video"/></svg><span class="text">Video editor · Tập 01 · 9:16</span></a>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      <div class="panel-foot" data-testid="so-detail-actions">
+            <button class="btn sm"><svg class="icon sm"><use href="#i-pencil"/></svg><span lang="en">Rename</span><span lang="vi">Đổi tên</span></button>
+            <button class="btn sm"><svg class="icon sm"><use href="#i-copy"/></svg><span lang="en">Duplicate</span><span lang="vi">Nhân bản</span></button>
+            <button class="btn sm"><svg class="icon sm"><use href="#i-download"/></svg><span lang="en">Download</span><span lang="vi">Tải xuống</span></button>
+            <button class="btn danger sm" data-open="dlg-delete"><svg class="icon sm"><use href="#i-trash"/></svg><span lang="en">Delete</span><span lang="vi">Xoá</span></button>
+            <button class="btn sm" data-go="audiobook" title="Loop and master in Audiobook › Finishing"><svg class="icon sm"><use href="#i-arrow-right"/></svg><span lang="en">Send to finishing</span><span lang="vi">Gửi đi hoàn thiện</span></button>
+          </div>
+    </aside>
+
+    <aside class="panel bottom" data-testid="so-bottom">
+      <div class="panel-head"><h3><span lang="en">Suggestions for 凡人修仙传</span><span lang="vi">Gợi ý cho 凡人修仙传</span> <span class="meta">· <span lang="en">from Omniscient scenes and settings</span><span lang="vi">từ cảnh và bối cảnh trong Toàn tri</span></span></h3><button class="btn ghost icon" data-toggle-panel="bottom" title="Collapse (Ctrl+J)"><svg class="icon"><use href="#i-panel-bottom"/></svg></button></div>
+      <div class="panel-body flush">
+        <div class="table-wrap">
+          <table class="table" data-testid="so-suggestions">
+            <thead><tr><th><span lang="en">Chapter</span><span lang="vi">Chương</span></th><th><span lang="en">Scene</span><span lang="vi">Cảnh</span></th><th><span lang="en">Suggested</span><span lang="vi">Gợi ý</span></th><th></th></tr></thead>
+            <tbody>
+              <tr><td class="num">0012</td><td>Đêm dò vườn thuốc</td><td><div class="chips"><span class="chip"><span lang="en">Ambience</span><span lang="vi">Âm nền</span> · Đêm vườn thuốc · nền</span><span class="chip">SFX · Tiếng ho khẽ</span></div></td><td><button class="btn sm" data-toast="Applied to chapter 0012" data-toast-vi="Đã áp dụng cho chương 0012" data-toast-kind="success"><span lang="en">Apply</span><span lang="vi">Áp dụng</span></button></td></tr>
+              <tr><td class="num">0009</td><td>Tỷ võ</td><td><div class="chips"><span class="chip">SFX · Kiếm khí xé gió</span><span class="chip">BGM · Hàn Lập · chủ đề</span></div></td><td><button class="btn sm" data-toast="Applied to chapter 0009" data-toast-vi="Đã áp dụng cho chương 0009" data-toast-kind="success"><span lang="en">Apply</span><span lang="vi">Áp dụng</span></button></td></tr>
+              <tr><td class="num">0003</td><td>Lên núi Thải Hà</td><td><div class="chips"><span class="chip"><span lang="en">Ambience</span><span lang="vi">Âm nền</span> · Gió núi Thải Hà</span></div></td><td><button class="btn sm" data-toast="Applied to chapter 0003" data-toast-vi="Đã áp dụng cho chương 0003" data-toast-kind="success"><span lang="en">Apply</span><span lang="vi">Áp dụng</span></button></td></tr>
+              <tr><td class="num">0007</td><td>Chuyện cũ trong môn</td><td><div class="chips"><span class="chip"><span lang="en">Theme</span><span lang="vi">Chủ đề</span> · Thất Huyền Môn · chủ đề</span></div></td><td><span class="pill success"><span lang="en">Applied</span><span lang="vi">Đã áp dụng</span></span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </aside>
+
+    <aside class="annotations"><ol>
+      <li lang="en"><span class="ac">M16-F01</span> Library: collections, type filter, tags, waveform rows with play, metadata and usage in the inspector.</li>
+      <li lang="vi"><span class="ac">M16-F01</span> Thư viện: bộ sưu tập, lọc theo loại, thẻ, dòng dạng sóng có nút phát, siêu dữ liệu và nơi dùng trong inspector.</li>
+      <li lang="en"><span class="ac">M16-F02</span> Song &amp; score: lyrics with chords or a scanned sheet, tempo / metre / key, structure, arrangement balance, chosen outputs.</li>
+      <li lang="vi"><span class="ac">M16-F02</span> Bài hát &amp; bản nhạc: lời kèm hợp âm hoặc bản nhạc quét, nhịp độ / nhịp / giọng, cấu trúc, cân bằng phối khí, đầu ra đã chọn.</li>
+      <li lang="en"><span class="ac">M16-F03</span> Instrument studio: instrument, preset, techniques, expression sliders, preview by phrase, save preset or audio.</li>
+      <li lang="vi"><span class="ac">M16-F03</span> Phòng thu nhạc cụ: nhạc cụ, preset, kỹ thuật, thanh biểu cảm, nghe thử theo đoạn, lưu preset hoặc âm thanh.</li>
+      <li lang="en"><span class="ac">M16-F04</span> Ambience generator: preset, environment, intensity layers with mute / solo, duration, seamless loop, sample rate, bit depth, seed and random range.</li>
+      <li lang="vi"><span class="ac">M16-F04</span> Trình tạo âm nền: preset, môi trường, các lớp cường độ có tắt tiếng / solo, thời lượng, lặp liền mạch, tần số mẫu, độ sâu bit, seed và khoảng ngẫu nhiên.</li>
+      <li lang="en"><span class="ac">M16-F05</span> Soundscape: meditation presets with per-layer repeat interval and volume range.</li>
+      <li lang="vi"><span class="ac">M16-F05</span> Soundscape: preset thiền với khoảng lặp và dải âm lượng cho từng lớp.</li>
+      <li lang="en"><span class="ac">M16-F06</span> Bottom panel suggests ambience, SFX and themes per scene from Omniscient; themes link to characters, places and organisations so the same palette is reused.</li>
+      <li lang="vi"><span class="ac">M16-F06</span> Panel dưới gợi ý âm nền, SFX và chủ đề theo từng cảnh từ Toàn tri; chủ đề gắn với nhân vật, địa danh và tổ chức để dùng lại cùng một bảng âm.</li>
+      <li lang="en">1280×720: studio panes stack their two columns; the library table scrolls inside its wrapper; renders run in the Task Center; model names are sample data until Q13.</li>
+      <li lang="vi">1280×720: các pane phòng thu xếp hai cột thành một; bảng thư viện cuộn trong khung bọc; render chạy trong Trung tâm tác vụ; tên model chỉ là dữ liệu mẫu cho tới khi chốt Q13.</li>
+    </ol></aside>
+  </section>

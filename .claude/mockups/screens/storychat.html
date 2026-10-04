@@ -1,0 +1,128 @@
+  <!-- ================= screen: storychat (TH-09) ================= -->
+  <section class="screen" id="storychat" data-title="Story chat" data-layout="no-bottom">
+    <aside class="panel left" data-testid="sc-left">
+      <div class="panel-head"><h3><span lang="en">Conversations</span><span lang="vi">Cuộc hội thoại</span></h3><button class="btn ghost icon" type="button" title="New chat" data-toast="New conversation started" data-toast-vi="Đã mở cuộc hội thoại mới" data-testid="sc-new-chat"><svg class="icon"><use href="#i-plus"/></svg></button><button class="btn ghost icon" data-toggle-panel="left" title="Collapse (Ctrl+B)" data-testid="sc-collapse-left"><svg class="icon"><use href="#i-panel-left"/></svg></button></div>
+      <div class="panel-body flush">
+        <div class="panel-section col">
+          <div class="search"><svg class="icon"><use href="#i-search"/></svg><input class="input" placeholder="Search conversations…" data-ph-en="Search conversations…" data-ph-vi="Tìm cuộc hội thoại…" data-testid="sc-search"></div>
+        </div>
+        <div class="panel-section">
+          <h4><span lang="en">Today</span><span lang="vi">Hôm nay</span></h4>
+          <div class="list" data-select-group data-testid="sc-conversations">
+            <div class="list-item selected" data-select data-testid="sc-conv-1"><svg class="icon sm"><use href="#i-message"/></svg><span class="text">Mặc Đại Phu và Hàn Lập</span><span class="badge neutral">≤ 0120</span></div>
+            <div class="list-item" data-select data-testid="sc-conv-2"><svg class="icon sm"><use href="#i-message"/></svg><span class="text">Thất Huyền Môn có những ai?</span><span class="badge neutral">≤ 0120</span></div>
+          </div>
+        </div>
+        <div class="panel-section">
+          <h4><span lang="en">Earlier</span><span lang="vi">Trước đó</span></h4>
+          <div class="list" data-select-group data-testid="sc-conversations-earlier">
+            <div class="list-item" data-select data-testid="sc-conv-3"><svg class="icon sm"><use href="#i-message"/></svg><span class="text">Trường Xuân Công là gì?</span><span class="badge neutral">≤ 0050</span></div>
+            <div class="list-item" data-select data-testid="sc-conv-4"><svg class="icon sm"><use href="#i-message"/></svg><span class="text">Lệ Phi Vũ quen Hàn Lập thế nào?</span><span class="badge neutral">≤ 0012</span></div>
+            <div class="list-item" data-select data-testid="sc-conv-5"><svg class="icon sm"><use href="#i-message"/></svg><span class="text">Các tên gọi khác của Hàn Lập</span><span class="badge neutral">≤ 0120</span></div>
+          </div>
+        </div>
+        <div class="panel-section col">
+          <div class="callout" data-testid="sc-storage-note"><svg class="icon sm"><use href="#i-eye"/></svg><div><span lang="en">Conversations are stored in this novel's folder.</span><span lang="vi">Các cuộc hội thoại lưu trong thư mục của truyện này.</span></div></div>
+        </div>
+      </div>
+    </aside>
+    <main class="workspace" data-chat data-testid="sc-workspace">
+      <div class="ws-toolbar">
+        <h2>Mặc Đại Phu và Hàn Lập</h2>
+        <span class="meta">· 6 <span lang="en">messages</span><span lang="vi">tin nhắn</span></span>
+        <span class="spacer"></span>
+        <span class="dot ok"></span><span class="meta" data-testid="sc-backend">Claude CLI</span>
+        <button class="btn ghost sm" type="button" data-go="settings" data-testid="sc-change-backend"><span lang="en">Change</span><span lang="vi">Đổi</span></button>
+        <button class="btn ghost icon sm" type="button" title="Clear conversation" data-toast="Conversation cleared" data-toast-vi="Đã xoá cuộc hội thoại" data-toast-kind="warning" data-testid="sc-clear"><svg class="icon sm"><use href="#i-trash"/></svg></button>
+      </div>
+      <div class="ws-body flush">
+        <div class="thread" data-thread data-testid="sc-thread">
+          <div class="boundary" data-testid="sc-boundary"><svg class="icon sm"><use href="#i-eye"/></svg><span lang="en">Context limited to chapters 0001–0120 · nothing after is sent to the AI</span><span lang="vi">Ngữ cảnh giới hạn ở chương 0001–0120 · không gửi gì sau đó cho AI</span></div>
+          <div class="msg user"><div class="bubble"><span lang="en">Who is Mặc Đại Phu and how did Hàn Lập meet him?</span><span lang="vi">Mặc Đại Phu là ai và Hàn Lập gặp ông ta thế nào?</span></div></div>
+          <div class="msg assistant" data-testid="sc-answer-1"><span class="avatar sm"><svg class="icon sm"><use href="#i-sparkles"/></svg></span><div class="bubble"><div class="who">Claude CLI · <span lang="en">3 sources</span><span lang="vi">3 nguồn</span></div>
+            <p lang="en">Mặc Đại Phu (墨大夫) is the physician of Thất Huyền Môn. After the entrance trial he takes Hàn Lập as a medicine-garden disciple<span class="ref-n">1</span><span class="ref-n">2</span>.</p>
+            <p lang="vi">Mặc Đại Phu (墨大夫) là thầy thuốc của Thất Huyền Môn. Sau buổi thử thách nhập môn, ông nhận Hàn Lập làm đệ tử vườn thuốc<span class="ref-n">1</span><span class="ref-n">2</span>.</p>
+            <p lang="en">He then teaches him the Trường Xuân Công breathing art<span class="ref-n">3</span>.</p>
+            <p lang="vi">Sau đó ông truyền cho hắn công pháp Trường Xuân Công<span class="ref-n">3</span>.</p>
+            <div class="sources"><a class="cite" data-go="reader" data-from="2" data-testid="sc-cite-0002"><span class="ch">0002</span><span class="q">入门试炼</span></a><a class="cite" data-go="reader" data-from="4" data-testid="sc-cite-0004"><span class="ch">0004</span><span class="q">药庐拜师</span></a><a class="cite" data-go="reader" data-from="5" data-testid="sc-cite-0005"><span class="ch">0005</span><span class="q">长春功初成</span></a></div></div></div>
+          <div class="msg user"><div class="bubble">Trường Xuân Công có tác dụng gì?</div></div>
+          <div class="msg assistant" data-testid="sc-answer-2"><span class="avatar sm"><svg class="icon sm"><use href="#i-sparkles"/></svg></span><div class="bubble"><div class="who">Claude CLI · <span lang="en">2 sources</span><span lang="vi">2 nguồn</span></div>
+            <p lang="en">It is a basic breathing method that builds up qi and prepares the body for Luyện Khí cultivation<span class="ref-n">1</span><span class="ref-n">2</span>.</p>
+            <p lang="vi">Đây là công pháp hô hấp cơ bản giúp tích tụ khí lực và chuẩn bị thân thể cho việc tu luyện Luyện Khí<span class="ref-n">1</span><span class="ref-n">2</span>.</p>
+            <p><span class="alias"><span class="cjk">长春功</span> · Trường Xuân Công</span></p>
+            <div class="sources"><a class="cite" data-go="reader" data-from="5" data-testid="sc-cite-0005b"><span class="ch">0005</span><span class="q">长春功初成</span></a><a class="cite" data-go="reader" data-from="10" data-testid="sc-cite-0010"><span class="ch">0010</span><span class="q">练气入门</span></a></div></div></div>
+          <div class="msg user"><div class="bubble">Cuối cùng Mặc Đại Phu muốn gì ở Hàn Lập?</div></div>
+          <div class="msg assistant" data-testid="sc-answer-3"><span class="avatar sm"><svg class="icon sm"><use href="#i-sparkles"/></svg></span><div class="bubble"><div class="callout warning"><svg class="icon"><use href="#i-alert-triangle"/></svg><div><span lang="en">The answer is after chapter 0120, outside your boundary. Move the boundary in the Scope panel to include it.</span><span lang="vi">Câu trả lời nằm sau chương 0120, ngoài ranh giới của bạn. Hãy dời ranh giới trong bảng Phạm vi để bao gồm nó.</span></div></div>
+            <div class="sources"><a class="cite spoiler" data-from="612" data-testid="sc-cite-0612"><span class="ch">0612</span><span class="q"><span lang="en">beyond the boundary</span><span lang="vi">ngoài ranh giới</span></span></a></div></div></div>
+        </div>
+      </div>
+      <div class="chat-dock" data-testid="sc-dock"><div class="composer">
+        <textarea rows="2" placeholder="Ask about characters, places, events…" data-ph-en="Ask about characters, places, events…" data-ph-vi="Hỏi về nhân vật, địa danh, sự kiện…" data-testid="sc-input"></textarea>
+        <div class="row between" style="flex-wrap:nowrap"><div class="row" style="min-width:0"><div class="chips" data-testid="sc-suggestions"><button class="chip" type="button">Ai là sư phụ của Hàn Lập?</button><button class="chip" type="button">Thất Huyền Môn ở đâu?</button><button class="chip" type="button">Hàn Lập tu luyện gì?</button></div><span class="meta"><kbd>Ctrl</kbd><kbd>Enter</kbd></span></div>
+        <button class="btn primary sm" type="button" data-action="chat-send" data-testid="sc-send"><svg class="icon sm"><use href="#i-send"/></svg><span lang="en">Send</span><span lang="vi">Gửi</span></button></div>
+      </div></div>
+    </main>
+    <aside class="panel right" data-tab-scope data-testid="sc-right">
+      <div class="panel-head">
+        <div class="panel-tabs" role="tablist" data-tabs>
+          <button type="button" role="tab" aria-selected="true" data-tab="scope" data-testid="sc-tab-scope"><span lang="en">Scope</span><span lang="vi">Phạm vi</span></button>
+          <button type="button" role="tab" aria-selected="false" data-tab="sources" data-testid="sc-tab-sources"><span lang="en">Sources</span><span lang="vi">Nguồn</span> <span class="badge">4</span></button>
+        </div>
+        <button class="btn ghost icon" data-toggle-panel="right" title="Collapse (Ctrl+Alt+B)" data-testid="sc-collapse-right"><svg class="icon"><use href="#i-panel-right"/></svg></button>
+      </div>
+      <div class="panel-body flush">
+        <div data-pane="scope" class="active" data-testid="sc-pane-scope">
+          <div class="panel-section col">
+            <dl class="kv" style="padding:0 var(--sp-sm)">
+              <dt><span lang="en">Novel</span><span lang="vi">Truyện</span></dt><dd>凡人修仙传 · Phàm Nhân Tu Tiên</dd>
+              <dt>Backend</dt><dd>Claude CLI · <span lang="en">question answering</span><span lang="vi">hỏi đáp</span></dd>
+            </dl>
+          </div>
+          <div class="panel-section col">
+            <h4><span lang="en">Allowed up to chapter</span><span lang="vi">Được dùng đến chương</span></h4>
+            <div style="padding:0 var(--sp-sm)"><input class="range" type="range" min="1" max="2446" value="120" data-asof data-testid="sc-asof"><div class="meta" style="margin-top:var(--sp-xs)"><b data-asof-value>120</b> / 2446</div></div>
+            <div style="padding:0 var(--sp-sm)"><div class="segmented" data-select-group data-testid="sc-quick-picks">
+              <button type="button" aria-pressed="false" data-select><span lang="en">Last read · 0012</span><span lang="vi">Đọc gần nhất · 0012</span></button>
+              <button type="button" aria-pressed="true" data-select><span lang="en">Boundary · 0120</span><span lang="vi">Ranh giới · 0120</span></button>
+              <button type="button" aria-pressed="false" data-select><span lang="en">Custom</span><span lang="vi">Tuỳ chọn</span></button>
+            </div></div>
+            <div style="padding:0 var(--sp-sm)"><div class="callout info" data-testid="sc-scope-note"><svg class="icon sm"><use href="#i-info"/></svg><div><span lang="en">Chapters, Omniscient entries and relationships after this chapter are never sent to the AI. The same boundary is used by Omniscient.</span><span lang="vi">Chương, mục Toàn tri và quan hệ sau chương này không bao giờ được gửi cho AI. Toàn tri dùng cùng ranh giới này.</span></div></div></div>
+          </div>
+          <div class="panel-section col">
+            <h4><span lang="en">In context</span><span lang="vi">Trong ngữ cảnh</span></h4>
+            <div class="stats inline" style="padding:0 var(--sp-sm)" data-testid="sc-context-stats">
+              <div class="stat"><div class="v">120</div><div class="k"><span lang="en">chapters</span><span lang="vi">chương</span></div></div>
+              <div class="stat"><div class="v">186</div><div class="k"><span lang="en">entities</span><span lang="vi">thực thể</span></div></div>
+              <div class="stat"><div class="v">241</div><div class="k"><span lang="en">relationships</span><span lang="vi">quan hệ</span></div></div>
+            </div>
+          </div>
+        </div>
+        <div data-pane="sources" data-testid="sc-pane-sources">
+          <div class="panel-section">
+            <h4><span lang="en">Cited in this conversation</span><span lang="vi">Được dẫn trong cuộc hội thoại này</span></h4>
+            <div class="search-hits" data-testid="sc-hits">
+              <a class="hit" data-go="reader" data-from="2" data-testid="sc-hit-1"><div class="where">ch 0002 · ¶3</div><div lang="zh" style="font-family:var(--font-serif)">入门试炼结束后，<mark>墨大夫</mark>留下了<mark>韩立</mark>。</div></a>
+              <a class="hit" data-go="reader" data-from="4" data-testid="sc-hit-2"><div class="where">ch 0004 · ¶7</div><div lang="zh" style="font-family:var(--font-serif)"><mark>墨大夫</mark>点头，收他做药庐弟子。</div></a>
+              <a class="hit" data-go="reader" data-from="5" data-testid="sc-hit-3"><div class="where">ch 0005 · ¶2</div><div lang="zh" style="font-family:var(--font-serif)"><mark>墨大夫</mark>传下<mark>长春功</mark>的口诀。</div></a>
+              <a class="hit" data-go="reader" data-from="10" data-testid="sc-hit-4"><div class="where">ch 0010 · ¶5</div><div lang="zh" style="font-family:var(--font-serif)"><mark>长春功</mark>已有小成，可入练气。</div></a>
+              <div class="hit spoiler" data-from="612" data-testid="sc-hit-hidden"><div class="where">ch 0612 · <span lang="en">hidden by the boundary</span><span lang="vi">bị ranh giới ẩn</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+    <aside class="annotations">
+      <ol>
+        <li lang="en"><span class="ac">M13-F01</span> The scope panel fixes the novel (from the novel chip) and the last chapter allowed; quick picks for the last read chapter and the shared boundary.</li>
+        <li lang="vi"><span class="ac">M13-F01</span> Bảng phạm vi cố định truyện (từ chip truyện) và chương cuối được phép dùng; có lối chọn nhanh cho chương đọc gần nhất và ranh giới dùng chung.</li>
+        <li lang="en"><span class="ac">M13-F02</span> Free-text questions; the toolbar names the backend chosen for "question answering" in Settings.</li>
+        <li lang="vi"><span class="ac">M13-F02</span> Câu hỏi tự do; thanh công cụ nêu backend được chọn cho "hỏi đáp" trong Cài đặt.</li>
+        <li lang="en"><span class="ac">M13-F03</span> Every answer lists its source chapters as chips with numbered references; a chip opens that chapter in Content at the cited paragraph.</li>
+        <li lang="vi"><span class="ac">M13-F03</span> Mỗi câu trả lời liệt kê chương nguồn dưới dạng chip kèm số tham chiếu; bấm chip mở chương đó trong Nội dung tại đoạn được dẫn.</li>
+        <li lang="en"><span class="ac">M13-F04</span> The boundary line states the range sent as context; sources after the boundary are dimmed and never sent; an answer that needs them says so instead of guessing.</li>
+        <li lang="vi"><span class="ac">M13-F04</span> Dòng ranh giới nêu phạm vi gửi làm ngữ cảnh; nguồn sau ranh giới bị làm mờ và không bao giờ được gửi; câu trả lời cần chúng sẽ nói rõ thay vì đoán.</li>
+        <li lang="en"><span class="ac">M13-F01</span> At 1280×720 the thread column shrinks to 648px; suggestion chips wrap; the right panel can be collapsed with Ctrl+Alt+B.</li>
+        <li lang="vi"><span class="ac">M13-F01</span> Ở 1280×720 cột hội thoại co về 648px; chip gợi ý xuống dòng; có thể thu gọn panel phải bằng Ctrl+Alt+B.</li>
+      </ol>
+    </aside>
+  </section>

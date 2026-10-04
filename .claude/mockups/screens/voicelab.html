@@ -1,0 +1,176 @@
+  <!-- ================= screen: voicelab (TH-07 · M14) ================= -->
+  <section class="screen" id="voicelab" data-title="Voice Lab" data-layout="">
+    <aside class="panel left" data-testid="vl-left">
+      <div class="panel-head"><h3><span lang="en">Voices</span><span lang="vi">Giọng</span></h3><button class="btn ghost icon" data-toggle-panel="left" title="Collapse (Ctrl+B)"><svg class="icon"><use href="#i-panel-left"/></svg></button></div>
+      <div class="panel-body">
+        <div class="panel-section">
+          <div class="list" data-select-group data-testid="vl-categories">
+            <a class="list-item selected" data-select data-testid="vl-cat-all"><svg class="icon"><use href="#i-mic"/></svg><span class="text"><span lang="en">All voices</span><span lang="vi">Tất cả giọng</span></span><span class="badge neutral">38</span></a>
+            <a class="list-item" data-select data-testid="vl-cat-templates"><svg class="icon"><use href="#i-layers"/></svg><span class="text"><span lang="en">Templates</span><span lang="vi">Mẫu</span></span><span class="badge neutral">12</span></a>
+            <a class="list-item" data-select data-testid="vl-cat-characters"><svg class="icon"><use href="#i-user"/></svg><span class="text"><span lang="en">Character voices</span><span lang="vi">Giọng nhân vật</span></span><span class="badge neutral">19</span></a>
+            <a class="list-item" data-select data-testid="vl-cat-cloned"><svg class="icon"><use href="#i-record"/></svg><span class="text"><span lang="en">Cloned</span><span lang="vi">Nhân bản</span></span><span class="badge neutral">7</span></a>
+          </div>
+        </div>
+        <div class="panel-section">
+          <h4><span lang="en">Quick tags</span><span lang="vi">Thẻ nhanh</span></h4>
+          <div class="chips" style="padding:0 var(--sp-sm)" data-testid="vl-quick-tags">
+            <button type="button" class="chip" data-toggle aria-pressed="false"><span lang="en">narrator</span><span lang="vi">người dẫn</span></button>
+            <button type="button" class="chip" data-toggle aria-pressed="false"><span lang="en">elder</span><span lang="vi">lão giả</span></button>
+            <button type="button" class="chip" data-toggle aria-pressed="false"><span lang="en">child</span><span lang="vi">trẻ con</span></button>
+            <button type="button" class="chip" data-toggle aria-pressed="false"><span lang="en">villain</span><span lang="vi">phản diện</span></button>
+            <button type="button" class="chip" data-toggle aria-pressed="false"><span lang="en">whisper</span><span lang="vi">thì thầm</span></button>
+            <button type="button" class="chip" data-toggle aria-pressed="false"><span lang="en">emotional</span><span lang="vi">cảm xúc</span></button>
+          </div>
+        </div>
+        <div class="panel-section">
+          <h4><span lang="en">Filters</span><span lang="vi">Bộ lọc</span></h4>
+          <div class="col" style="padding:0 var(--sp-sm)" data-testid="vl-filters">
+            <div class="field"><label><span lang="en">Novel</span><span lang="vi">Truyện</span></label><select class="select" data-testid="vl-filter-novel"><option data-opt-en="All novels" data-opt-vi="Tất cả truyện">All novels</option><option selected>凡人修仙传</option><option>斗破苍穹</option><option>庆余年</option></select></div>
+            <div class="field"><label><span lang="en">Gender</span><span lang="vi">Giới tính</span></label><div class="segmented" data-select-group data-testid="vl-filter-gender" style="align-self:flex-start"><button data-select aria-pressed="true"><span lang="en">All</span><span lang="vi">Tất cả</span></button><button data-select aria-pressed="false"><span lang="en">Male</span><span lang="vi">Nam</span></button><button data-select aria-pressed="false"><span lang="en">Female</span><span lang="vi">Nữ</span></button></div></div>
+            <div class="field"><label><span lang="en">Age</span><span lang="vi">Tuổi</span></label><select class="select" data-testid="vl-filter-age"><option data-opt-en="Any" data-opt-vi="Bất kỳ">Any</option><option>12–18</option><option>16–20</option><option>20–40</option><option>40–60</option><option>60+</option></select></div>
+            <div class="field"><label><span lang="en">Region / accent</span><span lang="vi">Vùng / giọng địa phương</span></label><select class="select" data-testid="vl-filter-region"><option data-opt-en="Any" data-opt-vi="Bất kỳ">Any</option><option data-opt-en="Northern · Hanoi" data-opt-vi="Miền Bắc · Hà Nội">Northern · Hanoi</option><option data-opt-en="Central · Huế" data-opt-vi="Miền Trung · Huế">Central · Huế</option><option data-opt-en="Southern · Saigon" data-opt-vi="Miền Nam · Sài Gòn">Southern · Saigon</option><option>Mandarin</option></select></div>
+            <div class="field"><label><span lang="en">Style</span><span lang="vi">Phong cách</span></label><select class="select" data-testid="vl-filter-style"><option data-opt-en="Any" data-opt-vi="Bất kỳ">Any</option><option data-opt-en="Calm" data-opt-vi="Điềm tĩnh">Calm</option><option data-opt-en="Warm" data-opt-vi="Ấm">Warm</option><option data-opt-en="Rough" data-opt-vi="Khàn">Rough</option><option data-opt-en="Bright" data-opt-vi="Trong trẻo">Bright</option></select></div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="workspace" data-testid="vl-workspace" data-tab-scope>
+      <div class="ws-toolbar">
+        <div class="tabs" data-tabs role="tablist" style="border:0;flex:none">
+          <button data-tab="library" role="tab" aria-selected="true" data-testid="vl-tab-library"><span lang="en">Library</span><span lang="vi">Thư viện giọng</span></button>
+          <button data-tab="casting" role="tab" aria-selected="false" data-testid="vl-tab-casting"><span lang="en">Casting</span><span lang="vi">Phân vai</span> <span class="badge">1</span></button>
+        </div>
+        <span class="spacer"></span>
+        <div class="search" style="width:150px;min-width:90px;flex:0 1 150px"><svg class="icon"><use href="#i-search"/></svg><input class="input" placeholder="Search voices…" data-ph-en="Search voices…" data-ph-vi="Tìm giọng…" data-testid="vl-search"></div>
+        <div class="segmented" data-select-group data-testid="vl-density"><button data-select aria-pressed="true" title="Comfortable"><svg class="icon sm"><use href="#i-grid"/></svg></button><button data-select aria-pressed="false" title="Compact"><svg class="icon sm"><use href="#i-list"/></svg></button></div>
+        <button class="btn sm" data-open="dlg-voice-clone" data-testid="vl-clone"><svg class="icon sm"><use href="#i-record"/></svg><span lang="en">Clone…</span><span lang="vi">Nhân bản…</span></button>
+        <button class="btn primary sm" data-testid="vl-new-voice" data-toast="New voice draft created" data-toast-vi="Đã tạo bản nháp giọng mới" data-toast-kind="success"><svg class="icon sm"><use href="#i-plus"/></svg><span lang="en">New voice</span><span lang="vi">Giọng mới</span></button>
+      </div>
+
+      <div data-pane="library" class="active">
+        <div class="ws-body" style="height:100%">
+          <div class="voice-grid" data-select-group data-testid="vl-grid">
+            <div class="voice-card selected" data-select data-player data-testid="vl-card-han-teen"><span class="avatar cjk" style="--c:var(--color-primary)">韩</span><div style="min-width:0"><div class="name">Hàn Lập · thiếu niên</div><div class="sub">F5-TTS · vi · <span lang="en">male · 16–20 · calm</span><span lang="vi">nam · 16–20 · điềm tĩnh</span></div></div><button class="play" data-play aria-pressed="false" title="Play sample"><svg class="icon"><use href="#i-play"/></svg></button><span class="wave sm" data-wave="5"></span><div class="chips"><span class="chip"><span lang="en">character</span><span lang="vi">nhân vật</span></span><span class="chip">seed 48213</span></div><div class="foot"><svg class="icon sm"><use href="#i-lock"/></svg><span lang="en">Cast v3 · locked</span><span lang="vi">Cast v3 · đã khoá</span></div></div>
+            <div class="voice-card" data-select data-player data-testid="vl-card-han-adult"><span class="avatar cjk" style="--c:var(--color-primary)">韩</span><div style="min-width:0"><div class="name">Hàn Lập · trưởng thành</div><div class="sub"><span lang="en">Override from ch 0401</span><span lang="vi">Ghi đè từ ch 0401</span></div></div><button class="play" data-play aria-pressed="false" title="Play sample"><svg class="icon"><use href="#i-play"/></svg></button><span class="wave sm" data-wave="14"></span><div class="chips"><span class="chip"><span lang="en">character</span><span lang="vi">nhân vật</span></span><span class="chip"><span lang="en">override</span><span lang="vi">ghi đè</span></span></div></div>
+            <div class="voice-card" data-select data-player data-testid="vl-card-mac"><span class="avatar cjk" style="--c:var(--color-warning)">墨</span><div style="min-width:0"><div class="name">Mặc Đại Phu · trầm, khàn</div><div class="sub"><span lang="en">Cloned · consent on file</span><span lang="vi">Nhân bản · có giấy đồng ý</span></div></div><button class="play" data-play aria-pressed="false" title="Play sample"><svg class="icon"><use href="#i-play"/></svg></button><span class="wave sm" data-wave="9"></span><div class="chips"><span class="chip"><span lang="en">elder</span><span lang="vi">lão giả</span></span><span class="chip"><span lang="en">villain</span><span lang="vi">phản diện</span></span></div></div>
+            <div class="voice-card warn" data-select data-player data-testid="vl-card-le"><span class="avatar cjk" style="--c:var(--color-danger)">厉</span><div style="min-width:0"><div class="name">Lệ Phi Vũ</div><div class="sub"><span lang="en">91% similar to Hàn Lập · thiếu niên</span><span lang="vi">giống Hàn Lập · thiếu niên 91%</span></div></div><span class="pill warning"><span lang="en">Similar</span><span lang="vi">Gần giống</span></span><span class="wave sm" data-wave="23"></span><div class="chips"><span class="chip"><span lang="en">character</span><span lang="vi">nhân vật</span></span></div></div>
+            <div class="voice-card" data-select data-player data-testid="vl-card-truong"><span class="avatar cjk" style="--c:var(--color-link)">张</span><div style="min-width:0"><div class="name">Trương Thiết</div><div class="sub"><span lang="en">male · 16–20 · rough</span><span lang="vi">nam · 16–20 · khàn</span></div></div><button class="play" data-play aria-pressed="false" title="Play sample"><svg class="icon"><use href="#i-play"/></svg></button><span class="wave sm" data-wave="31"></span><div class="chips"><span class="chip"><span lang="en">character</span><span lang="vi">nhân vật</span></span></div></div>
+            <div class="voice-card" data-select data-player data-testid="vl-card-narrator"><span class="avatar" style="--c:var(--color-text-tertiary)">N</span><div style="min-width:0"><div class="name">Người dẫn truyện · trầm ấm</div><div class="sub"><span lang="en">Template · F5-TTS · vi</span><span lang="vi">Mẫu · F5-TTS · vi</span></div></div><button class="play" data-play aria-pressed="false" title="Play sample"><svg class="icon"><use href="#i-play"/></svg></button><span class="wave sm" data-wave="41"></span><div class="chips"><span class="chip"><span lang="en">narrator</span><span lang="vi">người dẫn</span></span></div></div>
+            <div class="voice-card" data-select data-player data-testid="vl-card-elder"><span class="avatar" style="--c:var(--color-warning)">L</span><div style="min-width:0"><div class="name">Lão giả · khàn</div><div class="sub"><span lang="en">Template · F5-TTS · vi</span><span lang="vi">Mẫu · F5-TTS · vi</span></div></div><button class="play" data-play aria-pressed="false" title="Play sample"><svg class="icon"><use href="#i-play"/></svg></button><span class="wave sm" data-wave="52"></span><div class="chips"><span class="chip"><span lang="en">elder</span><span lang="vi">lão giả</span></span></div></div>
+            <div class="voice-card" data-select data-player data-testid="vl-card-girl"><span class="avatar" style="--c:var(--color-link)">T</span><div style="min-width:0"><div class="name">Thiếu nữ · trong trẻo</div><div class="sub"><span lang="en">Template · F5-TTS · vi</span><span lang="vi">Mẫu · F5-TTS · vi</span></div></div><button class="play" data-play aria-pressed="false" title="Play sample"><svg class="icon"><use href="#i-play"/></svg></button><span class="wave sm" data-wave="63"></span><div class="chips"><span class="chip"><span lang="en">young</span><span lang="vi">trẻ</span></span><span class="chip"><span lang="en">female</span><span lang="vi">nữ</span></span></div></div>
+            <div class="voice-card" data-select data-player data-testid="vl-card-whisper"><span class="avatar" style="--c:var(--color-text-tertiary)">T</span><div style="min-width:0"><div class="name">Thì thầm · gió</div><div class="sub"><span lang="en">Template · F5-TTS · vi</span><span lang="vi">Mẫu · F5-TTS · vi</span></div></div><button class="play" data-play aria-pressed="false" title="Play sample"><svg class="icon"><use href="#i-play"/></svg></button><span class="wave sm" data-wave="74"></span><div class="chips"><span class="chip"><span lang="en">whisper</span><span lang="vi">thì thầm</span></span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div data-pane="casting" data-testid="vl-casting">
+        <div class="ws-body" style="height:100%">
+          <div class="row between" style="margin-bottom:var(--sp-md)">
+            <div class="row"><h3>凡人修仙传 · cast v3</h3><span class="pill success"><span lang="en">Locked 2026-10-02</span><span lang="vi">Đã khoá 2026-10-02</span></span></div>
+            <div class="row">
+              <button class="btn sm" data-testid="vl-check-similar" data-toast="Similarity check finished · 1 pair above 85%" data-toast-vi="Đã kiểm tra độ giống · 1 cặp trên 85%" data-toast-kind="warning"><svg class="icon sm"><use href="#i-search"/></svg><span lang="en">Check similar voices</span><span lang="vi">Kiểm tra giọng giống nhau</span></button>
+              <button class="btn primary sm" data-testid="vl-lock-cast" data-toast="Cast v4 locked · Trương Thiết has no voice assigned" data-toast-vi="Đã khoá cast v4 · Trương Thiết chưa được gán giọng" data-toast-kind="warning"><svg class="icon sm"><use href="#i-lock"/></svg><span lang="en">Lock as v4</span><span lang="vi">Khoá thành v4</span></button>
+              <button class="btn ghost sm" data-go="audiobook" data-testid="vl-open-audiobook"><span lang="en">Open Audiobook cast</span><span lang="vi">Mở cast Sách nói</span><svg class="icon sm"><use href="#i-arrow-right"/></svg></button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="table" data-testid="vl-cast-table">
+              <thead><tr><th><span lang="en">Character</span><span lang="vi">Nhân vật</span></th><th><span lang="en">Chapters</span><span lang="vi">Chương</span></th><th><span lang="en">Voice</span><span lang="vi">Giọng</span></th><th><span lang="en">Overrides</span><span lang="vi">Ghi đè</span></th><th><span lang="en">Check</span><span lang="vi">Kiểm tra</span></th><th></th></tr></thead>
+              <tbody>
+                <tr data-testid="vl-cast-narrator"><td style="white-space:nowrap"><b>Người dẫn truyện</b></td><td class="num"><span lang="en">all</span><span lang="vi">tất cả</span></td><td><select class="select" style="width:180px"><option selected>Người dẫn truyện · trầm ấm</option><option>Lão giả · khàn</option></select></td><td class="meta">—</td><td><span class="pill success">OK</span></td><td><button class="play sm" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button></td></tr>
+                <tr class="selected" data-testid="vl-cast-han"><td style="white-space:nowrap"><b>韩立</b> · Hàn Lập</td><td class="num">0001–0400</td><td><select class="select" style="width:180px"><option selected>Hàn Lập · thiếu niên</option><option>Hàn Lập · trưởng thành</option></select></td><td><span class="chip">≥ 0401 · <span lang="en">adult</span><span lang="vi">trưởng thành</span></span></td><td><span class="pill success">OK</span></td><td><button class="play sm" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button></td></tr>
+                <tr data-testid="vl-cast-mac"><td style="white-space:nowrap"><b>墨大夫</b> · Mặc Đại Phu</td><td class="num"><span lang="en">all</span><span lang="vi">tất cả</span></td><td><select class="select" style="width:180px"><option selected>Mặc Đại Phu · trầm, khàn</option><option>Lão giả · khàn</option></select></td><td class="meta">—</td><td><span class="pill success">OK</span></td><td><button class="play sm" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button></td></tr>
+                <tr data-testid="vl-cast-le"><td style="white-space:nowrap"><b>厉飞雨</b> · Lệ Phi Vũ</td><td class="num"><span lang="en">all</span><span lang="vi">tất cả</span></td><td><select class="select" style="width:180px"><option selected>Lệ Phi Vũ</option><option>Hàn Lập · thiếu niên</option></select></td><td class="meta">—</td><td><span class="pill warning"><span lang="en">91% like Hàn Lập</span><span lang="vi">91% giống Hàn Lập</span></span></td><td><button class="play sm" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button></td></tr>
+                <tr data-testid="vl-cast-truong"><td style="white-space:nowrap"><b>张铁</b> · Trương Thiết</td><td class="num"><span lang="en">all</span><span lang="vi">tất cả</span></td><td><select class="select" style="width:180px"><option selected data-opt-en="— no voice —" data-opt-vi="— chưa có giọng —">— no voice —</option><option>Trương Thiết</option></select></td><td class="meta">—</td><td><span class="pill danger"><span lang="en">Missing</span><span lang="vi">Thiếu</span></span></td><td><button class="btn sm" data-testid="vl-cast-assign" data-toast="Voice assigned to Trương Thiết" data-toast-vi="Đã gán giọng cho Trương Thiết" data-toast-kind="success"><span lang="en">Assign</span><span lang="vi">Gán</span></button></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout warning" style="margin-top:var(--sp-md)"><svg class="icon"><use href="#i-alert-triangle"/></svg><div><span lang="en">Lệ Phi Vũ sounds 91% like Hàn Lập · thiếu niên. Pick a different voice or adjust pitch and warmth before locking v4.</span><span lang="vi">Lệ Phi Vũ nghe giống Hàn Lập · thiếu niên đến 91%. Hãy chọn giọng khác hoặc chỉnh cao độ và độ ấm trước khi khoá v4.</span></div></div>
+        </div>
+      </div>
+    </main>
+
+    <aside class="panel right" data-testid="vl-right" data-tab-scope>
+      <div class="panel-head"><div class="panel-tabs" data-tabs role="tablist"><button data-tab="design" role="tab" aria-selected="true" data-testid="vl-tab-design"><span lang="en">Design</span><span lang="vi">Thiết kế</span></button><button data-tab="profile" role="tab" aria-selected="false" data-testid="vl-tab-profile"><span lang="en">Profile</span><span lang="vi">Hồ sơ</span></button></div><button class="btn ghost icon" data-toggle-panel="right" title="Collapse (Ctrl+Alt+B)"><svg class="icon"><use href="#i-panel-right"/></svg></button></div>
+      <div class="panel-body">
+        <div data-pane="design" class="active" data-testid="vl-design">
+          <div class="col">
+            <div class="field"><label><span lang="en">Engine</span><span lang="vi">Engine</span></label><select class="select" data-testid="vl-engine"><option>F5-TTS · vi · local</option></select></div>
+            <div class="field"><label><span lang="en">Starting profile</span><span lang="vi">Hồ sơ khởi đầu</span></label><select class="select"><option selected>Người dẫn truyện · trầm ấm</option><option data-opt-en="Blank" data-opt-vi="Trống">Blank</option></select></div>
+            <div class="row" style="flex-wrap:nowrap;align-items:flex-end">
+              <div class="field"><label><span lang="en">Gender</span><span lang="vi">Giới tính</span></label><div class="segmented" data-select-group><button data-select aria-pressed="true"><span lang="en">Male</span><span lang="vi">Nam</span></button><button data-select aria-pressed="false"><span lang="en">Female</span><span lang="vi">Nữ</span></button></div></div>
+              <div class="field grow"><label><span lang="en">Age</span><span lang="vi">Tuổi</span></label><select class="select"><option>12–18</option><option selected>16–20</option><option>20–40</option><option>40–60</option><option>60+</option></select></div>
+            </div>
+            <div class="field"><label><span lang="en">Region / accent</span><span lang="vi">Vùng / giọng địa phương</span></label><select class="select"><option selected data-opt-en="Northern · Hanoi" data-opt-vi="Miền Bắc · Hà Nội">Northern · Hanoi</option><option data-opt-en="Central · Huế" data-opt-vi="Miền Trung · Huế">Central · Huế</option><option data-opt-en="Southern · Saigon" data-opt-vi="Miền Nam · Sài Gòn">Southern · Saigon</option><option>Mandarin</option></select></div>
+            <div class="field"><label><span lang="en">Effects</span><span lang="vi">Hiệu ứng</span></label><select class="select"><option selected data-opt-en="None" data-opt-vi="Không">None</option><option>Radio</option><option data-opt-en="Cave echo" data-opt-vi="Vang hang động">Cave echo</option><option data-opt-en="Whisper" data-opt-vi="Thì thầm">Whisper</option></select></div>
+          </div>
+          <h4 style="margin:var(--sp-md) 0 var(--sp-xs)"><span lang="en">Delivery</span><span lang="vi">Cách đọc</span></h4>
+          <div class="col" style="gap:0" data-testid="vl-delivery">
+            <div class="mix-row"><svg class="icon"><use href="#i-zap"/></svg><span class="name"><span lang="en">Speed</span><span lang="vi">Tốc độ</span></span><input class="range" type="range" min="0.5" max="2" step="0.05" value="1" data-output="vl-speed" data-unit="×"><span class="num" data-value="vl-speed">1.00×</span><span class="tools"></span></div>
+            <div class="mix-row"><svg class="icon"><use href="#i-waveform"/></svg><span class="name"><span lang="en">Pitch</span><span lang="vi">Cao độ</span></span><input class="range" type="range" min="-12" max="12" step="1" value="-2" data-output="vl-pitch" data-unit=" st"><span class="num" data-value="vl-pitch">-2 st</span><span class="tools"></span></div>
+            <div class="mix-row"><svg class="icon"><use href="#i-sparkles"/></svg><span class="name"><span lang="en">Expressiveness</span><span lang="vi">Biểu cảm</span></span><input class="range" type="range" min="0" max="100" value="60" data-output="vl-expr"><span class="num" data-value="vl-expr">60</span><span class="tools"></span></div>
+            <div class="mix-row"><svg class="icon"><use href="#i-repeat"/></svg><span class="name"><span lang="en">Rhythm &amp; stress</span><span lang="vi">Nhịp &amp; nhấn</span></span><input class="range" type="range" min="0" max="100" value="50" data-output="vl-rhythm"><span class="num" data-value="vl-rhythm">50</span><span class="tools"></span></div>
+            <div class="mix-row"><svg class="icon"><use href="#i-sun"/></svg><span class="name"><span lang="en">Warmth</span><span lang="vi">Độ ấm</span></span><input class="range" type="range" min="0" max="100" value="70" data-output="vl-warmth"><span class="num" data-value="vl-warmth">70</span><span class="tools"></span></div>
+            <div class="mix-row"><svg class="icon"><use href="#i-eye"/></svg><span class="name"><span lang="en">Clarity</span><span lang="vi">Độ rõ</span></span><input class="range" type="range" min="0" max="100" value="65" data-output="vl-clarity"><span class="num" data-value="vl-clarity">65</span><span class="tools"></span></div>
+          </div>
+          <div class="row" style="margin-top:var(--sp-sm);flex-wrap:nowrap" data-testid="vl-seed">
+            <input class="input mono" value="48213" style="width:84px;flex:none" aria-label="Seed">
+            <button class="btn sm" data-toast="New seed generated" data-toast-vi="Đã tạo seed mới"><svg class="icon sm"><use href="#i-retry"/></svg><span lang="en">New seed</span><span lang="vi">Seed mới</span></button>
+            <button class="tog" data-toggle aria-pressed="true" title="Lock seed" data-testid="vl-seed-lock"><svg class="icon"><use href="#i-lock"/></svg></button>
+          </div>
+          <div class="meta" style="margin-top:var(--sp-xs)"><span lang="en">Locked: timbre stays the same</span><span lang="vi">Đã khoá: âm sắc giữ nguyên</span></div>
+          <div class="col" style="margin-top:var(--sp-md);gap:var(--sp-xs)" data-testid="vl-audition">
+            <label class="label"><span lang="en">Audition sentence</span><span lang="vi">Câu nghe thử</span></label>
+            <textarea class="textarea" rows="2">Đệ tử… đệ tử không dám.</textarea>
+            <div class="player" data-player><button class="play" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button><span class="wave" data-wave="17" data-played="0"></span><span class="time">0:03</span></div>
+          </div>
+        </div>
+
+        <div data-pane="profile" data-testid="vl-profile">
+          <dl class="kv">
+            <dt><span lang="en">Source</span><span lang="vi">Nguồn</span></dt><dd><span lang="en">Designed · seed 48213</span><span lang="vi">Thiết kế · seed 48213</span></dd>
+            <dt><span lang="en">Rights</span><span lang="vi">Quyền sử dụng</span></dt><dd><span lang="en">Own · generated</span><span lang="vi">Của mình · tự sinh</span></dd>
+            <dt><span lang="en">Provenance</span><span lang="vi">Nguồn gốc</span></dt><dd>—</dd>
+            <dt><span lang="en">Used in</span><span lang="vi">Dùng trong</span></dt><dd><a data-go="audiobook"><span lang="en">Audiobook ch 0001–0012</span><span lang="vi">Sách nói ch 0001–0012</span></a><br><a data-go="audiobook">Tập 01 · Thất Huyền Môn</a></dd>
+            <dt><span lang="en">Created</span><span lang="vi">Tạo lúc</span></dt><dd>2026-09-21</dd>
+          </dl>
+          <div class="row" style="margin-top:var(--sp-md)"><button class="btn sm" data-go="assets" data-testid="vl-save-assets"><svg class="icon sm"><use href="#i-image"/></svg><span lang="en">Save to Media Assets</span><span lang="vi">Lưu vào Kho tài nguyên</span></button></div>
+        </div>
+      </div>
+      <div class="panel-foot" data-testid="vl-design-foot">
+        <button class="btn primary sm" data-toast="Voice profile saved" data-toast-vi="Đã lưu hồ sơ giọng" data-toast-kind="success"><span lang="en">Save profile</span><span lang="vi">Lưu hồ sơ</span></button>
+        <button class="btn sm" data-toast="Preset saved" data-toast-vi="Đã lưu preset" data-toast-kind="success"><span lang="en">Save as preset</span><span lang="vi">Lưu thành preset</span></button>
+        <span class="grow"></span>
+        <button class="btn ghost sm icon" title="Duplicate" data-toast="Voice duplicated" data-toast-vi="Đã nhân đôi giọng"><svg class="icon sm"><use href="#i-copy"/></svg></button>
+        <button class="btn ghost sm icon danger" title="Delete" data-open="dlg-delete"><svg class="icon sm"><use href="#i-trash"/></svg></button>
+      </div>
+    </aside>
+
+    <aside class="panel bottom" data-testid="vl-bottom">
+      <div class="panel-head"><h3><span lang="en">Tagged speech preview</span><span lang="vi">Nghe thử lời có thẻ</span> <span class="meta">· Hàn Lập · thiếu niên</span></h3><button class="btn sm" data-testid="vl-save-approved" data-toast="1 clip saved to Media Assets" data-toast-vi="Đã lưu 1 đoạn vào Kho tài nguyên" data-toast-kind="success"><svg class="icon sm"><use href="#i-save"/></svg><span lang="en">Save approved to Media Assets</span><span lang="vi">Lưu bản đã duyệt vào Kho tài nguyên</span></button><button class="btn ghost icon" data-toggle-panel="bottom" title="Collapse (Ctrl+J)"><svg class="icon"><use href="#i-panel-bottom"/></svg></button></div>
+      <div class="panel-body flush">
+        <div class="tool-row" data-testid="vl-tag-palette"><span class="meta"><span lang="en">Insert tag</span><span lang="vi">Chèn thẻ</span></span><span class="stag spk">@speaker</span><span class="stag emo">[emotion]</span><span class="stag">[laugh]</span><span class="stag">[sigh]</span><span class="stag">[surprise]</span><span class="stag pause">[pause 0.5s]</span><span class="stag sfx">[sfx]</span></div>
+        <div data-select-group data-testid="vl-segments">
+          <div class="seg narration" data-select data-testid="vl-seg-1"><span class="n">0012·01</span><span class="spk"><span class="avatar sm" style="--c:var(--color-text-tertiary)">N</span><span><span lang="en">Narrator</span><span lang="vi">Người dẫn</span></span></span><span class="txt">Đêm ấy, gió núi Thải Hà lạnh buốt, Hàn Lập rón rén men theo bờ rào trúc của vườn thuốc.</span><span class="end"><span class="meta num">0:07</span><button class="play sm" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button></span></div>
+          <div class="seg selected" data-select data-testid="vl-seg-2"><span class="n">0012·02</span><span class="spk"><span class="avatar sm cjk" style="--c:var(--color-primary)">韩</span><span>Hàn Lập</span></span><span class="txt"><span class="stag emo">[sợ hãi]</span> “Đệ tử… đệ tử không dám.” <span class="stag pause">[pause 0.6s]</span></span><span class="end"><span class="pill success"><span lang="en">Approved</span><span lang="vi">Đã duyệt</span></span><button class="play sm" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button></span></div>
+          <div class="seg" data-select data-testid="vl-seg-3"><span class="n">0012·03</span><span class="spk"><span class="avatar sm cjk" style="--c:var(--color-warning)">墨</span><span>Mặc Đại Phu</span></span><span class="txt"><span class="stag emo">[cười khẩy]</span> “Không dám? Ngươi đã dám lẻn vào vườn thuốc của lão phu.”</span><span class="end"><span class="pill running"><span lang="en">Generating</span><span lang="vi">Đang sinh</span></span><button class="play sm" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button></span></div>
+        </div>
+      </div>
+    </aside>
+
+    <aside class="annotations"><ol>
+      <li lang="en"><span class="ac">M14-F01</span> Design pane: engine, traits, delivery sliders, seed with lock, audition with any sample sentence.</li>
+      <li lang="vi"><span class="ac">M14-F01</span> Tab Thiết kế: engine, đặc điểm giọng, thanh cách đọc, seed có khoá, nghe thử với câu mẫu bất kỳ.</li>
+      <li lang="en"><span class="ac">M14-F02</span> Clone… opens the clone dialog: source, sample checks, rights, provenance and consent; extraction runs in the Task Center.</li>
+      <li lang="vi"><span class="ac">M14-F02</span> Nhân bản… mở hộp thoại nhân bản: nguồn, kiểm tra mẫu, quyền sử dụng, nguồn gốc và đồng ý; việc trích xuất chạy trong Trung tâm tác vụ.</li>
+      <li lang="en"><span class="ac">M14-F03</span> Library grid with category list, quick tags and filters (novel, gender, age, region, style); density toggle; every card can be auditioned in place.</li>
+      <li lang="vi"><span class="ac">M14-F03</span> Lưới thư viện với danh mục, thẻ nhanh và bộ lọc (truyện, giới tính, tuổi, vùng, phong cách); nút đổi mật độ; mỗi thẻ nghe thử ngay tại chỗ.</li>
+      <li lang="en"><span class="ac">M14-F04</span> Casting tab: one canonical voice per character, chapter-range overrides, similar-voice warning, missing voice, cast locked by version; also reachable from Audiobook.</li>
+      <li lang="vi"><span class="ac">M14-F04</span> Tab Phân vai: mỗi nhân vật một giọng chuẩn, ghi đè theo khoảng chương, cảnh báo giọng giống nhau, giọng còn thiếu, cast khoá theo phiên bản; cũng truy cập được từ Sách nói.</li>
+      <li lang="en"><span class="ac">M14-F05</span> Bottom panel: insert tags, preview each line, save approved takes to Media Assets.</li>
+      <li lang="vi"><span class="ac">M14-F05</span> Panel dưới: chèn thẻ, nghe thử từng dòng, lưu bản đã duyệt vào Kho tài nguyên.</li>
+      <li lang="en">1280×720: the grid drops to two columns; casting selects are 180px and the table scrolls inside its wrapper; engine names are sample data until Q13. The density toggle and tag palette are visual only in this prototype.</li>
+      <li lang="vi">1280×720: lưới còn hai cột; ô chọn giọng ở bảng phân vai rộng 180px và bảng cuộn bên trong khung bọc; tên engine là dữ liệu mẫu cho đến khi chốt Q13. Nút mật độ và bảng thẻ chỉ mang tính minh hoạ trong prototype.</li>
+    </ol></aside>
+  </section>

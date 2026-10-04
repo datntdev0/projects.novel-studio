@@ -1,0 +1,123 @@
+  <!-- ================= screen: publishing (TH-12 · M20) ================= -->
+  <section class="screen" id="publishing" data-title="Publishing" data-layout="">
+    <aside class="panel left" data-testid="pb-left">
+      <div class="panel-head"><h3><span lang="en">Channels</span><span lang="vi">Kênh</span></h3><button class="btn ghost icon" data-testid="pb-add-channel" title="Add channel"><svg class="icon"><use href="#i-plus"/></svg></button><button class="btn ghost icon" data-toggle-panel="left" title="Collapse (Ctrl+B)"><svg class="icon"><use href="#i-panel-left"/></svg></button></div>
+      <div class="panel-body">
+        <div class="col" style="padding:var(--sp-sm);gap:var(--sp-sm)" data-select-group data-testid="pb-channels">
+          <div class="channel-card selected" data-select data-testid="pb-channel-youtube"><span class="logo"><svg class="icon lg"><use href="#i-video"/></svg></span><div style="min-width:0"><div class="name">YouTube · Phàm Nhân Audio</div><div class="sub"><span class="pill success"><span lang="en">Connected</span><span lang="vi">Đã kết nối</span></span></div></div><div class="preset"><span class="chip">16:9</span><span class="chip">−14 LUFS</span><span class="chip">SRT</span></div></div>
+          <div class="channel-card" data-select data-testid="pb-channel-podcast"><span class="logo"><svg class="icon lg"><use href="#i-headphones"/></svg></span><div style="min-width:0"><div class="name">Podcast feed</div><div class="sub"><span class="pill danger"><span lang="en">Token expired</span><span lang="vi">Token hết hạn</span></span></div></div></div>
+          <div class="channel-card" data-select data-testid="pb-channel-folder"><span class="logo"><svg class="icon lg"><use href="#i-folder"/></svg></span><div style="min-width:0"><div class="name"><span lang="en">Release folder</span><span lang="vi">Thư mục phát hành</span></div><div class="sub"><span class="pill info"><span lang="en">Folder</span><span lang="vi">Thư mục</span></span><code>D:\Releases\PhamNhan</code></div></div></div>
+          <div class="channel-card off" data-select data-testid="pb-channel-tiktok"><span class="logo"><svg class="icon lg"><use href="#i-plus"/></svg></span><div style="min-width:0"><div class="name">TikTok / Reels</div><div class="sub"><span lang="en">Not configured</span><span lang="vi">Chưa cấu hình</span></div></div><button class="btn sm" data-testid="pb-setup-tiktok"><span lang="en">Set up</span><span lang="vi">Thiết lập</span></button></div>
+        </div>
+        <div class="panel-section">
+          <div class="callout info" style="margin:0 var(--sp-xs)" data-testid="pb-credentials-note"><svg class="icon"><use href="#i-key"/></svg><div><span lang="en">Keys are kept in Windows Credential Manager. Novel Studio has no account and no cloud sync.</span><span lang="vi">Khoá được lưu trong Windows Credential Manager. Novel Studio không có tài khoản và không đồng bộ đám mây.</span></div></div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="workspace" data-testid="pb-workspace">
+      <div class="ws-toolbar">
+        <h2><span lang="en">Distribution queue</span><span lang="vi">Hàng đợi phân phối</span> <span class="meta">· 11 <span lang="en">packages</span><span lang="vi">gói</span></span></h2>
+        <span class="spacer"></span>
+        <select class="select" style="width:160px" data-testid="pb-filter-novel"><option data-opt-en="All novels" data-opt-vi="Tất cả truyện">All novels</option><option>凡人修仙传</option></select>
+        <select class="select" style="width:130px" data-testid="pb-filter-channel"><option data-opt-en="All channels" data-opt-vi="Tất cả kênh">All channels</option><option>YouTube</option><option>Podcast</option><option>Release folder</option><option>TikTok / Reels</option></select>
+        <button class="btn primary sm" data-toast="Draft package created" data-toast-vi="Đã tạo gói nháp" data-toast-kind="success" data-testid="pb-new-package"><svg class="icon sm"><use href="#i-plus"/></svg><span lang="en">New package</span><span lang="vi">Gói mới</span></button>
+      </div>
+      <div class="ws-body">
+        <div class="board" style="--cols:5" data-select-group data-testid="pb-board">
+          <div class="board-col" data-testid="pb-col-draft"><h4><span lang="en">Draft</span><span lang="vi">Nháp</span><span class="badge neutral">2</span></h4>
+            <div class="board-card" data-select><span class="t">Tập 03 · Trúc Cơ</span><span class="sub">YouTube · 16:9</span></div>
+            <div class="board-card" data-select><span class="t"><span lang="en">Audiobook ch 0013–0024</span><span lang="vi">Sách nói ch 0013–0024</span></span><span class="sub">Podcast</span></div>
+          </div>
+          <div class="board-col" data-testid="pb-col-ready"><h4><span lang="en">Ready</span><span lang="vi">Sẵn sàng</span><span class="badge neutral">2</span></h4>
+            <div class="board-card selected" data-select data-testid="pb-card-selected"><span class="t">Tập 02 · Thải Hà Sơn</span><span class="sub">YouTube <span class="pill warning"><span lang="en">1 warning</span><span lang="vi">1 cảnh báo</span></span></span></div>
+            <div class="board-card" data-select><span class="t">Tập 02 · 9:16</span><span class="sub">TikTok / Reels</span></div>
+          </div>
+          <div class="board-col" data-testid="pb-col-publishing"><h4><span lang="en">Publishing</span><span lang="vi">Đang đăng</span><span class="badge neutral">1</span></h4>
+            <div class="board-card" data-select><span class="t"><span lang="en">Audiobook ch 0001–0012</span><span lang="vi">Sách nói ch 0001–0012</span></span><span class="sub"><span lang="en">Release folder</span><span lang="vi">Thư mục</span></span><span class="progress" style="--p:62%"><i></i></span><span class="sub"><span lang="en">copying 62%</span><span lang="vi">đang chép 62%</span></span></div>
+          </div>
+          <div class="board-col" data-testid="pb-col-published"><h4><span lang="en">Published</span><span lang="vi">Đã đăng</span><span class="badge neutral">5</span></h4>
+            <div class="board-card" data-select><span class="t">Tập 01 · Thất Huyền Môn</span><span class="sub">YouTube · 2026-10-02</span></div>
+            <div class="board-card" data-select><span class="t"><span lang="en">Season 1 trailer</span><span lang="vi">Trailer mùa 1</span></span><span class="sub">YouTube · 2026-09-28</span></div>
+            <span class="meta">+3 <span lang="en">more</span><span lang="vi">nữa</span></span>
+          </div>
+          <div class="board-col" data-testid="pb-col-failed"><h4><span lang="en">Failed</span><span lang="vi">Lỗi</span><span class="badge danger">1</span></h4>
+            <div class="board-card failed" data-select><span class="t">Podcast · ch 0001–0012</span><span class="sub"><span lang="en">token expired</span><span lang="vi">token hết hạn</span></span><button class="btn ghost sm" data-toast="Retry queued in the Task Center" data-toast-vi="Đã xếp thử lại vào Trung tâm tác vụ" data-toast-kind="success" data-testid="pb-retry"><svg class="icon sm"><use href="#i-retry"/></svg><span lang="en">Retry</span><span lang="vi">Thử lại</span></button></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <aside class="panel right" data-testid="pb-right" data-tab-scope>
+      <div class="panel-head">
+        <div class="panel-tabs" data-tabs role="tablist"><button data-tab="package" aria-selected="true" data-testid="pb-tab-package"><span lang="en">Package</span><span lang="vi">Gói</span></button><button data-tab="preflight" aria-selected="false" data-testid="pb-tab-preflight"><span lang="en">Preflight</span><span lang="vi">Kiểm tra</span></button><button data-tab="preset" aria-selected="false" data-testid="pb-tab-preset"><span lang="en">Preset</span><span lang="vi">Preset</span></button></div>
+        <button class="btn ghost icon" data-toggle-panel="right" title="Collapse (Ctrl+Alt+B)"><svg class="icon"><use href="#i-panel-right"/></svg></button>
+      </div>
+      <div class="panel-body">
+        <p class="meta" style="margin-bottom:var(--sp-sm)">Tập 02 · Thải Hà Sơn → YouTube</p>
+        <div data-pane="package" class="active col" style="gap:var(--sp-sm)">
+          <div class="thumb" style="--c:var(--color-warning)" data-testid="pb-cover"><svg class="icon"><use href="#i-image"/></svg><span class="corner se"><span class="type-badge mono">1280×720</span></span></div>
+          <div class="field"><label><span lang="en">Title</span><span lang="vi">Tiêu đề</span></label><input class="input" value="Phàm Nhân Tu Tiên · Tập 02 · Thải Hà Sơn" data-testid="pb-title"></div>
+          <div class="field"><label><span lang="en">Description</span><span lang="vi">Mô tả</span></label><textarea class="textarea" rows="3" data-testid="pb-description">Hàn Lập lên núi Thải Hà, đêm đến lén dò vườn thuốc và bị cuốn vào cuộc tỷ võ đầu tiên của đời tu tiên.</textarea></div>
+          <div class="field"><label><span lang="en">Chapter markers</span><span lang="vi">Mốc chương</span></label>
+            <ul class="col" style="gap:2px;font-size:12px;list-style:none;margin:0;padding:0" data-testid="pb-markers"><li><code>00:00</code> <span lang="en">Climbing Thải Hà Mountain</span><span lang="vi">Lên núi Thải Hà</span></li><li><code>00:52</code> <span lang="en">Night in the medicine garden</span><span lang="vi">Đêm dò vườn thuốc</span></li><li><code>01:30</code> <span lang="en">The contest</span><span lang="vi">Tỷ võ</span></li></ul></div>
+          <div class="field"><label><span lang="en">Subtitles</span><span lang="vi">Phụ đề</span></label><div class="chips" data-testid="pb-subtitles"><span class="chip" aria-pressed="true"><svg class="icon sm"><use href="#i-check"/></svg>vi.srt</span><span class="chip" style="border-color:var(--color-warning)"><svg class="icon sm"><use href="#i-alert-triangle"/></svg>en.srt <span lang="en">missing</span><span lang="vi">thiếu</span></span></div></div>
+          <div class="field"><label><span lang="en">Credits</span><span lang="vi">Ghi công</span></label><textarea class="textarea" rows="2" data-testid="pb-credits">Nguyên tác: 忘语 · Lồng tiếng: Novel Studio cast v3</textarea></div>
+          <div class="field"><label><span lang="en">Source</span><span lang="vi">Nguồn</span></label><a class="cite" data-go="film" data-testid="pb-source"><span class="ch">Tập 02</span><span class="q" style="font-family:inherit">Film Series · Tập 02</span></a></div>
+        </div>
+        <div data-pane="preflight" class="col" style="gap:var(--sp-xs)">
+          <span class="pill warning" style="align-self:flex-start" data-testid="pb-preflight-summary"><span lang="en">Ready with 1 warning</span><span lang="vi">Sẵn sàng, 1 cảnh báo</span></span>
+          <div class="issue-row ok"><svg class="icon"><use href="#i-check"/></svg><div><span lang="en">Video</span><span lang="vi">Video</span> 1080×1920 H.264 · 3:24</div></div>
+          <div class="issue-row ok"><svg class="icon"><use href="#i-check"/></svg><div><span lang="en">Loudness</span><span lang="vi">Độ lớn</span> −14.2 LUFS <span class="where">(<span lang="en">target</span><span lang="vi">mục tiêu</span> −14)</span></div></div>
+          <div class="issue-row ok"><svg class="icon"><use href="#i-check"/></svg><div><span lang="en">Thumbnail</span><span lang="vi">Ảnh bìa</span> 1280×720</div></div>
+          <div class="issue-row warn" data-testid="pb-preflight-warn"><svg class="icon"><use href="#i-alert-triangle"/></svg><div><span lang="en">English subtitles missing (optional for this channel)</span><span lang="vi">Thiếu phụ đề tiếng Anh (không bắt buộc với kênh này)</span></div></div>
+          <div class="issue-row ok"><svg class="icon"><use href="#i-check"/></svg><div><span lang="en">Credits present</span><span lang="vi">Đã có ghi công</span></div></div>
+        </div>
+        <div data-pane="preset" class="col" style="gap:var(--sp-sm)">
+          <dl class="kv" data-testid="pb-preset">
+            <dt><span lang="en">Aspect</span><span lang="vi">Tỷ lệ</span></dt><dd>16:9 <span class="meta">(<span lang="en">resized from 9:16 source, letterbox</span><span lang="vi">đổi từ nguồn 9:16, thêm viền đen</span>)</span></dd>
+            <dt><span lang="en">Codec</span><span lang="vi">Codec</span></dt><dd>H.264 · AAC 320 kbps</dd>
+            <dt><span lang="en">Loudness</span><span lang="vi">Độ lớn</span></dt><dd>−14 LUFS</dd>
+            <dt><span lang="en">Subtitles</span><span lang="vi">Phụ đề</span></dt><dd><span lang="en">separate .srt</span><span lang="vi">.srt riêng</span></dd>
+            <dt><span lang="en">Naming</span><span lang="vi">Đặt tên</span></dt><dd><code>{novel}-{episode:02}-{lang}.mp4</code> → <code>phamnhan-02-vi.mp4</code></dd>
+          </dl>
+          <div><button class="btn sm" data-testid="pb-edit-preset"><svg class="icon sm"><use href="#i-pencil"/></svg><span lang="en">Edit preset</span><span lang="vi">Sửa preset</span></button></div>
+        </div>
+      </div>
+      <div class="panel-foot" data-testid="pb-foot">
+        <button class="btn primary sm" data-toast="Upload added to the Task Center" data-toast-vi="Đã thêm lượt tải lên vào Trung tâm tác vụ" data-toast-kind="success" data-testid="pb-publish"><svg class="icon sm"><use href="#i-send"/></svg><span lang="en">Publish to YouTube</span><span lang="vi">Đăng lên YouTube</span></button>
+        <button class="btn sm" data-toast="Package export added to the Task Center" data-toast-vi="Đã thêm xuất gói vào Trung tâm tác vụ" data-toast-kind="success" data-testid="pb-export"><svg class="icon sm"><use href="#i-upload"/></svg><span lang="en">Export package</span><span lang="vi">Xuất gói</span></button>
+        <button class="btn ghost sm" data-action="choose-folder" data-testid="pb-copy-folder"><svg class="icon sm"><use href="#i-folder"/></svg><span lang="en">Copy to folder</span><span lang="vi">Chép vào thư mục</span></button>
+      </div>
+    </aside>
+
+    <aside class="panel bottom" data-testid="pb-bottom">
+      <div class="panel-head"><h3><span lang="en">Publish history</span><span lang="vi">Lịch sử đăng</span></h3><button class="btn ghost icon" data-toggle-panel="bottom" title="Collapse (Ctrl+J)"><svg class="icon"><use href="#i-panel-bottom"/></svg></button></div>
+      <div class="panel-body flush">
+        <div class="table-wrap">
+          <table class="table" data-testid="pb-history">
+            <thead><tr><th><span lang="en">Date</span><span lang="vi">Ngày</span></th><th><span lang="en">Work</span><span lang="vi">Tác phẩm</span></th><th><span lang="en">Channel</span><span lang="vi">Kênh</span></th><th><span lang="en">Status</span><span lang="vi">Trạng thái</span></th><th><span lang="en">Source</span><span lang="vi">Nguồn</span></th><th><span lang="en">File</span><span lang="vi">Tệp</span></th><th></th></tr></thead>
+            <tbody>
+              <tr><td class="meta">2026-10-02</td><td>Tập 01 · Thất Huyền Môn</td><td>YouTube</td><td><span class="pill success"><span lang="en">Published</span><span lang="vi">Đã đăng</span></span></td><td><a data-go="film">Film Series</a></td><td><code>phamnhan-01-vi.mp4</code></td><td><div class="actions"><button class="btn ghost sm icon" title="Open folder" data-action="choose-folder"><svg class="icon sm"><use href="#i-folder"/></svg></button></div></td></tr>
+              <tr><td class="meta">2026-10-01</td><td><span lang="en">Audiobook ch 0001–0012</span><span lang="vi">Sách nói ch 0001–0012</span></td><td>Podcast</td><td><span class="pill danger"><span lang="en">Failed (token expired)</span><span lang="vi">Lỗi (token hết hạn)</span></span></td><td><a data-go="audiobook"><span lang="en">Audiobook</span><span lang="vi">Sách nói</span></a></td><td>—</td><td><div class="actions"><button class="btn ghost sm icon" title="Retry" data-toast="Retry queued in the Task Center" data-toast-vi="Đã xếp thử lại vào Trung tâm tác vụ" data-toast-kind="success"><svg class="icon sm"><use href="#i-retry"/></svg></button></div></td></tr>
+              <tr><td class="meta">2026-09-30</td><td><span lang="en">Audiobook ch 0001–0012</span><span lang="vi">Sách nói ch 0001–0012</span></td><td><span lang="en">Release folder</span><span lang="vi">Thư mục phát hành</span></td><td><span class="pill success"><span lang="en">Published</span><span lang="vi">Đã đăng</span></span></td><td><a data-go="audiobook"><span lang="en">Audiobook</span><span lang="vi">Sách nói</span></a></td><td><code>phamnhan-ch0001-0012.mp3</code></td><td><div class="actions"><button class="btn ghost sm icon" title="Open folder" data-action="choose-folder"><svg class="icon sm"><use href="#i-folder"/></svg></button></div></td></tr>
+              <tr><td class="meta">2026-09-28</td><td><span lang="en">Season 1 trailer</span><span lang="vi">Trailer mùa 1</span></td><td>YouTube</td><td><span class="pill success"><span lang="en">Published</span><span lang="vi">Đã đăng</span></span></td><td><a data-go="videoeditor"><span lang="en">Video editor</span><span lang="vi">Dựng video</span></a></td><td><code>phamnhan-trailer-vi.mp4</code></td><td><div class="actions"><button class="btn ghost sm icon" title="Open folder" data-action="choose-folder"><svg class="icon sm"><use href="#i-folder"/></svg></button></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </aside>
+
+    <aside class="annotations"><ol>
+      <li lang="en"><span class="ac">M20-F01</span> Channel profiles with connection state and presets (aspect, codec, loudness, subtitles, naming).</li>
+      <li lang="vi"><span class="ac">M20-F01</span> Hồ sơ kênh với trạng thái kết nối và preset (tỷ lệ, codec, độ lớn, phụ đề, cách đặt tên).</li>
+      <li lang="en"><span class="ac">M20-F02</span> Release package: media, cover, title, description, chapter markers, subtitles, credits; preflight checks before publishing.</li>
+      <li lang="vi"><span class="ac">M20-F02</span> Gói phát hành: media, ảnh bìa, tiêu đề, mô tả, mốc chương, phụ đề, ghi công; kiểm tra trước khi đăng.</li>
+      <li lang="en"><span class="ac">M20-F03</span> Queue board draft → ready → publishing → published / failed with retry; history rows link back to the source episode or chapters.</li>
+      <li lang="vi"><span class="ac">M20-F03</span> Bảng hàng đợi nháp → sẵn sàng → đang đăng → đã đăng / lỗi, có thử lại; dòng lịch sử liên kết về tập hoặc chương nguồn.</li>
+      <li lang="en"><span class="ac">M20-F04</span> Credentials live in the OS secret store; no Novel Studio account, no cloud sync.</li>
+      <li lang="vi"><span class="ac">M20-F04</span> Thông tin xác thực nằm trong kho bí mật của hệ điều hành; không có tài khoản Novel Studio, không đồng bộ đám mây.</li>
+      <li lang="en">1280×720: the board keeps five narrow columns with truncated titles; the history table scrolls inside its wrapper.</li>
+      <li lang="vi">1280×720: bảng giữ năm cột hẹp với tiêu đề bị cắt; bảng lịch sử cuộn bên trong khung bọc.</li>
+    </ol></aside>
+  </section>

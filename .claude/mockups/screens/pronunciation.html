@@ -1,0 +1,119 @@
+  <!-- ================= screen: pronunciation (TH-07 · M15) ================= -->
+  <section class="screen" id="pronunciation" data-title="Pronunciation" data-layout="">
+    <aside class="panel left" data-testid="pr-left">
+      <div class="panel-head"><h3><span lang="en">Rule sets</span><span lang="vi">Bộ luật</span></h3><button class="btn ghost icon" data-toggle-panel="left" title="Collapse (Ctrl+B)"><svg class="icon"><use href="#i-panel-left"/></svg></button></div>
+      <div class="panel-body">
+        <div class="panel-section">
+          <div class="list" data-select-group data-testid="pr-sets">
+            <a class="list-item" data-select data-testid="pr-set-default"><svg class="icon"><use href="#i-shield"/></svg><span class="text"><span lang="en">Default rules</span><span lang="vi">Luật mặc định</span></span><span class="badge neutral">128</span></a>
+            <a class="list-item" data-select data-testid="pr-set-library"><svg class="icon"><use href="#i-library"/></svg><span class="text"><span lang="en">Library-wide</span><span lang="vi">Toàn thư viện</span></span><span class="badge neutral">342</span></a>
+            <a class="list-item selected" data-select data-testid="pr-set-novel-1"><svg class="icon"><use href="#i-book"/></svg><span class="text"><span class="truncate">凡人修仙传</span></span><span class="badge neutral">412</span></a>
+            <a class="list-item" data-select><svg class="icon"><use href="#i-book"/></svg><span class="text"><span class="truncate">斗破苍穹</span></span><span class="badge neutral">96</span></a>
+            <a class="list-item" data-select><svg class="icon"><use href="#i-book"/></svg><span class="text"><span class="truncate">全职高手</span></span><span class="badge neutral">40</span></a>
+            <a class="list-item" data-select data-testid="pr-set-conflicts"><svg class="icon"><use href="#i-alert-triangle"/></svg><span class="text"><span lang="en">Conflicts</span><span lang="vi">Xung đột</span></span><span class="badge danger">2</span></a>
+          </div>
+        </div>
+        <div class="panel-section">
+          <h4><span lang="en">Kind</span><span lang="vi">Loại</span></h4>
+          <div class="col" style="padding:0 var(--sp-sm);gap:var(--sp-xs)" data-testid="pr-kinds">
+            <label class="check"><input type="checkbox" checked><span lang="en">Proper names</span><span lang="vi">Tên riêng</span></label>
+            <label class="check"><input type="checkbox" checked><span lang="en">Terms</span><span lang="vi">Thuật ngữ</span></label>
+            <label class="check"><input type="checkbox" checked><span lang="en">Acronyms</span><span lang="vi">Viết tắt</span></label>
+            <label class="check"><input type="checkbox" checked><span lang="en">Loanwords</span><span lang="vi">Từ mượn</span></label>
+            <label class="check"><input type="checkbox" checked><span lang="en">Forms of address</span><span lang="vi">Xưng hô</span></label>
+          </div>
+        </div>
+        <div class="panel-section">
+          <h4><span lang="en">Language</span><span lang="vi">Ngôn ngữ</span></h4>
+          <div class="segmented" style="margin:0 var(--sp-sm)" data-select-group data-testid="pr-lang"><button aria-pressed="true" data-select>zh</button><button aria-pressed="false" data-select>ja</button><button aria-pressed="false" data-select>ko</button><button aria-pressed="false" data-select>en</button></div>
+        </div>
+        <div class="panel-section">
+          <div class="col" style="padding:0 var(--sp-xs)">
+            <button class="btn ghost sm" data-action="choose-folder" data-testid="pr-import"><svg class="icon sm"><use href="#i-download"/></svg><span lang="en">Import set…</span><span lang="vi">Nhập bộ luật…</span></button>
+            <button class="btn ghost sm" data-action="choose-folder" data-testid="pr-export"><svg class="icon sm"><use href="#i-upload"/></svg><span lang="en">Export set…</span><span lang="vi">Xuất bộ luật…</span></button>
+            <button class="btn ghost sm" data-toast="Default rules restored · your rules are kept" data-toast-vi="Đã khôi phục luật mặc định · luật của bạn được giữ nguyên" data-toast-kind="warning" data-testid="pr-reset"><svg class="icon sm"><use href="#i-retry"/></svg><span lang="en">Reset to defaults</span><span lang="vi">Đặt lại mặc định</span></button>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="workspace" data-testid="pr-workspace">
+      <div class="ws-toolbar">
+        <h2><span class="truncate">凡人修仙传</span> <span class="meta">· <span lang="en">412 rules</span><span lang="vi">412 luật</span></span></h2>
+        <span class="spacer"></span>
+        <div class="search" style="width:180px;max-width:100%"><svg class="icon"><use href="#i-search"/></svg><input class="input" placeholder="Find word, reading…" data-ph-en="Find word, reading…" data-ph-vi="Tìm từ, cách đọc…" data-testid="pr-search"></div>
+        <button class="btn sm" data-toast="6 canonical names added from Omniscient" data-toast-vi="Đã thêm 6 tên chuẩn từ Toàn tri" data-toast-kind="success" data-testid="pr-sync" title="Sync from Omniscient"><svg class="icon sm"><use href="#i-network"/></svg><span lang="en">Sync from Omniscient</span><span lang="vi">Đồng bộ từ Toàn tri</span><span class="badge">6</span></button>
+        <button class="btn primary sm" data-toast="New rule added · edit it in the inspector" data-toast-vi="Đã thêm luật mới · chỉnh sửa trong inspector" data-toast-kind="success" data-testid="pr-add"><svg class="icon sm"><use href="#i-plus"/></svg><span lang="en">Add rule</span><span lang="vi">Thêm luật</span></button>
+      </div>
+      <div class="ws-body flush">
+        <div data-select-group data-testid="pr-rows">
+          <div class="dict-row head"><span><span lang="en">Term</span><span lang="vi">Từ</span></span><span><span lang="en">Reading</span><span lang="vi">Cách đọc</span></span><span><span lang="en">Phonetic</span><span lang="vi">Phiên âm</span></span><span><span lang="en">Scope</span><span lang="vi">Phạm vi</span></span><span></span></div>
+          <div class="dict-row" data-select><span class="term truncate">韩立<small><span lang="en">name</span><span lang="vi">tên riêng</span></small></span><span class="truncate">Hàn Lập</span><span class="ipa truncate">haːn˨˩ ləp˧˨ʔ</span><span><span class="pill info"><span lang="en">Novel</span><span lang="vi">Truyện</span></span></span><span class="end"><button class="play sm" data-play aria-pressed="false" title="Audition"><svg class="icon"><use href="#i-play"/></svg></button><button class="btn ghost sm icon" title="Synced from Omniscient"><svg class="icon sm"><use href="#i-link"/></svg></button></span></div>
+          <div class="dict-row selected" data-select data-testid="pr-row-selected"><span class="term truncate">墨大夫<small><span lang="en">name</span><span lang="vi">tên riêng</span></small></span><span class="truncate">Mặc Đại Phu</span><span class="ipa truncate">mak˧˨ʔ ɗaːj˧˨ʔ fu˧</span><span><span class="pill info"><span lang="en">Novel</span><span lang="vi">Truyện</span></span></span><span class="end"><button class="play sm" data-play aria-pressed="false" title="Audition"><svg class="icon"><use href="#i-play"/></svg></button><button class="btn ghost sm icon" title="Synced from Omniscient"><svg class="icon sm"><use href="#i-link"/></svg></button></span></div>
+          <div class="dict-row" data-select><span class="term truncate">厉飞雨<small><span lang="en">name</span><span lang="vi">tên riêng</span></small></span><span class="truncate">Lệ Phi Vũ</span><span class="ipa truncate">le˧˨ʔ fi˧ vu˦˥</span><span><span class="pill info"><span lang="en">Novel</span><span lang="vi">Truyện</span></span></span><span class="end"><button class="play sm" data-play aria-pressed="false" title="Audition"><svg class="icon"><use href="#i-play"/></svg></button><button class="btn ghost sm icon" title="Synced from Omniscient"><svg class="icon sm"><use href="#i-link"/></svg></button></span></div>
+          <div class="dict-row" data-select><span class="term truncate">七玄门<small><span lang="en">place</span><span lang="vi">địa danh</span></small></span><span class="truncate">Thất Huyền Môn</span><span class="ipa truncate">tʰət˧˦ hwiən˨˩ mon˧</span><span><span class="pill info"><span lang="en">Novel</span><span lang="vi">Truyện</span></span></span><span class="end"><button class="play sm" data-play aria-pressed="false" title="Audition"><svg class="icon"><use href="#i-play"/></svg></button></span></div>
+          <div class="dict-row" data-select><span class="term truncate">彩霞山<small><span lang="en">place</span><span lang="vi">địa danh</span></small></span><span class="truncate">Thải Hà Sơn</span><span class="ipa truncate">tʰaːj˧˩ haː˨˩ ʂəːn˧</span><span><span class="pill info"><span lang="en">Novel</span><span lang="vi">Truyện</span></span></span><span class="end"><button class="play sm" data-play aria-pressed="false" title="Audition"><svg class="icon"><use href="#i-play"/></svg></button></span></div>
+          <div class="dict-row" data-select><span class="term truncate">长春功<small><span lang="en">term</span><span lang="vi">thuật ngữ</span></small></span><span class="truncate">Trường Xuân Công</span><span class="ipa truncate">ʈɨəŋ˨˩ swən˧ koŋ˧</span><span><span class="pill info"><span lang="en">Novel</span><span lang="vi">Truyện</span></span></span><span class="end"><button class="play sm" data-play aria-pressed="false" title="Audition"><svg class="icon"><use href="#i-play"/></svg></button></span></div>
+          <div class="dict-row conflict" data-select><span class="term truncate">筑基<small><span lang="en">term</span><span lang="vi">thuật ngữ</span></small></span><span class="truncate">Trúc Cơ</span><span class="ipa truncate">ʈuk˧˦ kəː˧</span><span><span class="pill warning"><span lang="en">2 rules</span><span lang="vi">2 luật</span></span></span><span class="end"><button class="play sm" data-play aria-pressed="false" title="Audition"><svg class="icon"><use href="#i-play"/></svg></button></span></div>
+          <div class="dict-row" data-select><span class="term truncate">练气<small><span lang="en">term</span><span lang="vi">thuật ngữ</span></small></span><span class="truncate">Luyện Khí</span><span class="ipa truncate">lwiən˧˨ʔ xi˧˦</span><span><span class="pill"><span lang="en">Library</span><span lang="vi">Thư viện</span></span></span><span class="end"><button class="play sm" data-play aria-pressed="false" title="Audition"><svg class="icon"><use href="#i-play"/></svg></button></span></div>
+          <div class="dict-row" data-select><span class="term truncate">师兄<small><span lang="en">address</span><span lang="vi">xưng hô</span></small></span><span class="truncate">sư huynh</span><span class="ipa truncate">ʂɨ˧ hwiŋ˧</span><span><span class="pill plain"><span lang="en">Default</span><span lang="vi">Mặc định</span></span></span><span class="end"><button class="play sm" data-play aria-pressed="false" title="Audition"><svg class="icon"><use href="#i-play"/></svg></button></span></div>
+          <div class="dict-row" data-select><span class="term truncate">HP<small><span lang="en">acronym</span><span lang="vi">viết tắt</span></small></span><span class="truncate">máu</span><span class="ipa truncate">maw˧˦</span><span><span class="pill"><span lang="en">Library</span><span lang="vi">Thư viện</span></span></span><span class="end"><button class="play sm" data-play aria-pressed="false" title="Audition"><svg class="icon"><use href="#i-play"/></svg></button></span></div>
+          <div class="dict-row off" data-select><span class="term truncate">LV<small><span lang="en">acronym</span><span lang="vi">viết tắt</span></small></span><span class="truncate">cấp</span><span class="ipa truncate">kəp˧˦</span><span><span class="pill plain"><span lang="en">Off</span><span lang="vi">Tắt</span></span></span><span class="end"><button class="play sm" data-play aria-pressed="false" title="Audition"><svg class="icon"><use href="#i-play"/></svg></button></span></div>
+          <div class="dict-row" data-select><span class="term truncate">Nascent Soul<small><span lang="en">loanword</span><span lang="vi">từ mượn</span></small></span><span class="truncate">Nguyên Anh</span><span class="ipa truncate">ŋwiən˧ ʔajŋ˧</span><span><span class="pill"><span lang="en">Library</span><span lang="vi">Thư viện</span></span></span><span class="end"><button class="play sm" data-play aria-pressed="false" title="Audition"><svg class="icon"><use href="#i-play"/></svg></button></span></div>
+        </div>
+        <div class="virtual-note"><span lang="en">Virtualised list · 412 rules in this set</span><span lang="vi">Danh sách ảo hoá · 412 luật trong bộ này</span></div>
+      </div>
+    </main>
+
+    <aside class="panel right" data-testid="pr-right">
+      <div class="panel-head"><h3><span lang="en">Rule</span><span lang="vi">Luật</span></h3><button class="btn ghost icon" data-toggle-panel="right" title="Collapse (Ctrl+Alt+B)"><svg class="icon"><use href="#i-panel-right"/></svg></button></div>
+      <div class="panel-body">
+        <div class="col" style="padding:var(--sp-xs) var(--sp-sm);gap:var(--sp-sm)">
+          <div class="field"><label><span lang="en">Source text</span><span lang="vi">Văn bản gốc</span></label><input class="input" value="墨大夫" data-testid="pr-source"></div>
+          <div class="field"><label><span lang="en">Reading</span><span lang="vi">Cách đọc</span></label><input class="input" value="Mặc Đại Phu" data-testid="pr-reading"></div>
+          <div class="field"><label><span lang="en">Phonetic</span><span lang="vi">Phiên âm</span></label><input class="input mono" value="mak˧˨ʔ ɗaːj˧˨ʔ fu˧" data-testid="pr-phonetic"></div>
+          <div class="row" style="gap:var(--sp-sm)">
+            <div class="field grow"><label><span lang="en">Kind</span><span lang="vi">Loại</span></label><select class="select"><option data-opt-en="Proper name" data-opt-vi="Tên riêng">Proper name</option><option data-opt-en="Term" data-opt-vi="Thuật ngữ">Term</option><option data-opt-en="Acronym" data-opt-vi="Viết tắt">Acronym</option><option data-opt-en="Loanword" data-opt-vi="Từ mượn">Loanword</option><option data-opt-en="Form of address" data-opt-vi="Xưng hô">Form of address</option></select></div>
+            <div class="field grow"><label><span lang="en">Language</span><span lang="vi">Ngôn ngữ</span></label><select class="select"><option data-opt-en="zh · Chinese" data-opt-vi="zh · Tiếng Trung">zh · Chinese</option><option data-opt-en="ja · Japanese" data-opt-vi="ja · Tiếng Nhật">ja · Japanese</option><option data-opt-en="ko · Korean" data-opt-vi="ko · Tiếng Hàn">ko · Korean</option><option data-opt-en="en · English" data-opt-vi="en · Tiếng Anh">en · English</option></select></div>
+          </div>
+          <div class="field"><label><span lang="en">Scope</span><span lang="vi">Phạm vi</span></label><div class="segmented" data-select-group data-testid="pr-scope"><button aria-pressed="false" data-select><span lang="en">Default</span><span lang="vi">Mặc định</span></button><button aria-pressed="false" data-select><span lang="en">Library</span><span lang="vi">Thư viện</span></button><button aria-pressed="true" data-select><span lang="en">Novel</span><span lang="vi">Truyện</span></button></div></div>
+          <div class="field"><label><span lang="en">Voice profile</span><span lang="vi">Hồ sơ giọng</span></label><select class="select"><option data-opt-en="All voices" data-opt-vi="Mọi giọng">All voices</option><option>Mặc Đại Phu · trầm, khàn</option><option>Người dẫn truyện · trầm ấm</option></select></div>
+          <label class="switch"><input type="checkbox"><span class="track"></span><span><span lang="en">Case-sensitive</span><span lang="vi">Phân biệt hoa thường</span></span></label>
+          <div class="callout info"><svg class="icon"><use href="#i-link"/></svg><div><span lang="en">Synced from Omniscient · entity 墨大夫 · edits here stay in this rule set.</span><span lang="vi">Đồng bộ từ Toàn tri · thực thể 墨大夫 · chỉnh sửa ở đây chỉ nằm trong bộ luật này.</span></div></div>
+        </div>
+        <div class="panel-section" data-testid="pr-audition">
+          <h4><span lang="en">Audition</span><span lang="vi">Nghe thử</span></h4>
+          <div class="col" style="padding:0 var(--sp-sm);gap:var(--sp-xs)">
+            <select class="select" data-testid="pr-audition-voice"><option>Người dẫn truyện · trầm ấm</option><option>Mặc Đại Phu · trầm, khàn</option></select>
+            <span class="meta"><span lang="en">Before rule</span><span lang="vi">Trước khi áp luật</span></span>
+            <div class="player" data-player><button class="play" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button><span class="time">0:02</span><span class="wave" data-wave="7"></span></div>
+            <span class="meta"><span lang="en">After rule</span><span lang="vi">Sau khi áp luật</span></span>
+            <div class="player" data-player><button class="play" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button><span class="time">0:02</span><span class="wave" data-wave="23"></span></div>
+          </div>
+        </div>
+        
+      </div>
+      <div class="panel-foot"><button class="btn primary sm" data-toast="Rule saved" data-toast-vi="Đã lưu luật" data-toast-kind="success" data-testid="pr-save"><span lang="en">Save</span><span lang="vi">Lưu</span></button><button class="btn sm danger" data-toast="Rule deleted" data-toast-vi="Đã xoá luật" data-toast-kind="danger" data-testid="pr-delete"><span lang="en">Delete</span><span lang="vi">Xoá</span></button></div>
+    </aside>
+
+    <aside class="panel bottom" data-testid="pr-bottom">
+      <div class="panel-head"><h3><span lang="en">Playground</span><span lang="vi">Sân thử</span></h3><select class="select" style="width:auto" data-testid="pr-play-voice"><option>Người dẫn truyện · trầm ấm</option><option>Mặc Đại Phu · trầm, khàn</option></select><button class="btn sm" data-play aria-pressed="false" data-testid="pr-play-normalised"><svg class="icon sm"><use href="#i-play"/></svg><span lang="en">Play normalised</span><span lang="vi">Phát bản chuẩn hoá</span></button><button class="btn ghost icon" data-toggle-panel="bottom" title="Collapse (Ctrl+J)"><svg class="icon"><use href="#i-panel-bottom"/></svg></button></div>
+      <div class="panel-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-md)">
+          <div class="field"><label><span lang="en">Input text</span><span lang="vi">Văn bản nhập</span></label><textarea class="textarea" rows="4" data-testid="pr-input">Mặc Đại Phu nhìn Hàn Lập, lạnh lùng nói: “Ngươi đến muộn 3 ngày rồi.” Tu vi Trúc Cơ, HP còn 30%.</textarea></div>
+          <div class="field"><label><span lang="en">Sent to TTS</span><span lang="vi">Gửi tới TTS</span></label><div class="card compact" data-testid="pr-output"><p class="serif">Mặc Đại Phu nhìn Hàn Lập, lạnh lùng nói: Ngươi đến muộn <mark>ba</mark> ngày rồi. Tu vi <mark>Trúc Cơ</mark>, <mark>máu</mark> còn <mark>ba mươi phần trăm</mark>.</p><div class="meta" style="margin-top:var(--sp-xs)"><span lang="en">4 rules applied · 1 conflict (筑基) resolved by the novel rule</span><span lang="vi">Áp dụng 4 luật · 1 xung đột (筑基) được giải quyết bằng luật của truyện</span></div></div></div>
+        </div>
+      </div>
+    </aside>
+
+    <aside class="annotations"><ol>
+      <li lang="en"><span class="ac">M15-F01</span> One row per rule: source term, reading, phonetic, scope and kind; filters by kind and language; case, language, voice and novel scope are set per rule.</li>
+      <li lang="vi"><span class="ac">M15-F01</span> Mỗi luật một dòng: từ gốc, cách đọc, phiên âm, phạm vi và loại; lọc theo loại và ngôn ngữ; phân biệt hoa thường, ngôn ngữ, giọng và phạm vi truyện được đặt cho từng luật.</li>
+      <li lang="en"><span class="ac">M15-F02</span> Audition before / after with the chosen voice; the playground shows the exact normalised text sent to TTS with the changed words highlighted.</li>
+      <li lang="vi"><span class="ac">M15-F02</span> Nghe thử trước / sau với giọng đã chọn; sân thử hiện đúng văn bản đã chuẩn hoá gửi tới TTS, từ bị đổi được tô sáng.</li>
+      <li lang="en"><span class="ac">M15-F03</span> Rule sets: default, library-wide, per novel; conflicts are flagged (warning edge, Conflicts list); import / export / reset; Sync from Omniscient adds canonical names.</li>
+      <li lang="vi"><span class="ac">M15-F03</span> Bộ luật: mặc định, toàn thư viện, theo từng truyện; xung đột được đánh dấu (viền cảnh báo, danh sách Xung đột); nhập / xuất / đặt lại; Đồng bộ từ Toàn tri thêm các tên chuẩn.</li>
+      <li lang="en">1280×720: the dictionary columns shrink proportionally (term and phonetic truncate with ellipsis); the playground columns stay side by side. Phonetic transcriptions are sample data.</li>
+      <li lang="vi">1280×720: các cột từ điển co lại theo tỉ lệ (từ và phiên âm bị cắt bằng dấu ba chấm); hai cột sân thử vẫn nằm cạnh nhau. Phiên âm chỉ là dữ liệu mẫu.</li>
+    </ol></aside>
+  </section>

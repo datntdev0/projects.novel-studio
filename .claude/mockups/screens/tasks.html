@@ -1,0 +1,123 @@
+  <!-- ================= screen: tasks (TH-01 · M03) ================= -->
+  <section class="screen" id="tasks" data-title="Task Center" data-layout="">
+    <aside class="panel left" data-testid="tasks-filters">
+      <div class="panel-head"><h3><span lang="en">Task Center</span><span lang="vi">Trung tâm tác vụ</span></h3><button class="btn ghost icon" data-toggle-panel="left" title="Collapse (Ctrl+B)"><svg class="icon"><use href="#i-panel-left"/></svg></button></div>
+      <div class="panel-body">
+        <div class="panel-section">
+          <div class="list" data-select-group>
+            <a class="list-item selected" data-select data-testid="tasks-filter-active"><span class="dot run"></span><span class="text"><span lang="en">Active</span><span lang="vi">Đang hoạt động</span></span><span class="badge">2</span></a>
+            <a class="list-item" data-select><svg class="icon"><use href="#i-alert-circle"/></svg><span class="text"><span lang="en">Needs attention</span><span lang="vi">Cần xử lý</span></span><span class="badge danger">1</span></a>
+            <a class="list-item" data-select><svg class="icon"><use href="#i-clock"/></svg><span class="text"><span lang="en">History</span><span lang="vi">Lịch sử</span></span><span class="badge neutral">38</span></a>
+          </div>
+        </div>
+        <div class="panel-section">
+          <h4><span lang="en">Task type</span><span lang="vi">Loại tác vụ</span></h4>
+          <div class="col" style="padding:0 var(--sp-sm);gap:6px">
+            <label class="check"><input type="checkbox" checked><span lang="en">Translation</span><span lang="vi">Dịch</span></label>
+            <label class="check"><input type="checkbox" checked><span lang="en">Analysis</span><span lang="vi">Phân tích</span></label>
+            <label class="check"><input type="checkbox" checked><span lang="en">Import</span><span lang="vi">Nhập</span></label>
+            <label class="check"><input type="checkbox" checked><span lang="en">Export</span><span lang="vi">Xuất</span></label>
+          </div>
+        </div>
+        <div class="panel-section">
+          <h4><span lang="en">Novel</span><span lang="vi">Truyện</span></h4>
+          <div style="padding:0 var(--sp-sm)"><select class="select"><option data-opt-en="All novels" data-opt-vi="Tất cả truyện">All novels</option><option>凡人修仙传</option><option>斗破苍穹</option><option>庆余年</option></select></div>
+        </div>
+        <div class="panel-section">
+          <h4><span lang="en">Time</span><span lang="vi">Thời gian</span></h4>
+          <div style="padding:0 var(--sp-sm)"><div class="segmented" style="width:100%"><button aria-pressed="true"><span lang="en">Today</span><span lang="vi">Hôm nay</span></button><button aria-pressed="false">7d</button><button aria-pressed="false">30d</button><button aria-pressed="false"><span lang="en">All</span><span lang="vi">Tất cả</span></button></div></div>
+        </div>
+        <div class="panel-section">
+          <div class="callout" style="margin:0 var(--sp-xs)"><svg class="icon"><use href="#i-cpu"/></svg><div><span lang="en">Concurrency limit: </span><span lang="vi">Giới hạn song song: </span><b>2</b> · <a href="#settings" data-go="settings"><span lang="en">change</span><span lang="vi">đổi</span></a></div></div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="workspace" data-testid="tasks-workspace">
+      <div class="ws-toolbar">
+        <h2><span lang="en">Active jobs</span><span lang="vi">Job đang hoạt động</span> <span class="meta">· 2 <span lang="en">running</span><span lang="vi">đang chạy</span> · 1 <span lang="en">queued</span><span lang="vi">chờ</span></span></h2>
+        <span class="spacer"></span>
+        <button class="btn sm" data-action="job-pause" data-when-running data-testid="tasks-pause-all"><svg class="icon sm"><use href="#i-pause"/></svg><span lang="en">Pause all</span><span lang="vi">Tạm dừng tất cả</span></button>
+        <button class="btn sm hidden" data-action="job-resume" data-when-paused data-testid="tasks-resume-all"><svg class="icon sm"><use href="#i-play"/></svg><span lang="en">Resume all</span><span lang="vi">Chạy tiếp tất cả</span></button>
+        <button class="btn ghost sm" data-go="library"><svg class="icon sm"><use href="#i-plus"/></svg><span lang="en">New job from a novel</span><span lang="vi">Job mới từ truyện</span></button>
+      </div>
+      <div class="ws-body flush">
+        <div style="padding:var(--sp-sm)" data-select-group>
+          <div class="job selected" data-select data-testid="tasks-job-1"><span class="type"><svg class="icon"><use href="#i-globe"/></svg></span><span class="name"><span lang="en">Translate 0001–0100 · 凡人修仙传 → Tiếng Việt</span><span lang="vi">Dịch 0001–0100 · 凡人修仙传 → Tiếng Việt</span></span><span class="ctl"><button class="btn ghost sm icon" data-action="job-pause" data-when-running title="Pause"><svg class="icon sm"><use href="#i-pause"/></svg></button><button class="btn ghost sm icon hidden" data-action="job-resume" data-when-paused title="Resume"><svg class="icon sm"><use href="#i-play"/></svg></button><button class="btn ghost sm icon" data-action="job-cancel" title="Cancel"><svg class="icon sm"><use href="#i-stop"/></svg></button><button class="btn ghost sm icon" title="More"><svg class="icon sm"><use href="#i-more"/></svg></button></span><span class="progress lg" data-job-progress><i></i><i class="fail"></i></span><span class="sub"><span data-job-state><span class="pill running" data-state="running"><span lang="en">Running</span><span lang="vi">Đang chạy</span></span><span class="pill warning hidden" data-state="paused"><span lang="en">Paused</span><span lang="vi">Tạm dừng</span></span><span class="pill hidden" data-state="cancelled"><span lang="en">Cancelled</span><span lang="vi">Đã huỷ</span></span><span class="pill warning hidden" data-state="errors"><span lang="en">Completed with errors</span><span lang="vi">Xong, có lỗi</span></span><span class="pill success hidden" data-state="completed"><span lang="en">Completed</span><span lang="vi">Hoàn tất</span></span></span><span class="num"><span data-job-done>37</span> <span lang="en">done</span><span lang="vi">xong</span> · <span data-job-failed>1</span> <span lang="en">failed</span><span lang="vi">lỗi</span> · 100 <span lang="en">total</span><span lang="vi">tổng</span></span><span>Codex CLI 0.160.0</span><span><span lang="en">chapter</span><span lang="vi">chương</span> <span data-job-current>0038</span></span><span class="num">14:02 → ~14:58</span></span></div>
+          <div class="job" data-select><span class="type"><svg class="icon"><use href="#i-sparkles"/></svg></span><span class="name"><span lang="en">Analyse 1201–1300 · 凡人修仙传</span><span lang="vi">Phân tích 1201–1300 · 凡人修仙传</span></span><span class="ctl"><button class="btn ghost sm icon" title="Cancel"><svg class="icon sm"><use href="#i-stop"/></svg></button><button class="btn ghost sm icon" title="More"><svg class="icon sm"><use href="#i-more"/></svg></button></span><span class="progress lg"><i style="--p:0%"></i></span><span class="sub"><span class="pill"><span lang="en">Queued</span><span lang="vi">Chờ</span></span><span class="num">0 / 100</span><span>Claude CLI 2.1.288</span><span><span lang="en">starts when a slot is free</span><span lang="vi">bắt đầu khi có slot trống</span></span></span></div>
+          <div class="job" data-select><span class="type"><svg class="icon"><use href="#i-globe"/></svg></span><span class="name"><span lang="en">Translate 0101–0200 · 나 혼자만 레벨업 → Tiếng Việt</span><span lang="vi">Dịch 0101–0200 · 나 혼자만 레벨업 → Tiếng Việt</span></span><span class="ctl"><button class="btn ghost sm icon" data-action="retry-failed" title="Retry failed"><svg class="icon sm"><use href="#i-retry"/></svg></button><button class="btn ghost sm icon" title="More"><svg class="icon sm"><use href="#i-more"/></svg></button></span><span class="progress lg"><i style="--p:68%"></i><i class="fail" style="--f:3%"></i></span><span class="sub"><span class="pill danger"><span lang="en">Paused — quota exhausted</span><span lang="vi">Tạm dừng — hết hạn mức</span></span><span class="num">68 <span lang="en">done</span><span lang="vi">xong</span> · 3 <span lang="en">failed</span><span lang="vi">lỗi</span> · 100</span><span>Codex CLI</span><span class="truncate" style="max-width:360px">codex: 429 rate limit — retry after 00:41:12</span></span></div>
+        </div>
+        <div class="divider" style="margin:0"></div>
+        <div style="padding:var(--sp-sm) var(--sp-md)" class="row between"><h3><span lang="en">Recent history</span><span lang="vi">Lịch sử gần đây</span></h3><a href="#tasks"><span lang="en">Show all 38</span><span lang="vi">Xem cả 38</span></a></div>
+        <div class="table-wrap">
+          <table class="table" data-testid="tasks-history">
+            <thead><tr><th><span lang="en">Job</span><span lang="vi">Job</span></th><th><span lang="en">Novel</span><span lang="vi">Truyện</span></th><th><span lang="en">Backend</span><span lang="vi">Backend</span></th><th class="num"><span lang="en">Items</span><span lang="vi">Mục</span></th><th><span lang="en">Status</span><span lang="vi">Trạng thái</span></th><th><span lang="en">Finished</span><span lang="vi">Kết thúc</span></th><th></th></tr></thead>
+            <tbody>
+              <tr><td><span lang="en">Import 746 chapters</span><span lang="vi">Nhập 746 chương</span></td><td>庆余年</td><td>—</td><td class="num">746 / 746</td><td><span class="pill success"><span lang="en">Completed</span><span lang="vi">Hoàn tất</span></span></td><td class="meta">09:41 · 1 min 12 s</td><td><div class="actions"><button class="btn ghost sm icon" title="Rerun"><svg class="icon sm"><use href="#i-retry"/></svg></button><button class="btn ghost sm icon" title="Open log"><svg class="icon sm"><use href="#i-file"/></svg></button></div></td></tr>
+              <tr><td><span lang="en">Analyse 1101–1200</span><span lang="vi">Phân tích 1101–1200</span></td><td>凡人修仙传</td><td>Claude CLI</td><td class="num">98 / 100</td><td><span class="pill warning"><span lang="en">Completed with errors</span><span lang="vi">Xong, có lỗi</span></span></td><td class="meta">2026-10-03 · 1 h 52 min</td><td><div class="actions"><button class="btn ghost sm icon" title="New job from failed items"><svg class="icon sm"><use href="#i-retry"/></svg></button><button class="btn ghost sm icon" title="Open log"><svg class="icon sm"><use href="#i-file"/></svg></button></div></td></tr>
+              <tr><td><span lang="en">Export translation 0001–1648</span><span lang="vi">Xuất bản dịch 0001–1648</span></td><td>斗破苍穹</td><td>—</td><td class="num">1,648</td><td><span class="pill success"><span lang="en">Completed</span><span lang="vi">Hoàn tất</span></span></td><td class="meta">2026-10-03 · 24 s</td><td><div class="actions"><button class="btn ghost sm icon" title="Open folder"><svg class="icon sm"><use href="#i-folder"/></svg></button></div></td></tr>
+              <tr><td><span lang="en">Translate 1601–1648</span><span lang="vi">Dịch 1601–1648</span></td><td>斗破苍穹</td><td>Codex CLI</td><td class="num">31 / 48</td><td><span class="pill"><span lang="en">Cancelled</span><span lang="vi">Đã huỷ</span></span></td><td class="meta">2026-10-02</td><td><div class="actions"><button class="btn ghost sm icon" title="Resume"><svg class="icon sm"><use href="#i-play"/></svg></button></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <aside class="panel right" data-testid="tasks-detail" data-tab-scope>
+      <div class="panel-head">
+        <div class="panel-tabs" data-tabs role="tablist"><button data-tab="items" aria-selected="true"><span lang="en">Items</span><span lang="vi">Mục</span></button><button data-tab="config" aria-selected="false"><span lang="en">Config</span><span lang="vi">Cấu hình</span></button></div>
+        <button class="btn ghost icon" data-toggle-panel="right" title="Collapse (Ctrl+Alt+B)"><svg class="icon"><use href="#i-panel-right"/></svg></button>
+      </div>
+      <div class="panel-body flush">
+        <div data-pane="items" class="active">
+          <div class="row between" style="padding:var(--sp-sm) var(--sp-md)"><div class="segmented"><button aria-pressed="true"><span lang="en">All</span><span lang="vi">Tất cả</span></button><button aria-pressed="false"><span lang="en">Failed</span><span lang="vi">Lỗi</span> 1</button><button aria-pressed="false"><span lang="en">Queued</span><span lang="vi">Chờ</span></button></div><button class="btn sm" data-action="retry-failed" data-testid="tasks-retry-failed"><svg class="icon sm"><use href="#i-retry"/></svg><span lang="en">Retry failed</span><span lang="vi">Thử lại lỗi</span></button></div>
+          <div class="items">
+            <div class="item-row"><span class="n">0036</span><span class="msg">第三十六章 · 3,120 → 2,980 <span lang="en">chars</span><span lang="vi">ký tự</span></span><span class="pill success plain"><span lang="en">done</span><span lang="vi">xong</span></span><span class="d">41 s</span></div>
+            <div class="item-row"><span class="n">0037</span><span class="msg">第三十七章 · 2,844 → 2,701</span><span class="pill success plain"><span lang="en">done</span><span lang="vi">xong</span></span><span class="d">38 s</span></div>
+            <div class="item-row"><span class="n" data-job-current>0038</span><span class="msg"><span lang="en">codex exec … writing paragraphs 14/27</span><span lang="vi">codex exec … đang viết đoạn 14/27</span></span><span class="pill running"><span lang="en">running</span><span lang="vi">chạy</span></span><span class="d">19 s</span></div>
+            <div class="item-row"><span class="n">0039</span><span class="msg">第三十九章</span><span class="pill plain"><span lang="en">queued</span><span lang="vi">chờ</span></span><span class="d">—</span></div>
+            <div class="item-row"><span class="n">0040</span><span class="msg">第四十章</span><span class="pill plain"><span lang="en">queued</span><span lang="vi">chờ</span></span><span class="d">—</span></div>
+            <div class="item-row"><span class="n">0029</span><span class="msg"><span lang="en">Paragraph count mismatch 27 → 25 · QA failed</span><span lang="vi">Lệch số đoạn 27 → 25 · QA không đạt</span></span><span class="pill danger"><span lang="en">failed</span><span lang="vi">lỗi</span></span><span class="d"><div class="row" style="gap:2px"><button class="btn ghost sm icon" data-action="retry-failed" title="Retry"><svg class="icon sm"><use href="#i-retry"/></svg></button><button class="btn ghost sm icon" title="Skip"><svg class="icon sm"><use href="#i-skip"/></svg></button><button class="btn ghost sm icon" data-go="translation" title="Open to fix by hand"><svg class="icon sm"><use href="#i-pencil"/></svg></button></div></span></div>
+          </div>
+          <div class="virtual-note"><span lang="en">100 items · failed items keep their error until retried or skipped</span><span lang="vi">100 mục · mục lỗi giữ nguyên lỗi cho tới khi thử lại hoặc bỏ qua</span></div>
+        </div>
+        <div data-pane="config">
+          <dl class="kv" style="padding:var(--sp-md)">
+            <dt>Job id</dt><dd><code>j-2026-10-04-0017</code></dd>
+            <dt><span lang="en">Type</span><span lang="vi">Loại</span></dt><dd><span lang="en">Translation</span><span lang="vi">Dịch</span> · zh → vi</dd>
+            <dt><span lang="en">Range</span><span lang="vi">Phạm vi</span></dt><dd>0001–0100 (100 <span lang="en">chapters</span><span lang="vi">chương</span>)</dd>
+            <dt><span lang="en">Backend</span><span lang="vi">Backend</span></dt><dd>Codex CLI 0.160.0 <span class="pill plain"><span lang="en">locked at start</span><span lang="vi">khoá khi bắt đầu</span></span></dd>
+            <dt><span lang="en">Glossary</span><span lang="vi">Bảng thuật ngữ</span></dt><dd><span lang="en">snapshot #3 · 412 terms</span><span lang="vi">bản chụp #3 · 412 thuật ngữ</span></dd>
+            <dt><span lang="en">Started</span><span lang="vi">Bắt đầu</span></dt><dd>2026-10-04 14:02</dd>
+            <dt><span lang="en">Resumed</span><span lang="vi">Chạy tiếp</span></dt><dd>1× (<span lang="en">app closed at item 0022</span><span lang="vi">đóng ứng dụng ở mục 0022</span>)</dd>
+            <dt><span lang="en">Output</span><span lang="vi">Đầu ra</span></dt><dd><code>translations\vi\</code></dd>
+          </dl>
+          <div class="row" style="padding:0 var(--sp-md) var(--sp-md)"><button class="btn sm"><svg class="icon sm"><use href="#i-retry"/></svg><span lang="en">Rerun with same config</span><span lang="vi">Chạy lại cùng cấu hình</span></button><button class="btn ghost sm"><svg class="icon sm"><use href="#i-file"/></svg><span lang="en">Open log</span><span lang="vi">Mở log</span></button></div>
+        </div>
+      </div>
+    </aside>
+
+    <aside class="panel bottom" data-testid="tasks-log">
+      <div class="panel-head"><h3><span lang="en">Log</span><span lang="vi">Nhật ký</span> <span class="meta">· j-2026-10-04-0017 · logs\jobs\0017.log</span></h3><button class="btn ghost sm"><svg class="icon sm"><use href="#i-external"/></svg><span lang="en">Open file</span><span lang="vi">Mở tệp</span></button><button class="btn ghost icon" data-toggle-panel="bottom" title="Collapse (Ctrl+J)"><svg class="icon"><use href="#i-panel-bottom"/></svg></button></div>
+      <div class="panel-body flush"><pre class="log" style="height:100%;margin:0;border-radius:0"><span class="t">14:02:11</span> job start · translation · backend=codex 0.160.0 · glossary=#3 · items=100 · concurrency=2
+<span class="t">14:02:12</span> item 0001 → running (codex exec --json --output-schema translation.schema.json)
+<span class="t">14:02:53</span> item 0001 → <span class="ok">done</span> · 41 s · 24/24 paragraphs · names ok
+<span class="t">14:24:40</span> item 0029 → <span class="err">failed</span> · QA: paragraph count 27 → 25 · kept for retry
+<span class="t">14:25:02</span> item 0030 → running
+<span class="t">14:31:17</span> <span class="wrn">app closed</span> · item 0022 running → requeued
+<span class="t">14:33:04</span> resume · same job id · 21 done · 1 failed · 78 queued
+<span class="t">14:47:30</span> item 0037 → <span class="ok">done</span> · 38 s
+<span class="t">14:47:31</span> item 0038 → running · paragraphs 14/27</pre></div>
+    </aside>
+
+    <aside class="annotations"><ol>
+      <li lang="en"><span class="ac">M03-F02</span> Jobs show done / failed / total as one bar (emerald + red segment), state pill, backend, current chapter and timing. States: queued, running, paused, completed, completed-with-errors, failed, cancelled.</li>
+      <li lang="vi"><span class="ac">M03-F02</span> Job hiển thị xong / lỗi / tổng trên một thanh (xanh ngọc + đoạn đỏ), pill trạng thái, backend, chương hiện tại và thời gian. Trạng thái: chờ, chạy, tạm dừng, hoàn tất, xong có lỗi, lỗi, đã huỷ.</li>
+      <li lang="en"><span class="ac">M03-F03</span> Pause / cancel / resume on the row and in bulk; the quota-exhausted job shows the CLI's own message and the retry time. Failed items offer Retry, Skip or Open to fix by hand.</li>
+      <li lang="vi"><span class="ac">M03-F03</span> Tạm dừng / huỷ / chạy tiếp trên từng dòng và hàng loạt; job hết hạn mức hiển thị thông báo của chính CLI và thời điểm thử lại. Mục lỗi có Thử lại, Bỏ qua hoặc Mở để sửa tay.</li>
+      <li lang="en"><span class="ac">M03-F04</span> Right panel: item list with per-item status and the locked job config (backend, glossary snapshot, resume count). Bottom panel: tail of the local log file.</li>
+      <li lang="vi"><span class="ac">M03-F04</span> Panel phải: danh sách mục với trạng thái từng mục và cấu hình job đã khoá (backend, bản chụp thuật ngữ, số lần chạy tiếp). Panel dưới: phần cuối tệp log cục bộ.</li>
+      <li lang="en">History table filters by type, novel, status and time (left panel); each row can be rerun with the same config or turned into a new job from failed items.</li>
+      <li lang="vi">Bảng lịch sử lọc theo loại, truyện, trạng thái và thời gian (panel trái); mỗi dòng có thể chạy lại cùng cấu hình hoặc tạo job mới từ các mục lỗi.</li>
+    </ol></aside>
+  </section>

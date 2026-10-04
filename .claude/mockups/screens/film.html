@@ -1,0 +1,250 @@
+  <!-- ================= screen: film (TH-08 · M12) ================= -->
+  <section class="screen" id="film" data-title="Film Series" data-layout="">
+    <aside class="panel left" data-testid="fm-left">
+      <div class="panel-head"><h3><span lang="en">Episodes</span><span lang="vi">Tập phim</span></h3><button class="btn ghost icon" data-toast="Episode created from ch 0013–0018" data-toast-vi="Đã tạo tập từ ch 0013–0018" data-toast-kind="success" title="New episode" data-testid="fm-new-episode"><svg class="icon"><use href="#i-plus"/></svg></button><button class="btn ghost icon" data-toggle-panel="left" title="Collapse (Ctrl+B)" data-testid="fm-collapse-left"><svg class="icon"><use href="#i-panel-left"/></svg></button></div>
+      <div class="panel-body flush">
+        <div class="panel-section col">
+          <div class="search"><svg class="icon"><use href="#i-search"/></svg><input class="input" placeholder="Search episodes…" data-ph-en="Search episodes…" data-ph-vi="Tìm tập phim…" data-testid="fm-search"></div>
+          <div class="segmented" data-view-for="#fm-episode-list" data-testid="fm-view-toggle">
+            <button type="button" aria-pressed="false" data-view="grid" title="Grid" data-testid="fm-view-grid"><svg class="icon sm"><use href="#i-grid"/></svg><span class="sr-only" lang="en">Grid</span><span class="sr-only" lang="vi">Lưới</span></button>
+            <button type="button" aria-pressed="true" data-view="list" title="List" data-testid="fm-view-list"><svg class="icon sm"><use href="#i-list"/></svg><span class="sr-only" lang="en">List</span><span class="sr-only" lang="vi">Danh sách</span></button>
+          </div>
+        </div>
+        <div class="panel-section">
+          <h4><span lang="en">Season 1</span><span lang="vi">Mùa 1</span></h4>
+          <div class="list" id="fm-episode-list" data-select-group data-testid="fm-episode-list">
+            <div class="list-item" data-select data-testid="fm-episode-01"><span class="thumb tall" style="width:22px;--c:var(--color-success)"></span><span class="text truncate">Tập 01 · Thất Huyền Môn</span><span class="pill success"><span lang="en">Rendered</span><span lang="vi">Đã render</span></span></div>
+            <div class="list-item selected" data-select data-testid="fm-episode-02"><span class="thumb tall" style="width:22px;--c:var(--color-primary)"></span><span class="text truncate">Tập 02 · Thải Hà Sơn</span><span class="pill running"><span lang="en">In progress</span><span lang="vi">Đang làm</span></span></div>
+            <div class="list-item" data-select data-testid="fm-episode-03"><span class="thumb tall" style="width:22px;--c:var(--color-warning)"></span><span class="text truncate">Tập 03 · Trúc Cơ</span><span class="pill"><span lang="en">Draft</span><span lang="vi">Bản nháp</span></span></div>
+            <div class="list-item" data-select data-testid="fm-episode-04"><span class="thumb tall" style="width:22px;--c:var(--color-text-tertiary)"></span><span class="text truncate">Tập 04 · Thanh Ngưu Trấn</span><span class="pill plain"><span lang="en">Planned</span><span lang="vi">Dự kiến</span></span></div>
+          </div>
+        </div>
+        <div class="panel-section">
+          <h4><span lang="en">Archive</span><span lang="vi">Lưu trữ</span></h4>
+          <div class="list" data-testid="fm-archive-list">
+            <div class="list-item" data-testid="fm-archive-trailer"><svg class="icon"><use href="#i-folder"/></svg><span class="text truncate">Trailer · mùa 1</span><span class="pill success"><span lang="en">Published</span><span lang="vi">Đã đăng</span></span></div>
+          </div>
+        </div>
+        <div class="panel-section row" style="padding-left:var(--sp-md)">
+          <button class="btn ghost sm" type="button" data-testid="fm-import"><svg class="icon sm"><use href="#i-download"/></svg><span lang="en">Import project</span><span lang="vi">Nhập dự án</span></button>
+          <button class="btn ghost sm" type="button" data-testid="fm-export"><svg class="icon sm"><use href="#i-upload"/></svg><span lang="en">Export project</span><span lang="vi">Xuất dự án</span></button>
+          <button class="btn ghost sm" type="button" data-testid="fm-archive"><svg class="icon sm"><use href="#i-folder"/></svg><span lang="en">Archive</span><span lang="vi">Lưu trữ</span></button>
+        </div>
+      </div>
+    </aside>
+    <main class="workspace" data-testid="fm-workspace" data-tab-scope>
+      <div class="ws-toolbar">
+        <h2>Tập 02 · Thải Hà Sơn <span class="meta">· ch 0007–0012 · 9:16 · 3:24 / 3:30</span></h2>
+        <span class="spacer"></span>
+        <button class="btn ghost icon sm" type="button" data-action="undo" title="Undo" data-testid="fm-undo"><svg class="icon sm"><use href="#i-undo"/></svg></button>
+        <button class="btn ghost icon sm" type="button" data-action="redo" title="Redo" data-testid="fm-redo"><svg class="icon sm"><use href="#i-redo"/></svg></button>
+        <button class="btn sm" type="button" data-go="videoeditor" data-testid="fm-open-editor"><svg class="icon sm"><use href="#i-video"/></svg><span lang="en">Open in Video editor</span><span lang="vi">Mở trong Dựng video</span></button>
+        <button class="btn primary sm" type="button" data-open="dlg-render" data-testid="fm-render"><svg class="icon sm"><use href="#i-film"/></svg><span lang="en">Render…</span><span lang="vi">Render…</span></button>
+      </div>
+      <div class="ws-toolbar">
+        <div class="steps" data-tabs data-testid="fm-steps">
+          <button type="button" class="step done" role="tab" aria-selected="false" data-tab="script" data-testid="fm-step-script"><i>1</i><span lang="en">Script</span><span lang="vi">Kịch bản</span></button>
+          <span class="arrow">›</span>
+          <button type="button" class="step current" role="tab" aria-selected="true" data-tab="storyboard" data-testid="fm-step-storyboard"><i>2</i><span lang="en">Storyboard</span><span lang="vi">Storyboard</span></button>
+          <span class="arrow">›</span>
+          <button type="button" class="step warn" role="tab" aria-selected="false" data-tab="media" data-testid="fm-step-media"><i>3</i><span lang="en">Media</span><span lang="vi">Media</span><span class="n">18/24</span></button>
+          <span class="arrow">›</span>
+          <button type="button" class="step" role="tab" aria-selected="false" data-tab="handoff" data-testid="fm-step-handoff"><i>4</i><span lang="en">Handoff</span><span lang="vi">Bàn giao</span></button>
+        </div>
+        <span class="spacer"></span>
+        <button class="btn ghost icon sm" type="button" title="Split shot" data-testid="fm-split"><svg class="icon sm"><use href="#i-scissors"/></svg></button>
+        <button class="btn ghost icon sm" type="button" title="Merge shots" data-testid="fm-merge"><svg class="icon sm"><use href="#i-merge"/></svg></button>
+        <button class="btn ghost icon sm" type="button" title="Lock shot" data-testid="fm-lock"><svg class="icon sm"><use href="#i-lock"/></svg></button>
+      </div>
+      <div class="ws-body flush">
+        <div data-pane="script" data-testid="fm-pane-script">
+          <div class="stats inline" style="padding:var(--sp-sm) var(--sp-md);border-bottom:1px solid var(--color-border)" data-testid="fm-script-stats">
+            <div class="stat"><div class="v num">3:24 / 3:30</div><div class="k"><span lang="en">length</span><span lang="vi">thời lượng</span></div></div>
+            <div class="stat"><div class="v num">3</div><div class="k"><span lang="en">scenes</span><span lang="vi">cảnh</span></div></div>
+            <div class="stat"><div class="v num">11</div><div class="k"><span lang="en">shots</span><span lang="vi">shot</span></div></div>
+            <div class="stat"><div class="v num">9 / 10</div><div class="k"><span lang="en">key events covered</span><span lang="vi">sự kiện chính được phủ</span></div></div>
+          </div>
+          <div style="padding:var(--sp-sm) 0">
+            <div class="scene-head" style="padding:0 var(--sp-md)"><b>Cảnh 1 · Lên núi Thải Hà</b><span class="meta">ch 0007–0008</span><span class="chips"><span class="chip" data-go="storyworld"><i class="type-dot place"></i>Thải Hà Sơn</span><span class="chip" data-go="storyworld"><i class="type-dot org"></i>Thất Huyền Môn</span></span></div>
+            <div class="seg narration" data-testid="fm-seg-1"><span class="n">01</span><span class="spk"><span class="avatar sm" style="--c:var(--color-text-tertiary)"><svg class="icon sm"><use href="#i-mic"/></svg></span><span>Người dẫn truyện</span></span><span class="txt">Sương phủ kín sườn núi Thải Hà Sơn khi Hàn Lập theo đoàn người lên cổng Thất Huyền Môn. <span class="stag">[toàn cảnh]</span><span class="stag">[nhạc: Thất Huyền Môn · chủ đề]</span></span><span class="end"><span class="type-badge mono">0:18</span></span></div>
+            <div class="seg" data-testid="fm-seg-2"><span class="n">02</span><span class="spk"><span class="avatar sm cjk" style="--c:var(--color-link)">张</span><span>Trương Thiết</span></span><span class="txt">Ngươi cũng được nhận vào môn phái sao? <span class="stag">[trung cảnh]</span></span><span class="end"><span class="type-badge mono">0:22</span></span></div>
+            <div class="seg" data-testid="fm-seg-3"><span class="n">03</span><span class="spk"><span class="avatar sm cjk" style="--c:var(--color-primary)">韩</span><span>Hàn Lập</span></span><span class="txt">Ừ. Cha ta bảo phải theo cho kịp. <span class="stag">[sfx: gió]</span></span><span class="end"><span class="type-badge mono">0:12</span></span></div>
+            <div class="scene-head" style="padding:0 var(--sp-md)"><b>Cảnh 2 · Đêm dò vườn thuốc</b><span class="meta">ch 0012</span><span class="chips"><span class="chip" data-go="storyworld"><i class="type-dot character"></i>Mặc Đại Phu</span><span class="chip" data-go="storyworld"><i class="type-dot place"></i><span lang="en">medicine garden</span><span lang="vi">vườn thuốc</span></span><span class="chip" data-go="storyworld"><i class="type-dot term"></i><span lang="en">oil lamp</span><span lang="vi">đèn dầu</span></span></span></div>
+            <div class="seg narration" data-testid="fm-seg-4"><span class="n">04</span><span class="spk"><span class="avatar sm" style="--c:var(--color-text-tertiary)"><svg class="icon sm"><use href="#i-mic"/></svg></span><span>Người dẫn truyện</span></span><span class="txt">Hàn Lập nấp sau rào trúc, nín thở nhìn ánh đèn lập lòe trong vườn. <span class="stag">[toàn cảnh]</span><span class="stag">[nhạc: Đêm vườn thuốc · nền]</span></span><span class="end"><span class="type-badge mono">0:16</span></span></div>
+            <div class="seg selected" data-testid="fm-seg-5"><span class="n">05</span><span class="spk"><span class="avatar sm cjk" style="--c:var(--color-warning)">墨</span><span>Mặc Đại Phu</span></span><span class="txt">Ai ở đó? <span class="stag">[cận cảnh]</span><span class="stag">[sfx: ho khẽ]</span></span><span class="end"><span class="type-badge mono">0:06</span></span></div>
+            <div class="scene-head" style="padding:0 var(--sp-md)"><b>Cảnh 3 · Tỷ võ</b><span class="meta">ch 0009</span><span class="chips"><span class="chip" data-go="storyworld"><i class="type-dot character"></i>Trương Thiết</span><span class="chip" data-go="storyworld"><i class="type-dot term"></i><span lang="en">wooden sword</span><span lang="vi">kiếm gỗ</span></span></span></div>
+            <div class="seg" data-testid="fm-seg-6"><span class="n">06</span><span class="spk"><span class="avatar sm cjk" style="--c:var(--color-link)">张</span><span>Trương Thiết</span></span><span class="txt">Hàn huynh, nhường ta một chiêu nhé! <span class="stag">[trung cảnh]</span><span class="stag">[sfx: gỗ va nhau]</span></span><span class="end"><span class="type-badge mono">0:34</span></span></div>
+          </div>
+        </div>
+        <div data-pane="storyboard" class="active" data-testid="fm-pane-storyboard">
+          <div style="padding:var(--sp-md)">
+            <div class="scene-head"><b><span lang="en">Scene 1 · Climbing Thải Hà Sơn</span><span lang="vi">Cảnh 1 · Lên núi Thải Hà</span></b><span class="meta">ch 0007–0008 · 3 shots · 0:52</span></div>
+            <div class="shot-grid" data-select-group data-testid="fm-scene-1">
+              <div class="shot-card" data-select data-testid="fm-shot-s1-01"><div class="thumb" style="--c:var(--color-primary)"><svg class="icon"><use href="#i-image"/></svg></div><div class="head"><b>S1·01</b><span lang="en">wide</span><span lang="vi">toàn cảnh</span><span class="pill success"><span lang="en">Ready</span><span lang="vi">Sẵn sàng</span></span></div><div class="desc"><span lang="en">Mist over Thải Hà Sơn; the group climbs the stone stairs.</span><span lang="vi">Sương phủ Thải Hà Sơn; đoàn người leo bậc đá.</span></div><div class="meta-row"><span class="type-badge mono">0:18</span><span><span lang="en">cut</span><span lang="vi">cắt</span></span></div></div>
+              <div class="shot-card" data-select data-testid="fm-shot-s1-02"><div class="thumb" style="--c:var(--color-link)"><svg class="icon"><use href="#i-image"/></svg></div><div class="head"><b>S1·02</b><span lang="en">medium</span><span lang="vi">trung cảnh</span><span class="pill success"><span lang="en">Ready</span><span lang="vi">Sẵn sàng</span></span></div><div class="desc"><span lang="en">Hàn Lập walks beside Trương Thiết and listens.</span><span lang="vi">Hàn Lập đi cạnh Trương Thiết, lắng nghe.</span></div><div class="meta-row"><span class="avatar sm cjk" style="--c:var(--color-primary)">韩</span><span class="avatar sm cjk" style="--c:var(--color-link)">张</span><span class="type-badge mono">0:22</span><span><span lang="en">cut</span><span lang="vi">cắt</span></span></div></div>
+              <div class="shot-card locked" data-select data-testid="fm-shot-s1-03"><div class="thumb" style="--c:var(--color-warning)"><svg class="icon"><use href="#i-image"/></svg></div><div class="head"><svg class="icon sm"><use href="#i-lock"/></svg><b>S1·03</b><span lang="en">insert</span><span lang="vi">chèn</span><span class="pill plain"><span lang="en">Locked</span><span lang="vi">Đã khoá</span></span></div><div class="desc"><span lang="en">Gate plaque 七玄门 comes into view.</span><span lang="vi">Bảng hiệu 七玄门 hiện ra nơi cổng.</span></div><div class="meta-row"><span class="type-badge mono">0:12</span><span><span lang="en">fade</span><span lang="vi">mờ dần</span></span></div></div>
+            </div>
+            <div class="scene-head"><b><span lang="en">Scene 2 · Night visit to the medicine garden</span><span lang="vi">Cảnh 2 · Đêm dò vườn thuốc</span></b><span class="meta">ch 0012 · 4 shots · 0:38</span></div>
+            <div class="shot-grid" data-select-group data-testid="fm-scene-2">
+              <div class="shot-card" data-select data-testid="fm-shot-s2-01"><div class="thumb" style="--c:var(--color-primary)"><svg class="icon"><use href="#i-image"/></svg></div><div class="head"><b>S2·01</b><span lang="en">wide</span><span lang="vi">toàn cảnh</span><span class="pill success"><span lang="en">Ready</span><span lang="vi">Sẵn sàng</span></span></div><div class="desc"><span lang="en">Bamboo fence around the medicine garden at night.</span><span lang="vi">Rào trúc quanh vườn thuốc trong đêm.</span></div><div class="meta-row"><span class="type-badge mono">0:10</span><span><span lang="en">cut</span><span lang="vi">cắt</span></span></div></div>
+              <div class="shot-card selected" data-select data-testid="fm-shot-s2-02"><div class="thumb" style="--c:var(--color-warning)"><svg class="icon"><use href="#i-image"/></svg></div><div class="head"><b>S2·02</b><span lang="en">close-up</span><span lang="vi">cận cảnh</span><span class="pill success"><span lang="en">Ready</span><span lang="vi">Sẵn sàng</span></span></div><div class="desc"><span lang="en">Mặc Đại Phu steps out of the shadow, coughing.</span><span lang="vi">Mặc Đại Phu bước ra từ bóng tối, ho khẽ.</span></div><div class="meta-row"><span class="avatar sm cjk" style="--c:var(--color-warning)">墨</span><span class="type-badge mono">0:06</span><span><span lang="en">cut</span><span lang="vi">cắt</span></span></div></div>
+              <div class="shot-card" data-select data-testid="fm-shot-s2-03"><div class="thumb empty"><svg class="icon"><use href="#i-plus"/></svg></div><div class="head"><b>S2·03</b><span lang="en">medium</span><span lang="vi">trung cảnh</span><span class="pill warning"><span lang="en">Needs media</span><span lang="vi">Thiếu media</span></span></div><div class="desc"><span lang="en">Hàn Lập kneels behind the herb beds; the lamp flickers.</span><span lang="vi">Hàn Lập quỳ sau luống thuốc; ngọn đèn chập chờn.</span></div><div class="meta-row"><span class="avatar sm cjk" style="--c:var(--color-primary)">韩</span><span class="type-badge mono">0:12</span><span><span lang="en">dissolve</span><span lang="vi">chồng mờ</span></span></div></div>
+              <div class="shot-card" data-select data-testid="fm-shot-s2-04"><div class="thumb"><svg class="icon"><use href="#i-sparkles"/></svg><span class="progress indeterminate"><i></i></span></div><div class="head"><b>S2·04</b><span lang="en">insert</span><span lang="vi">chèn</span><span class="pill running"><span lang="en">Generating</span><span lang="vi">Đang sinh</span></span></div><div class="desc"><span lang="en">A jade bottle glows on the table.</span><span lang="vi">Bình ngọc phát sáng trên bàn.</span></div><div class="meta-row"><span class="type-badge mono">0:10</span><span><span lang="en">cut</span><span lang="vi">cắt</span></span></div></div>
+            </div>
+            <div class="scene-head"><b><span lang="en">Scene 3 · Sparring match</span><span lang="vi">Cảnh 3 · Tỷ võ</span></b><span class="meta">ch 0009 · 4 shots · 1:54</span></div>
+            <div class="shot-grid" data-select-group data-testid="fm-scene-3">
+              <div class="shot-card" data-select data-testid="fm-shot-s3-01"><div class="thumb" style="--c:var(--color-primary)"><svg class="icon"><use href="#i-image"/></svg></div><div class="head"><b>S3·01</b><span lang="en">wide</span><span lang="vi">toàn cảnh</span><span class="pill success"><span lang="en">Ready</span><span lang="vi">Sẵn sàng</span></span></div><div class="desc"><span lang="en">Training yard at noon; disciples form a circle.</span><span lang="vi">Sân luyện võ giữa trưa; đệ tử vây thành vòng.</span></div><div class="meta-row"><span class="type-badge mono">0:30</span><span><span lang="en">cut</span><span lang="vi">cắt</span></span></div></div>
+              <div class="shot-card" data-select data-testid="fm-shot-s3-02"><div class="thumb" style="--c:var(--color-link)"><svg class="icon"><use href="#i-image"/></svg></div><div class="head"><b>S3·02</b><span lang="en">medium</span><span lang="vi">trung cảnh</span><span class="pill success"><span lang="en">Ready</span><span lang="vi">Sẵn sàng</span></span></div><div class="desc"><span lang="en">Hàn Lập and Trương Thiết trade blows.</span><span lang="vi">Hàn Lập và Trương Thiết trao đổi chiêu thức.</span></div><div class="meta-row"><span class="avatar sm cjk" style="--c:var(--color-primary)">韩</span><span class="avatar sm cjk" style="--c:var(--color-link)">张</span><span class="type-badge mono">0:34</span><span><span lang="en">cut</span><span lang="vi">cắt</span></span></div></div>
+              <div class="shot-card" data-select data-testid="fm-shot-s3-03"><div class="thumb empty"><svg class="icon"><use href="#i-plus"/></svg></div><div class="head"><b>S3·03</b><span lang="en">close-up</span><span lang="vi">cận cảnh</span><span class="pill warning"><span lang="en">Needs media</span><span lang="vi">Thiếu media</span></span></div><div class="desc"><span lang="en">Trương Thiết grits his teeth.</span><span lang="vi">Trương Thiết nghiến răng.</span></div><div class="meta-row"><span class="avatar sm cjk" style="--c:var(--color-link)">张</span><span class="type-badge mono">0:26</span><span><span lang="en">cut</span><span lang="vi">cắt</span></span></div></div>
+              <div class="shot-card" data-select data-testid="fm-shot-s3-04"><div class="thumb empty"><svg class="icon"><use href="#i-plus"/></svg></div><div class="head"><b>S3·04</b><span lang="en">insert</span><span lang="vi">chèn</span><span class="pill warning"><span lang="en">Needs media</span><span lang="vi">Thiếu media</span></span></div><div class="desc"><span lang="en">A wooden sword cracks in half.</span><span lang="vi">Thanh kiếm gỗ gãy làm đôi.</span></div><div class="meta-row"><span class="type-badge mono">0:24</span><span><span lang="en">fade</span><span lang="vi">mờ dần</span></span></div></div>
+            </div>
+          </div>
+        </div>
+        <div data-pane="media" data-testid="fm-pane-media">
+          <div style="padding:var(--sp-md)" class="col">
+            <div class="row">
+              <button class="btn primary sm" type="button" data-toast="6 shots queued in the Task Center" data-toast-vi="Đã xếp 6 shot vào Trung tâm tác vụ" data-toast-kind="success" data-testid="fm-generate-missing"><svg class="icon sm"><use href="#i-sparkles"/></svg><span lang="en">Generate missing (6)</span><span lang="vi">Sinh phần còn thiếu (6)</span></button>
+              <button class="btn sm" type="button" data-testid="fm-import-media"><svg class="icon sm"><use href="#i-download"/></svg><span lang="en">Import…</span><span lang="vi">Nhập…</span></button>
+              <a class="pill running" href="#tasks" data-go="tasks" data-testid="fm-media-job"><span lang="en">Generating · 2 / 6 in the Task Center</span><span lang="vi">Đang sinh · 2 / 6 trong Trung tâm tác vụ</span></a>
+            </div>
+            <div class="table-wrap" data-testid="fm-media-table-wrap">
+              <table class="table" data-testid="fm-media-table">
+                <thead><tr><th><span lang="en">Shot</span><span lang="vi">Shot</span></th><th><span lang="en">Character art</span><span lang="vi">Ảnh nhân vật</span></th><th><span lang="en">Background</span><span lang="vi">Phông nền</span></th><th><span lang="en">Audio</span><span lang="vi">Âm thanh</span></th><th><span lang="en">Clip</span><span lang="vi">Clip</span></th><th><span lang="en">Check</span><span lang="vi">Kiểm tra</span></th></tr></thead>
+                <tbody>
+                  <tr><td class="num">S2·01</td><td><span class="pill plain">—</span></td><td><span class="pill success"><span lang="en">Approved</span><span lang="vi">Đã duyệt</span></span></td><td><span class="pill success"><span lang="en">Approved</span><span lang="vi">Đã duyệt</span></span></td><td><span class="pill success"><span lang="en">Approved</span><span lang="vi">Đã duyệt</span></span></td><td><span class="pill success"><span lang="en">consistent</span><span lang="vi">nhất quán</span></span></td></tr>
+                  <tr class="selected"><td class="num">S2·02</td><td><span class="pill warning"><span lang="en">Needs review</span><span lang="vi">Cần duyệt</span></span></td><td><span class="pill success"><span lang="en">Approved</span><span lang="vi">Đã duyệt</span></span></td><td><span class="pill success"><span lang="en">Approved</span><span lang="vi">Đã duyệt</span></span></td><td><span class="pill warning"><span lang="en">Needs review</span><span lang="vi">Cần duyệt</span></span></td><td><span class="pill warning"><span lang="en">hair differs</span><span lang="vi">tóc khác</span></span></td></tr>
+                  <tr><td class="num">S2·03</td><td><span class="pill danger"><span lang="en">Missing</span><span lang="vi">Thiếu</span></span></td><td><span class="pill success"><span lang="en">Approved</span><span lang="vi">Đã duyệt</span></span></td><td><span class="pill danger"><span lang="en">Missing</span><span lang="vi">Thiếu</span></span></td><td><span class="pill danger"><span lang="en">Missing</span><span lang="vi">Thiếu</span></span></td><td><span class="pill plain">—</span></td></tr>
+                  <tr><td class="num">S2·04</td><td><span class="pill plain">—</span></td><td><span class="pill running"><span lang="en">Generating</span><span lang="vi">Đang sinh</span></span></td><td><span class="pill success"><span lang="en">Approved</span><span lang="vi">Đã duyệt</span></span></td><td><span class="pill running"><span lang="en">Generating</span><span lang="vi">Đang sinh</span></span></td><td><span class="pill plain">—</span></td></tr>
+                  <tr><td class="num">S3·03</td><td><span class="pill danger"><span lang="en">Missing</span><span lang="vi">Thiếu</span></span></td><td><span class="pill success"><span lang="en">Approved</span><span lang="vi">Đã duyệt</span></span></td><td><span class="pill danger"><span lang="en">Missing</span><span lang="vi">Thiếu</span></span></td><td><span class="pill danger"><span lang="en">Missing</span><span lang="vi">Thiếu</span></span></td><td><span class="pill plain">—</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <h4><span lang="en">Pick a take for S2·02</span><span lang="vi">Chọn bản sinh cho S2·02</span></h4>
+            <div class="asset-grid" data-select-group data-testid="fm-takes">
+              <div class="asset-tile" data-select data-testid="fm-take-1"><div class="thumb" style="--c:var(--color-primary)"><svg class="icon"><use href="#i-image"/></svg></div><span class="name"><span lang="en">Take 1</span><span lang="vi">Bản 1</span></span><span class="sub"><span lang="en">hair differs</span><span lang="vi">tóc khác</span></span></div>
+              <div class="asset-tile selected" data-select data-testid="fm-take-2"><div class="thumb" style="--c:var(--color-warning)"><svg class="icon"><use href="#i-image"/></svg></div><span class="name"><span lang="en">Take 2</span><span lang="vi">Bản 2</span></span><span class="sub"><span lang="en">consistent</span><span lang="vi">nhất quán</span></span></div>
+              <div class="asset-tile" data-select data-testid="fm-take-3"><div class="thumb" style="--c:var(--color-link)"><svg class="icon"><use href="#i-image"/></svg></div><span class="name"><span lang="en">Take 3</span><span lang="vi">Bản 3</span></span><span class="sub"><span lang="en">light too bright</span><span lang="vi">ánh sáng quá chói</span></span></div>
+            </div>
+            <div class="row"><button class="btn sm" type="button" data-toast="Take 2 selected for S2·02" data-toast-vi="Đã chọn bản 2 cho S2·02" data-toast-kind="success" data-testid="fm-use-take"><svg class="icon sm"><use href="#i-check"/></svg><span lang="en">Use take 2</span><span lang="vi">Dùng bản 2</span></button></div>
+          </div>
+        </div>
+        <div data-pane="handoff" data-testid="fm-pane-handoff">
+          <div style="padding:var(--sp-md)" class="col">
+            <h4><span lang="en">Locked for render</span><span lang="vi">Đã khoá cho lần render</span></h4>
+            <dl class="kv" data-testid="fm-locked">
+              <dt><span lang="en">Script</span><span lang="vi">Kịch bản</span></dt><dd>Script v4</dd>
+              <dt>Storyboard</dt><dd>Storyboard v7</dd>
+              <dt><span lang="en">Assets</span><span lang="vi">Tài nguyên</span></dt><dd>Asset set #12</dd>
+              <dt><span lang="en">Cast</span><span lang="vi">Dàn giọng</span></dt><dd>Cast v3</dd>
+              <dt>BGM</dt><dd>Thất Huyền Môn · chủ đề</dd>
+              <dt><span lang="en">Subtitles</span><span lang="vi">Phụ đề</span></dt><dd><code>vi.srt</code></dd>
+            </dl>
+            <div class="row"><button class="btn primary sm" type="button" data-toast="Episode handed off to the Video editor" data-toast-vi="Đã bàn giao tập cho Dựng video" data-toast-kind="success" data-go="videoeditor" data-testid="fm-handoff"><svg class="icon sm"><use href="#i-send"/></svg><span lang="en">Hand off to Video editor</span><span lang="vi">Bàn giao cho Dựng video</span></button></div>
+            <h4><span lang="en">Renders received</span><span lang="vi">Bản render đã nhận</span></h4>
+            <div class="list" data-testid="fm-renders">
+              <div class="list-item" data-go="videoeditor" data-testid="fm-render-ep02"><svg class="icon"><use href="#i-video"/></svg><span class="text truncate"><code>ep02-9x16-draft.mp4</code></span><span class="pill danger"><span lang="en">Failed · missing clip S2·03</span><span lang="vi">Lỗi · thiếu clip S2·03</span></span></div>
+              <div class="list-item" data-go="videoeditor" data-testid="fm-render-ep01"><svg class="icon"><use href="#i-video"/></svg><span class="text truncate"><code>ep01-9x16.mp4</code></span><span class="pill success"><span lang="en">Done · 182 MB</span><span lang="vi">Xong · 182 MB</span></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <aside class="panel right" data-tab-scope data-testid="fm-right">
+      <div class="panel-head">
+        <div class="panel-tabs" role="tablist" data-tabs>
+          <button type="button" role="tab" aria-selected="true" data-tab="shot" data-testid="fm-tab-shot"><span lang="en">Shot</span><span lang="vi">Shot</span></button>
+          <button type="button" role="tab" aria-selected="false" data-tab="episode" data-testid="fm-tab-episode"><span lang="en">Episode</span><span lang="vi">Tập</span></button>
+        </div>
+        <button class="btn ghost icon" data-toggle-panel="right" title="Collapse (Ctrl+Alt+B)" data-testid="fm-collapse-right"><svg class="icon"><use href="#i-panel-right"/></svg></button>
+      </div>
+      <div class="panel-body flush">
+        <div data-pane="shot" class="active">
+          <div class="panel-section col">
+            <div style="padding:0 var(--sp-sm)"><div class="thumb" style="--c:var(--color-warning)" data-testid="fm-shot-thumb"><svg class="icon"><use href="#i-image"/></svg><span class="corner nw"><span class="type-badge mono">S2·02</span></span><span class="corner se"><span class="type-badge mono">0:06</span></span></div></div>
+            <div class="field" style="padding:0 var(--sp-sm)"><label for="fm-desc"><span lang="en">Description</span><span lang="vi">Mô tả</span></label><textarea class="textarea" id="fm-desc" rows="3" data-testid="fm-shot-description">Mặc Đại Phu bước ra từ bóng tối, ho khẽ, ánh đèn hắt nửa mặt.</textarea></div>
+            <div class="field" style="padding:0 var(--sp-sm)"><label for="fm-framing"><span lang="en">Framing</span><span lang="vi">Khung hình</span></label><select class="select" id="fm-framing" data-testid="fm-shot-framing"><option selected data-opt-en="Close-up" data-opt-vi="Cận cảnh">Close-up</option><optionNone data-opt-en="Wide" data-opt-vi="Toàn cảnh">Wide</option><optionNone data-opt-en="Medium" data-opt-vi="Trung cảnh">Medium</option><optionNone data-opt-en="Insert" data-opt-vi="Chèn">Insert</option></select></div>
+            <div class="row" style="padding:0 var(--sp-sm);flex-wrap:nowrap;align-items:flex-end">
+              <div class="field grow"><label for="fm-duration"><span lang="en">Duration</span><span lang="vi">Thời lượng</span></label><input class="input num" id="fm-duration" value="0:06" data-testid="fm-shot-duration"></div>
+              <div class="field grow"><label for="fm-transition"><span lang="en">Transition</span><span lang="vi">Chuyển cảnh</span></label><select class="select" id="fm-transition" data-testid="fm-shot-transition"><option selected data-opt-en="Cut" data-opt-vi="Cắt">Cut</option><optionNone data-opt-en="Fade" data-opt-vi="Mờ dần">Fade</option><optionNone data-opt-en="Dissolve" data-opt-vi="Chồng mờ">Dissolve</option></select></div>
+            </div>
+          </div>
+          <div class="panel-section col">
+            <h4><span lang="en">Linked</span><span lang="vi">Liên kết</span></h4>
+            <div class="chips" style="padding:0 var(--sp-sm)" data-testid="fm-linked">
+              <span class="chip" data-go="storyworld"><i class="type-dot character"></i>Mặc Đại Phu <span class="n"><span lang="en">character</span><span lang="vi">nhân vật</span></span></span>
+              <span class="chip" data-go="storyworld"><i class="type-dot place"></i><span lang="en">medicine garden</span><span lang="vi">vườn thuốc</span> <span class="n"><span lang="en">place</span><span lang="vi">địa điểm</span></span></span>
+              <span class="chip" data-go="storyworld"><i class="type-dot term"></i><span lang="en">oil lamp</span><span lang="vi">đèn dầu</span> <span class="n"><span lang="en">prop</span><span lang="vi">đạo cụ</span></span></span>
+            </div>
+            <div class="row" style="padding:0 var(--sp-sm)"><span class="meta"><span lang="en">Source</span><span lang="vi">Nguồn</span></span><a class="cite" data-go="reader" data-testid="fm-source-cite"><span class="ch">0012</span><span class="q">¶4</span></a></div>
+          </div>
+          <div class="panel-section col">
+            <h4><span lang="en">Assets</span><span lang="vi">Tài nguyên</span></h4>
+            <div class="asset-grid dense" style="padding:0 var(--sp-sm)" data-testid="fm-shot-assets">
+              <div class="asset-tile"><div class="thumb" style="--c:var(--color-warning)"><svg class="icon"><use href="#i-user"/></svg><span class="corner nw"><span class="type-badge canon"><svg class="icon"><use href="#i-star"/></svg>v2</span></span></div><span class="name">Mặc Đại Phu</span><span class="sub"><span lang="en">portrait · canonical</span><span lang="vi">chân dung · chuẩn</span></span></div>
+              <div class="asset-tile"><div class="thumb" style="--c:var(--color-primary)"><svg class="icon"><use href="#i-image"/></svg><span class="corner nw"><span class="type-badge mono">v1</span></span></div><span class="name"><span lang="en">Night garden</span><span lang="vi">Vườn đêm</span></span><span class="sub"><span lang="en">background</span><span lang="vi">phông nền</span></span></div>
+            </div>
+            <div class="row" style="padding:0 var(--sp-sm)"><button class="btn sm" type="button" data-go="assets" data-testid="fm-create-variant"><svg class="icon sm"><use href="#i-plus"/></svg><span lang="en">Create variant</span><span lang="vi">Tạo biến thể</span></button></div>
+          </div>
+          <div class="panel-section" style="padding-left:var(--sp-md)">
+            <label class="switch"><input type="checkbox" data-testid="fm-shot-lock"><span class="track"></span><span><span lang="en">Lock shot</span><span lang="vi">Khoá shot</span></span></label>
+          </div>
+        </div>
+        <div data-pane="episode">
+          <div class="panel-section col">
+            <div class="field" style="padding:0 var(--sp-sm)"><label for="fm-template"><span lang="en">Template</span><span lang="vi">Mẫu</span></label><select class="select" id="fm-template" data-testid="fm-ep-template"><option selected data-opt-en="Short · vertical 9:16" data-opt-vi="Ngắn · dọc 9:16">Short · vertical 9:16</option><optionNone data-opt-en="Short" data-opt-vi="Ngắn">Short</option><optionNone data-opt-en="Landscape" data-opt-vi="Ngang">Landscape</option><optionNone data-opt-en="Illustrated" data-opt-vi="Minh hoạ">Illustrated</option></select></div>
+            <div class="field" style="padding:0 var(--sp-sm)"><label for="fm-range"><span lang="en">Chapter range</span><span lang="vi">Khoảng chương</span></label><input class="input num" id="fm-range" value="0007–0012" data-testid="fm-ep-range"></div>
+            <div class="field" style="padding:0 var(--sp-sm)"><label for="fm-target"><span lang="en">Target length</span><span lang="vi">Thời lượng mục tiêu</span></label><input class="input num" id="fm-target" value="3:30" data-testid="fm-ep-target"></div>
+          </div>
+          <div class="panel-section">
+            <h4><span lang="en">Status</span><span lang="vi">Trạng thái</span></h4>
+            <div class="list" data-testid="fm-ep-status">
+              <div class="list-item compact"><span class="text"><span lang="en">Script</span><span lang="vi">Kịch bản</span></span><span class="pill success"><span lang="en">Done</span><span lang="vi">Xong</span></span></div>
+              <div class="list-item compact"><span class="text"><span lang="en">Assets</span><span lang="vi">Tài nguyên</span></span><span class="pill warning">18 / 24</span></div>
+              <div class="list-item compact"><span class="text"><span lang="en">Voice</span><span lang="vi">Giọng</span></span><span class="pill success">Cast v3</span></div>
+              <div class="list-item compact"><span class="text"><span lang="en">Edit</span><span lang="vi">Dựng</span></span><span class="pill running"><span lang="en">In progress</span><span lang="vi">Đang làm</span></span></div>
+              <div class="list-item compact"><span class="text">Render</span><span class="pill plain">—</span></div>
+              <div class="list-item compact"><span class="text"><span lang="en">Publish</span><span lang="vi">Đăng</span></span><span class="pill plain">—</span></div>
+            </div>
+          </div>
+          <div class="panel-section row" style="padding-left:var(--sp-md)">
+            <button class="btn sm" type="button" data-testid="fm-ep-duplicate"><svg class="icon sm"><use href="#i-copy"/></svg><span lang="en">Duplicate</span><span lang="vi">Nhân bản</span></button>
+            <button class="btn sm" type="button" data-testid="fm-ep-rename"><svg class="icon sm"><use href="#i-pencil"/></svg><span lang="en">Rename</span><span lang="vi">Đổi tên</span></button>
+            <button class="btn ghost sm" type="button" data-testid="fm-ep-archive"><svg class="icon sm"><use href="#i-folder"/></svg><span lang="en">Archive</span><span lang="vi">Lưu trữ</span></button>
+          </div>
+        </div>
+      </div>
+    </aside>
+    <aside class="panel bottom" data-testid="fm-bottom">
+      <div class="panel-head"><h3><span lang="en">Source coverage</span><span lang="vi">Độ phủ nguồn</span></h3><span class="meta">ch 0007–0012 · <span lang="en">10 key events</span><span lang="vi">10 sự kiện chính</span></span><button class="btn ghost icon" data-toggle-panel="bottom" title="Collapse (Ctrl+J)" data-testid="fm-collapse-bottom"><svg class="icon"><use href="#i-panel-bottom"/></svg></button></div>
+      <div class="panel-body flush">
+        <div class="events" data-testid="fm-coverage">
+          <div class="ev-row" data-go="reader" data-testid="fm-ev-1"><span class="ch">0007</span><span>Hàn Lập nghe chuyện cũ trong môn <span class="pill success"><span lang="en">In shot S1·02</span><span lang="vi">Trong shot S1·02</span></span></span></div>
+          <div class="ev-row" data-go="reader" data-testid="fm-ev-2"><span class="ch">0008</span><span>Gặp con trai thợ rèn <span class="pill success"><span lang="en">In shot S1·02</span><span lang="vi">Trong shot S1·02</span></span></span></div>
+          <div class="ev-row" data-go="reader" data-testid="fm-ev-3"><span class="ch">0008</span><span>Bảng hiệu 七玄门 nơi cổng núi <span class="pill success"><span lang="en">In shot S1·03</span><span lang="vi">Trong shot S1·03</span></span></span></div>
+          <div class="ev-row" data-go="reader" data-testid="fm-ev-4"><span class="ch">0009</span><span>Tỷ võ với Trương Thiết <span class="pill success"><span lang="en">In shot S3·02</span><span lang="vi">Trong shot S3·02</span></span></span></div>
+          <div class="ev-row" data-go="reader" data-testid="fm-ev-5"><span class="ch">0010</span><span>Luyện Khí tầng một <span class="pill success"><span lang="en">In shot S3·01</span><span lang="vi">Trong shot S3·01</span></span></span></div>
+          <div class="ev-row" data-go="reader" data-testid="fm-ev-6"><span class="ch">0009</span><span>Hàn Lập gặp Lệ Phi Vũ lần đầu <span class="pill success"><span lang="en">In shot S3·01</span><span lang="vi">Trong shot S3·01</span></span></span></div>
+          <div class="ev-row" data-go="reader" data-testid="fm-ev-7"><span class="ch">0011</span><span>Về Thanh Ngưu Trấn <span class="pill warning"><span lang="en">Not covered</span><span lang="vi">Chưa được phủ</span></span></span></div>
+          <div class="ev-row" data-go="reader" data-testid="fm-ev-8"><span class="ch">0012</span><span>Đêm dò vườn thuốc <span class="pill success"><span lang="en">In shot S2·03</span><span lang="vi">Trong shot S2·03</span></span></span></div>
+          <div class="ev-row" data-go="reader" data-testid="fm-ev-9"><span class="ch">0012</span><span>Mặc Đại Phu xuất hiện <span class="pill success"><span lang="en">In shot S2·02</span><span lang="vi">Trong shot S2·02</span></span></span></div>
+          <div class="ev-row" data-go="reader" data-testid="fm-ev-10"><span class="ch">0012</span><span>Bình ngọc phát sáng trên bàn <span class="pill success"><span lang="en">In shot S2·04</span><span lang="vi">Trong shot S2·04</span></span></span></div>
+        </div>
+      </div>
+    </aside>
+    <aside class="annotations">
+      <ol>
+        <li lang="en"><span class="ac">M12-F01</span> Episodes listed by season with status; new from a chapter range; import / export / archive; the Episode tab tracks script, assets, voice, edit, render and publish.</li>
+        <li lang="vi"><span class="ac">M12-F01</span> Tập phim xếp theo mùa kèm trạng thái; tạo mới từ một khoảng chương; nhập / xuất / lưu trữ; tab Tập theo dõi kịch bản, tài nguyên, giọng, dựng, render và đăng.</li>
+        <li lang="en"><span class="ac">M12-F02</span> Script stage: scenes, shots, dialogue, narration and directions linked to characters, places and props; length and coverage against the source.</li>
+        <li lang="vi"><span class="ac">M12-F02</span> Bước Kịch bản: cảnh, shot, lời thoại, lời dẫn và chỉ dẫn gắn với nhân vật, địa điểm, đạo cụ; thời lượng và độ phủ so với nguồn.</li>
+        <li lang="en"><span class="ac">M12-F03</span> Storyboard: shot cards per scene with framing, duration and transition; split, merge, reorder, lock.</li>
+        <li lang="vi"><span class="ac">M12-F03</span> Storyboard: thẻ shot theo từng cảnh với khung hình, thời lượng và chuyển cảnh; tách, gộp, sắp xếp lại, khoá.</li>
+        <li lang="en"><span class="ac">M12-F04</span> Media stage: per-shot media status, batch generation in the Task Center, take comparison with consistency checks.</li>
+        <li lang="vi"><span class="ac">M12-F04</span> Bước Media: trạng thái media từng shot, sinh hàng loạt trong Trung tâm tác vụ, so sánh các bản sinh kèm kiểm tra nhất quán.</li>
+        <li lang="en"><span class="ac">M12-F05</span> Handoff locks the versions used and sends everything to the Video editor; renders and their errors come back here.</li>
+        <li lang="vi"><span class="ac">M12-F05</span> Bàn giao khoá các phiên bản đã dùng và gửi toàn bộ sang Dựng video; bản render và lỗi của chúng quay về đây.</li>
+        <li lang="en"><span class="ac">1280×720</span> Two toolbars stay one line each (only the current step keeps its label); the shot grid drops to three columns.</li>
+        <li lang="vi"><span class="ac">1280×720</span> Hai thanh công cụ vẫn một dòng (chỉ bước hiện tại giữ nhãn); lưới shot giảm còn ba cột.</li>
+      </ol>
+    </aside>
+  </section>

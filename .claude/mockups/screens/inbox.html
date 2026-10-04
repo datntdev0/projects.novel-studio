@@ -1,0 +1,132 @@
+  <!-- ================= screen: inbox (TH-11 · M19) ================= -->
+  <section class="screen" id="inbox" data-title="Media inbox" data-layout="">
+    <aside class="panel left" data-testid="ib-left">
+      <div class="panel-head"><h3><span lang="en">Media inbox</span><span lang="vi">Hộp thư media</span></h3><button class="btn ghost icon" data-toggle-panel="left" title="Collapse (Ctrl+B)"><svg class="icon"><use href="#i-panel-left"/></svg></button></div>
+      <div class="panel-body">
+        <div class="panel-section">
+          <h4><span lang="en">Folders</span><span lang="vi">Thư mục</span></h4>
+          <div class="list" data-select-group data-testid="ib-folders">
+            <a class="list-item selected" data-select data-testid="ib-folder-all"><svg class="icon"><use href="#i-inbox"/></svg><span class="text"><span lang="en">All media</span><span lang="vi">Tất cả media</span></span><span class="badge neutral">86</span></a>
+            <a class="list-item" data-select><svg class="icon"><use href="#i-video"/></svg><span class="text"><span lang="en">Trailers &amp; references</span><span lang="vi">Trailer &amp; tham khảo</span></span><span class="badge neutral">12</span></a>
+            <a class="list-item" data-select><svg class="icon"><use href="#i-music"/></svg><span class="text"><span lang="en">Music</span><span lang="vi">Nhạc</span></span><span class="badge neutral">31</span></a>
+            <a class="list-item" data-select><svg class="icon"><use href="#i-waveform"/></svg><span class="text"><span lang="en">Ambience recordings</span><span lang="vi">Thu âm không khí</span></span><span class="badge neutral">18</span></a>
+            <a class="list-item" data-select><svg class="icon"><use href="#i-mic"/></svg><span class="text"><span lang="en">Voice samples</span><span lang="vi">Mẫu giọng</span></span><span class="badge neutral">9</span></a>
+            <a class="list-item" data-select><svg class="icon"><use href="#i-film"/></svg><span class="text"><span lang="en">Footage</span><span lang="vi">Cảnh quay</span></span><span class="badge neutral">16</span></a>
+          </div>
+        </div>
+        <div class="panel-section">
+          <h4><span lang="en">Platform</span><span lang="vi">Nền tảng</span></h4>
+          <div class="col" style="padding:0 var(--sp-sm);gap:6px" data-testid="ib-platforms">
+            <label class="check"><input type="checkbox" checked>YouTube</label>
+            <label class="check"><input type="checkbox" checked>SoundCloud</label>
+            <label class="check"><input type="checkbox" checked>Vimeo</label>
+            <label class="check"><input type="checkbox" checked><span lang="en">Direct link</span><span lang="vi">Liên kết trực tiếp</span></label>
+          </div>
+        </div>
+        <div class="panel-section">
+          <h4><span lang="en">Status</span><span lang="vi">Trạng thái</span></h4>
+          <div style="padding:0 var(--sp-sm)"><div class="segmented" style="width:100%" data-select-group data-testid="ib-status"><button aria-pressed="true" data-select><span lang="en">All</span><span lang="vi">Tất cả</span></button><button aria-pressed="false" data-select><span lang="en">Done</span><span lang="vi">Xong</span></button><button aria-pressed="false" data-select><span lang="en">Downloading</span><span lang="vi">Đang tải</span></button><button aria-pressed="false" data-select><span lang="en">Failed</span><span lang="vi">Lỗi</span></button></div></div>
+        </div>
+        <div class="panel-section">
+          <h4><span lang="en">Novel</span><span lang="vi">Truyện</span></h4>
+          <div style="padding:0 var(--sp-sm)"><select class="select" data-testid="ib-novel"><option data-opt-en="All novels" data-opt-vi="Tất cả truyện">All novels</option><option>凡人修仙传</option><option>庆余年</option></select></div>
+        </div>
+        <div class="panel-section">
+          <div class="callout" style="margin:0 var(--sp-xs)" data-testid="ib-rights-note"><svg class="icon"><use href="#i-shield"/></svg><div><span lang="en">Only media you own or have the rights to use. Links to novel text are blocked.</span><span lang="vi">Chỉ media bạn sở hữu hoặc có quyền sử dụng. Liên kết tới văn bản truyện bị chặn.</span></div></div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="workspace" data-testid="ib-workspace">
+      <div class="ws-toolbar">
+        <h2><span lang="en">All media</span><span lang="vi">Tất cả media</span> <span class="meta">· 86</span></h2>
+        <span class="spacer"></span>
+        <div class="search" style="width:100px"><svg class="icon"><use href="#i-search"/></svg><input class="input" data-ph-en="Search…" data-ph-vi="Tìm…" placeholder="Search…" data-testid="ib-search"></div>
+        <div class="btn-group" data-view-for="#ib-grid" data-testid="ib-view"><button class="btn sm" aria-pressed="true" data-view="grid" title="Grid"><svg class="icon sm"><use href="#i-grid"/></svg><span lang="en">Grid</span><span lang="vi">Lưới</span></button><button class="btn sm" aria-pressed="false" data-view="list" title="List"><svg class="icon sm"><use href="#i-list"/></svg><span lang="en">List</span><span lang="vi">Danh sách</span></button></div>
+        <span class="meta" style="white-space:nowrap" data-testid="ib-selected-count"><span lang="en">2 selected</span><span lang="vi">đã chọn 2</span></span>
+        <button class="btn sm" data-toast="2 items sent to Media Assets" data-toast-vi="Đã gửi 2 mục sang Kho tài nguyên" data-toast-kind="success" data-testid="ib-bulk-send"><svg class="icon sm"><use href="#i-send"/></svg><span lang="en">Send to Media Assets</span><span lang="vi">Gửi sang Kho tài nguyên</span></button>
+        <button class="btn ghost sm icon" data-open="dlg-delete" title="Delete selected" data-testid="ib-bulk-delete"><svg class="icon sm"><use href="#i-trash"/></svg></button>
+        <button class="btn primary sm" data-open="dlg-add-links" data-testid="ib-add-links"><svg class="icon sm"><use href="#i-link"/></svg><span lang="en">Add links</span><span lang="vi">Thêm liên kết</span></button>
+      </div>
+      <div class="ws-body">
+        <div class="asset-grid" id="ib-grid" data-select-group data-testid="ib-grid">
+          <div class="asset-tile selected" data-select data-testid="ib-tile-1"><div class="thumb" style="--c:var(--color-primary)"><svg class="icon"><use href="#i-video"/></svg><span class="corner nw"><span class="type-badge">YT</span></span><span class="corner ne"><label class="check"><input type="checkbox" checked aria-label="Select"></label></span><span class="corner se"><span class="type-badge mono">01:58</span></span></div><div class="name">Phàm Nhân trailer (own channel)</div><div class="sub"><span class="type-badge mono">mp4</span><span class="type-badge mono">m4a</span><span class="type-badge mono">srt</span><span class="type-badge mono">json</span></div><div class="sub"><span class="pill success"><span lang="en">Done</span><span lang="vi">Xong</span></span></div></div>
+          <div class="asset-tile" data-select data-testid="ib-tile-2"><div class="thumb" style="--c:var(--color-link)"><span class="wave" data-wave="14" data-bars="26"></span><span class="corner nw"><span class="type-badge">SC</span></span><span class="corner ne"><label class="check"><input type="checkbox" checked aria-label="Select"></label></span><span class="corner se"><span class="type-badge mono">03:24</span></span></div><div class="name">Thanh Vân Môn theme</div><div class="sub"><span class="type-badge mono">m4a</span><span class="type-badge mono">json</span></div><div class="sub"><span class="pill success"><span lang="en">Done</span><span lang="vi">Xong</span></span></div></div>
+          <div class="asset-tile" data-select data-testid="ib-tile-3"><div class="thumb" style="--c:var(--color-text-tertiary)"><span class="wave" data-wave="27" data-bars="26"></span><span class="corner nw"><span class="type-badge">LINK</span></span><span class="corner ne"><label class="check"><input type="checkbox" aria-label="Select"></label></span><span class="corner se"><span class="type-badge mono">12:00</span></span></div><div class="name"><span lang="en">Rain on tiles · field recording</span><span lang="vi">Mưa trên mái ngói · thu âm hiện trường</span></div><div class="sub"><span class="type-badge mono">wav</span></div><div class="sub"><span class="pill success"><span lang="en">Done</span><span lang="vi">Xong</span></span></div></div>
+          <div class="asset-tile" data-select data-testid="ib-tile-4"><div class="thumb" style="--c:var(--color-warning)"><svg class="icon"><use href="#i-video"/></svg><span class="corner nw"><span class="type-badge">VIMEO</span></span><span class="corner ne"><label class="check"><input type="checkbox" aria-label="Select"></label></span><span class="corner se"><span class="type-badge mono">04:10</span></span></div><div class="name"><span lang="en">Guzheng improvisation (licensed)</span><span lang="vi">Độc tấu cổ tranh (có bản quyền)</span></div><div class="sub"><span class="type-badge mono">mp4</span><span class="type-badge mono">m4a</span></div><div class="sub"><span class="pill success"><span lang="en">Done</span><span lang="vi">Xong</span></span></div></div>
+          <div class="asset-tile" data-select data-testid="ib-tile-5"><div class="thumb" style="--c:var(--color-primary)"><svg class="icon"><use href="#i-film"/></svg><span class="corner nw"><span class="type-badge">LINK</span></span><span class="corner ne"><label class="check"><input type="checkbox" aria-label="Select"></label></span><span class="corner se" style="bottom:16px"><span class="type-badge mono">00:46</span></span><span class="progress" style="--p:64%"><i></i></span></div><div class="name"><span lang="en">Mountain mist b-roll</span><span lang="vi">Cảnh quay sương núi</span></div><div class="sub"><span class="type-badge mono">mp4</span></div><div class="sub"><span class="pill running"><span lang="en">Downloading</span><span lang="vi">Đang tải</span> 64%</span></div></div>
+          <div class="asset-tile missing" data-select data-testid="ib-tile-6"><div class="thumb" style="--c:var(--color-danger)"><svg class="icon"><use href="#i-alert-circle"/></svg><span class="corner nw"><span class="type-badge">LINK</span></span><span class="corner ne"><label class="check"><input type="checkbox" aria-label="Select"></label></span><span class="corner se"><span class="type-badge mono">—</span></span></div><div class="name"><span lang="en">Temple bell recording</span><span lang="vi">Tiếng chuông chùa</span></div><div class="sub"><span class="meta">HTTP 403</span></div><div class="sub"><span class="pill danger"><span lang="en">Failed</span><span lang="vi">Lỗi</span></span></div></div>
+        </div>
+      </div>
+    </main>
+
+    <aside class="panel right" data-testid="ib-right">
+      <div class="panel-head"><h3><span lang="en">Details</span><span lang="vi">Chi tiết</span></h3><button class="btn ghost icon" data-toggle-panel="right" title="Collapse (Ctrl+Alt+B)"><svg class="icon"><use href="#i-panel-right"/></svg></button></div>
+      <div class="panel-body">
+        <div class="col" style="padding:var(--sp-sm) var(--sp-md);gap:var(--sp-md)">
+          <div class="thumb" style="--c:var(--color-primary)"><button class="play lg" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button><span class="corner nw"><span class="type-badge">YT</span></span><span class="corner se"><span class="type-badge mono">01:58</span></span></div>
+          <div class="field"><label><span lang="en">Title</span><span lang="vi">Tiêu đề</span></label><input class="input" value="Phàm Nhân trailer (own channel)" data-testid="ib-title"></div>
+          <dl class="kv" data-testid="ib-meta">
+            <dt><span lang="en">Source</span><span lang="vi">Nguồn</span></dt><dd><code class="truncate" style="display:block">youtube.com/watch?v=pN7xQ2rLk0s</code></dd>
+            <dt><span lang="en">Platform</span><span lang="vi">Nền tảng</span></dt><dd>YouTube</dd>
+            <dt><span lang="en">Duration</span><span lang="vi">Thời lượng</span></dt><dd>01:58</dd>
+            <dt><span lang="en">Downloaded</span><span lang="vi">Đã tải</span></dt><dd>2026-10-03 21:14</dd>
+            <dt><span lang="en">Rights</span><span lang="vi">Quyền</span></dt><dd><span lang="en">Own channel · uploaded 2026-08-14</span><span lang="vi">Kênh của bạn · đăng 2026-08-14</span></dd>
+            <dt><span lang="en">Novel</span><span lang="vi">Truyện</span></dt><dd>凡人修仙传</dd>
+            <dt><span lang="en">Folder</span><span lang="vi">Thư mục</span></dt><dd><code>inbox\2026-10\phamnhan-trailer\</code></dd>
+          </dl>
+          <div data-testid="ib-artifacts">
+            <h4 style="margin-bottom:var(--sp-xs)"><span lang="en">Artifacts</span><span lang="vi">Tệp tạo ra</span></h4>
+            <div class="file-row"><svg class="icon sm"><use href="#i-file"/></svg>trailer.mp4<span class="size">48.2 MB</span></div>
+            <div class="file-row"><svg class="icon sm"><use href="#i-file"/></svg>trailer.m4a<span class="size">2.9 MB</span></div>
+            <div class="file-row"><svg class="icon sm"><use href="#i-file"/></svg>trailer.vi.srt<span class="size">4 KB</span></div>
+            <div class="file-row"><svg class="icon sm"><use href="#i-file"/></svg>info.json<span class="size">12 KB</span></div>
+          </div>
+          <div class="row" data-testid="ib-actions">
+            <button class="btn sm" data-go="assets" data-testid="ib-send-assets"><svg class="icon sm"><use href="#i-image"/></svg><span lang="en">Send to Media Assets</span><span lang="vi">Gửi sang Kho tài nguyên</span></button>
+            <button class="btn sm" data-go="videoeditor" data-testid="ib-send-editor"><svg class="icon sm"><use href="#i-video"/></svg><span lang="en">Send to Video editor</span><span lang="vi">Gửi sang Dựng video</span></button>
+            <button class="btn ghost sm" data-action="choose-folder"><svg class="icon sm"><use href="#i-folder"/></svg><span lang="en">Open folder</span><span lang="vi">Mở thư mục</span></button>
+            <button class="btn ghost sm"><svg class="icon sm"><use href="#i-pencil"/></svg><span lang="en">Edit metadata</span><span lang="vi">Sửa metadata</span></button>
+            <button class="btn ghost sm danger" data-open="dlg-delete"><svg class="icon sm"><use href="#i-trash"/></svg><span lang="en">Delete</span><span lang="vi">Xoá</span></button>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <aside class="panel bottom" data-testid="ib-bottom">
+      <div class="panel-head"><h3><span lang="en">Download queue</span><span lang="vi">Hàng đợi tải</span> <span class="meta">· 1 <span lang="en">downloading</span><span lang="vi">đang tải</span> · 2 <span lang="en">queued</span><span lang="vi">chờ</span> · 1 <span lang="en">failed</span><span lang="vi">lỗi</span></span></h3><button class="btn sm" data-toast="Queue paused" data-toast-vi="Đã tạm dừng hàng đợi" data-toast-kind="warning" data-testid="ib-pause-all"><svg class="icon sm"><use href="#i-pause"/></svg><span lang="en">Pause all</span><span lang="vi">Tạm dừng tất cả</span></button><button class="btn ghost icon" data-toggle-panel="bottom" title="Collapse (Ctrl+J)"><svg class="icon"><use href="#i-panel-bottom"/></svg></button></div>
+      <div class="panel-body">
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:var(--sp-md)">
+          <div data-testid="ib-queue">
+            <div class="job"><span class="type"><svg class="icon"><use href="#i-download"/></svg></span><span class="name"><span lang="en">Mountain mist b-roll</span><span lang="vi">Cảnh quay sương núi</span></span><span class="ctl"><button class="btn ghost sm icon" title="Pause" data-toast="Download paused" data-toast-vi="Đã tạm dừng tải"><svg class="icon sm"><use href="#i-pause"/></svg></button><button class="btn ghost sm icon" title="Cancel" data-toast="Download cancelled" data-toast-vi="Đã huỷ tải"><svg class="icon sm"><use href="#i-stop"/></svg></button></span><span class="progress"><i style="--p:64%"></i></span><span class="sub"><span class="pill running"><span lang="en">Downloading</span><span lang="vi">Đang tải</span> 64%</span><span class="num">2.4 MB/s</span><span>mp4</span></span></div>
+            <div class="job"><span class="type"><svg class="icon"><use href="#i-alert-circle"/></svg></span><span class="name"><span lang="en">Temple bell recording</span><span lang="vi">Tiếng chuông chùa</span></span><span class="ctl"><button class="btn ghost sm icon" title="Retry" data-toast="Retry queued" data-toast-vi="Đã xếp lại để thử lại" data-toast-kind="success"><svg class="icon sm"><use href="#i-retry"/></svg></button><button class="btn ghost sm icon" title="Cancel"><svg class="icon sm"><use href="#i-stop"/></svg></button></span><span class="sub"><span class="pill danger">HTTP 403 · <span lang="en">retry</span><span lang="vi">thử lại</span> 2 / 3</span><button class="btn ghost sm" data-toast="Opening the error log" data-toast-vi="Đang mở nhật ký lỗi"><svg class="icon sm"><use href="#i-file"/></svg><span lang="en">Open log</span><span lang="vi">Mở log</span></button></span></div>
+            <div class="job"><span class="type"><svg class="icon"><use href="#i-clock"/></svg></span><span class="name"><span lang="en">Dizi practice take 3</span><span lang="vi">Luyện sáo trúc lần 3</span></span><span class="ctl"><button class="btn ghost sm icon" title="Pause"><svg class="icon sm"><use href="#i-pause"/></svg></button><button class="btn ghost sm icon" title="Cancel"><svg class="icon sm"><use href="#i-stop"/></svg></button></span><span class="sub"><span class="pill"><span lang="en">Queued</span><span lang="vi">Chờ</span></span><span>m4a</span></span></div>
+            <div class="job"><span class="type"><svg class="icon"><use href="#i-pause"/></svg></span><span class="name"><span lang="en">Thunder field recording</span><span lang="vi">Thu âm sấm hiện trường</span></span><span class="ctl"><button class="btn ghost sm icon" title="Resume" data-toast="Download resumed" data-toast-vi="Đã chạy tiếp tải"><svg class="icon sm"><use href="#i-play"/></svg></button><button class="btn ghost sm icon" title="Cancel"><svg class="icon sm"><use href="#i-stop"/></svg></button></span><span class="sub"><span class="pill warning"><span lang="en">Paused</span><span lang="vi">Tạm dừng</span></span><span>wav</span></span></div>
+          </div>
+          <div class="col" style="gap:var(--sp-xs)" data-testid="ib-limits">
+            <h4><span lang="en">Limits</span><span lang="vi">Giới hạn</span></h4>
+            <dl class="kv" style="grid-template-columns:auto 1fr;gap:2px var(--sp-sm)">
+              <dt><span lang="en">Threads</span><span lang="vi">Luồng</span></dt><dd class="num">2 / 4</dd>
+              <dt>CPU</dt><dd class="num">50%</dd>
+              <dt>RAM</dt><dd class="num">2 GB</dd>
+              <dt><span lang="en">Storage</span><span lang="vi">Dung lượng</span></dt><dd class="num">20 GB</dd>
+            </dl>
+            <div class="row" style="flex-wrap:nowrap;gap:var(--sp-xs)"><input class="input mono" value="D:\NovelStudio\Library\inbox\" readonly title="Save folder" data-testid="ib-save-folder"><button class="btn sm icon" data-action="choose-folder" title="Browse" data-testid="ib-browse"><svg class="icon sm"><use href="#i-folder"/></svg></button></div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <aside class="annotations"><ol>
+      <li lang="en"><span class="ac">M19-F01</span> Add links: one or more URLs; platform, title, length and formats are detected; the user picks which artifacts to download.</li>
+      <li lang="vi"><span class="ac">M19-F01</span> Thêm liên kết: một hoặc nhiều URL; nền tảng, tiêu đề, độ dài và định dạng được nhận diện; người dùng chọn tệp cần tải.</li>
+      <li lang="en"><span class="ac">M19-F02</span> Vault grid by folder, platform, status and novel; cards show source, length, status and artifacts; bulk send to Media Assets; details with artifacts, rights and folder.</li>
+      <li lang="vi"><span class="ac">M19-F02</span> Lưới kho theo thư mục, nền tảng, trạng thái và truyện; thẻ hiển thị nguồn, độ dài, trạng thái và tệp; gửi hàng loạt sang Kho tài nguyên; chi tiết gồm tệp, quyền và thư mục.</li>
+      <li lang="en"><span class="ac">M19-F03</span> Download queue with states, retry, pause / resume, error per item and resource limits (threads, CPU, RAM, storage, folder).</li>
+      <li lang="vi"><span class="ac">M19-F03</span> Hàng đợi tải với trạng thái, thử lại, tạm dừng / chạy tiếp, lỗi theo từng mục và giới hạn tài nguyên (luồng, CPU, RAM, dung lượng, thư mục).</li>
+      <li lang="en"><span class="ac">M19-F04</span> Only media the user has rights to; links to novel text are blocked in the dialog and never downloaded (NG3).</li>
+      <li lang="vi"><span class="ac">M19-F04</span> Chỉ media người dùng có quyền; liên kết tới văn bản truyện bị chặn trong hộp thoại và không bao giờ được tải (NG3).</li>
+      <li lang="en">1280×720: the vault grid shows three cards per row; the queue keeps its limits column at 220px.</li>
+      <li lang="vi">1280×720: lưới kho hiển thị ba thẻ mỗi hàng; hàng đợi giữ cột giới hạn rộng 220px.</li>
+    </ol></aside>
+  </section>

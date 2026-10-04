@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Novel Studio · Functional Requirements</title>
+<link rel="stylesheet" href="../templates/assets/claude.css">
+<script src="../templates/assets/claude.js" defer></script>
+<style>
+  .map { font-size: 13px; line-height: 1.65; white-space: pre-wrap; }
+  .compact td, .compact th { vertical-align: top; }
+  .module-id { white-space: nowrap; font-weight: 700; }
+  .function-list { margin: 0; padding-left: 18px; }
+  .function-list li + li { margin-top: 5px; }
+  .details-lede { max-width: 720px; color: var(--muted); }
+  .fr-explorer { margin: 18px 0 32px; overflow: hidden; border: 1px solid var(--border); border-radius: 16px; background: var(--surface); box-shadow: 0 18px 50px color-mix(in srgb, var(--text) 6%, transparent); }
+  .fr-explorer-toolbar { display: flex; gap: 12px; align-items: center; padding: 13px; border-bottom: 1px solid var(--border); background: var(--surface); }
+  .fr-search-wrap { position: relative; flex: 1 1 360px; }
+  .fr-search-wrap::before { content: "⌕"; position: absolute; left: 12px; top: 50%; color: var(--muted); font-size: 1.05rem; transform: translateY(-52%); pointer-events: none; }
+  .fr-search { width: 100%; min-height: 39px; padding: 8px 12px 8px 35px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font: .84rem/1.4 var(--sans); }
+  .fr-search::placeholder { color: var(--muted); }
+  .fr-search:focus { outline: 2px solid var(--accent-strong); outline-offset: 2px; border-color: var(--accent); }
+  .fr-result-count { flex: 0 0 auto; color: var(--muted); font: .72rem/1 var(--mono); white-space: nowrap; }
+  .fr-mobile-select { display: none; width: 100%; min-height: 42px; padding: 8px 34px 8px 11px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font: .82rem/1.3 var(--sans); }
+  .fr-layout { display: grid; grid-template-columns: minmax(215px, .72fr) minmax(0, 1.7fr); height: min(760px, calc(100vh - 180px)); min-height: 560px; overflow: hidden; }
+  .fr-module-nav { height: 100%; padding: 11px; overflow-y: auto; border-right: 1px solid var(--border); background-image: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--border) 65%, transparent) 1px, transparent 0); background-size: 20px 20px; }
+  .fr-nav-label { margin: 6px 8px 11px; color: var(--muted); font-size: .69rem; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; }
+  .fr-module-tab { display: grid; grid-template-columns: 38px minmax(0, 1fr) auto; gap: 9px; align-items: center; width: 100%; margin: 0 0 6px; padding: 10px; border: 1px solid transparent; border-radius: 9px; background: transparent; color: var(--text); cursor: pointer; font: inherit; text-align: left; }
+  .fr-module-tab[hidden] { display: none; }
+  .fr-module-tab:hover { border-color: var(--border); background: var(--surface); }
+  .fr-module-tab:focus-visible { outline: 2px solid var(--accent-strong); outline-offset: 2px; }
+  .fr-module-tab[aria-selected="true"] { border-color: var(--accent); background: var(--accent-soft); box-shadow: inset 3px 0 0 var(--accent); }
+  .fr-module-code { color: var(--accent-strong); font: 600 .72rem/1 var(--mono); }
+  .fr-module-name { min-width: 0; overflow: hidden; font-size: .76rem; font-weight: 600; line-height: 1.35; text-overflow: ellipsis; white-space: nowrap; }
+  .fr-module-total { display: grid; place-items: center; min-width: 23px; height: 23px; padding: 0 5px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--muted); font: .65rem/1 var(--mono); }
+  .fr-module-content { min-width: 0; height: 100%; overflow-y: auto; background: var(--bg); }
+  .fr-module-panel { padding: 27px 29px 30px; }
+  .fr-module-header { margin-bottom: 22px; padding-bottom: 19px; border-bottom: 1px solid var(--border); }
+  .fr-module-heading { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; }
+  .fr-module-heading h3 { margin: 3px 0 0; font-size: 1.45rem; }
+  .fr-module-kicker { color: var(--accent-strong); font: 600 .74rem/1 var(--mono); letter-spacing: .05em; }
+  .fr-module-phase { flex: 0 0 auto; }
+  .fr-module-purpose { max-width: 650px; margin: 13px 0 16px; color: var(--muted); font-size: .9rem; line-height: 1.65; }
+  .fr-module-metadata { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 18px; }
+  .fr-module-meta { min-width: 0; font-size: .78rem; line-height: 1.55; }
+  .fr-module-meta-label { display: block; margin-bottom: 3px; color: var(--muted); font-size: .66rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+  .fr-group-toolbar { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin: 0 0 10px; }
+  .fr-group-toolbar strong { font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; }
+  .fr-group-actions { display: flex; gap: 6px; }
+  .fr-quiet-button { padding: 6px 9px; border: 1px solid var(--border); border-radius: 7px; background: var(--surface); color: var(--muted); cursor: pointer; font: 600 .68rem/1 var(--sans); }
+  .fr-quiet-button:hover { border-color: var(--accent); color: var(--text); }
+  .fr-quiet-button:focus-visible { outline: 2px solid var(--accent-strong); outline-offset: 2px; }
+  .fr-function-list { display: grid; gap: 8px; }
+  .fr-function { margin: 0; padding: 0; overflow: hidden; border-radius: 10px; background: var(--surface); }
+  .fr-function summary { display: grid; grid-template-columns: 78px minmax(0, 1fr) 16px; gap: 5px 10px; align-items: start; padding: 13px 14px; list-style: none; }
+  .fr-function summary::-webkit-details-marker { display: none; }
+  .fr-function summary::after { content: "+"; grid-column: 3; grid-row: 1 / span 2; align-self: center; color: var(--accent-strong); font-size: 1.05rem; font-weight: 400; text-align: center; }
+  .fr-function[open] summary::after { content: "−"; }
+  .fr-function[open] summary { background: var(--accent-soft); }
+  .fr-function-id { grid-row: 1 / span 2; padding-top: 3px; color: var(--accent-strong); font: 600 .7rem/1 var(--mono); }
+  .fr-function-name { min-width: 0; font-size: .84rem; font-weight: 600; line-height: 1.45; }
+  .fr-function-count { display: none; }
+  .fr-function-status { grid-column: 2; grid-row: 2; color: var(--muted); font-size: .74rem; line-height: 1.55; text-align: left; }
+  .fr-function-status:empty { display: none; }
+  .fr-function-body { padding: 15px 17px 17px 102px; border-top: 1px solid var(--border); background: var(--bg); font-size: .86rem; line-height: 1.65; }
+  .fr-function-body .function-list { padding-left: 18px; }
+  .fr-empty { display: none; padding: 64px 24px; color: var(--muted); text-align: center; }
+  .fr-empty.is-visible { display: block; }
+  @media (max-width: 720px) {
+    .fr-explorer-toolbar { flex-wrap: wrap; }
+    .fr-search-wrap { flex-basis: calc(100% - 70px); }
+    .fr-mobile-select { display: block; }
+    .fr-layout { grid-template-columns: 1fr; height: auto; min-height: 0; overflow: visible; }
+    .fr-module-nav { display: none; }
+    .fr-module-content { height: auto; overflow: visible; }
+    .fr-module-panel { padding: 22px 18px 24px; }
+    .fr-module-heading { display: block; }
+    .fr-module-phase { display: inline-block; margin-top: 10px; }
+    .fr-module-metadata { grid-template-columns: 1fr; }
+    .fr-function summary { grid-template-columns: 68px minmax(0, 1fr) 16px; }
+    .fr-function-count, .fr-function-status { display: none; }
+    .fr-function-body { padding: 14px 16px 16px; }
+    .fr-group-toolbar { align-items: flex-start; }
+  }
+  @media print {
+    .fr-explorer { box-shadow: none; }
+    .fr-explorer-toolbar, .fr-module-nav, .fr-group-actions { display: none; }
+    .fr-layout { display: block; }
+    .fr-module-panel[hidden] { display: block !important; }
+    .fr-module-panel { break-before: page; }
+    .fr-function { break-inside: avoid; }
+    .fr-function > :not(summary) { display: block !important; }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+
+<header class="doc-header">
+  <p class="eyebrow">Novel Studio · Product Analysis · 1</p>
+  <h1><span lang="en">Functional decomposition &amp; module map</span><span lang="vi">Phân rã chức năng &amp; bản đồ module</span></h1>
+  <p class="lede" lang="en">Breaks the product owner's requirements down into modules and function groups for flow planning, screen design and backlog slicing.</p>
+  <p class="lede" lang="vi">Phân rã yêu cầu của product owner thành module và nhóm chức năng để lập flow, thiết kế màn hình và chia backlog.</p>
+  <div class="meta">
+    <span class="lang-switch" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="vi" aria-pressed="false">VI</button></span>
+    <span class="pill"><span lang="en">Status</span><span lang="vi">Trạng thái</span>: <b><span class="status approved">approved</span></b></span>
+    <span class="pill"><span lang="en">Analysed</span><span lang="vi">Ngày phân tích</span>: <b>2026-10-04</b></span>
+    <span class="pill"><span lang="en">Input</span><span lang="vi">Đầu vào</span>: <b><a href="0.high-level-requirements.html">High-level Requirements</a></b></span>
+    <span class="pill"><span lang="en">Scope</span><span lang="vi">Phạm vi</span>: <b><span lang="en">Whole product lifecycle</span><span lang="vi">Toàn bộ vòng đời sản phẩm</span></b></span>
+    <span class="pill"><span lang="en">Plan</span><span lang="vi">Kế hoạch</span>: <b><span lang="en">22 modules · 99 function groups</span><span lang="vi">22 module · 99 nhóm chức năng</span></b></span>
+  </div>
+</header>
+
+<nav class="toc">
+  <ol>
+    <li><a href="#principles"><span lang="en">Breakdown principles</span><span lang="vi">Nguyên tắc bóc tách</span></a></li>
+    <li><a href="#map"><span lang="en">Overall function map</span><span lang="vi">Bản đồ chức năng tổng thể</span></a></li>
+    <li><a href="#modules"><span lang="en">Module catalog</span><span lang="vi">Danh mục module</span></a></li>
+    <li><a href="#details"><span lang="en">Detailed functions by module</span><span lang="vi">Chức năng chi tiết theo module</span></a></li>
+    <li><a href="#journeys"><span lang="en">Main business flows</span><span lang="vi">Luồng nghiệp vụ chính</span></a></li>
+    <li><a href="#open"><span lang="en">Open decisions</span><span lang="vi">Quyết định còn mở</span></a></li>
+  </ol>
+</nav>
+
+<h2 id="principles">1. <span lang="en">Breakdown principles</span><span lang="vi">Nguyên tắc bóc tách</span></h2>
+
+<table class="compact">
+  <thead><tr><th><span lang="en">Marker</span><span lang="vi">Ký hiệu</span></th><th><span lang="en">Meaning</span><span lang="vi">Ý nghĩa</span></th><th><span lang="en">How it is used</span><span lang="vi">Cách sử dụng</span></th></tr></thead>
+  <tbody>
+    <tr><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span></td><td><span lang="en">Stated directly in the approved requirements document.</span><span lang="vi">Có trực tiếp trong tài liệu yêu cầu đã duyệt.</span></td><td><span lang="en">In scope for Release 1–2 if it belongs to <code>TH-01</code> to <code>TH-05</code>.</span><span lang="vi">Được đưa vào phạm vi Release 1–2 nếu thuộc <code>TH-01</code> đến <code>TH-05</code>.</span></td></tr>
+    <tr><td><span class="status review"><span lang="en">Proposed</span><span lang="vi">Đề xuất</span></span></td><td><span lang="en">Added to complete the usage flow.</span><span lang="vi">Bổ sung để hoàn chỉnh luồng sử dụng.</span></td><td><span lang="en">Must be confirmed in the matching flow before implementation.</span><span lang="vi">Cần xác nhận trong flow tương ứng trước khi triển khai.</span></td></tr>
+    <tr><td><span class="status open"><span lang="en">Open</span><span lang="vi">Còn mở</span></span></td><td><span lang="en">Flagged in the document as <code>Q8</code> to <code>Q14</code>.</span><span lang="vi">Đã được tài liệu đánh dấu bằng <code>Q8</code> đến <code>Q14</code>.</span></td><td><span lang="en">Do not lock details early; keep it as a decision point of the flow.</span><span lang="vi">Không khóa chi tiết sớm; giữ như điểm quyết định của flow.</span></td></tr>
+    <tr><td><span class="status todo"><span lang="en">Scheduled</span><span lang="vi">Đã xếp lịch</span></span></td><td><span lang="en">Belongs to Release 3 to Release 10.</span><span lang="vi">Thuộc Release 3 đến Release 10.</span></td><td><span lang="en">Release and Part order is set in the <a href="0.high-level-requirements.html#roadmap">roadmap</a>; acceptance criteria are fixed when the Part starts.</span><span lang="vi">Đã có thứ tự Release và Part trong <a href="0.high-level-requirements.html#roadmap">roadmap</a>; acceptance criteria được chốt khi bắt đầu Part.</span></td></tr>
+  </tbody>
+</table>
+
+<h2 id="map">2. <span lang="en">Overall function map</span><span lang="vi">Bản đồ chức năng tổng thể</span></h2>
+
+<pre class="map" lang="en">NOVEL STUDIO
+├── A. Workspace
+│   ├── M01. App Shell &amp; Workspace
+│   ├── M02. Settings &amp; AI Backends
+│   └── M03. Task Center
+├── B. Source content
+│   ├── M04. Novel Library
+│   ├── M05. Chapter Reader &amp; Editor
+│   └── M06. Local Data &amp; Export
+├── C. Story knowledge
+│   ├── M07. Story World Catalog
+│   ├── M08. Relationship Map &amp; Timeline
+│   └── M13. Story Chat
+├── D. Translation production
+│   └── M09. Translation Workspace &amp; Quality
+├── E. Extended content production
+│   ├── M10. Media Asset Library
+│   ├── M11. Audiobook Studio
+│   ├── M12. Series Film Studio
+│   ├── M14. Voice Lab &amp; Character Casting
+│   ├── M15. Pronunciation Dictionary
+│   ├── M16. Sound, Music &amp; Ambience Studio
+│   ├── M17. Audio Finishing &amp; Mastering
+│   └── M18. Video Editor &amp; Render Library
+└── F. Ecosystem &amp; operations
+    ├── M19. External Media Inbox
+    ├── M20. Publishing &amp; Channel Hub
+    ├── M21. Models, Integrations &amp; Extensions
+    └── M22. System Information &amp; Support</pre>
+<pre class="map" lang="vi">NOVEL STUDIO
+├── A. Không gian làm việc
+│   ├── M01. App Shell &amp; Workspace
+│   ├── M02. Settings &amp; AI Backends
+│   └── M03. Task Center
+├── B. Nội dung nguồn
+│   ├── M04. Novel Library
+│   ├── M05. Chapter Reader &amp; Editor
+│   └── M06. Local Data &amp; Export
+├── C. Tri thức truyện
+│   ├── M07. Story World Catalog
+│   ├── M08. Relationship Map &amp; Timeline
+│   └── M13. Story Chat
+├── D. Sản xuất bản dịch
+│   └── M09. Translation Workspace &amp; Quality
+├── E. Sản xuất nội dung mở rộng
+│   ├── M10. Media Asset Library
+│   ├── M11. Audiobook Studio
+│   ├── M12. Series Film Studio
+│   ├── M14. Voice Lab &amp; Character Casting
+│   ├── M15. Pronunciation Dictionary
+│   ├── M16. Sound, Music &amp; Ambience Studio
+│   ├── M17. Audio Finishing &amp; Mastering
+│   └── M18. Video Editor &amp; Render Library
+└── F. Hệ sinh thái &amp; vận hành
+    ├── M19. External Media Inbox
+    ├── M20. Publishing &amp; Channel Hub
+    ├── M21. Models, Integrations &amp; Extensions
+    └── M22. System Information &amp; Support</pre>
+
+<h2 id="modules">3. <span lang="en">Module catalog</span><span lang="vi">Danh mục module</span></h2>
+
+<div class="table-wrap">
+<table class="compact">
+  <thead><tr><th>ID</th><th>Module</th><th><span lang="en">Business goal</span><span lang="vi">Mục tiêu nghiệp vụ</span></th><th><span lang="en">Phase</span><span lang="vi">Giai đoạn</span></th><th><span lang="en">Traceability</span><span lang="vi">Truy vết</span></th><th><span lang="en">Proposed main screens</span><span lang="vi">Màn hình chính đề xuất</span></th></tr></thead>
+  <tbody>
+    <tr><td class="module-id">M01</td><td>App Shell &amp; Workspace</td><td><span lang="en">Provide a stable desktop frame for every tool.</span><span lang="vi">Cung cấp khung desktop ổn định cho mọi công cụ.</span></td><td><span class="status approved">Release 1 · Part 1</span></td><td><code>TH-01</code>, <code>G8</code>, <code>A4–A5</code>, <code>Q5</code></td><td>Studio shell, command palette, task tray</td></tr>
+    <tr><td class="module-id">M02</td><td>Settings &amp; AI Backends</td><td><span lang="en">Manage app settings and choose the CLI for each task type.</span><span lang="vi">Quản lý cấu hình ứng dụng và chọn CLI cho từng loại tác vụ.</span></td><td><span class="status approved">Release 1 · Part 3</span></td><td><code>TH-03</code>, <code>G6</code>, <code>A3</code>, <code>A8</code></td><td>General, AI tools, shortcuts</td></tr>
+    <tr><td class="module-id">M03</td><td>Task Center</td><td><span lang="en">Run, track and resume long AI tasks without blocking the UI.</span><span lang="vi">Chạy, theo dõi và tiếp tục các tác vụ AI dài mà không khóa UI.</span></td><td><span class="status approved">Release 1 · Part 1</span></td><td><code>TH-01</code>, <code>A11</code>, <code>M1</code></td><td>Task tray, task detail, history</td></tr>
+    <tr><td class="module-id">M04</td><td>Novel Library</td><td><span lang="en">Manage the personal library and import novels from local files.</span><span lang="vi">Quản lý thư viện cá nhân và nhập truyện từ tệp cục bộ.</span></td><td><span class="status approved">Release 1 · Part 2</span></td><td><code>TH-02</code>, <code>G1</code>, <code>A2</code>, <code>Q8–Q9</code></td><td>Library grid/list, import wizard, novel overview</td></tr>
+    <tr><td class="module-id">M05</td><td>Chapter Reader &amp; Editor</td><td><span lang="en">Browse, read, search and edit source content by chapter.</span><span lang="vi">Duyệt, đọc, tìm và sửa nội dung nguồn theo chương.</span></td><td><span class="status approved">Release 1 · Part 2</span></td><td><code>TH-02</code>, <code>G1</code>, <code>A7</code>, <code>Q7</code></td><td>Chapter workspace</td></tr>
+    <tr><td class="module-id">M06</td><td>Local Data &amp; Export</td><td><span lang="en">Keep data transparent on the machine and export results to usable files.</span><span lang="vi">Giữ dữ liệu minh bạch trên máy và đưa kết quả ra tệp dùng được.</span></td><td><span class="status approved">Release 1 · Part 1 · Release 2 · Part 2</span></td><td><code>TH-01</code>, <code>NG1</code>, <code>NG4</code>, <code>A6–A10</code>, <code>Q12</code></td><td>Library location, export dialog, diagnostics</td></tr>
+    <tr><td class="module-id">M07</td><td>Story World Catalog</td><td><span lang="en">Build and maintain a shared source of truth for entities and terms.</span><span lang="vi">Xây dựng và duy trì nguồn sự thật chung về thực thể và thuật ngữ.</span></td><td><span class="status approved"><span lang="en">Release 2 · Part 1 (advanced: Part 3)</span><span lang="vi">Release 2 · Part 1 (nâng cao: Part 3)</span></span></td><td><code>TH-04</code>, <code>G2–G3</code>, <code>M2</code></td><td>Entity catalog, review queue, entity detail</td></tr>
+    <tr><td class="module-id">M08</td><td>Relationship Map &amp; Timeline</td><td><span lang="en">Look up relationships at a chapter point without revealing unread parts.</span><span lang="vi">Tra cứu quan hệ theo mốc chương mà không lộ phần chưa đọc.</span></td><td><span class="status approved"><span lang="en">Release 2 · Part 1 (advanced: Part 3)</span><span lang="vi">Release 2 · Part 1 (nâng cao: Part 3)</span></span></td><td><code>TH-04</code>, <code>G4</code>, <code>Q6</code></td><td>Relationship graph, chapter timeline</td></tr>
+    <tr><td class="module-id">M09</td><td>Translation Workspace &amp; Quality</td><td><span lang="en">Translate in batches, keep names consistent, edit and check for errors.</span><span lang="vi">Dịch hàng loạt, giữ tên nhất quán, biên tập và kiểm tra lỗi.</span></td><td><span class="status approved">Release 2 · Part 2</span></td><td><code>TH-05</code>, <code>G5</code>, <code>M1–M3</code>, <code>Q10–Q12</code></td><td>Batch setup, side-by-side review, QA summary</td></tr>
+    <tr><td class="module-id">M10</td><td>Media Asset Library</td><td><span lang="en">Manage consistent images and voices per story entity.</span><span lang="vi">Quản lý hình ảnh và giọng nhất quán theo thực thể truyện.</span></td><td><span class="status todo">Release 4 · Part 1–2</span></td><td><code>TH-06</code>, <code>G7</code>, <code>Q13</code></td><td>Asset catalog, asset generator, entity asset detail</td></tr>
+    <tr><td class="module-id">M11</td><td>Audiobook Studio</td><td><span lang="en">Turn translated chapters into audio with consistent character voices.</span><span lang="vi">Biến chương dịch thành audio với giọng nhân vật nhất quán.</span></td><td><span class="status todo">Release 3 · Part 2, 4</span></td><td><code>TH-07</code>, <code>G7</code>, <code>Q13</code></td><td>Cast mapping, script segments, audio timeline</td></tr>
+    <tr><td class="module-id">M12</td><td>Series Film Studio</td><td><span lang="en">Turn a novel into scripts and short episodes.</span><span lang="vi">Chuyển truyện thành kịch bản và tập phim ngắn.</span></td><td><span class="status todo">Release 7 · Part 1–3 · Release 8 · Part 1–3</span></td><td><code>TH-08</code>, <code>G7</code>, <code>Q13</code></td><td>Episode project, storyboard, timeline, render library</td></tr>
+    <tr><td class="module-id">M13</td><td>Story Chat</td><td><span lang="en">Grounded Q&amp;A within the chapter range the user allows.</span><span lang="vi">Hỏi đáp có căn cứ trong phạm vi chương người dùng cho phép.</span></td><td><span class="status todo">Release 10 · Part 1</span></td><td><code>TH-09</code>, <code>Q14</code></td><td>Chat, source references, spoiler boundary</td></tr>
+    <tr><td class="module-id">M14</td><td>Voice Lab &amp; Character Casting</td><td><span lang="en">Create, clone, save and assign consistent voices to the narrator and characters.</span><span lang="vi">Tạo, clone, lưu và gán giọng nhất quán cho người dẫn và nhân vật.</span></td><td><span class="status todo">Release 3 · Part 1, 4</span></td><td><code>TH-07</code></td><td>Voice design, clone, profiles, cast mapping</td></tr>
+    <tr><td class="module-id">M15</td><td>Pronunciation Dictionary</td><td><span lang="en">Standardize how proper names, terms and loanwords are read in TTS.</span><span lang="vi">Chuẩn hóa cách đọc tên riêng, thuật ngữ và từ mượn trong TTS.</span></td><td><span class="status todo">Release 3 · Part 1</span></td><td><code>TH-07</code></td><td>Dictionary, audition, playground</td></tr>
+    <tr><td class="module-id">M16</td><td>Sound, Music &amp; Ambience Studio</td><td><span lang="en">Create and manage BGM, themes, ambience and SFX for adapted content.</span><span lang="vi">Tạo và quản lý BGM, theme, ambience và SFX cho nội dung chuyển thể.</span></td><td><span class="status todo">Release 5 · Part 1–3</span></td><td><code>TH-10</code>, <code>G7</code></td><td>Music studio, ambience generator, audio library</td></tr>
+    <tr><td class="module-id">M17</td><td>Audio Finishing &amp; Mastering</td><td><span lang="en">Normalize, mix and finish audio before publishing.</span><span lang="vi">Chuẩn hóa, trộn và hoàn thiện audio trước khi xuất bản.</span></td><td><span class="status todo">Release 3 · Part 3</span></td><td><code>TH-07</code></td><td>Loop, mastering, ducking</td></tr>
+    <tr><td class="module-id">M18</td><td>Video Editor &amp; Render Library</td><td><span lang="en">Combine images, clips, dialogue, music and subtitles, and manage renders.</span><span lang="vi">Ghép hình, clip, thoại, nhạc, subtitle và quản lý bản render.</span></td><td><span class="status todo">Release 6 · Part 1–2 · Release 8 · Part 2–3</span></td><td><code>TH-14</code></td><td>Timeline, inspector, rendered videos</td></tr>
+    <tr><td class="module-id">M19</td><td>External Media Inbox</td><td><span lang="en">Receive and manage external media the user designates.</span><span lang="vi">Nhận và quản lý media bên ngoài do người dùng chỉ định.</span></td><td><span class="status todo">Release 9 · Part 1</span></td><td><code>TH-11</code>, <code>NG3</code></td><td>Link intake, download queue, media vault</td></tr>
+    <tr><td class="module-id">M20</td><td>Publishing &amp; Channel Hub</td><td><span lang="en">Package and distribute finished works per target channel.</span><span lang="vi">Đóng gói và phân phối thành phẩm theo kênh đích.</span></td><td><span class="status todo">Release 9 · Part 2–3</span></td><td><code>TH-12</code>, <code>G9</code></td><td>Export presets, channel queue, publish history</td></tr>
+    <tr><td class="module-id">M21</td><td>Models, Integrations &amp; Extensions</td><td><span lang="en">Extend backends, models and modules as the product matures.</span><span lang="vi">Mở rộng backend, model và module khi sản phẩm trưởng thành.</span></td><td><span class="status todo">Release 10 · Part 2–3</span></td><td><code>TH-13</code>, <code>G10</code>, <code>Q13</code></td><td>Provider/model manager, extension catalog</td></tr>
+    <tr><td class="module-id">M22</td><td>System Information &amp; Support</td><td><span lang="en">Show system status, version, diagnostics and legal information.</span><span lang="vi">Hiển thị trạng thái hệ thống, phiên bản, chẩn đoán và thông tin pháp lý.</span></td><td><span class="status approved"><span lang="en">Release 1–10 · per part</span><span lang="vi">Release 1–10 · theo từng part</span></span></td><td><code>TH-01</code>, <code>TH-13</code>, <code>G8</code>, <code>NG4</code></td><td>Diagnostics, About, acknowledgements</td></tr>
+  </tbody>
+</table>
+</div>
+<h2 id="details">4. <span lang="en">Detailed functions by module</span><span lang="vi">Chức năng chi tiết theo module</span></h2>
+
+<p class="details-lede" lang="en">Choose a module to inspect its product boundary and traceability, then expand a function group to see the concrete capabilities it contributes. Module IDs are stable architecture boundaries; function-group IDs are the units used to plan flows and backlog slices.</p>
+<p class="details-lede" lang="vi">Chọn một module để xem ranh giới sản phẩm và thông tin truy vết, sau đó mở từng nhóm chức năng để xem các năng lực cụ thể. ID module là ranh giới kiến trúc ổn định; ID nhóm chức năng là đơn vị dùng để lập flow và chia backlog.</p>
+
+<div id="fr-details-source">
+
+<h3>M01 · App Shell &amp; Workspace</h3>
+<table class="compact"><thead><tr><th><span lang="en">Function group</span><span lang="vi">Nhóm chức năng</span></th><th><span lang="en">Functions</span><span lang="vi">Chức năng</span></th><th><span lang="en">Status</span><span lang="vi">Trạng thái</span></th></tr></thead><tbody>
+  <tr><td>M01-F01 · <span lang="en">Navigation</span><span lang="vi">Điều hướng</span></td><td><ul class="function-list">
+    <li lang="en">Navigate by module and by the context of the open novel.</li>
+    <li lang="vi">Điều hướng theo module và theo ngữ cảnh truyện đang mở.</li>
+    <li lang="en">Show sub-modules as collapsible groups.</li>
+    <li lang="vi">Hiển thị module con dạng nhóm có thể thu gọn.</li>
+    <li lang="en">Quickly open recent screens or recent novels.</li>
+    <li lang="vi">Mở nhanh màn hình gần đây hoặc truyện gần đây.</li>
+  </ul></td><td><span class="status review"><span lang="en">Proposed</span><span lang="vi">Đề xuất</span></span></td></tr>
+  <tr><td>M01-F02 · <span lang="en">Studio layout</span><span lang="vi">Bố cục studio</span></td><td><ul class="function-list">
+    <li lang="en">Left panel, central workspace and an inspector or right panel.</li>
+    <li lang="vi">Panel trái, vùng làm việc trung tâm và inspector hoặc panel phải.</li>
+    <li lang="en">Resize, collapse, restore and remember panel sizes.</li>
+    <li lang="vi">Co giãn, thu gọn, hiện lại và ghi nhớ kích thước panel.</li>
+    <li lang="en">Reset to the default layout.</li>
+    <li lang="vi">Khôi phục bố cục mặc định.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span> <code>Q5</code> <span lang="en">decided at Gate 3</span><span lang="vi">đã chốt tại Gate 3</span></td></tr>
+  <tr><td>M01-F03 · <span lang="en">Appearance</span><span lang="vi">Giao diện</span></td><td><ul class="function-list">
+    <li lang="en">Switch between Vietnamese and English instantly.</li>
+    <li lang="vi">Chuyển Việt/Anh tức thì.</li>
+    <li lang="en">Dark theme by default, with a light theme.</li>
+    <li lang="vi">Dark theme mặc định, có light theme.</li>
+    <li lang="en">Toasts, dialogs, empty states, loading, errors and confirmations are used consistently.</li>
+    <li lang="vi">Toast, dialog, empty state, loading, error và confirmation dùng thống nhất.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span></td></tr>
+  <tr><td>M01-F04 · <span lang="en">Keyboard shortcuts</span><span lang="vi">Phím tắt</span></td><td><ul class="function-list">
+    <li lang="en">A framework for registering shortcuts per module.</li>
+    <li lang="vi">Khung đăng ký phím tắt theo module.</li>
+    <li lang="en">Look up the list of shortcuts.</li>
+    <li lang="vi">Tra cứu danh sách phím tắt.</li>
+    <li lang="en">A command palette to open modules and run common commands.</li>
+    <li lang="vi">Command palette để mở module và chạy lệnh thường dùng.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span></td></tr>
+  <tr><td>M01-F05 · <span lang="en">Global status</span><span lang="vi">Trạng thái toàn cục</span></td><td><ul class="function-list">
+    <li lang="en">Show which CLIs are ready, running tasks and warnings that need attention.</li>
+    <li lang="vi">Hiển thị CLI đang sẵn sàng, tác vụ đang chạy và cảnh báo cần xử lý.</li>
+    <li lang="en">Quick access to Task Center and Settings.</li>
+    <li lang="vi">Truy cập nhanh Task Center và Settings.</li>
+  </ul></td><td><span class="status review"><span lang="en">Proposed</span><span lang="vi">Đề xuất</span></span></td></tr>
+</tbody></table>
+
+<h3>M02 · Settings &amp; AI Backends</h3>
+<table class="compact"><thead><tr><th><span lang="en">Function group</span><span lang="vi">Nhóm chức năng</span></th><th><span lang="en">Functions</span><span lang="vi">Chức năng</span></th><th><span lang="en">Status</span><span lang="vi">Trạng thái</span></th></tr></thead><tbody>
+  <tr><td>M02-F03 · <span lang="en">Backend management &amp; assignment</span><span lang="vi">Quản lý &amp; gán backend</span></td><td><ul class="function-list">
+    <li lang="en">Detect Codex CLI and Claude CLI on the machine.</li>
+    <li lang="vi">Phát hiện Codex CLI và Claude CLI trên máy.</li>
+    <li lang="en">Show the path, version, availability and a warning for unverified versions.</li>
+    <li lang="vi">Hiển thị đường dẫn, phiên bản, trạng thái khả dụng và cảnh báo phiên bản chưa kiểm chứng.</li>
+    <li lang="en">Allow rescanning and overriding the executable path.</li>
+    <li lang="vi">Cho phép quét lại và ghi đè đường dẫn thực thi.</li>
+    <li lang="en">Run a short check to confirm the CLI can execute.</li>
+    <li lang="vi">Chạy kiểm tra ngắn để xác nhận CLI có thể thực thi.</li>
+    <li lang="en">Show login, quota or configuration errors using the CLI's own messages.</li>
+    <li lang="vi">Hiển thị lỗi đăng nhập, quota hoặc cấu hình bằng thông báo của CLI.</li>
+    <li lang="en">Choose a separate backend for Analysis and Translation.</li>
+    <li lang="vi">Chọn backend riêng cho Phân tích và Dịch.</li>
+    <li lang="en">Extend the same backend assignment to Speech, Image and Video.</li>
+    <li lang="vi">Mở rộng cùng cơ chế gán backend cho Speech, Image và Video.</li>
+    <li lang="en">Lock the backend choice into each job when it starts so it resumes with the same configuration.</li>
+    <li lang="vi">Khóa lựa chọn backend vào từng job khi job bắt đầu để resume đúng cấu hình.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span></td></tr>
+  <tr><td>M02-F04 · <span lang="en">Appearance &amp; behavior</span><span lang="vi">Giao diện &amp; hành vi</span></td><td><ul class="function-list">
+    <li lang="en">Language, theme and layout.</li>
+    <li lang="vi">Ngôn ngữ, theme và bố cục.</li>
+    <li lang="en">Limit the number of AI processes running at the same time.</li>
+    <li lang="vi">Giới hạn số tiến trình AI chạy đồng thời.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span> <span lang="en">no custom shortcuts</span><span lang="vi">không tùy chỉnh phím tắt</span></td></tr>
+</tbody></table>
+
+<h3>M03 · Task Center</h3>
+<table class="compact"><thead><tr><th><span lang="en">Function group</span><span lang="vi">Nhóm chức năng</span></th><th><span lang="en">Functions</span><span lang="vi">Chức năng</span></th><th><span lang="en">Status</span><span lang="vi">Trạng thái</span></th></tr></thead><tbody>
+  <tr><td>M03-F01 · <span lang="en">Create job</span><span lang="vi">Tạo job</span></td><td><ul class="function-list">
+    <li lang="en">Create a job from the task type, novel, chapter range and selected backend.</li>
+    <li lang="vi">Tạo job theo loại tác vụ, truyện, phạm vi chương và backend đã chọn.</li>
+    <li lang="en">Split the job into items by chapter or another suitable processing unit.</li>
+    <li lang="vi">Chia job thành item theo chương hoặc đơn vị xử lý phù hợp.</li>
+    <li lang="en">Check input conditions before queuing.</li>
+    <li lang="vi">Kiểm tra điều kiện đầu vào trước khi xếp hàng.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span></td></tr>
+  <tr><td>M03-F02 · <span lang="en">Monitoring</span><span lang="vi">Theo dõi</span></td><td><ul class="function-list">
+    <li lang="en">Done/failed/total progress, current chapter, time and a short message.</li>
+    <li lang="vi">Tiến độ done/failed/total, chương hiện tại, thời gian và thông báo ngắn.</li>
+    <li lang="en">States: queued, running, paused, completed, completed-with-errors, failed and cancelled.</li>
+    <li lang="vi">Trạng thái queued, running, paused, completed, completed-with-errors, failed và cancelled.</li>
+    <li lang="en">Show progress in both the task tray and the feature screen.</li>
+    <li lang="vi">Hiển thị tiến độ ở cả task tray và màn hình tính năng.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span></td></tr>
+  <tr><td>M03-F03 · <span lang="en">Control</span><span lang="vi">Điều khiển</span></td><td><ul class="function-list">
+    <li lang="en">Pause or cancel safely.</li>
+    <li lang="vi">Tạm dừng hoặc hủy an toàn.</li>
+    <li lang="en">Resume after the app is closed, quota runs out or the CLI fails.</li>
+    <li lang="vi">Tiếp tục sau khi đóng ứng dụng, mất quota hoặc lỗi CLI.</li>
+    <li lang="en">Retry failed items, skip items or open an item to fix it by hand.</li>
+    <li lang="vi">Thử lại item lỗi, bỏ qua item hoặc mở item để sửa tay.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Resume confirmed</span><span lang="vi">Resume xác nhận</span></span> <span class="status review"><span lang="en">Action details proposed</span><span lang="vi">Chi tiết thao tác đề xuất</span></span></td></tr>
+  <tr><td>M03-F04 · <span lang="en">History &amp; diagnostics</span><span lang="vi">Lịch sử &amp; chẩn đoán</span></td><td><ul class="function-list">
+    <li lang="en">Filter history by task type, novel, status and time.</li>
+    <li lang="vi">Lọc lịch sử theo loại tác vụ, truyện, trạng thái và thời gian.</li>
+    <li lang="en">View each item's errors and open the local log.</li>
+    <li lang="vi">Xem lỗi từng item và mở log cục bộ.</li>
+    <li lang="en">Rerun with the same configuration or create a new job from failed items.</li>
+    <li lang="vi">Chạy lại với cùng cấu hình hoặc tạo job mới từ item lỗi.</li>
+  </ul></td><td><span class="status review"><span lang="en">Proposed, needed</span><span lang="vi">Đề xuất cần thiết</span></span></td></tr>
+</tbody></table>
+
+<h3>M04 · Novel Library</h3>
+<table class="compact"><thead><tr><th><span lang="en">Function group</span><span lang="vi">Nhóm chức năng</span></th><th><span lang="en">Functions</span><span lang="vi">Chức năng</span></th><th><span lang="en">Status</span><span lang="vi">Trạng thái</span></th></tr></thead><tbody>
+  <tr><td>M04-F01 · <span lang="en">Novel catalog</span><span lang="vi">Danh mục truyện</span></td><td><ul class="function-list">
+    <li lang="en">View the library as a grid or a list.</li>
+    <li lang="vi">Xem thư viện dạng lưới hoặc danh sách.</li>
+    <li lang="en">Search by title, author or language; filter and sort by status, last updated or progress.</li>
+    <li lang="vi">Tìm theo tên, tác giả hoặc ngôn ngữ; lọc và sắp xếp theo trạng thái, cập nhật gần nhất hoặc tiến độ.</li>
+    <li lang="en">Cards show the cover, title, chapter count, source language, and analysis and translation status.</li>
+    <li lang="vi">Card hiển thị bìa, tiêu đề, số chương, ngôn ngữ nguồn, trạng thái phân tích và dịch.</li>
+  </ul></td><td><span class="status review"><span lang="en">Proposed</span><span lang="vi">Đề xuất</span></span> <code>Q9</code> <span lang="en">decides metadata</span><span lang="vi">quyết định metadata</span></td></tr>
+  <tr><td>M04-F02 · <span lang="en">Import novel</span><span lang="vi">Nhập truyện</span></td><td><ul class="function-list">
+    <li lang="en">Choose a local file or folder.</li>
+    <li lang="vi">Chọn tệp hoặc thư mục cục bộ.</li>
+    <li lang="en">Preview how chapters are split and fix titles or numbers before importing.</li>
+    <li lang="vi">Xem trước cách tách chương và sửa tiêu đề hoặc số thứ tự trước khi nhập.</li>
+    <li lang="en">Detect duplicate, missing-number or unreadable chapters.</li>
+    <li lang="vi">Phát hiện chương trùng, thiếu số hoặc không đọc được.</li>
+    <li lang="en">Import in the background with progress when the data is large.</li>
+    <li lang="vi">Nhập nền với tiến độ khi dữ liệu lớn.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Local import confirmed</span><span lang="vi">Nhập local đã xác nhận</span></span> <code>Q8</code> <span lang="en">formats and splitting rules still open</span><span lang="vi">còn mở định dạng và quy tắc tách</span></td></tr>
+  <tr><td>M04-F03 · <span lang="en">Novel information</span><span lang="vi">Thông tin truyện</span></td><td><ul class="function-list">
+    <li lang="en">View and edit the allowed metadata.</li>
+    <li lang="vi">Xem và sửa metadata được cho phép.</li>
+    <li lang="en">View an overview: total chapters, word count, analyzed chapters, translated chapters and the latest task.</li>
+    <li lang="vi">Xem tổng quan: tổng chương, số từ, chương đã phân tích, chương đã dịch và tác vụ gần nhất.</li>
+    <li lang="en">Open the novel's data folder.</li>
+    <li lang="vi">Mở thư mục dữ liệu của truyện.</li>
+  </ul></td><td><span class="status review"><span lang="en">Proposed</span><span lang="vi">Đề xuất</span></span> <code>Q9</code></td></tr>
+  <tr><td>M04-F04 · <span lang="en">Novel lifecycle</span><span lang="vi">Vòng đời truyện</span></td><td><ul class="function-list">
+    <li lang="en">Open, rename the display title, change the cover or update metadata.</li>
+    <li lang="vi">Mở, đổi tên hiển thị, thay bìa hoặc cập nhật metadata.</li>
+    <li lang="en">Import more chapters into an existing novel.</li>
+    <li lang="vi">Nhập thêm chương vào truyện hiện có.</li>
+    <li lang="en">Delete a novel with a confirmation that states clearly which data will be deleted.</li>
+    <li lang="vi">Xóa truyện bằng xác nhận rõ phạm vi dữ liệu bị xóa.</li>
+  </ul></td><td><span class="status review"><span lang="en">Proposed</span><span lang="vi">Đề xuất</span></span></td></tr>
+</tbody></table>
+
+<h3>M05 · Chapter Reader &amp; Editor</h3>
+<table class="compact"><thead><tr><th><span lang="en">Function group</span><span lang="vi">Nhóm chức năng</span></th><th><span lang="en">Functions</span><span lang="vi">Chức năng</span></th><th><span lang="en">Status</span><span lang="vi">Trạng thái</span></th></tr></thead><tbody>
+  <tr><td>M05-F01 · <span lang="en">Chapter list</span><span lang="vi">Danh sách chương</span></td><td><ul class="function-list">
+    <li lang="en">Virtualized list for up to about 3,000 chapters.</li>
+    <li lang="vi">Danh sách ảo hóa cho tối đa khoảng 3.000 chương.</li>
+    <li lang="en">Search by number or title; filter by analysis, translation and error status.</li>
+    <li lang="vi">Tìm theo số hoặc tiêu đề; lọc theo trạng thái phân tích, dịch và lỗi.</li>
+    <li lang="en">Go to the previous/next chapter and return to the last reading position.</li>
+    <li lang="vi">Điều hướng chương trước/sau và quay lại vị trí đọc gần nhất.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Scale confirmed</span><span lang="vi">Quy mô xác nhận</span></span> <span class="status review"><span lang="en">UX proposed</span><span lang="vi">UX đề xuất</span></span></td></tr>
+  <tr><td>M05-F02 · <span lang="en">Reading</span><span lang="vi">Đọc</span></td><td><ul class="function-list">
+    <li lang="en">Show the source text optimized for long reading sessions.</li>
+    <li lang="vi">Hiển thị văn bản nguồn tối ưu cho phiên đọc dài.</li>
+    <li lang="en">Options for font size, line width and line spacing.</li>
+    <li lang="vi">Tùy chọn cỡ chữ, độ rộng dòng và khoảng cách dòng.</li>
+    <li lang="en">Quickly open entities or terms that appear in the chapter.</li>
+    <li lang="vi">Mở nhanh thực thể hoặc thuật ngữ xuất hiện trong chương.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span> <code>D7</code></td></tr>
+  <tr><td>M05-F03 · <span lang="en">Source editing</span><span lang="vi">Sửa nguồn</span></td><td><ul class="function-list">
+    <li lang="en">Edit the source content, save it and warn about unsaved changes.</li>
+    <li lang="vi">Chỉnh sửa nội dung nguồn, lưu và cảnh báo thay đổi chưa lưu.</li>
+    <li lang="en">Undo/redo within the session.</li>
+    <li lang="vi">Hoàn tác/làm lại trong phiên.</li>
+    <li lang="en">Mark related analysis results and translations as needing a re-check when the source content changes.</li>
+    <li lang="vi">Đánh dấu kết quả phân tích và bản dịch liên quan là cần kiểm tra lại khi nội dung nguồn thay đổi.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Source editing confirmed</span><span lang="vi">Sửa nguồn xác nhận</span></span> <span class="status review"><span lang="en">Status propagation proposed</span><span lang="vi">Lan truyền trạng thái đề xuất</span></span></td></tr>
+  <tr><td>M05-F04 · <span lang="en">Search in novel</span><span lang="vi">Tìm kiếm trong truyện</span></td><td><ul class="function-list">
+    <li lang="en">Search text in the current chapter or the whole novel.</li>
+    <li lang="vi">Tìm văn bản trên chương hiện tại hoặc toàn truyện.</li>
+    <li lang="en">Open a result at the right chapter and match position.</li>
+    <li lang="vi">Mở kết quả đúng chương và vị trí khớp.</li>
+  </ul></td><td><span class="status review"><span lang="en">Proposed, high value</span><span lang="vi">Đề xuất giá trị cao</span></span></td></tr>
+</tbody></table>
+
+<h3>M06 · Local Data &amp; Export</h3>
+<table class="compact"><thead><tr><th><span lang="en">Function group</span><span lang="vi">Nhóm chức năng</span></th><th><span lang="en">Functions</span><span lang="vi">Chức năng</span></th><th><span lang="en">Status</span><span lang="vi">Trạng thái</span></th></tr></thead><tbody>
+  <tr><td>M06-F01 · <span lang="en">Library folder</span><span lang="vi">Thư mục thư viện</span></td><td><ul class="function-list">
+    <li lang="en">Choose or create the library folder on first launch.</li>
+    <li lang="vi">Chọn hoặc tạo thư mục thư viện khi khởi động lần đầu.</li>
+    <li lang="en">Check read/write permission and free space.</li>
+    <li lang="vi">Kiểm tra quyền đọc/ghi và dung lượng khả dụng.</li>
+    <li lang="en">Open or switch local libraries.</li>
+    <li lang="vi">Mở hoặc chuyển thư viện cục bộ.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Local first confirmed</span><span lang="vi">Local first xác nhận</span></span></td></tr>
+  <tr><td>M06-F02 · <span lang="en">Data safety</span><span lang="vi">An toàn dữ liệu</span></td><td><ul class="function-list">
+    <li lang="en">Write files in a way that avoids partially written files.</li>
+    <li lang="vi">Ghi tệp theo cách tránh tệp dở dang.</li>
+    <li lang="en">Detect missing data or inconsistent manifests and guide recovery.</li>
+    <li lang="vi">Phát hiện dữ liệu thiếu hoặc manifest không nhất quán và hướng dẫn phục hồi.</li>
+    <li lang="en">Send no telemetry and store no CLI credentials.</li>
+    <li lang="vi">Không gửi telemetry và không lưu credential của CLI.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Constraint confirmed</span><span lang="vi">Ràng buộc xác nhận</span></span></td></tr>
+  <tr><td>M06-F03 · <span lang="en">Backup &amp; migration</span><span lang="vi">Sao lưu &amp; di chuyển</span></td><td><ul class="function-list">
+    <li lang="en">Show instructions for copying the whole library folder.</li>
+    <li lang="vi">Hiển thị hướng dẫn sao chép toàn bộ thư mục thư viện.</li>
+    <li lang="en">Check the library after it is moved to a new machine or location.</li>
+    <li lang="vi">Kiểm tra thư viện sau khi được chuyển sang máy hoặc vị trí mới.</li>
+  </ul></td><td><span class="status review"><span lang="en">Proposed from the local-first architecture</span><span lang="vi">Đề xuất từ kiến trúc local first</span></span></td></tr>
+  <tr><td>M06-F04 · <span lang="en">Export</span><span lang="vi">Xuất</span></td><td><ul class="function-list">
+    <li lang="en">Export translated chapters as plain text files.</li>
+    <li lang="vi">Xuất chương dịch thành tệp văn bản thuần.</li>
+    <li lang="en">Choose the chapter range, target language and output folder.</li>
+    <li lang="vi">Chọn phạm vi chương, ngôn ngữ đích và thư mục đầu ra.</li>
+    <li lang="en">Report duplicate files and the export result.</li>
+    <li lang="vi">Báo tệp trùng và kết quả xuất.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Plain-file export confirmed</span><span lang="vi">Xuất plain files xác nhận</span></span> <code>Q12</code> <span lang="en">format still open</span><span lang="vi">còn mở định dạng</span></td></tr>
+</tbody></table>
+
+<h3>M07 · Story World Catalog</h3>
+<table class="compact"><thead><tr><th><span lang="en">Function group</span><span lang="vi">Nhóm chức năng</span></th><th><span lang="en">Functions</span><span lang="vi">Chức năng</span></th><th><span lang="en">Status</span><span lang="vi">Trạng thái</span></th></tr></thead><tbody>
+  <tr><td>M07-F01 · <span lang="en">Analysis scope</span><span lang="vi">Phạm vi phân tích</span></td><td><ul class="function-list">
+    <li lang="en">Choose the chapter range, backend and analysis options.</li>
+    <li lang="vi">Chọn dải chương, backend và tùy chọn phân tích.</li>
+    <li lang="en">Show chapters that are not yet analyzed, have failed or need re-analysis.</li>
+    <li lang="vi">Hiển thị chương chưa phân tích, đã lỗi hoặc cần phân tích lại.</li>
+    <li lang="en">Run in batches of about 100 chapters through Task Center.</li>
+    <li lang="vi">Chạy theo lô khoảng 100 chương qua Task Center.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span></td></tr>
+  <tr><td>M07-F02 · <span lang="en">Extraction</span><span lang="vi">Trích xuất</span></td><td><ul class="function-list">
+    <li lang="en">Detect characters, places, organisations and terms.</li>
+    <li lang="vi">Nhận diện nhân vật, địa điểm, tổ chức và thuật ngữ.</li>
+    <li lang="en">Detect aliases, other names and alternate identities.</li>
+    <li lang="vi">Nhận diện bí danh, tên gọi khác và danh tính thay thế.</li>
+    <li lang="en">Record the original name, translated name, short description and the chapters where it appears.</li>
+    <li lang="vi">Ghi tên gốc, tên dịch, mô tả ngắn và các chương xuất hiện.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span></td></tr>
+  <tr><td>M07-F03 · <span lang="en">Catalog</span><span lang="vi">Danh mục</span></td><td><ul class="function-list">
+    <li lang="en">Tabs per entity type; search, filter, sort and grid/list views.</li>
+    <li lang="vi">Tabs theo loại thực thể; tìm kiếm, lọc, sắp xếp và chế độ lưới/danh sách.</li>
+    <li lang="en">Show reviewed, possible duplicate, missing translated name or conflict states.</li>
+    <li lang="vi">Hiển thị trạng thái đã duyệt, nghi trùng, thiếu tên dịch hoặc có xung đột.</li>
+    <li lang="en">Open entity detail in the inspector or on its own page.</li>
+    <li lang="vi">Mở entity detail ở inspector hoặc trang riêng.</li>
+  </ul></td><td><span class="status review"><span lang="en">Proposed</span><span lang="vi">Đề xuất</span></span></td></tr>
+  <tr><td>M07-F04 · <span lang="en">Knowledge curation</span><span lang="vi">Hiệu đính tri thức</span></td><td><ul class="function-list">
+    <li lang="en">Edit the name, translated name, description, type and aliases.</li>
+    <li lang="vi">Sửa tên, tên dịch, mô tả, loại và alias.</li>
+    <li lang="en">Merge duplicates, pick the canonical entry and preview the impact.</li>
+    <li lang="vi">Gộp mục trùng, chọn mục chuẩn và xem trước ảnh hưởng.</li>
+    <li lang="en">Split wrongly merged entries if the data history allows it.</li>
+    <li lang="vi">Tách mục bị gộp sai nếu lịch sử dữ liệu cho phép.</li>
+    <li lang="en">Mark as reviewed or needs review.</li>
+    <li lang="vi">Đánh dấu đã duyệt hoặc cần xem lại.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Edit/merge/rename confirmed</span><span lang="vi">Sửa/gộp/đổi tên xác nhận</span></span> <span class="status review"><span lang="en">Split and review status proposed</span><span lang="vi">Tách và trạng thái duyệt đề xuất</span></span></td></tr>
+  <tr><td>M07-F05 · <span lang="en">Chapter occurrences</span><span lang="vi">Xuất hiện theo chương</span></td><td><ul class="function-list">
+    <li lang="en">View the chapters and paragraphs that contain the entity.</li>
+    <li lang="vi">Xem danh sách chương và đoạn chứa thực thể.</li>
+    <li lang="en">Go to the right chapter in Reader or Translation Workspace.</li>
+    <li lang="vi">Đi tới đúng chương trong Reader hoặc Translation Workspace.</li>
+    <li lang="en">Fix or remove a wrong occurrence from the analysis results.</li>
+    <li lang="vi">Sửa hoặc loại một occurrence sai khỏi kết quả phân tích.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Chapter occurrences confirmed</span><span lang="vi">Chapter occurrences xác nhận</span></span> <span class="status review"><span lang="en">Navigation proposed</span><span lang="vi">Điều hướng đề xuất</span></span></td></tr>
+  <tr><td>M07-F06 · Review queue</td><td><ul class="function-list">
+    <li lang="en">Collect possible duplicates, conflicting translated names, unassigned aliases and low-confidence data.</li>
+    <li lang="vi">Gom mục nghi trùng, tên dịch xung đột, alias chưa gắn và dữ liệu confidence thấp.</li>
+    <li lang="en">Review quickly in batches while still showing chapter evidence.</li>
+    <li lang="vi">Duyệt nhanh theo lô nhưng vẫn cho xem bằng chứng theo chương.</li>
+  </ul></td><td><span class="status review"><span lang="en">Proposed, high value</span><span lang="vi">Đề xuất giá trị cao</span></span></td></tr>
+</tbody></table>
+
+<h3>M08 · Relationship Map &amp; Timeline</h3>
+<table class="compact"><thead><tr><th><span lang="en">Function group</span><span lang="vi">Nhóm chức năng</span></th><th><span lang="en">Functions</span><span lang="vi">Chức năng</span></th><th><span lang="en">Status</span><span lang="vi">Trạng thái</span></th></tr></thead><tbody>
+  <tr><td>M08-F01 · <span lang="en">Relationship graph</span><span lang="vi">Đồ thị quan hệ</span></td><td><ul class="function-list">
+    <li lang="en">Show entities as nodes and relationships as edges.</li>
+    <li lang="vi">Hiển thị thực thể dưới dạng node và quan hệ dưới dạng edge.</li>
+    <li lang="en">Find, select, focus and open the details of a node.</li>
+    <li lang="vi">Tìm, chọn, focus và mở chi tiết một node.</li>
+    <li lang="en">Filter by entity type or relationship type.</li>
+    <li lang="vi">Lọc theo loại thực thể hoặc loại quan hệ.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Graph confirmed</span><span lang="vi">Đồ thị xác nhận</span></span> <code>Q6</code> <span lang="en">decided at Gate 3</span><span lang="vi">đã chốt tại Gate 3</span></td></tr>
+  <tr><td>M08-F02 · <span lang="en">Chapter checkpoint</span><span lang="vi">Mốc chương</span></td><td><ul class="function-list">
+    <li lang="en">Choose “up to chapter N” to limit the data shown.</li>
+    <li lang="vi">Chọn “tính đến chương N” để giới hạn dữ liệu được hiển thị.</li>
+    <li lang="en">Go to the previous/next chapter or drag the timeline.</li>
+    <li lang="vi">Đi tới chương trước/sau hoặc kéo timeline.</li>
+    <li lang="en">Mark relationships that are new, changed or ended at the current checkpoint.</li>
+    <li lang="vi">Đánh dấu quan hệ mới, thay đổi hoặc kết thúc tại mốc hiện tại.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Chapter-by-chapter evolution confirmed</span><span lang="vi">Tiến hóa theo chương xác nhận</span></span></td></tr>
+  <tr><td>M08-F03 · <span lang="en">Relationship management</span><span lang="vi">Quản lý quan hệ</span></td><td><ul class="function-list">
+    <li lang="en">Add, edit and delete relationships and their valid chapter range.</li>
+    <li lang="vi">Thêm, sửa, xóa quan hệ và khoảng chương hiệu lực.</li>
+    <li lang="en">View the chapters that serve as evidence for a relationship.</li>
+    <li lang="vi">Xem chương làm bằng chứng cho quan hệ.</li>
+    <li lang="en">Mark relationships as reviewed or needing review.</li>
+    <li lang="vi">Đánh dấu quan hệ đã duyệt hoặc cần xem lại.</li>
+  </ul></td><td><span class="status review"><span lang="en">Proposed so the data can be edited</span><span lang="vi">Đề xuất để dữ liệu sửa được</span></span></td></tr>
+  <tr><td>M08-F04 · <span lang="en">Spoiler protection</span><span lang="vi">Chống spoiler</span></td><td><ul class="function-list">
+    <li lang="en">Hide nodes, aliases, descriptions or relationships that appear after the selected chapter checkpoint.</li>
+    <li lang="vi">Không hiển thị node, alias, mô tả hoặc quan hệ xuất hiện sau mốc chương đã chọn.</li>
+    <li lang="en">Use the same data boundary for Reader and, later, Story Chat.</li>
+    <li lang="vi">Dùng cùng ranh giới dữ liệu cho Reader và Story Chat về sau.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Persona P3 goal</span><span lang="vi">Mục tiêu persona P3</span></span> <span class="status review"><span lang="en">Mechanism proposed</span><span lang="vi">Cơ chế đề xuất</span></span></td></tr>
+</tbody></table>
+
+<h3>M09 · Translation Workspace &amp; Quality</h3>
+<table class="compact"><thead><tr><th><span lang="en">Function group</span><span lang="vi">Nhóm chức năng</span></th><th><span lang="en">Functions</span><span lang="vi">Chức năng</span></th><th><span lang="en">Status</span><span lang="vi">Trạng thái</span></th></tr></thead><tbody>
+  <tr><td>M09-F01 · <span lang="en">Batch setup</span><span lang="vi">Thiết lập batch</span></td><td><ul class="function-list">
+    <li lang="en">Choose the target language and chapter range.</li>
+    <li lang="vi">Chọn ngôn ngữ đích và phạm vi chương.</li>
+    <li lang="en">Show analysis coverage and the chapters that are not ready.</li>
+    <li lang="vi">Hiển thị mức bao phủ phân tích và các chương chưa sẵn sàng.</li>
+    <li lang="en">Choose the naming and terminology policy; use Story World as the glossary.</li>
+    <li lang="vi">Chọn chính sách tên và thuật ngữ; dùng Story World làm glossary.</li>
+    <li lang="en">Estimate the number of items and confirm the backend before running.</li>
+    <li lang="vi">Ước lượng số item và xác nhận backend trước khi chạy.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Batch + glossary confirmed</span><span lang="vi">Batch + glossary xác nhận</span></span> <code>Q10–Q11</code> <span lang="en">still open</span><span lang="vi">còn mở</span></td></tr>
+  <tr><td>M09-F02 · <span lang="en">Background translation</span><span lang="vi">Dịch nền</span></td><td><ul class="function-list">
+    <li lang="en">Translate many chapters in one job and save each chapter as soon as it is done.</li>
+    <li lang="vi">Dịch nhiều chương trong một job và lưu từng chương ngay khi hoàn tất.</li>
+    <li lang="en">Resume, retry failures and do not rerun finished chapters unless asked.</li>
+    <li lang="vi">Resume, retry lỗi và không chạy lại chương đã hoàn tất nếu không được yêu cầu.</li>
+    <li lang="en">Keep the glossary snapshot or knowledge version used for the job.</li>
+    <li lang="vi">Giữ snapshot glossary hoặc version tri thức dùng cho job.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span> <span class="status review"><span lang="en">Snapshot proposed</span><span lang="vi">Snapshot đề xuất</span></span></td></tr>
+  <tr><td>M09-F03 · <span lang="en">Side-by-side comparison</span><span lang="vi">So sánh song song</span></td><td><ul class="function-list">
+    <li lang="en">Show source and translation as aligned paragraphs.</li>
+    <li lang="vi">Hiển thị nguồn và bản dịch theo đoạn thẳng hàng.</li>
+    <li lang="en">Navigate chapters and paragraphs; synchronized scrolling can be turned on or off.</li>
+    <li lang="vi">Điều hướng chương và đoạn; đồng bộ cuộn có thể bật/tắt.</li>
+    <li lang="en">Flag missing, extra or misaligned paragraphs.</li>
+    <li lang="vi">Đánh dấu đoạn thiếu, thừa hoặc lệch.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span> <code>Q7</code> <span lang="en">decided at Gate 3</span><span lang="vi">đã chốt tại Gate 3</span></td></tr>
+  <tr><td>M09-F04 · <span lang="en">Editing</span><span lang="vi">Biên tập</span></td><td><ul class="function-list">
+    <li lang="en">Edit the translation and save per chapter.</li>
+    <li lang="vi">Sửa bản dịch và lưu theo chương.</li>
+    <li lang="en">Find/replace within a chapter; proposed batch-wide find/replace with preview.</li>
+    <li lang="vi">Tìm/thay trong chương; đề xuất tìm/thay toàn batch với preview.</li>
+    <li lang="en">Undo/redo within the session and warn about unsaved changes.</li>
+    <li lang="vi">Hoàn tác/làm lại trong phiên và cảnh báo thay đổi chưa lưu.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Translation editing confirmed</span><span lang="vi">Sửa bản dịch xác nhận</span></span> <span class="status review"><span lang="en">Editing tools proposed</span><span lang="vi">Công cụ biên tập đề xuất</span></span></td></tr>
+  <tr><td>M09-F05 · <span lang="en">Automated QA</span><span lang="vi">QA tự động</span></td><td><ul class="function-list">
+    <li lang="en">Check names and terms against Story World.</li>
+    <li lang="vi">Kiểm tra tên và thuật ngữ so với Story World.</li>
+    <li lang="en">Check paragraph count and alignment.</li>
+    <li lang="vi">Kiểm tra số đoạn và độ thẳng hàng.</li>
+    <li lang="en">Detect empty chapters, output with schema errors or leftover source text.</li>
+    <li lang="vi">Phát hiện chương rỗng, output lỗi schema hoặc còn sót văn bản nguồn.</li>
+    <li lang="en">Summarize errors per batch and allow jumping to each error location.</li>
+    <li lang="vi">Tổng hợp lỗi theo batch và cho phép nhảy đến vị trí lỗi.</li>
+  </ul></td><td><span class="status approved"><span lang="en">M2/M3 confirmed</span><span lang="vi">M2/M3 xác nhận</span></span> <span class="status review"><span lang="en">Rule details proposed</span><span lang="vi">Chi tiết rule đề xuất</span></span></td></tr>
+  <tr><td>M09-F06 · <span lang="en">Review status</span><span lang="vi">Trạng thái duyệt</span></td><td><ul class="function-list">
+    <li lang="en">Not translated, translating, translated, has errors, needs review and reviewed.</li>
+    <li lang="vi">Chưa dịch, đang dịch, đã dịch, có lỗi, cần duyệt và đã duyệt.</li>
+    <li lang="en">Filter the chapter list by status for bulk handling.</li>
+    <li lang="vi">Lọc danh sách chương theo trạng thái để xử lý hàng loạt.</li>
+  </ul></td><td><span class="status review"><span lang="en">Proposed for running 100-chapter batches</span><span lang="vi">Đề xuất để vận hành 100 chương</span></span></td></tr>
+  <tr><td>M09-F07 · <span lang="en">Translation export</span><span lang="vi">Xuất bản dịch</span></td><td><ul class="function-list">
+    <li lang="en">Export only chapters that meet the conditions the user selects.</li>
+    <li lang="vi">Chỉ xuất chương đạt điều kiện người dùng chọn.</li>
+    <li lang="en">Keep chapter numbers and titles.</li>
+    <li lang="vi">Giữ số thứ tự và tiêu đề chương.</li>
+    <li lang="en">Create a short report of skipped or failed chapters.</li>
+    <li lang="vi">Tạo báo cáo ngắn về chương bị bỏ qua hoặc có lỗi.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Export confirmed</span><span lang="vi">Xuất xác nhận</span></span> <code>Q12</code> <span lang="en">format still open</span><span lang="vi">còn mở định dạng</span></td></tr>
+</tbody></table>
+<h3>M10 · Media Asset Library <span class="status todo">Release 4 · Part 1–2</span></h3>
+<table class="compact"><thead><tr><th><span lang="en">Function group</span><span lang="vi">Nhóm chức năng</span></th><th><span lang="en">Intended functions</span><span lang="vi">Chức năng định hướng</span></th></tr></thead><tbody>
+  <tr><td>M10-F01 · Asset catalog</td><td><ul class="function-list"><li lang="en">Catalog of images, voices, audio, video, props, backgrounds, prompts and references.</li><li lang="vi">Danh mục image, voice, audio, video, prop, background, prompt và reference.</li><li lang="en">Search, filter, tags, folders/collections, grid/list and display density.</li><li lang="vi">Tìm kiếm, lọc, tag, thư mục/bộ sưu tập, grid/list và mật độ hiển thị.</li><li lang="en">Preview suited to the asset type: image, waveform/audio player or video player.</li><li lang="vi">Preview phù hợp theo loại asset: ảnh, waveform/audio player hoặc video player.</li></ul></td></tr>
+  <tr><td>M10-F02 · Entity binding</td><td><ul class="function-list"><li lang="en">Bind assets to characters, places, organisations, props or scenes.</li><li lang="vi">Gắn asset vào nhân vật, địa điểm, tổ chức, đạo cụ hoặc scene.</li><li lang="en">Choose the canonical asset and the variants allowed for downstream projects.</li><li lang="vi">Chọn asset chuẩn và các biến thể được phép dùng cho dự án phía sau.</li><li lang="en">Trace back which audiobook, episode or render uses an asset.</li><li lang="vi">Xem ngược asset đang được dùng ở audiobook, episode hoặc render nào.</li></ul></td></tr>
+  <tr><td>M10-F03 · Generation profile</td><td><ul class="function-list"><li lang="en">Store prompt, negative prompt, visual traits, voice profile, seed, model and generation parameters.</li><li lang="vi">Lưu prompt, negative prompt, đặc điểm hình ảnh, voice profile, seed, model và tham số tạo.</li><li lang="en">Presets by novel style, era, character or scene type.</li><li lang="vi">Preset theo phong cách truyện, thời kỳ, nhân vật hoặc loại cảnh.</li><li lang="en">Lock identity attributes to keep results consistent across generations.</li><li lang="vi">Khóa thuộc tính nhận diện để giữ tính nhất quán giữa nhiều lần tạo.</li></ul></td></tr>
+  <tr><td>M10-F04 · Variant workflow</td><td><ul class="function-list"><li lang="en">Create/import variants, compare side by side, approve, reject, rename, duplicate and delete.</li><li lang="vi">Tạo/nhập biến thể, so sánh cạnh nhau, duyệt, từ chối, đổi tên, nhân bản và xóa.</li><li lang="en">Store version, generation source, license/usage rights and approval notes.</li><li lang="vi">Lưu version, nguồn tạo, license/quyền sử dụng và ghi chú phê duyệt.</li><li lang="en">Check visual or voice consistency before marking an asset as approved.</li><li lang="vi">Kiểm tra nhất quán hình hoặc giọng trước khi đánh dấu approved.</li></ul></td></tr>
+  <tr><td>M10-F05 · Asset portability</td><td><ul class="function-list"><li lang="en">Open folder, import/export assets with metadata and copy them to another project.</li><li lang="vi">Mở thư mục, import/export asset kèm metadata và copy sang dự án khác.</li><li lang="en">Detect files that are missing, duplicated or changed outside the app.</li><li lang="vi">Phát hiện tệp mất, trùng hoặc đã bị thay đổi ngoài ứng dụng.</li></ul></td></tr>
+</tbody></table>
+
+<h3>M11 · Audiobook Studio <span class="status todo">Release 3 · Part 2, 4</span></h3>
+<table class="compact"><thead><tr><th><span lang="en">Function group</span><span lang="vi">Nhóm chức năng</span></th><th><span lang="en">Intended functions</span><span lang="vi">Chức năng định hướng</span></th></tr></thead><tbody>
+  <tr><td>M11-F01 · Script segmentation</td><td><ul class="function-list"><li lang="en">Split narration, character dialogue and sound cues from translated chapters.</li><li lang="vi">Tách lời dẫn, thoại nhân vật và chỉ dẫn âm thanh từ chương dịch.</li><li lang="en">Allow editing speakers, splitting/merging segments and marking lines that are not read aloud.</li><li lang="vi">Cho phép sửa speaker, chia/gộp đoạn và đánh dấu câu không đọc.</li><li lang="en">Compare the script with the chapter to detect missed passages.</li><li lang="vi">So sánh script với chương để phát hiện passage bị bỏ sót.</li></ul></td></tr>
+  <tr><td>M11-F02 · Rich tagged script editor</td><td><ul class="function-list"><li lang="en">Quick tags for speaker, role, emotion, pause, laughter, sigh, surprise and SFX.</li><li lang="vi">Quick tag cho speaker, role, emotion, pause, laughter, sigh, surprise và SFX.</li><li lang="en">Find/replace, replace all, grammar polish, undo/redo and visual tag mode.</li><li lang="vi">Find/replace, replace all, grammar polish, undo/redo và visual tag mode.</li><li lang="en">Preview each tag, sentence or segment right in the editor.</li><li lang="vi">Preview từng tag, câu hoặc đoạn ngay trong editor.</li></ul></td></tr>
+  <tr><td>M11-F03 · Cast mapping</td><td><ul class="function-list"><li lang="en">Assign voice profiles to the narrator and each character, reusing them from Story World.</li><li lang="vi">Gán voice profile cho narrator và từng nhân vật, tái sử dụng từ Story World.</li><li lang="en">Add/remove roles, audition, open voice settings and warn about roles without a voice.</li><li lang="vi">Thêm/xóa role, nghe thử, mở cấu hình voice và cảnh báo role chưa có giọng.</li><li lang="en">Set pauses between dialogue turns, natural overlap and loudness normalization.</li><li lang="vi">Đặt khoảng nghỉ giữa lượt thoại, natural overlap và loudness normalization.</li></ul></td></tr>
+  <tr><td>M11-F04 · Speech generation</td><td><ul class="function-list"><li lang="en">Generate audio by tag, segment, scene or chapter.</li><li lang="vi">Tạo audio theo tag, đoạn, scene hoặc chương.</li><li lang="en">Retry failed segments, regenerate with new parameters and keep approved takes.</li><li lang="vi">Retry đoạn lỗi, regenerate với tham số mới và giữ take đã duyệt.</li><li lang="en">Options for expressive prosody, punctuation pauses and split output segments.</li><li lang="vi">Tùy chọn expressive prosody, punctuation pause và tách output segment.</li></ul></td></tr>
+  <tr><td>M11-F05 · Audio assembly</td><td><ul class="function-list"><li lang="en">Arrange segments, pauses, BGM and SFX; view a basic audio timeline.</li><li lang="vi">Sắp xếp đoạn, khoảng nghỉ, BGM và SFX; xem timeline audio cơ bản.</li><li lang="en">Play the whole chapter, jump by script and mark points to fix.</li><li lang="vi">Phát toàn chương, nhảy theo script và đánh dấu điểm cần sửa.</li><li lang="en">Send the mix to M17 for auto-ducking/mastering.</li><li lang="vi">Gửi mix sang M17 để auto-ducking/mastering.</li></ul></td></tr>
+  <tr><td>M11-F06 · Export</td><td><ul class="function-list"><li lang="en">Export combined WAV/MP3, per-character multitrack and SRT.</li><li lang="vi">Xuất combined WAV/MP3, multitrack theo nhân vật và SRT.</li><li lang="en">Send audio/script/subtitles to the Video Editor.</li><li lang="vi">Gửi audio/script/subtitle sang Video Editor.</li><li lang="en">Check duration, passage coverage and broken files before finishing.</li><li lang="vi">Kiểm tra duration, passage coverage và file lỗi trước khi hoàn tất.</li></ul></td></tr>
+</tbody></table>
+
+<h3>M12 · Series Film Studio <span class="status todo">Release 7 · Part 1–3 · Release 8 · Part 1–3</span></h3>
+<table class="compact"><thead><tr><th><span lang="en">Function group</span><span lang="vi">Nhóm chức năng</span></th><th><span lang="en">Intended functions</span><span lang="vi">Chức năng định hướng</span></th></tr></thead><tbody>
+  <tr><td>M12-F01 · Episode projects</td><td><ul class="function-list"><li lang="en">Create episode/season projects from a chapter range; templates for short, vertical, landscape or illustrated episodes.</li><li lang="vi">Tạo dự án tập/mùa từ một dải chương; template theo short, vertical, landscape hoặc illustrated episode.</li><li lang="en">Folders, search, grid/list, rename, duplicate, project import/export and archive.</li><li lang="vi">Phân thư mục, tìm kiếm, grid/list, đổi tên, nhân bản, import/export project và archive.</li><li lang="en">Track script, asset, voice, edit, render and publish status.</li><li lang="vi">Theo dõi trạng thái script, asset, voice, edit, render và publish.</li></ul></td></tr>
+  <tr><td>M12-F02 · Adaptation script</td><td><ul class="function-list"><li lang="en">Turn chapters into scenes, shots, dialogue, narration and visual/audio directions.</li><li lang="vi">Chuyển chương thành scene, shot, dialogue, narration và chỉ dẫn hình/âm thanh.</li><li lang="en">Link characters, places, props, relationship context and chapter milestones.</li><li lang="vi">Gắn nhân vật, địa điểm, prop, relationship context và mốc chương.</li><li lang="en">Control episode length, pacing and coverage against the source.</li><li lang="vi">Kiểm soát độ dài tập, pacing và coverage so với nguồn.</li></ul></td></tr>
+  <tr><td>M12-F03 · Storyboard</td><td><ul class="function-list"><li lang="en">Cards/boards per scene and shot with description, framing, duration and transition.</li><li lang="vi">Card/board theo scene và shot với mô tả, framing, duration và transition.</li><li lang="en">Attach canonical assets or create variants from M10.</li><li lang="vi">Gắn asset chuẩn hoặc tạo biến thể từ M10.</li><li lang="en">Review, reorder, split/merge shots and lock finalized shots.</li><li lang="vi">Duyệt, reorder, split/merge shot và khóa shot đã chốt.</li></ul></td></tr>
+  <tr><td>M12-F04 · Media generation</td><td><ul class="function-list"><li lang="en">Generate or import character art, backgrounds, props, audio and video clips per shot.</li><li lang="vi">Tạo hoặc nhập character art, background, prop, audio và video clip theo shot.</li><li lang="en">Batch generation through Task Center, preview, compare and pick takes.</li><li lang="vi">Batch generation qua Task Center, preview, compare và chọn take.</li><li lang="en">Check consistency with character/setting profiles.</li><li lang="vi">Kiểm tra tính nhất quán với profile của nhân vật/bối cảnh.</li></ul></td></tr>
+  <tr><td>M12-F05 · Handoff</td><td><ul class="function-list"><li lang="en">Hand storyboard, media, dialogue, BGM and subtitles over to M18.</li><li lang="vi">Đưa storyboard, media, dialogue, BGM và subtitle sang M18.</li><li lang="en">Receive renders and error status back from the editor.</li><li lang="vi">Nhận lại render và trạng thái lỗi từ editor.</li><li lang="en">Lock the asset/script versions used for a specific render.</li><li lang="vi">Khóa version asset/script dùng cho một render cụ thể.</li></ul></td></tr>
+</tbody></table>
+
+<h3>M13 · Story Chat <span class="status todo">Release 10 · Part 1</span></h3>
+<table class="compact"><thead><tr><th><span lang="en">Function group</span><span lang="vi">Nhóm chức năng</span></th><th><span lang="en">Intended functions</span><span lang="vi">Chức năng định hướng</span></th></tr></thead><tbody>
+  <tr><td>M13-F01 · Scope</td><td><span lang="en">Choose the novel and the latest chapter allowed as context.</span><span lang="vi">Chọn truyện và chương tối đa được phép dùng làm ngữ cảnh.</span></td></tr>
+  <tr><td>M13-F02 · <span lang="en">Q&amp;A</span><span lang="vi">Hỏi đáp</span></td><td><span lang="en">Ask about characters, aliases, relationships, events and terms in natural language.</span><span lang="vi">Hỏi về nhân vật, alias, quan hệ, sự kiện và thuật ngữ bằng ngôn ngữ tự nhiên.</span></td></tr>
+  <tr><td>M13-F03 · Grounding</td><td><span lang="en">Attach source chapters or passages as evidence and open them directly in the Reader.</span><span lang="vi">Đính kèm chương hoặc đoạn nguồn làm căn cứ và mở trực tiếp trong Reader.</span></td></tr>
+  <tr><td>M13-F04 · Spoiler guard</td><td><span lang="en">Exclude all data after the selected chapter milestone from the context sent to AI.</span><span lang="vi">Loại mọi dữ liệu sau mốc chương đã chọn khỏi context gửi cho AI.</span></td></tr>
+</tbody></table>
+
+<h3>M14 · Voice Lab &amp; Character Casting <span class="status todo">Release 3 · Part 1, 4</span></h3>
+<table class="compact"><thead><tr><th><span lang="en">Function group</span><span lang="vi">Nhóm chức năng</span></th><th><span lang="en">Planned functions</span><span lang="vi">Chức năng theo kế hoạch</span></th></tr></thead><tbody>
+  <tr><td>M14-F01 · Voice design</td><td><ul class="function-list"><li lang="en">Choose the engine/model and a starting profile.</li><li lang="vi">Chọn engine/model và profile khởi tạo.</li><li lang="en">Configure gender, age, pitch, speaking style, region/accent and special voice effects.</li><li lang="vi">Cấu hình giới tính, độ tuổi, cao độ, phong cách nói, vùng miền/ngữ âm và hiệu ứng giọng đặc biệt.</li><li lang="en">Adjust speed, expressiveness, rhythm and stress, warmth and clarity.</li><li lang="vi">Điều chỉnh tốc độ, độ biểu cảm, nhịp và trọng âm, độ ấm, độ rõ.</li><li lang="en">Generate a new seed, lock the seed to keep a consistent timbre and audition with a sample sentence.</li><li lang="vi">Tạo seed mới, khóa seed để giữ âm sắc nhất quán và nghe thử bằng câu mẫu.</li></ul></td></tr>
+  <tr><td>M14-F02 · Voice cloning</td><td><ul class="function-list"><li lang="en">Record from microphone/system audio or upload WAV/MP3 samples.</li><li lang="vi">Thu âm từ micro/system audio hoặc tải mẫu WAV/MP3.</li><li lang="en">Check sample length, cleanliness and transcript.</li><li lang="vi">Kiểm tra độ dài, độ sạch và transcript của mẫu.</li><li lang="en">Extract the voice embedding, name it, describe usage rights and save it as a profile.</li><li lang="vi">Trích voice embedding, đặt tên, mô tả quyền sử dụng và lưu thành profile.</li><li lang="en">Manage consent/provenance to know where the voice comes from and its permitted scope of use.</li><li lang="vi">Quản lý consent/provenance để biết nguồn và phạm vi được phép dùng của giọng.</li></ul></td></tr>
+  <tr><td>M14-F03 · Voice profile library</td><td><ul class="function-list"><li lang="en">Search and filter by character, gender, age, region, pitch, style and purpose.</li><li lang="vi">Tìm kiếm và lọc theo nhân vật, giới tính, tuổi, vùng, pitch, style và mục đích.</li><li lang="en">Categorize into templates, character voices and custom voices.</li><li lang="vi">Phân loại template, character voice và custom voice.</li><li lang="en">Choose grid density, audition, apply, edit, duplicate, save presets and delete.</li><li lang="vi">Chọn mật độ lưới, nghe thử, apply, sửa, nhân bản, lưu preset và xóa.</li><li lang="en">Quick tags such as narrator, elder, child, villain, whisper or emotional.</li><li lang="vi">Gắn tag nhanh như narrator, elder, child, villain, whisper hoặc emotional.</li></ul></td></tr>
+  <tr><td>M14-F04 · Character casting</td><td><ul class="function-list"><li lang="en">Assign one canonical voice profile to each character in Story World.</li><li lang="vi">Gán một voice profile chuẩn cho mỗi nhân vật trong Story World.</li><li lang="en">Allow overrides by age, identity, era or language.</li><li lang="vi">Cho phép override theo tuổi, danh tính, thời kỳ hoặc ngôn ngữ.</li><li lang="en">Detect characters whose voices are too similar.</li><li lang="vi">Phát hiện nhiều nhân vật dùng giọng quá giống nhau.</li><li lang="en">Lock the cast by version so audiobooks or episodes can be reproduced.</li><li lang="vi">Khóa cast theo phiên bản để audiobook hoặc episode có thể tái tạo.</li></ul></td></tr>
+  <tr><td>M14-F05 · Tagged speech</td><td><ul class="function-list"><li lang="en">Insert tags for speaker, emotion, laughter, sigh, surprise, pause and SFX.</li><li lang="vi">Chèn tag người nói, cảm xúc, tiếng cười, thở dài, ngạc nhiên, khoảng nghỉ và SFX.</li><li lang="en">Preview each tag or line of dialogue before rendering the whole chapter.</li><li lang="vi">Preview từng tag hoặc đoạn thoại trước khi render cả chương.</li><li lang="en">Save approved audio to the Media Asset Library.</li><li lang="vi">Lưu audio đã duyệt vào Media Asset Library.</li></ul></td></tr>
+</tbody></table>
+
+<h3>M15 · Pronunciation Dictionary <span class="status todo">Release 3 · Part 1</span></h3>
+<table class="compact"><thead><tr><th><span lang="en">Function group</span><span lang="vi">Nhóm chức năng</span></th><th><span lang="en">Planned functions</span><span lang="vi">Chức năng theo kế hoạch</span></th></tr></thead><tbody>
+  <tr><td>M15-F01 · <span lang="en">Pronunciation dictionary</span><span lang="vi">Từ điển phát âm</span></td><td><ul class="function-list"><li lang="en">Add, edit and delete source words/acronyms and their pronunciations.</li><li lang="vi">Thêm, sửa, xóa từ gốc/acronym và cách đọc.</li><li lang="en">Support Chinese, Japanese and Korean names, Sino-Vietnamese readings, loanwords, forms of address and genre terms.</li><li lang="vi">Hỗ trợ tên Trung, Nhật, Hàn, âm Hán Việt, từ mượn, danh xưng và thuật ngữ thể loại.</li><li lang="en">Set rules by case sensitivity, language, voice profile or novel scope.</li><li lang="vi">Đặt rule phân biệt hoa thường, ngôn ngữ, voice profile hoặc phạm vi truyện.</li><li lang="en">Search and filter by word, acronym, proper name or term.</li><li lang="vi">Tìm kiếm và lọc theo word, acronym, proper name hoặc term.</li></ul></td></tr>
+  <tr><td>M15-F02 · Audition</td><td><ul class="function-list"><li lang="en">Audition a rule with the selected voice.</li><li lang="vi">Nghe thử một rule bằng voice được chọn.</li><li lang="en">Compare pronunciation before/after applying a rule.</li><li lang="vi">So sánh cách đọc trước/sau khi áp dụng.</li><li lang="en">Live playground showing the normalized text before it is sent to TTS.</li><li lang="vi">Live playground hiển thị văn bản đã normalize trước khi gửi sang TTS.</li></ul></td></tr>
+  <tr><td>M15-F03 · Rule lifecycle</td><td><ul class="function-list"><li lang="en">Default rules, library-wide rules and novel-specific rules.</li><li lang="vi">Rule mặc định, rule toàn thư viện và rule riêng cho truyện.</li><li lang="en">Import/export rule sets, reset to defaults and detect conflicting rules.</li><li lang="vi">Nhập/xuất bộ quy tắc, reset mặc định và phát hiện rule xung đột.</li><li lang="en">Sync canonical names from Story World into the pronunciation list.</li><li lang="vi">Đồng bộ tên chuẩn từ Story World sang danh sách cần phát âm.</li></ul></td></tr>
+</tbody></table>
+
+<h3>M16 · Sound, Music &amp; Ambience Studio <span class="status todo">Release 5 · Part 1–3</span></h3>
+<table class="compact"><thead><tr><th><span lang="en">Function group</span><span lang="vi">Nhóm chức năng</span></th><th><span lang="en">Planned functions</span><span lang="vi">Chức năng theo kế hoạch</span></th></tr></thead><tbody>
+  <tr><td>M16-F01 · Audio asset library</td><td><ul class="function-list"><li lang="en">Folders and collections of BGM, SFX, ambience, themes and instrument tracks.</li><li lang="vi">Thư mục và bộ sưu tập BGM, SFX, ambience, theme và instrument track.</li><li lang="en">Search, tags, waveform preview, play/loop, rename, duplicate, download and delete.</li><li lang="vi">Tìm kiếm, tag, waveform preview, play/loop, đổi tên, nhân bản, tải tệp và xóa.</li><li lang="en">Store metadata on generation source, license, duration, sample rate and the projects using the asset.</li><li lang="vi">Lưu metadata về nguồn tạo, license, duration, sample rate và dự án đang sử dụng.</li></ul></td></tr>
+  <tr><td>M16-F02 · Song &amp; score workspace</td><td><ul class="function-list"><li lang="en">Enter lyrics/chords or scan sheet music with a vision model.</li><li lang="vi">Nhập lời/hợp âm hoặc quét sheet nhạc bằng vision model.</li><li lang="en">Set BPM, time signature, rhythm style, key/capo, beats per chord and song structure.</li><li lang="vi">Thiết lập BPM, nhịp, điệu, key/capo, số phách mỗi hợp âm và cấu trúc bài.</li><li lang="en">Choose the arrangement, toggle instruments and balance each layer.</li><li lang="vi">Chọn phối khí, bật/tắt nhạc cụ và cân mức từng lớp.</li><li lang="en">Produce full mix, vocal/acapella, beat/instrumental, sheet and WAV.</li><li lang="vi">Tạo bản full, vocal/acapella, beat/instrumental, sheet và WAV.</li></ul></td></tr>
+  <tr><td>M16-F03 · Instrument studios</td><td><ul class="function-list"><li lang="en">Presets and playing techniques for guitar, flute/xiao, saxophone and traditional instruments.</li><li lang="vi">Preset và kỹ thuật diễn tấu cho guitar, sáo/tiêu, saxophone và nhạc cụ dân tộc.</li><li lang="en">Adjust articulation, tremolo, vibrato, slap, rasgueado, randomness, velocity and tempo.</li><li lang="vi">Điều chỉnh articulation, tremolo, vibrato, slap, rasgueado, độ ngẫu nhiên, lực và tempo.</li><li lang="en">Preview by phrase/bar, play back, save presets and save audio to the library.</li><li lang="vi">Preview theo câu/nhịp, phát lại, lưu preset và lưu audio vào thư viện.</li></ul></td></tr>
+  <tr><td>M16-F04 · Scene ambience generator</td><td><ul class="function-list"><li lang="en">Presets for rain, streams, fire, sea, wind, birds, insects, bells, crowds and vehicles.</li><li lang="vi">Preset mưa, suối, lửa, biển, gió, chim, côn trùng, tiếng chuông, đám đông và phương tiện.</li><li lang="en">Choose environment/surface, intensity, duration and seamless loop.</li><li lang="vi">Chọn môi trường/bề mặt, intensity, duration và seamless loop.</li><li lang="en">Mix multiple layers such as base, particle density, resonance, thunder, wind and accompanying sounds.</li><li lang="vi">Trộn nhiều tầng như nền, mật độ hạt, cộng hưởng, sấm, gió và âm thanh đi kèm.</li><li lang="en">Set sample rate, bit depth, seed and min/max random ranges to create non-repeating versions.</li><li lang="vi">Đặt sample rate, bit depth, seed và dải random min/max để tạo bản không lặp.</li></ul></td></tr>
+  <tr><td>M16-F05 · Spa &amp; meditation soundscape</td><td><ul class="function-list"><li lang="en">Preset library for meditation, healing, deep sleep and nature spaces.</li><li lang="vi">Thư viện preset thiền, chữa lành, ngủ sâu và không gian thiên nhiên.</li><li lang="en">Mix multiple tracks such as wooden fish, flute, bells, wind chime, birds and water.</li><li lang="vi">Phối nhiều track như mõ, sáo, chuông, wind chime, birds và water.</li><li lang="en">Adjust frequency, repeat interval and min/max volume of each layer.</li><li lang="vi">Điều chỉnh tần số, khoảng lặp và mức âm lượng min/max của từng lớp.</li></ul></td></tr>
+  <tr><td>M16-F06 · Novel-aware scoring</td><td><ul class="function-list"><li lang="en">Link themes to characters, places, organisations or scene types.</li><li lang="vi">Gắn theme với nhân vật, địa điểm, tổ chức hoặc loại cảnh.</li><li lang="en">Suggest ambience/SFX from scenes, emotions and settings in Story World.</li><li lang="vi">Gợi ý ambience/SFX từ scene, cảm xúc và bối cảnh trong Story World.</li><li lang="en">Reuse the same themes and sound palette across chapters/episodes.</li><li lang="vi">Tái sử dụng cùng theme và sound palette giữa các chương/tập.</li></ul></td></tr>
+</tbody></table>
+
+<h3>M17 · Audio Finishing &amp; Mastering <span class="status todo">Release 3 · Part 3</span></h3>
+<table class="compact"><thead><tr><th><span lang="en">Function group</span><span lang="vi">Nhóm chức năng</span></th><th><span lang="en">Planned functions</span><span lang="vi">Chức năng theo kế hoạch</span></th></tr></thead><tbody>
+  <tr><td>M17-F01 · Seamless loop</td><td><ul class="function-list"><li lang="en">Choose source audio, a target duration or a preset from 30 seconds to 1 hour.</li><li lang="vi">Chọn audio nguồn, thời lượng đích hoặc preset 30 giây đến 1 giờ.</li><li lang="en">Adjust crossfade, equal-power crossfade and preview the join point.</li><li lang="vi">Điều chỉnh crossfade, equal-power crossfade và preview điểm nối.</li><li lang="en">Render the loop, save it to the library and keep source metadata.</li><li lang="vi">Render loop, lưu vào thư viện và giữ metadata nguồn.</li></ul></td></tr>
+  <tr><td>M17-F02 · Broadcast mastering</td><td><ul class="function-list"><li lang="en">Presets for YouTube/Spotify, podcast/shorts, EBU R128, cinema/lo-fi and manual.</li><li lang="vi">Preset YouTube/Spotify, podcast/shorts, EBU R128, cinema/lo-fi và manual.</li><li lang="en">Adjust LUFS, peak limit, warmth, clarity and air.</li><li lang="vi">Điều chỉnh LUFS, peak limit, warmth, clarity và air.</li><li lang="en">Compare before/after, check clipping and export the mastered version.</li><li lang="vi">So sánh trước/sau, kiểm tra clipping và xuất bản mastered.</li></ul></td></tr>
+  <tr><td>M17-F03 · Smart auto-ducking</td><td><ul class="function-list"><li lang="en">Take a voice track and a BGM/SFX track.</li><li lang="vi">Nhận voice track và BGM/SFX track.</li><li lang="en">Detect speech regions; adjust depth, attack, release and voice level.</li><li lang="vi">Phát hiện vùng có lời, điều chỉnh depth, attack, release và voice level.</li><li lang="en">Preview the envelope and render the ducked mix.</li><li lang="vi">Preview envelope và render bản mix đã ducking.</li></ul></td></tr>
+  <tr><td>M17-F04 · Loudness &amp; delivery QA</td><td><ul class="function-list"><li lang="en">Normalize loudness across characters and across chapters.</li><li lang="vi">Chuẩn hóa loudness giữa nhân vật và giữa các chương.</li><li lang="en">Check peaks, unusual silence, missing segments and volume differences.</li><li lang="vi">Kiểm tra peak, silence bất thường, đoạn thiếu và chênh mức âm lượng.</li><li lang="en">Batch master by episode or season.</li><li lang="vi">Batch master theo tập hoặc mùa.</li></ul></td></tr>
+</tbody></table>
+
+<h3>M18 · Video Editor &amp; Render Library <span class="status todo">Release 6 · Part 1–2 · Release 8 · Part 2–3</span></h3>
+<table class="compact"><thead><tr><th><span lang="en">Function group</span><span lang="vi">Nhóm chức năng</span></th><th><span lang="en">Planned functions</span><span lang="vi">Chức năng theo kế hoạch</span></th></tr></thead><tbody>
+  <tr><td>M18-F01 · Project library</td><td><ul class="function-list"><li lang="en">Create, import, search, filter, organize into folders, edit, duplicate, archive and delete video projects.</li><li lang="vi">Tạo, nhập, tìm, lọc, phân thư mục, sửa, nhân bản, archive và xóa video project.</li><li lang="en">Preview cards show aspect ratio, duration, clip count and last update.</li><li lang="vi">Card preview hiển thị aspect ratio, duration, số clip và lần cập nhật.</li><li lang="en">Project templates for TikTok/Reels/Shorts, YouTube, podcast and landscape episodes.</li><li lang="vi">Mẫu project theo TikTok/Reels/Shorts, YouTube, podcast và landscape episode.</li></ul></td></tr>
+  <tr><td>M18-F02 · Asset intake</td><td><ul class="function-list"><li lang="en">Import video, images and audio; extract audio; re-voice video.</li><li lang="vi">Import video, image và audio; extract audio; re-voice video.</li><li lang="en">Folder-based asset hub for backgrounds, character art, overlays, SFX, BGM and narration.</li><li lang="vi">Asset hub theo folder cho background, character art, overlay, SFX, BGM và narration.</li><li lang="en">Bring assets from M10/M16/M19 into the timeline by drag/drop or action.</li><li lang="vi">Đưa asset từ M10/M16/M19 vào timeline bằng drag/drop hoặc action.</li></ul></td></tr>
+  <tr><td>M18-F03 · Timeline editing</td><td><ul class="function-list"><li lang="en">Multiple tracks for video, overlay, subtitles, narration, dialogue, BGM and SFX.</li><li lang="vi">Nhiều track video, overlay, subtitle, narration, dialogue, BGM và SFX.</li><li lang="en">Cut, split, duplicate, delete, undo/redo, zoom the timeline and lock/hide/mute tracks.</li><li lang="vi">Cắt, tách, nhân bản, xóa, undo/redo, zoom timeline và khóa/ẩn/mute track.</li><li lang="en">Playhead, frame preview, playback controls and fit/zoom preview.</li><li lang="vi">Playhead, frame preview, playback controls và fit/zoom preview.</li></ul></td></tr>
+  <tr><td>M18-F04 · Inspector</td><td><ul class="function-list"><li lang="en">Fit/cover/contain/stretch and nine-position alignment.</li><li lang="vi">Fit/cover/contain/stretch và căn chỉnh chín vị trí.</li><li lang="en">Position, scale, rotation, flip, direction, opacity, blending, fade in/out and loop/reverse.</li><li lang="vi">Position, scale, rotation, flip, direction, opacity, blending, fade in/out và loop/reverse.</li><li lang="en">Effect presets for ambience overlays, camera motion and transitions.</li><li lang="vi">Preset hiệu ứng cho ambience overlay, camera motion và transition.</li></ul></td></tr>
+  <tr><td>M18-F05 · Subtitle &amp; roles</td><td><ul class="function-list"><li lang="en">Import or generate subtitles from script/audio.</li><li lang="vi">Nhập hoặc tạo subtitle từ script/audio.</li><li lang="en">Assign role, style, position and timing; check for missing or overlapping subtitles.</li><li lang="vi">Gán role, style, vị trí và timing; kiểm tra subtitle thiếu hoặc chồng.</li><li lang="en">Export separate subtitles or burn them in by channel preset.</li><li lang="vi">Xuất subtitle rời hoặc burn-in theo preset kênh.</li></ul></td></tr>
+  <tr><td>M18-F06 · Render</td><td><ul class="function-list"><li lang="en">Choose aspect ratio, resolution, frame rate and quality preset.</li><li lang="vi">Chọn aspect ratio, resolution, frame rate và preset chất lượng.</li><li lang="en">Render in the background through Task Center, view progress, cancel and resume when the backend supports it.</li><li lang="vi">Render nền qua Task Center, xem tiến độ, hủy và resume khi backend hỗ trợ.</li><li lang="en">Rendered library with preview, play, open folder, rename, download/copy, re-render and delete.</li><li lang="vi">Rendered library có preview, play, mở thư mục, đổi tên, tải/copy, re-render và xóa.</li></ul></td></tr>
+</tbody></table>
+
+<h3>M19 · External Media Inbox <span class="status todo">Release 9 · Part 1</span></h3>
+<table class="compact"><thead><tr><th><span lang="en">Function group</span><span lang="vi">Nhóm chức năng</span></th><th><span lang="en">Planned functions</span><span lang="vi">Chức năng theo kế hoạch</span></th></tr></thead><tbody>
+  <tr><td>M19-F01 · Link intake</td><td><ul class="function-list"><li lang="en">Add one or more media links that the user has the rights to use.</li><li lang="vi">Thêm một hoặc nhiều link media do người dùng có quyền sử dụng.</li><li lang="en">Detect platform, title, duration, thumbnail and available formats.</li><li lang="vi">Nhận diện platform, title, duration, thumbnail và định dạng khả dụng.</li><li lang="en">Choose to download video, audio, subtitles and metadata.</li><li lang="vi">Chọn tải video, audio, subtitle và metadata.</li></ul></td></tr>
+  <tr><td>M19-F02 · Media vault</td><td><ul class="function-list"><li lang="en">Category/folder, search, platform filter, status filter, grid/list and bulk selection.</li><li lang="vi">Category/folder, search, platform filter, status filter, grid/list và bulk selection.</li><li lang="en">Cards show source, duration, status and MP4/audio/SRT/JSON artifacts.</li><li lang="vi">Card hiển thị nguồn, duration, status và các artifact MP4/audio/SRT/JSON.</li><li lang="en">Open folder, edit metadata, send to the asset library/editor and delete.</li><li lang="vi">Mở thư mục, sửa metadata, đưa sang asset library/editor và xóa.</li></ul></td></tr>
+  <tr><td>M19-F03 · Download queue</td><td><ul class="function-list"><li lang="en">Queued/downloading/completed/failed/paused and retry.</li><li lang="vi">Queued/downloading/completed/failed/paused và retry.</li><li lang="en">Thread limit, CPU/RAM/storage caps and save folder.</li><li lang="vi">Giới hạn thread, CPU/RAM/storage cap và thư mục lưu.</li><li lang="en">Store error logs and the result of each artifact.</li><li lang="vi">Lưu log lỗi và kết quả từng artifact.</li></ul></td></tr>
+  <tr><td>M19-F04 · Boundary</td><td><span lang="en">Block use cases that download or scrape novel text, to comply with <code>NG3</code>; the module only serves media the user has the rights to use.</span><span lang="vi">Chặn use case tải hoặc scraping văn bản tiểu thuyết để giữ đúng <code>NG3</code>; module chỉ phục vụ media người dùng có quyền sử dụng.</span></td></tr>
+</tbody></table>
+
+<h3>M20 · Publishing &amp; Channel Hub <span class="status todo">Release 9 · Part 2–3</span></h3>
+<table class="compact"><thead><tr><th><span lang="en">Function group</span><span lang="vi">Nhóm chức năng</span></th><th><span lang="en">Planned functions</span><span lang="vi">Chức năng theo kế hoạch</span></th></tr></thead><tbody>
+  <tr><td>M20-F01 · Channel profiles</td><td><ul class="function-list"><li lang="en">Target channel profiles such as YouTube, podcast feed, TikTok/Reels or a release folder.</li><li lang="vi">Hồ sơ kênh đích như YouTube, podcast feed, TikTok/Reels hoặc thư mục phát hành.</li><li lang="en">Per-channel presets for aspect ratio, codec, loudness, subtitles and naming convention.</li><li lang="vi">Preset aspect ratio, codec, loudness, subtitle và naming convention theo kênh.</li></ul></td></tr>
+  <tr><td>M20-F02 · Release package</td><td><ul class="function-list"><li lang="en">Bundle video/audio, cover/thumbnail, title, description, chapter markers, subtitles and credits.</li><li lang="vi">Gom video/audio, cover/thumbnail, title, description, chapter markers, subtitle và credits.</li><li lang="en">Check for missing artifacts, wrong formats or quality issues before release.</li><li lang="vi">Kiểm tra thiếu artifact, sai định dạng hoặc chất lượng trước khi phát hành.</li></ul></td></tr>
+  <tr><td>M20-F03 · Distribution queue</td><td><ul class="function-list"><li lang="en">Export the package, copy it to the channel folder or send it directly when an integration exists.</li><li lang="vi">Export package, copy sang thư mục kênh hoặc gửi trực tiếp khi có integration.</li><li lang="en">Draft/ready/publishing/published/failed status and retry.</li><li lang="vi">Trạng thái draft/ready/publishing/published/failed và retry.</li><li lang="en">Release history linked back to the source episode/chapter.</li><li lang="vi">Lịch sử phát hành liên kết về episode/chapter nguồn.</li></ul></td></tr>
+  <tr><td>M20-F04 · External credentials</td><td><span lang="en">Store integration credentials in the OS secret store; no Novel Studio account is created and there is no internal cloud sync.</span><span lang="vi">Lưu credential tích hợp bằng kho bí mật của hệ điều hành; không tạo tài khoản Novel Studio và không đồng bộ cloud nội bộ.</span></td></tr>
+</tbody></table>
+
+<h3>M21 · Models, Integrations &amp; Extensions <span class="status todo">Release 10 · Part 2–3</span></h3>
+<table class="compact"><thead><tr><th><span lang="en">Function group</span><span lang="vi">Nhóm chức năng</span></th><th><span lang="en">Planned functions</span><span lang="vi">Chức năng theo kế hoạch</span></th></tr></thead><tbody>
+  <tr><td>M21-F01 · Provider manager</td><td><ul class="function-list"><li lang="en">Manage CLIs, local model runtimes and direct API providers by capability.</li><li lang="vi">Quản lý CLI, local model runtime và direct API provider theo capability.</li><li lang="en">Test, enable/disable, set default and assign providers per task type.</li><li lang="vi">Test, enable/disable, set default và gán provider theo task type.</li><li lang="en">If direct API is approved: multiple keys, status, quota and key rotation.</li><li lang="vi">Nếu direct API được duyệt: nhiều key, trạng thái, quota và key rotation.</li></ul></td></tr>
+  <tr><td>M21-F02 · Model catalog</td><td><ul class="function-list"><li lang="en">List of text, vision, speech, image and video models.</li><li lang="vi">Danh sách text, vision, speech, image và video model.</li><li lang="en">Show license, download size, RAM/VRAM, capability and ready status.</li><li lang="vi">Hiển thị license, dung lượng tải, RAM/VRAM, capability và trạng thái ready.</li><li lang="en">Download, pause/resume, verify checksum, activate, update or remove models.</li><li lang="vi">Tải, pause/resume, verify checksum, activate, update hoặc remove model.</li></ul></td></tr>
+  <tr><td>M21-F03 · Extension modules</td><td><ul class="function-list"><li lang="en">Catalog of add-on modules, versions, dependencies and compatibility.</li><li lang="vi">Danh mục module cài thêm, phiên bản, dependency và compatibility.</li><li lang="en">Enable/disable, configure file/process/network access permissions and uninstall modules.</li><li lang="vi">Bật/tắt, cấu hình quyền truy cập tệp/process/network và gỡ module.</li><li lang="en">Register new screens, task types, exporters or AI backends through extension points.</li><li lang="vi">Đăng ký màn hình, task type, exporter hoặc AI backend mới qua extension point.</li></ul></td></tr>
+  <tr><td>M21-F04 · Update strategy</td><td><ul class="function-list"><li lang="en">Check for new versions manually and open the release download page.</li><li lang="vi">Kiểm tra phiên bản thủ công và mở trang tải bản phát hành.</li><li lang="en">Auto update is enabled only if the product owner changes <code>NG4</code>.</li><li lang="vi">Auto update chỉ được bật nếu product owner thay đổi <code>NG4</code>.</li></ul></td></tr>
+</tbody></table>
+
+<h3>M22 · System Information &amp; Support <span class="status approved">Incremental</span></h3>
+<table class="compact"><thead><tr><th><span lang="en">Function group</span><span lang="vi">Nhóm chức năng</span></th><th><span lang="en">Planned functions</span><span lang="vi">Chức năng theo kế hoạch</span></th></tr></thead><tbody>
+  <tr><td>M22-F01 · Runtime status</td><td><ul class="function-list"><li lang="en">CPU/GPU status, RAM, library size, running workers and CLI readiness.</li><li lang="vi">Trạng thái CPU/GPU, RAM, dung lượng thư viện, worker đang chạy và CLI sẵn sàng.</li><li lang="en">Quick counts of novels, chapters, jobs, audio assets, video projects and renders.</li><li lang="vi">Đếm nhanh novel, chapter, job, audio asset, video project và render.</li><li lang="en">Warnings for low disk space, failing backends or jobs needing attention.</li><li lang="vi">Cảnh báo thiếu dung lượng, backend lỗi hoặc job cần xử lý.</li></ul></td></tr>
+  <tr><td>M22-F02 · Diagnostics</td><td><ul class="function-list"><li lang="en">View app, Electron/Node, database schema, CLI and model versions.</li><li lang="vi">Xem phiên bản app, Electron/Node, database schema, CLI và model.</li><li lang="en">Open logs, copy diagnostic info or export a diagnostic bundle with credentials removed.</li><li lang="vi">Mở log, sao chép thông tin chẩn đoán hoặc xuất diagnostic bundle đã loại credential.</li><li lang="en">Run self-checks for library, database, folder permissions and backend.</li><li lang="vi">Chạy self-check cho library, database, folder permission và backend.</li></ul></td></tr>
+  <tr><td>M22-F03 · About</td><td><ul class="function-list"><li lang="en">Product introduction, build/version/architecture and website/support links.</li><li lang="vi">Giới thiệu sản phẩm, build/version/architecture và liên kết website/support.</li><li lang="en">Open-source acknowledgements and dependency and model licenses.</li><li lang="vi">Open-source acknowledgements, license của dependency và model.</li><li lang="en">Author information, support channels and a guide to reporting bugs.</li><li lang="vi">Thông tin tác giả, kênh hỗ trợ và hướng dẫn báo lỗi.</li></ul></td></tr>
+</tbody></table>
+
+</div>
+<h2 id="journeys">5. <span lang="en">Main business flows</span><span lang="vi">Luồng nghiệp vụ chính</span></h2>
+
+<div class="table-wrap">
+<table class="compact">
+  <thead><tr><th>Journey</th><th><span lang="en">Function sequence</span><span lang="vi">Chuỗi chức năng</span></th><th><span lang="en">Expected outcome</span><span lang="vi">Kết quả mong đợi</span></th></tr></thead>
+  <tbody>
+    <tr><td><span lang="en">J1 · First-time setup</span><span lang="vi">J1 · Thiết lập lần đầu</span></td><td><span lang="en">M01 → M06 choose library → M02 detect CLI → choose backend</span><span lang="vi">M01 → M06 chọn thư viện → M02 phát hiện CLI → chọn backend</span></td><td><span lang="en">The app is ready to import novels and run AI.</span><span lang="vi">Ứng dụng sẵn sàng nhập truyện và chạy AI.</span></td></tr>
+    <tr><td><span lang="en">J2 · Import and read a novel</span><span lang="vi">J2 · Nhập và đọc truyện</span></td><td><span lang="en">M04 choose source → preview chapter split → import → M05 read/edit</span><span lang="vi">M04 chọn nguồn → preview tách chương → import → M05 đọc/sửa</span></td><td><span lang="en">Large novels are stored locally and open quickly.</span><span lang="vi">Truyện lớn được lưu cục bộ và truy cập nhanh.</span></td></tr>
+    <tr><td><span lang="en">J3 · Build the story world</span><span lang="vi">J3 · Dựng thế giới truyện</span></td><td><span lang="en">M07 choose chapters → M03 run job → M07 review/merge/rename → M08 view relationships</span><span lang="vi">M07 chọn chương → M03 chạy job → M07 review/gộp/đổi tên → M08 xem quan hệ</span></td><td><span lang="en">A clean enough knowledge source exists for lookup and for use in translation.</span><span lang="vi">Có nguồn tri thức đủ sạch để tra cứu và dùng khi dịch.</span></td></tr>
+    <tr><td><span lang="en">J4 · Batch translation</span><span lang="vi">J4 · Dịch hàng loạt</span></td><td><span lang="en">M09 preflight → M03 run job → M09 QA → side-by-side edit → M06 export</span><span lang="vi">M09 preflight → M03 chạy job → M09 QA → sửa song song → M06 xuất</span></td><td><span lang="en">Multi-chapter translations have consistent names and few paragraph errors.</span><span lang="vi">Bản dịch nhiều chương có tên nhất quán và ít lỗi đoạn.</span></td></tr>
+    <tr><td><span lang="en">J5 · Spoiler-free lookup</span><span lang="vi">J5 · Tra cứu không spoiler</span></td><td><span lang="en">M05 choose current reading point → M07 look up entity → M08 view relationships up to that point</span><span lang="vi">M05 chọn mốc đang đọc → M07 tra entity → M08 xem quan hệ tính đến mốc</span></td><td><span lang="en">Readers understand characters and relationships without seeing future information.</span><span lang="vi">Người đọc hiểu nhân vật và quan hệ mà không thấy thông tin tương lai.</span></td></tr>
+    <tr><td><span lang="en">J6 · Recover an interrupted job</span><span lang="vi">J6 · Phục hồi job gián đoạn</span></td><td><span lang="en">M03 open paused/failed job → view CLI error → fix configuration in M02 if needed → resume/retry</span><span lang="vi">M03 mở job paused/failed → xem lỗi CLI → sửa cấu hình ở M02 nếu cần → resume/retry</span></td><td><span lang="en">Completed results are not lost; only the remaining part is processed.</span><span lang="vi">Không mất kết quả đã hoàn tất; chỉ xử lý tiếp phần còn lại.</span></td></tr>
+    <tr><td><span lang="en">J7 · Prepare character voices</span><span lang="vi">J7 · Chuẩn bị giọng nhân vật</span></td><td><span lang="en">M07 choose character → M14 design/clone voice → M15 normalise pronunciation → save to M10</span><span lang="vi">M07 chọn nhân vật → M14 thiết kế/clone voice → M15 chuẩn hóa phát âm → lưu M10</span></td><td><span lang="en">Each character has a standard, reusable voice that pronounces names and terms correctly.</span><span lang="vi">Mỗi nhân vật có giọng chuẩn, tái sử dụng được và phát âm đúng tên/thuật ngữ.</span></td></tr>
+    <tr><td><span lang="en">J8 · Produce an audiobook</span><span lang="vi">J8 · Sản xuất audiobook</span></td><td><span lang="en">M11 split dialogue → M14 assign cast → generate speech → M16 add BGM/SFX → M17 mix/master → M06 export</span><span lang="vi">M11 tách thoại → M14 gán cast → tạo speech → M16 thêm BGM/SFX → M17 mix/master → M06 export</span></td><td><span lang="en">A chapter becomes complete audio with no missing passages and consistent voices.</span><span lang="vi">Chương trở thành audio hoàn chỉnh, không thiếu đoạn và nhất quán giọng.</span></td></tr>
+    <tr><td><span lang="en">J9 · Produce an episode</span><span lang="vi">J9 · Sản xuất tập phim</span></td><td><span lang="en">M12 script/storyboard → M10/M16/M19 gather assets → M18 build timeline → render → M20 package/distribute</span><span lang="vi">M12 script/storyboard → M10/M16/M19 gom asset → M18 dựng timeline → render → M20 đóng gói/phân phối</span></td><td><span lang="en">Episodes share characters, settings, voices and sound palette.</span><span lang="vi">Tập phim dùng chung nhân vật, bối cảnh, giọng và sound palette.</span></td></tr>
+    <tr><td><span lang="en">J10 · Extend capabilities</span><span lang="vi">J10 · Mở rộng năng lực</span></td><td><span lang="en">M21 install provider/model/module → M02 assign backend → M22 self-check → use in M03</span><span lang="vi">M21 cài provider/model/module → M02 gán backend → M22 self-check → sử dụng trong M03</span></td><td><span lang="en">New capabilities are added in a controlled way without breaking existing workflows.</span><span lang="vi">Năng lực mới được thêm có kiểm soát mà không phá vỡ workflow hiện có.</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="open">6. <span lang="en">Open decisions</span><span lang="vi">Quyết định còn mở</span></h2>
+
+<table class="compact">
+  <thead><tr><th>ID</th><th><span lang="en">Decision to make</span><span lang="vi">Quyết định cần chốt</span></th><th><span lang="en">Affected modules</span><span lang="vi">Module bị ảnh hưởng</span></th><th><span lang="en">Suitable time</span><span lang="vi">Thời điểm phù hợp</span></th></tr></thead>
+  <tbody>
+    <tr><td><code>Q8</code></td><td><span lang="en">Import formats and chapter-splitting rules.</span><span lang="vi">Định dạng nhập và quy tắc tách chương.</span></td><td>M04</td><td>Flow 02</td></tr>
+    <tr><td><code>Q9</code></td><td><span lang="en">Novel metadata to store and display.</span><span lang="vi">Metadata truyện cần lưu và hiển thị.</span></td><td>M04</td><td>Flow 02</td></tr>
+    <tr><td><code>Q10</code></td><td><span lang="en">Name/term translation policy and how to override it.</span><span lang="vi">Chính sách dịch tên/thuật ngữ và cách override.</span></td><td>M07, M09</td><td>Flow 05A</td></tr>
+    <tr><td><code>Q11</code></td><td><span lang="en">Whether unanalysed chapters can be translated, and the level of consistency promised.</span><span lang="vi">Có cho dịch chương chưa phân tích và mức cam kết nhất quán.</span></td><td>M09</td><td>Flow 05A</td></tr>
+    <tr><td><code>Q12</code></td><td><span lang="en">Translation export formats.</span><span lang="vi">Định dạng xuất bản dịch.</span></td><td>M06, M09</td><td>Flow 05B</td></tr>
+    <tr><td><code>Q13</code></td><td><span lang="en">Speech/image/video backends.</span><span lang="vi">Backend speech/image/video.</span></td><td>M10–M12, M14, M16, M18</td><td><span lang="en">When planning TH-06, TH-07, TH-08, TH-10, TH-14</span><span lang="vi">Khi lập kế hoạch TH-06, TH-07, TH-08, TH-10, TH-14</span></td></tr>
+    <tr><td><code>Q14</code></td><td><span lang="en">Chatbot scope and anti-spoiler rules.</span><span lang="vi">Phạm vi chatbot và quy tắc chống spoiler.</span></td><td>M13</td><td><span lang="en">When planning TH-09</span><span lang="vi">Khi lập kế hoạch TH-09</span></td></tr>
+    <tr><td><code>LQ15</code></td><td><span lang="en">Which voice engine, whether voice cloning is allowed, and how consent/provenance is stored.</span><span lang="vi">Voice engine nào, có cho clone giọng không, consent/provenance được lưu ra sao.</span></td><td>M14</td><td><span lang="en">Decide in Release 3 · Part 1</span><span lang="vi">Chốt trong Release 3 · Part 1</span></td></tr>
+    <tr><td><code>LQ16</code></td><td><span lang="en">Music creation scope: AI generation, procedural synthesis, or asset management/import only.</span><span lang="vi">Phạm vi tạo nhạc: AI generation, procedural synthesis hay chỉ quản lý/import asset.</span></td><td>M16</td><td><span lang="en">Decide in Release 5 · Part 2</span><span lang="vi">Chốt trong Release 5 · Part 2</span></td></tr>
+    <tr><td><code>LQ17</code></td><td><span lang="en">What level the video editor must reach: assembly editor or full nonlinear editor.</span><span lang="vi">Video editor cần đạt mức nào: assembly editor hay nonlinear editor đầy đủ.</span></td><td>M12, M18</td><td><span lang="en">Decide in Release 6 · Part 1</span><span lang="vi">Chốt trong Release 6 · Part 1</span></td></tr>
+    <tr><td><code>LQ18</code></td><td><span lang="en">Which media sources/platforms Media Inbox supports and how usage rights are confirmed.</span><span lang="vi">Nguồn media/platform nào được Media Inbox hỗ trợ và cách xác nhận quyền sử dụng.</span></td><td>M19</td><td><span lang="en">Decide in Release 9 · Part 1</span><span lang="vi">Chốt trong Release 9 · Part 1</span></td></tr>
+    <tr><td><code>LQ19</code></td><td><span lang="en">Export packages only or publish directly; which platforms take priority.</span><span lang="vi">Chỉ export package hay đăng trực tiếp; nền tảng nào được ưu tiên.</span></td><td>M20</td><td><span lang="en">Decide in Release 9 · Part 2</span><span lang="vi">Chốt trong Release 9 · Part 2</span></td></tr>
+    <tr><td><code>LQ20</code></td><td><span lang="en">Whether to allow direct vendor APIs, API key storage and key rotation, or keep using only CLI/local runtimes.</span><span lang="vi">Có cho direct vendor API, lưu API key và xoay key hay tiếp tục chỉ dùng CLI/local runtime.</span></td><td>M02, M21</td><td><span lang="en">Decide in Release 10 · Part 2</span><span lang="vi">Chốt trong Release 10 · Part 2</span></td></tr>
+    <tr><td><code>LQ21</code></td><td><span lang="en">Whether plugins may run third-party code inside the app, and which sandbox/permission model is needed.</span><span lang="vi">Plugin có cho mã bên thứ ba chạy trong app và cần sandbox/permission model nào.</span></td><td>M21</td><td><span lang="en">Decide in Release 10 · Part 3</span><span lang="vi">Chốt trong Release 10 · Part 3</span></td></tr>
+  </tbody>
+</table>
+
+<div class="callout warn">
+  <span class="label"><span lang="en">Points to protect when moving to the backlog</span><span lang="vi">Điểm cần bảo vệ khi chuyển sang backlog</span></span>
+  <p lang="en">The document keeps every function across ten clearly ordered releases; releases and parts are cut according to the <a href="0.high-level-requirements.html#roadmap">roadmap</a> in High-level Requirements. Functions labelled “Proposed” must be turned into acceptance criteria in the Part that owns them. Items that touch <code>NG3</code>, <code>NG4</code> or <code>NG5</code> must update High-level Requirements within the corresponding Part before implementation.</p>
+  <p lang="vi">Tài liệu giữ toàn bộ chức năng trong mười release có thứ tự rõ ràng; cách cắt release và part theo <a href="0.high-level-requirements.html#roadmap">roadmap</a> trong High-level Requirements. Các chức năng mang nhãn “Đề xuất” cần được chuyển thành acceptance criteria trong Part sở hữu chúng. Những mục đụng <code>NG3</code>, <code>NG4</code> hoặc <code>NG5</code> phải cập nhật High-level Requirements ngay trong Part tương ứng trước khi triển khai.</p>
+</div>
+
+<footer class="doc-footer">
+  <span lang="en">Source:</span>
+  <span lang="vi">Nguồn:</span>
+  <a href="0.high-level-requirements.html"><code>.claude/docs/0.high-level-requirements.html</code></a>.
+</footer>
+</main>
+<script>
+  (function () {
+    var source = document.querySelector("#fr-details-source");
+    var headings = Array.from(source.querySelectorAll(":scope > h3"));
+    var catalogRows = Array.from(document.querySelectorAll("#modules + .table-wrap tbody tr"));
+    var catalog = {};
+    catalogRows.forEach(function (row) {
+      var cells = row.querySelectorAll("td");
+      catalog[cells[0].textContent.trim()] = cells;
+    });
+
+    var explorer = document.createElement("section");
+    var toolbar = document.createElement("div");
+    var searchWrap = document.createElement("div");
+    var search = document.createElement("input");
+    var resultCount = document.createElement("span");
+    var select = document.createElement("select");
+    var layout = document.createElement("div");
+    var nav = document.createElement("div");
+    var content = document.createElement("div");
+    var empty = document.createElement("div");
+    var modules = [];
+    var activeIndex = 0;
+
+    explorer.className = "fr-explorer";
+    explorer.setAttribute("aria-labelledby", "details");
+    explorer.setAttribute("data-testid", "fr-module-explorer");
+    toolbar.className = "fr-explorer-toolbar";
+    searchWrap.className = "fr-search-wrap";
+    search.className = "fr-search";
+    search.type = "search";
+    search.setAttribute("aria-label", "Search modules and functions");
+    search.setAttribute("data-testid", "fr-module-search");
+    search.setAttribute("placeholder", "Search module or function…");
+    resultCount.className = "fr-result-count";
+    select.className = "fr-mobile-select";
+    select.setAttribute("aria-label", "Select module");
+    select.setAttribute("data-testid", "fr-module-select");
+    layout.className = "fr-layout";
+    nav.className = "fr-module-nav";
+    nav.setAttribute("role", "tablist");
+    nav.setAttribute("aria-labelledby", "details");
+    nav.innerHTML = '<div class="fr-nav-label"><span lang="en">Module index</span><span lang="vi">Mục lục module</span></div>';
+    content.className = "fr-module-content";
+    empty.className = "fr-empty";
+    empty.innerHTML = '<strong><span lang="en">No matching module</span><span lang="vi">Không có module phù hợp</span></strong><br><span lang="en">Try another module ID, name or function.</span><span lang="vi">Hãy thử ID, tên module hoặc chức năng khác.</span>';
+    searchWrap.appendChild(search);
+    toolbar.append(searchWrap, resultCount, select);
+    layout.append(nav, content);
+    explorer.append(toolbar, layout);
+    content.appendChild(empty);
+
+    headings.forEach(function (heading, moduleIndex) {
+      var table = heading.nextElementSibling;
+      var rows = Array.from(table.querySelectorAll("tbody tr"));
+      var moduleId = heading.textContent.match(/M\d+/)[0];
+      var slug = moduleId.toLowerCase();
+      var catalogCells = catalog[moduleId];
+      var button = document.createElement("button");
+      var option = document.createElement("option");
+      var panel = document.createElement("article");
+      var buttonId = "fr-module-tab-" + slug;
+      var panelId = "fr-module-panel-" + slug;
+      var list = document.createElement("div");
+      var actions = document.createElement("div");
+      var expandButton = document.createElement("button");
+      var collapseButton = document.createElement("button");
+      var moduleName = catalogCells[1].textContent.trim();
+
+      button.className = "fr-module-tab";
+      button.type = "button";
+      button.id = buttonId;
+      button.setAttribute("role", "tab");
+      button.setAttribute("aria-controls", panelId);
+      button.setAttribute("data-testid", "fr-module-" + slug);
+      button.innerHTML = '<span class="fr-module-code">' + moduleId + '</span><span class="fr-module-name">' + catalogCells[1].innerHTML + '</span><span class="fr-module-total">' + rows.length + "</span>";
+      option.value = String(moduleIndex);
+      option.textContent = moduleId + " · " + moduleName;
+      panel.className = "fr-module-panel";
+      panel.id = panelId;
+      panel.setAttribute("role", "tabpanel");
+      panel.setAttribute("aria-labelledby", buttonId);
+      panel.innerHTML = '<header class="fr-module-header"><div class="fr-module-heading"><div><span class="fr-module-kicker">' + moduleId + '</span><h3>' + catalogCells[1].innerHTML + '</h3></div><div class="fr-module-phase">' + catalogCells[3].innerHTML + '</div></div><p class="fr-module-purpose">' + catalogCells[2].innerHTML + '</p><div class="fr-module-metadata"><div class="fr-module-meta"><span class="fr-module-meta-label"><span lang="en">Traceability</span><span lang="vi">Truy vết</span></span>' + catalogCells[4].innerHTML + '</div><div class="fr-module-meta"><span class="fr-module-meta-label"><span lang="en">Main screens</span><span lang="vi">Màn hình chính</span></span>' + catalogCells[5].innerHTML + "</div></div></header>";
+      list.className = "fr-function-list";
+      actions.className = "fr-group-actions";
+      expandButton.className = "fr-quiet-button";
+      expandButton.type = "button";
+      expandButton.setAttribute("data-testid", "expand-" + slug);
+      expandButton.innerHTML = '<span lang="en">Expand all</span><span lang="vi">Mở tất cả</span>';
+      collapseButton.className = "fr-quiet-button";
+      collapseButton.type = "button";
+      collapseButton.setAttribute("data-testid", "collapse-" + slug);
+      collapseButton.innerHTML = '<span lang="en">Collapse all</span><span lang="vi">Đóng tất cả</span>';
+      actions.append(expandButton, collapseButton);
+
+      rows.forEach(function (row, functionIndex) {
+        var cells = row.querySelectorAll("td");
+        var groupId = cells[0].textContent.match(/M\d+-F\d+/)[0];
+        var groupName = cells[0].innerHTML.replace(/^M\d+-F\d+\s*·\s*/, "");
+        var itemCount = cells[1].querySelectorAll("li[lang=en]").length || Math.ceil(cells[1].querySelectorAll("li").length / 2) || 1;
+        var item = document.createElement("details");
+        var summary = document.createElement("summary");
+        var body = document.createElement("div");
+        item.className = "fr-function";
+        item.setAttribute("data-testid", "fr-function-" + groupId.toLowerCase());
+        if (functionIndex === 0) item.open = true;
+        summary.innerHTML = '<span class="fr-function-id">' + groupId.replace(moduleId + "-", "") + '</span><span class="fr-function-name">' + groupName + '</span><span class="fr-function-count">' + itemCount + ' <span lang="en">items</span><span lang="vi">mục</span></span><span class="fr-function-status">' + (cells[2] ? cells[2].innerHTML : "") + "</span>";
+        body.className = "fr-function-body";
+        body.innerHTML = cells[1].innerHTML;
+        item.append(summary, body);
+        list.appendChild(item);
+      });
+
+      var groupToolbar = document.createElement("div");
+      groupToolbar.className = "fr-group-toolbar";
+      groupToolbar.innerHTML = '<strong><span lang="en">Function groups</span><span lang="vi">Nhóm chức năng</span> · ' + rows.length + "</strong>";
+      groupToolbar.appendChild(actions);
+      panel.append(groupToolbar, list);
+      nav.appendChild(button);
+      select.appendChild(option);
+      content.insertBefore(panel, empty);
+
+      expandButton.addEventListener("click", function () { list.querySelectorAll("details").forEach(function (item) { item.open = true; }); });
+      collapseButton.addEventListener("click", function () { list.querySelectorAll("details").forEach(function (item) { item.open = false; }); });
+      modules.push({ button: button, option: option, panel: panel, searchText: (heading.textContent + " " + table.textContent + " " + catalogCells[2].textContent).toLowerCase() });
+    });
+
+    function selectModule(moduleIndex, shouldFocus) {
+      activeIndex = moduleIndex;
+      modules.forEach(function (module, index) {
+        var isActive = index === moduleIndex;
+        module.button.setAttribute("aria-selected", String(isActive));
+        module.button.tabIndex = isActive ? 0 : -1;
+        module.panel.hidden = !isActive;
+      });
+      select.value = String(moduleIndex);
+      empty.classList.remove("is-visible");
+      if (shouldFocus) modules[moduleIndex].button.focus();
+    }
+
+    function visibleIndexes() {
+      return modules.map(function (module, index) { return module.button.hidden ? -1 : index; }).filter(function (index) { return index >= 0; });
+    }
+
+    function updateControlLanguage() {
+      var isVietnamese = document.documentElement.getAttribute("data-lang") === "vi";
+      search.placeholder = isVietnamese ? "Tìm module hoặc chức năng…" : "Search module or function…";
+      search.setAttribute("aria-label", isVietnamese ? "Tìm module và chức năng" : "Search modules and functions");
+      select.setAttribute("aria-label", isVietnamese ? "Chọn module" : "Select module");
+    }
+
+    modules.forEach(function (module, moduleIndex) {
+      module.button.addEventListener("click", function () { selectModule(moduleIndex, false); });
+      module.button.addEventListener("keydown", function (event) {
+        var visible = visibleIndexes();
+        var currentPosition = visible.indexOf(moduleIndex);
+        var nextPosition = currentPosition;
+        if (event.key === "ArrowDown" || event.key === "ArrowRight") nextPosition = (currentPosition + 1) % visible.length;
+        if (event.key === "ArrowUp" || event.key === "ArrowLeft") nextPosition = (currentPosition - 1 + visible.length) % visible.length;
+        if (event.key === "Home") nextPosition = 0;
+        if (event.key === "End") nextPosition = visible.length - 1;
+        if (nextPosition === currentPosition) return;
+        event.preventDefault();
+        selectModule(visible[nextPosition], true);
+      });
+    });
+
+    search.addEventListener("input", function () {
+      var query = search.value.trim().toLowerCase();
+      modules.forEach(function (module) {
+        var matches = !query || module.searchText.indexOf(query) >= 0;
+        module.button.hidden = !matches;
+        module.option.hidden = !matches;
+      });
+      var visible = visibleIndexes();
+      resultCount.innerHTML = visible.length + ' / ' + modules.length + ' <span lang="en">modules</span><span lang="vi">module</span>';
+      select.disabled = visible.length === 0;
+      empty.classList.toggle("is-visible", visible.length === 0);
+      if (visible.length === 0) {
+        modules.forEach(function (module) { module.panel.hidden = true; });
+      } else if (visible.indexOf(activeIndex) === -1) {
+        selectModule(visible[0], false);
+      }
+    });
+
+    select.addEventListener("change", function () { selectModule(Number(select.value), false); });
+    new MutationObserver(updateControlLanguage).observe(document.documentElement, { attributes: true, attributeFilter: ["data-lang"] });
+    source.before(explorer);
+    source.hidden = true;
+    resultCount.innerHTML = modules.length + ' / ' + modules.length + ' <span lang="en">modules</span><span lang="vi">module</span>';
+    updateControlLanguage();
+    selectModule(0, false);
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+  <!-- ================= screen: library (TH-02 · M04) ================= -->
+  <section class="screen" id="library" data-title="Library" data-layout="no-bottom">
+    <aside class="panel left" data-testid="library-left">
+      <div class="panel-head"><h3><span lang="en">Library</span><span lang="vi">Thư viện</span></h3><button class="btn ghost icon" data-toggle-panel="left" title="Collapse (Ctrl+B)"><svg class="icon"><use href="#i-panel-left"/></svg></button></div>
+      <div class="panel-body">
+        <div class="panel-section">
+          <div class="list" data-select-group>
+            <a class="list-item selected" data-select data-testid="lib-filter-all"><svg class="icon"><use href="#i-library"/></svg><span class="text"><span lang="en">All novels</span><span lang="vi">Tất cả truyện</span></span><span class="badge neutral">7</span></a>
+            <a class="list-item" data-select><svg class="icon"><use href="#i-clock"/></svg><span class="text"><span lang="en">Recently opened</span><span lang="vi">Mở gần đây</span></span><span class="badge neutral">4</span></a>
+            <a class="list-item" data-select><svg class="icon"><use href="#i-zap"/></svg><span class="text"><span lang="en">With running jobs</span><span lang="vi">Đang có job</span></span><span class="badge neutral">1</span></a>
+          </div>
+        </div>
+        <div class="panel-section">
+          <h4><span lang="en">Source language</span><span lang="vi">Ngôn ngữ nguồn</span></h4>
+          <div class="list">
+            <a class="list-item compact"><span class="text">中文 · Chinese</span><span class="badge neutral">4</span></a>
+            <a class="list-item compact"><span class="text">한국어 · Korean</span><span class="badge neutral">1</span></a>
+            <a class="list-item compact"><span class="text">日本語 · Japanese</span><span class="badge neutral">1</span></a>
+            <a class="list-item compact"><span class="text">English</span><span class="badge neutral">1</span></a>
+          </div>
+        </div>
+        <div class="panel-section">
+          <h4><span lang="en">Status</span><span lang="vi">Trạng thái</span></h4>
+          <div class="list">
+            <a class="list-item compact"><span class="flag a"></span><span class="text"><span lang="en">Analysed</span><span lang="vi">Đã phân tích</span></span><span class="badge neutral">3</span></a>
+            <a class="list-item compact"><span class="flag t"></span><span class="text"><span lang="en">Translated</span><span lang="vi">Đã dịch</span></span><span class="badge neutral">2</span></a>
+            <a class="list-item compact"><span class="flag"></span><span class="text"><span lang="en">Not started</span><span lang="vi">Chưa bắt đầu</span></span><span class="badge neutral">3</span></a>
+          </div>
+        </div>
+        <div class="panel-section">
+          <h4><span lang="en">Genre</span><span lang="vi">Thể loại</span></h4>
+          <div class="row" style="gap:4px;padding:0 var(--sp-sm)"><span class="pill plain">仙侠 · Tiên hiệp</span><span class="pill plain">武侠 · Võ hiệp</span><span class="pill plain">Isekai</span><span class="pill plain"><span lang="en">Slice of life</span><span lang="vi">Đời thường</span></span></div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="workspace" data-testid="library-workspace" data-tab-scope>
+      <div class="ws-toolbar">
+        <h2><span lang="en">All novels</span><span lang="vi">Tất cả truyện</span> <span class="meta">· 7</span></h2>
+        <span class="spacer"></span>
+        <div class="search" style="width:260px;max-width:100%"><svg class="icon"><use href="#i-search"/></svg><input class="input" placeholder="Search title, author, language…" data-ph-en="Search title, author, language…" data-ph-vi="Tìm tiêu đề, tác giả, ngôn ngữ…" data-testid="lib-search"><kbd>/</kbd></div>
+        <select class="select" style="width:auto" data-testid="lib-sort"><option data-opt-en="Last updated" data-opt-vi="Cập nhật gần nhất">Last updated</option><option data-opt-en="Title" data-opt-vi="Tiêu đề">Title</option><option data-opt-en="Chapters" data-opt-vi="Số chương">Chapters</option><option data-opt-en="Translation progress" data-opt-vi="Tiến độ dịch">Translation progress</option></select>
+        <div class="btn-group" data-tabs role="tablist"><button class="btn icon" data-tab="grid" aria-selected="true" title="Grid" data-testid="lib-view-grid"><svg class="icon"><use href="#i-grid"/></svg></button><button class="btn icon" data-tab="list" aria-selected="false" title="List" data-testid="lib-view-list"><svg class="icon"><use href="#i-list"/></svg></button></div>
+        <span class="sep"></span>
+        <button class="btn primary sm" data-go="import" data-testid="lib-import"><svg class="icon sm"><use href="#i-plus"/></svg><span lang="en">Import novel</span><span lang="vi">Nhập truyện</span></button>
+      </div>
+      <div class="ws-body">
+        <div data-pane="grid" class="active">
+          <div class="novel-grid" data-select-group data-testid="lib-grid">
+            <div class="novel-card selected" data-select data-testid="lib-card-1"><div class="cover" style="--c:#3ecf8e"><span class="lang">ZH</span><span class="cjk">凡人修仙传</span></div><div class="title">Phàm Nhân Tu Tiên</div><div class="sub">忘语 · <span lang="en">2,446 ch</span><span lang="vi">2.446 chương</span></div><div class="bars"><span class="progress a" title="Analysed 1,203"><i style="--p:49%"></i></span><span class="progress t" title="Translated 100"><i data-job-progress style="--p:37%"></i></span></div></div>
+            <div class="novel-card" data-select><div class="cover" style="--c:#f2bd5b"><span class="lang">ZH</span><span class="cjk">斗破苍穹</span></div><div class="title">Đấu Phá Thương Khung</div><div class="sub">天蚕土豆 · <span lang="en">1,648 ch</span><span lang="vi">1.648 chương</span></div><div class="bars"><span class="progress a"><i style="--p:100%"></i></span><span class="progress t"><i style="--p:100%"></i></span></div></div>
+            <div class="novel-card" data-select><div class="cover" style="--c:#8e9792"><span class="lang">ZH</span><span class="cjk">全职高手</span></div><div class="title">Toàn Chức Cao Thủ</div><div class="sub">蝴蝶蓝 · <span lang="en">1,728 ch</span><span lang="vi">1.728 chương</span></div><div class="bars"><span class="progress a"><i style="--p:0%"></i></span><span class="progress t"><i style="--p:0%"></i></span></div></div>
+            <div class="novel-card" data-select><div class="cover" style="--c:#6addaa"><span class="lang">KO</span><span class="cjk">나 혼자만 레벨업</span></div><div class="title">Solo Leveling</div><div class="sub">추공 · <span lang="en">270 ch</span><span lang="vi">270 chương</span></div><div class="bars"><span class="progress a"><i style="--p:100%"></i></span><span class="progress t"><i style="--p:62%"></i></span></div></div>
+            <div class="novel-card" data-select><div class="cover" style="--c:#ff8a91"><span class="lang">JA</span><span class="cjk">転生したらスライムだった件</span></div><div class="title">Tensei Slime</div><div class="sub">伏瀬 · <span lang="en">304 ch</span><span lang="vi">304 chương</span></div><div class="bars"><span class="progress a"><i style="--p:12%"></i></span><span class="progress t"><i style="--p:0%"></i></span></div></div>
+            <div class="novel-card" data-select><div class="cover" style="--c:#b5bcb8"><span class="lang">ZH</span><span class="cjk">庆余年</span></div><div class="title">Khánh Dư Niên</div><div class="sub">猫腻 · <span lang="en">746 ch</span><span lang="vi">746 chương</span></div><div class="bars"><span class="progress a"><i style="--p:0%"></i></span><span class="progress t"><i style="--p:0%"></i></span></div></div>
+            <div class="novel-card" data-select><div class="cover" style="--c:#4a534e"><span class="lang">EN</span><span class="cjk">Mother of Learning</span></div><div class="title">Mother of Learning</div><div class="sub">nobody103 · <span lang="en">108 ch</span><span lang="vi">108 chương</span></div><div class="bars"><span class="progress a"><i style="--p:0%"></i></span><span class="progress t"><i style="--p:0%"></i></span></div></div>
+          </div>
+        </div>
+        <div data-pane="list" class="novel-list">
+          <div class="table-wrap">
+            <table class="table" data-testid="lib-table">
+              <thead><tr><th></th><th><span lang="en">Title</span><span lang="vi">Tiêu đề</span></th><th><span lang="en">Author</span><span lang="vi">Tác giả</span></th><th><span lang="en">Lang</span><span lang="vi">Ngôn ngữ</span></th><th class="num"><span lang="en">Chapters</span><span lang="vi">Chương</span></th><th><span lang="en">Analysis</span><span lang="vi">Phân tích</span></th><th><span lang="en">Translation</span><span lang="vi">Dịch</span></th><th><span lang="en">Updated</span><span lang="vi">Cập nhật</span></th><th></th></tr></thead>
+              <tbody>
+                <tr class="selected"><td><span class="cover sm" style="--c:#3ecf8e"></span></td><td><b>凡人修仙传</b><br><span class="meta">Phàm Nhân Tu Tiên</span></td><td>忘语</td><td>ZH</td><td class="num">2,446</td><td><span class="pill info">1,203</span></td><td><span class="pill running"><span data-job-done>37</span>/100</span></td><td class="meta">2026-10-04</td><td><div class="actions"><button class="btn ghost sm icon" data-go="reader"><svg class="icon sm"><use href="#i-book"/></svg></button><button class="btn ghost sm icon"><svg class="icon sm"><use href="#i-more"/></svg></button></div></td></tr>
+                <tr><td><span class="cover sm" style="--c:#f2bd5b"></span></td><td><b>斗破苍穹</b><br><span class="meta">Đấu Phá Thương Khung</span></td><td>天蚕土豆</td><td>ZH</td><td class="num">1,648</td><td><span class="pill success">1,648</span></td><td><span class="pill success">1,648</span></td><td class="meta">2026-10-03</td><td><div class="actions"><button class="btn ghost sm icon"><svg class="icon sm"><use href="#i-book"/></svg></button><button class="btn ghost sm icon"><svg class="icon sm"><use href="#i-more"/></svg></button></div></td></tr>
+                <tr><td><span class="cover sm" style="--c:#8e9792"></span></td><td><b>全职高手</b><br><span class="meta">Toàn Chức Cao Thủ</span></td><td>蝴蝶蓝</td><td>ZH</td><td class="num">1,728</td><td><span class="pill">—</span></td><td><span class="pill">—</span></td><td class="meta">2026-09-28</td><td><div class="actions"><button class="btn ghost sm icon"><svg class="icon sm"><use href="#i-book"/></svg></button><button class="btn ghost sm icon"><svg class="icon sm"><use href="#i-more"/></svg></button></div></td></tr>
+                <tr><td><span class="cover sm" style="--c:#6addaa"></span></td><td><b>나 혼자만 레벨업</b><br><span class="meta">Solo Leveling</span></td><td>추공</td><td>KO</td><td class="num">270</td><td><span class="pill success">270</span></td><td><span class="pill info">168</span></td><td class="meta">2026-10-01</td><td><div class="actions"><button class="btn ghost sm icon"><svg class="icon sm"><use href="#i-book"/></svg></button><button class="btn ghost sm icon"><svg class="icon sm"><use href="#i-more"/></svg></button></div></td></tr>
+                <tr><td><span class="cover sm" style="--c:#ff8a91"></span></td><td><b>転生したらスライムだった件</b><br><span class="meta">Tensei Slime</span></td><td>伏瀬</td><td>JA</td><td class="num">304</td><td><span class="pill info">36</span></td><td><span class="pill">—</span></td><td class="meta">2026-09-20</td><td><div class="actions"><button class="btn ghost sm icon"><svg class="icon sm"><use href="#i-book"/></svg></button><button class="btn ghost sm icon"><svg class="icon sm"><use href="#i-more"/></svg></button></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <aside class="panel right" data-testid="library-inspector">
+      <div class="panel-head"><h3><span lang="en">Novel</span><span lang="vi">Truyện</span></h3><button class="btn ghost icon" data-toggle-panel="right" title="Collapse (Ctrl+Alt+B)"><svg class="icon"><use href="#i-panel-right"/></svg></button></div>
+      <div class="panel-body">
+        <div class="row" style="align-items:flex-start;gap:var(--sp-md);padding:var(--sp-xs)">
+          <span class="cover sm" style="--c:#3ecf8e"><span class="cjk">凡人</span></span>
+          <div class="grow"><div style="font-family:var(--font-serif);font-size:16px;font-weight:600;line-height:1.2">凡人修仙传</div><div style="font-weight:500">Phàm Nhân Tu Tiên</div><div class="meta">忘语 (Vong Ngữ) · 中文 → Tiếng Việt · 仙侠</div></div>
+        </div>
+        <div class="row" style="padding:var(--sp-xs)"><button class="btn primary sm grow" data-go="reader" data-testid="insp-open"><svg class="icon sm"><use href="#i-book"/></svg><span lang="en">Open</span><span lang="vi">Mở</span></button><button class="btn sm icon" title="Change cover"><svg class="icon sm"><use href="#i-pencil"/></svg></button><button class="btn sm icon" title="Open data folder"><svg class="icon sm"><use href="#i-folder"/></svg></button><button class="btn sm icon" title="More"><svg class="icon sm"><use href="#i-more"/></svg></button></div>
+        <div class="panel-section">
+          <div class="stats" style="grid-template-columns:1fr 1fr">
+            <div class="stat"><div class="v num">2,446</div><div class="k"><span lang="en">chapters</span><span lang="vi">chương</span></div></div>
+            <div class="stat"><div class="v num">7.4M</div><div class="k"><span lang="en">characters</span><span lang="vi">ký tự</span></div></div>
+            <div class="stat"><div class="v num">1,203</div><div class="k"><span lang="en">analysed</span><span lang="vi">đã phân tích</span></div></div>
+            <div class="stat"><div class="v num" data-job-done>37</div><div class="k"><span lang="en">translated</span><span lang="vi">đã dịch</span></div></div>
+          </div>
+        </div>
+        <div class="panel-section">
+          <h4><span lang="en">Latest task</span><span lang="vi">Tác vụ gần nhất</span></h4>
+          <div class="progress-row" style="padding:0 var(--sp-sm)"><span><span lang="en">Translate 0001–0100</span><span lang="vi">Dịch 0001–0100</span></span><span class="num" data-job-pct>37%</span><span class="progress" data-job-progress><i></i><i class="fail"></i></span></div>
+          <div class="meta" style="padding:6px var(--sp-sm) 0"><span lang="en">Codex CLI · started 14:02 · chapter </span><span lang="vi">Codex CLI · bắt đầu 14:02 · chương </span><span data-job-current>0038</span></div>
+        </div>
+        <div class="panel-section">
+          <h4><span lang="en">Metadata</span><span lang="vi">Thông tin</span></h4>
+          <dl class="kv" style="padding:0 var(--sp-sm)">
+            <dt><span lang="en">Display title</span><span lang="vi">Tên hiển thị</span></dt><dd>Phàm Nhân Tu Tiên</dd>
+            <dt><span lang="en">Original</span><span lang="vi">Tên gốc</span></dt><dd>凡人修仙传</dd>
+            <dt><span lang="en">Author</span><span lang="vi">Tác giả</span></dt><dd>忘语 · Vong Ngữ</dd>
+            <dt><span lang="en">Source</span><span lang="vi">Nguồn</span></dt><dd>fanren.txt · 38.2 MB</dd>
+            <dt><span lang="en">Imported</span><span lang="vi">Nhập lúc</span></dt><dd>2026-09-12</dd>
+            <dt><span lang="en">Folder</span><span lang="vi">Thư mục</span></dt><dd><code>novels\n-0001\</code></dd>
+          </dl>
+        </div>
+        <div class="panel-section">
+          <div class="col" style="padding:0 var(--sp-xs)">
+            <button class="btn sm" data-go="import"><svg class="icon sm"><use href="#i-download"/></svg><span lang="en">Import more chapters…</span><span lang="vi">Nhập thêm chương…</span></button>
+            <button class="btn sm" data-open="dlg-export" data-testid="insp-export"><svg class="icon sm"><use href="#i-upload"/></svg><span lang="en">Export translation…</span><span lang="vi">Xuất bản dịch…</span></button>
+            <button class="btn ghost sm danger" data-open="dlg-delete" data-testid="insp-delete"><svg class="icon sm"><use href="#i-trash"/></svg><span lang="en">Delete novel…</span><span lang="vi">Xoá truyện…</span></button>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <aside class="annotations"><ol>
+      <li lang="en"><span class="ac">M04-F01</span> Library grid/list with cover, title, author, chapter count, source language and two thin bars: analysis (link colour) and translation (success colour). Search, sort and the grid/list toggle live in the workspace toolbar.</li>
+      <li lang="vi"><span class="ac">M04-F01</span> Thư viện dạng lưới/danh sách với bìa, tiêu đề, tác giả, số chương, ngôn ngữ nguồn và hai thanh mỏng: phân tích (màu liên kết) và dịch (màu thành công). Tìm kiếm, sắp xếp và nút lưới/danh sách nằm trên thanh công cụ vùng làm việc.</li>
+      <li lang="en">Left panel = collections and filters (language, status, genre). Selecting a card updates the right inspector.</li>
+      <li lang="vi">Panel trái = bộ sưu tập và bộ lọc (ngôn ngữ, trạng thái, thể loại). Chọn một thẻ sẽ cập nhật inspector bên phải.</li>
+      <li lang="en"><span class="ac">M04-F03 · M04-F04</span> Inspector: overview numbers, latest task with live progress, editable metadata, open data folder, import more chapters, export, delete with explicit scope (dialog).</li>
+      <li lang="vi"><span class="ac">M04-F03 · M04-F04</span> Inspector: số liệu tổng quan, tác vụ gần nhất với tiến độ trực tiếp, thông tin có thể sửa, mở thư mục dữ liệu, nhập thêm chương, xuất, xoá với phạm vi rõ ràng (hộp thoại).</li>
+      <li lang="en">Panels: drag the 4px gutters to resize, double-click to reset, <kbd>Ctrl</kbd><kbd>B</kbd> / <kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>B</kbd> to collapse. Sizes are remembered.</li>
+      <li lang="vi">Panel: kéo rãnh 4px để đổi kích thước, nhấp đúp để đặt lại, <kbd>Ctrl</kbd><kbd>B</kbd> / <kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>B</kbd> để thu gọn. Kích thước được ghi nhớ.</li>
+    </ol></aside>
+  </section>

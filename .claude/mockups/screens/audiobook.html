@@ -1,0 +1,455 @@
+  <!-- ================= screen: audiobook (TH-07 · M11 · M17) ================= -->
+  <section class="screen" id="audiobook" data-title="Audiobook" data-layout="">
+    <aside class="panel left" data-testid="ab-left">
+      <div class="panel-head"><h3><span lang="en">Chapters</span><span lang="vi">Chương</span></h3><button class="btn ghost icon" data-toggle-panel="left" title="Collapse (Ctrl+B)" data-testid="ab-collapse-left"><svg class="icon"><use href="#i-panel-left"/></svg></button></div>
+      <div class="panel-body flush">
+        <div class="panel-section col">
+          <div class="segmented" data-select-group data-testid="ab-status-filter">
+            <button type="button" aria-pressed="true" data-select data-testid="ab-filter-all"><span lang="en">All</span><span lang="vi">Tất cả</span></button>
+            <button type="button" aria-pressed="false" data-select data-testid="ab-filter-progress"><span lang="en">In progress</span><span lang="vi">Đang làm</span></button>
+            <button type="button" aria-pressed="false" data-select data-testid="ab-filter-done"><span lang="en">Done</span><span lang="vi">Xong</span></button>
+            <button type="button" aria-pressed="false" data-select data-testid="ab-filter-issues"><span lang="en">Issues</span><span lang="vi">Lỗi</span></button>
+          </div>
+        </div>
+        <div class="panel-section" style="padding-left:0;padding-right:0">
+          <div data-select-group data-testid="ab-chapter-list">
+            <div class="chapter-row" data-select data-testid="ab-ch-0001"><span class="n">0001</span><span class="t">第一章 山村少年</span><span class="flags"><i class="flag t"></i></span></div>
+            <div class="chapter-row" data-select data-testid="ab-ch-0002"><span class="n">0002</span><span class="t">第二章 入门试炼</span><span class="flags"><i class="flag t"></i></span></div>
+            <div class="chapter-row" data-select data-testid="ab-ch-0003"><span class="n">0003</span><span class="t">第三章 彩霞山上</span><span class="flags"><i class="flag t"></i></span></div>
+            <div class="chapter-row" data-select data-testid="ab-ch-0004"><span class="n">0004</span><span class="t">第四章 药庐拜师</span><span class="flags"><i class="flag t"></i></span></div>
+            <div class="chapter-row" data-select data-testid="ab-ch-0005"><span class="n">0005</span><span class="t">第五章 长春功初成</span><span class="flags"><i class="flag t"></i></span></div>
+            <div class="chapter-row" data-select data-testid="ab-ch-0006"><span class="n">0006</span><span class="t">第六章 夜雨</span><span class="flags"><i class="flag t"></i></span></div>
+            <div class="chapter-row" data-select data-testid="ab-ch-0007"><span class="n">0007</span><span class="t">第七章 门中旧事</span><span class="flags"><i class="flag e"></i></span></div>
+            <div class="chapter-row" data-select data-testid="ab-ch-0008"><span class="n">0008</span><span class="t">第八章 铁匠之子</span><span class="flags"><i class="flag t"></i></span></div>
+            <div class="chapter-row" data-select data-testid="ab-ch-0009"><span class="n">0009</span><span class="t">第九章 比武</span><span class="flags"><i class="flag t"></i></span></div>
+            <div class="chapter-row" data-select data-testid="ab-ch-0010"><span class="n">0010</span><span class="t">第十章 练气入门</span><span class="flags"><i class="flag t"></i></span></div>
+            <div class="chapter-row" data-select data-testid="ab-ch-0011"><span class="n">0011</span><span class="t">第十一章 青牛镇归途</span><span class="flags"><i class="flag t"></i></span></div>
+            <div class="chapter-row selected" data-select data-testid="ab-ch-0012"><span class="n">0012</span><span class="t">第十二章 夜探药园</span><span class="flags"><i class="flag w"></i></span></div>
+            <div class="chapter-row" data-select data-testid="ab-ch-0013"><span class="n">0013</span><span class="t">第十三章 师徒生隙</span><span class="flags"></span></div>
+            <div class="chapter-row" data-select data-testid="ab-ch-0014"><span class="n">0014</span><span class="t">第十四章 下山</span><span class="flags"></span></div>
+          </div>
+          <div class="virtual-note"><span lang="en">Virtualised list · 12 of 2,446 chapters produced</span><span lang="vi">Danh sách ảo hoá · đã sản xuất 12 / 2.446 chương</span></div>
+        </div>
+        <div class="panel-section row" style="padding-left:var(--sp-md);gap:var(--sp-md)">
+          <span class="row" style="gap:4px"><i class="flag t"></i><span class="meta"><span lang="en">done</span><span lang="vi">xong</span></span></span>
+          <span class="row" style="gap:4px"><i class="flag w"></i><span class="meta"><span lang="en">in progress</span><span lang="vi">đang làm</span></span></span>
+          <span class="row" style="gap:4px"><i class="flag e"></i><span class="meta"><span lang="en">issues</span><span lang="vi">có lỗi</span></span></span>
+        </div>
+      </div>
+    </aside>
+    <main class="workspace" data-tab-scope data-testid="ab-workspace">
+      <div class="ws-toolbar">
+        <h2>0012 · 第十二章 夜探药园</h2>
+        <div class="row" data-mode-for="#audiobook" data-testid="ab-mode">
+          <div class="segmented" title="Narration mode · Chế độ đọc">
+            <button type="button" data-mode="single" aria-pressed="true" style="white-space:nowrap" title="Single narrator · Một giọng dẫn" data-testid="ab-mode-single"><span lang="en">Single voice</span><span lang="vi">1 giọng</span></button>
+            <button type="button" data-mode="multi" aria-pressed="false" style="white-space:nowrap" title="Multi-voice · Nhiều giọng theo nhân vật" data-testid="ab-mode-multi"><span lang="en">Multi-voice</span><span lang="vi">Nhiều giọng</span></button>
+          </div>
+        </div>
+        <span class="sep"></span>
+        <div class="steps counted" role="tablist" data-tabs data-testid="ab-steps">
+          <button type="button" class="step done" role="tab" data-tab="chapters" data-mode-only="single" aria-selected="false" data-testid="ab-step-chapters"><i></i><span lang="en">Chapters</span><span lang="vi">Chương</span></button>
+          <button type="button" class="step done hidden" role="tab" data-tab="script" data-mode-only="multi" aria-selected="false" data-testid="ab-step-script"><i></i><span lang="en">Script</span><span lang="vi">Kịch bản</span></button>
+          <button type="button" class="step done hidden" role="tab" data-tab="cast" data-mode-only="multi" aria-selected="false" data-testid="ab-step-cast"><i></i><span lang="en">Cast</span><span lang="vi">Phân vai</span></button>
+          <button type="button" class="step done" role="tab" data-tab="voice" data-mode-only="single" aria-selected="false" data-testid="ab-step-voice"><i></i><span lang="en">Voice</span><span lang="vi">Giọng</span></button>
+          <button type="button" class="step current warn" role="tab" data-tab="speech" aria-selected="true" data-testid="ab-step-speech"><i></i><span lang="en">Speech</span><span lang="vi">Giọng đọc</span> <span class="n" data-mode-only="single">29/31</span> <span class="n hidden" data-mode-only="multi">46/48</span></button>
+          <button type="button" class="step hidden" role="tab" data-tab="assembly" data-mode-only="multi" aria-selected="false" data-testid="ab-step-assembly"><i></i><span lang="en">Assembly</span><span lang="vi">Ghép</span></button>
+          <button type="button" class="step" role="tab" data-tab="finishing" aria-selected="false" data-testid="ab-step-finishing"><i></i><span lang="en">Finishing</span><span lang="vi">Hoàn thiện</span></button>
+          <button type="button" class="step" role="tab" data-tab="export" aria-selected="false" data-testid="ab-step-export"><i></i><span lang="en">Export</span><span lang="vi">Xuất</span></button>
+        </div>
+      </div>
+      <div class="ws-body flush">
+        <div data-pane="chapters" data-testid="ab-pane-chapters">
+          <div class="tool-row" data-testid="ab-chapters-tools">
+            <span class="meta"><span lang="en">Range</span><span lang="vi">Phạm vi</span></span>
+            <input class="input mono" value="0001" style="width:64px" data-testid="ab-range-from"><span class="meta">–</span><input class="input mono" value="0012" style="width:64px" data-testid="ab-range-to">
+            <span class="meta"><span lang="en">12 chapters · 384 paragraphs</span><span lang="vi">12 chương · 384 đoạn văn</span></span>
+            <button class="btn sm" type="button" data-toggle aria-pressed="true" data-testid="ab-translated-only"><span lang="en">Use translated chapters only</span><span lang="vi">Chỉ dùng chương đã dịch</span></button>
+          </div>
+          <div style="padding:var(--sp-sm) var(--sp-md)"><div class="callout info" data-testid="ab-chapters-note"><svg class="icon"><use href="#i-info"/></svg><div><span lang="en">Segments are split automatically, one per paragraph. Open Multi-voice to edit speakers and tags.</span><span lang="vi">Đoạn được tách tự động theo từng đoạn văn. Chuyển sang Nhiều giọng để sửa người nói và thẻ.</span></div></div></div>
+          <div class="table-wrap">
+            <table class="table" data-testid="ab-chapters-table">
+              <thead><tr><th><span lang="en">Chapter</span><span lang="vi">Chương</span></th><th><span lang="en">Title</span><span lang="vi">Tiêu đề</span></th><th class="num"><span lang="en">Paragraphs</span><span lang="vi">Đoạn văn</span></th><th><span lang="en">Audio</span><span lang="vi">Âm thanh</span></th></tr></thead>
+              <tbody>
+                <tr><td>0010</td><td>练气入门</td><td class="num">28</td><td><span class="pill success"><span lang="en">Done</span><span lang="vi">Xong</span></span></td></tr>
+                <tr><td>0011</td><td>青牛镇归途</td><td class="num">33</td><td><span class="pill success"><span lang="en">Done</span><span lang="vi">Xong</span></span></td></tr>
+                <tr class="selected"><td>0012</td><td>夜探药园</td><td class="num">31</td><td><span class="pill running">29 / 31</span></td></tr>
+                <tr><td>0013</td><td>师徒生隙</td><td class="num">26</td><td><span class="pill"><span lang="en">Queued</span><span lang="vi">Chờ</span></span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div data-pane="voice" data-testid="ab-voice-pane">
+          <div style="padding:var(--sp-md);max-width:560px" class="col">
+            <div class="row between"><h3><span lang="en">Narrator voice</span><span lang="vi">Giọng dẫn truyện</span></h3><button class="btn ghost sm" type="button" data-go="voicelab" data-testid="ab-voice-change"><span lang="en">Change in Voice Lab</span><span lang="vi">Đổi trong Phòng giọng nói</span></button></div>
+            <div class="voice-card selected" data-player data-testid="ab-voice-card"><span class="avatar" style="--c:var(--color-text-tertiary)">N</span><div style="min-width:0"><div class="name">Người dẫn · trầm ấm</div><div class="sub">F5-TTS · vi · local · <span lang="en">male · deep</span><span lang="vi">nam · trầm</span></div></div><button class="play" data-play aria-pressed="false" title="Play sample" data-testid="ab-voice-play"><svg class="icon"><use href="#i-play"/></svg></button><span class="wave sm" data-wave="61"></span><div class="chips"><span class="chip"><span lang="en">narrator</span><span lang="vi">người dẫn</span></span></div><div class="foot"><svg class="icon sm"><use href="#i-lock"/></svg><span>Seed 30517 · <span lang="en">locked</span><span lang="vi">đã khoá</span></span></div></div>
+            <div class="field"><label><span lang="en">Audition text</span><span lang="vi">Văn bản nghe thử</span></label><textarea class="textarea" rows="2">Đêm ấy, gió núi Thải Hà lạnh buốt, Hàn Lập rón rén men theo rào trúc của vườn thuốc.</textarea></div>
+            <div class="player" data-player data-testid="ab-voice-audition"><button class="play sm" data-play aria-pressed="false" title="Audition"><svg class="icon"><use href="#i-play"/></svg></button><span class="time">00:00</span><span class="wave" data-wave="63"></span><span class="time">00:07</span></div>
+            <div class="col" style="gap:var(--sp-xs)" data-testid="ab-voice-options">
+              <div class="mix-row"><svg class="icon"><use href="#i-zap"/></svg><span class="name"><span lang="en">Speed</span><span lang="vi">Tốc độ</span></span><input class="range" type="range" min="0.7" max="1.3" step="0.05" value="1" data-output="ab-voice-speed" data-decimals="2" data-unit="×"><span class="num" data-value="ab-voice-speed">1.00×</span></div>
+              <div class="mix-row"><svg class="icon"><use href="#i-clock"/></svg><span class="name"><span lang="en">Paragraph pause</span><span lang="vi">Nghỉ giữa đoạn</span></span><input class="range" type="range" min="0" max="1500" step="50" value="600" data-output="ab-voice-pause" data-unit=" ms"><span class="num" data-value="ab-voice-pause">600 ms</span></div>
+              <label class="switch"><input type="checkbox" checked><span class="track"></span><span><span lang="en">Pause by punctuation</span><span lang="vi">Ngắt theo dấu câu</span></span></label>
+              <label class="switch"><input type="checkbox" checked><span class="track"></span><span><span lang="en">Expressive prosody</span><span lang="vi">Ngữ điệu biểu cảm</span></span></label>
+            </div>
+            <div>
+              <h4><span lang="en">Not read aloud</span><span lang="vi">Không đọc</span></h4>
+              <div class="list" data-testid="ab-voice-skip">
+                <div class="list-item"><span class="text"><span lang="en">Chapter title</span><span lang="vi">Tiêu đề chương</span></span><label class="switch"><input type="checkbox"><span class="track"></span></label></div>
+                <div class="list-item"><span class="text"><span lang="en">Author notes</span><span lang="vi">Ghi chú của tác giả</span></span><label class="switch"><input type="checkbox" checked><span class="track"></span></label></div>
+                <div class="list-item"><span class="text"><span lang="en">Translator notes in brackets</span><span lang="vi">Chú thích của dịch giả trong ngoặc</span></span><label class="switch"><input type="checkbox" checked><span class="track"></span></label></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div data-pane="script" data-testid="ab-pane-script">
+          <div class="tool-row" data-testid="ab-script-tools">
+            <span class="stag spk" data-testid="ab-tag-speaker">@speaker</span>
+            <span class="stag emo" data-testid="ab-tag-emotion">[emotion]</span>
+            <span class="stag">[laugh]</span>
+            <span class="stag">[sigh]</span>
+            <span class="stag">[surprise]</span>
+            <span class="stag pause">[pause]</span>
+            <span class="stag sfx">[sfx]</span>
+            <span class="sep"></span>
+            <button class="btn ghost icon sm" type="button" title="Undo" data-action="undo" data-testid="ab-undo"><svg class="icon sm"><use href="#i-undo"/></svg></button>
+            <button class="btn ghost icon sm" type="button" title="Redo" data-action="redo" data-testid="ab-redo"><svg class="icon sm"><use href="#i-redo"/></svg></button>
+            <button class="btn ghost icon sm" type="button" title="Find and replace" data-testid="ab-find"><svg class="icon sm"><use href="#i-search"/></svg></button>
+            <button class="btn ghost sm" type="button" data-toast="Grammar polished in 3 segments" data-toast-vi="Đã chỉnh ngữ pháp ở 3 đoạn" data-toast-kind="success" data-testid="ab-polish"><svg class="icon sm"><use href="#i-sparkles"/></svg><span lang="en">Polish grammar</span><span lang="vi">Chỉnh ngữ pháp</span></button>
+            <label class="switch"><input type="checkbox" data-testid="ab-visual-tags"><span class="track"></span><span><span lang="en">Visual tags</span><span lang="vi">Thẻ trực quan</span></span></label>
+          </div>
+          <div style="padding:var(--sp-sm)"><div class="callout warning" data-testid="ab-gap-callout"><svg class="icon"><use href="#i-alert-triangle"/></svg><div class="row between" style="flex:1"><span><span lang="en">1 passage missed against the chapter (¶14)</span><span lang="vi">1 đoạn bị sót so với chương (¶14)</span></span><button class="btn sm" type="button" data-testid="ab-add-gap"><span lang="en">Add segment</span><span lang="vi">Thêm đoạn</span></button></div></div></div>
+          <div data-select-group data-testid="ab-script-list">
+            <div class="seg narration" data-select data-testid="ab-script-01"><span class="n">0012·01</span><span class="spk"><span class="avatar sm" style="--c:var(--color-text-tertiary)">N</span><span><span lang="en">Narrator</span><span lang="vi">Người dẫn</span></span></span><span class="txt">Đêm ấy, gió núi Thải Hà lạnh buốt, <span class="stag pause">[pause 0.6s]</span> Hàn Lập rón rén men theo rào trúc của vườn thuốc.</span><span class="end"><button class="btn ghost sm icon" type="button" title="Split"><svg class="icon sm"><use href="#i-scissors"/></svg></button><button class="btn ghost sm icon" type="button" title="Merge with next"><svg class="icon sm"><use href="#i-merge"/></svg></button><button class="play sm" data-play aria-pressed="false" title="Preview"><svg class="icon"><use href="#i-play"/></svg></button></span></div>
+            <div class="seg selected" data-select data-testid="ab-script-02"><span class="n">0012·02</span><span class="spk"><span class="avatar sm cjk" style="--c:var(--color-warning)">墨</span><span>Mặc Đại Phu</span></span><span class="txt"><span class="stag emo">[lạnh lùng]</span> “Ngươi đến muộn ba ngày rồi.” <span class="stag sfx">[sfx: tiếng ho khẽ]</span></span><span class="end"><button class="btn ghost sm icon" type="button" title="Split"><svg class="icon sm"><use href="#i-scissors"/></svg></button><button class="btn ghost sm icon" type="button" title="Merge with next"><svg class="icon sm"><use href="#i-merge"/></svg></button><button class="play sm" data-play aria-pressed="false" title="Preview"><svg class="icon"><use href="#i-play"/></svg></button></span></div>
+            <div class="seg" data-select data-testid="ab-script-03"><span class="n">0012·03</span><span class="spk"><span class="avatar sm cjk" style="--c:var(--color-primary)">韩</span><span>Hàn Lập</span></span><span class="txt"><span class="stag emo">[sợ hãi]</span> “Đệ tử… đệ tử không dám.”</span><span class="end"><button class="btn ghost sm icon" type="button" title="Split"><svg class="icon sm"><use href="#i-scissors"/></svg></button><button class="btn ghost sm icon" type="button" title="Merge with next"><svg class="icon sm"><use href="#i-merge"/></svg></button><button class="play sm" data-play aria-pressed="false" title="Preview"><svg class="icon"><use href="#i-play"/></svg></button></span></div>
+            <div class="seg skip" data-select data-testid="ab-script-skip"><span class="n">0012·04</span><span class="spk"><span class="meta"><span lang="en">Not read</span><span lang="vi">Không đọc</span></span></span><span class="txt">(Chú thích của dịch giả: 长春功 = Trường Xuân Công)</span><span class="end"><span class="pill plain"><span lang="en">Skipped</span><span lang="vi">Bỏ qua</span></span></span></div>
+            <div class="seg narration" data-select data-testid="ab-script-05"><span class="n">0012·05</span><span class="spk"><span class="avatar sm" style="--c:var(--color-text-tertiary)">N</span><span><span lang="en">Narrator</span><span lang="vi">Người dẫn</span></span></span><span class="txt">Lão nhân ho khẽ, ánh đèn dầu chập chờn trên vách.</span><span class="end"><button class="btn ghost sm icon" type="button" title="Split"><svg class="icon sm"><use href="#i-scissors"/></svg></button><button class="btn ghost sm icon" type="button" title="Merge with next"><svg class="icon sm"><use href="#i-merge"/></svg></button><button class="play sm" data-play aria-pressed="false" title="Preview"><svg class="icon"><use href="#i-play"/></svg></button></span></div>
+            <div class="seg gap" data-select data-testid="ab-script-gap"><span class="n">¶14</span><span class="spk"><span class="pill warning"><span lang="en">Missed</span><span lang="vi">Bị sót</span></span></span><span class="txt">Hắn cúi đầu, cảm thấy luồng khí lạnh từ đan điền chậm rãi lan ra.</span><span class="end"><button class="btn sm" type="button"><span lang="en">Add segment</span><span lang="vi">Thêm đoạn</span></button></span></div>
+            <div class="seg" data-select data-testid="ab-script-06"><span class="n">0012·06</span><span class="spk"><span class="avatar sm cjk" style="--c:var(--color-warning)">墨</span><span>Mặc Đại Phu</span></span><span class="txt"><span class="stag emo">[thì thầm]</span> “Trường Xuân Công của ngươi đã đến tầng thứ mấy?”</span><span class="end"><button class="btn ghost sm icon" type="button" title="Split"><svg class="icon sm"><use href="#i-scissors"/></svg></button><button class="btn ghost sm icon" type="button" title="Merge with next"><svg class="icon sm"><use href="#i-merge"/></svg></button><button class="play sm" data-play aria-pressed="false" title="Preview"><svg class="icon"><use href="#i-play"/></svg></button></span></div>
+          </div>
+        </div>
+        <div data-pane="cast" data-testid="ab-pane-cast">
+          <div style="padding:var(--sp-md)" class="col">
+            <div class="voice-grid" data-select-group data-testid="ab-cast-grid">
+              <div class="voice-card" data-select data-player><span class="avatar" style="--c:var(--color-text-tertiary)">N</span><div style="min-width:0"><div class="name">Người dẫn truyện</div><div class="sub">Người dẫn truyện · trầm ấm</div></div><button class="play" data-play aria-pressed="false" title="Audition"><svg class="icon"><use href="#i-play"/></svg></button></div>
+              <div class="voice-card selected" data-select data-player><span class="avatar cjk" style="--c:var(--color-primary)">韩</span><div style="min-width:0"><div class="name">Hàn Lập</div><div class="sub">Hàn Lập · thiếu niên</div></div><button class="play" data-play aria-pressed="false" title="Audition"><svg class="icon"><use href="#i-play"/></svg></button><div class="foot"><svg class="icon sm"><use href="#i-lock"/></svg><span>Cast v3 · <span lang="en">locked</span><span lang="vi">đã khoá</span></span></div></div>
+              <div class="voice-card" data-select data-player><span class="avatar cjk" style="--c:var(--color-warning)">墨</span><div style="min-width:0"><div class="name">Mặc Đại Phu</div><div class="sub">Mặc Đại Phu · trầm, khàn</div></div><button class="play" data-play aria-pressed="false" title="Audition"><svg class="icon"><use href="#i-play"/></svg></button></div>
+              <div class="voice-card empty" data-select data-testid="ab-cast-empty"><span class="avatar cjk">张</span><div style="min-width:0"><div class="name">Trương Thiết</div><div class="sub"><span lang="en">No voice · this chapter has 2 lines</span><span lang="vi">Chưa có giọng · chương này có 2 câu thoại</span></div></div><button class="btn sm" type="button" data-testid="ab-cast-assign"><span lang="en">Assign</span><span lang="vi">Gán</span></button></div>
+            </div>
+            <div class="callout warning"><svg class="icon"><use href="#i-alert-triangle"/></svg><div><span lang="en">Trương Thiết has no voice, so his 2 lines cannot be generated.</span><span lang="vi">Trương Thiết chưa có giọng nên 2 câu thoại của vai này chưa thể sinh.</span></div></div>
+            <div class="col" style="gap:var(--sp-xs)" data-testid="ab-mix">
+              <div class="mix-row"><svg class="icon"><use href="#i-clock"/></svg><span class="name"><span lang="en">Pause between turns</span><span lang="vi">Nghỉ giữa lượt thoại</span></span><input class="range" type="range" min="0" max="1000" value="350" data-output="ab-pause" data-unit=" ms"><span class="num" data-value="ab-pause">350 ms</span></div>
+              <div class="mix-row"><svg class="icon"><use href="#i-layers"/></svg><span class="name"><span lang="en">Natural overlap</span><span lang="vi">Chồng lời tự nhiên</span></span><input class="range" type="range" min="0" max="500" value="0" data-output="ab-overlap" data-unit=" ms"><span class="num" data-value="ab-overlap">0 ms</span></div>
+              <label class="switch"><input type="checkbox" checked><span class="track"></span><span><span lang="en">Normalise loudness across voices</span><span lang="vi">Cân bằng độ to giữa các giọng</span></span></label>
+            </div>
+            <div class="row"><button class="btn ghost sm" type="button" data-go="voicelab" data-testid="ab-cast-open-voicelab"><svg class="icon sm"><use href="#i-mic"/></svg><span lang="en">Open Voice Lab casting</span><span lang="vi">Mở phân vai trong Phòng giọng nói</span></button></div>
+          </div>
+        </div>
+        <div data-pane="speech" class="active" data-testid="ab-pane-speech">
+          <div style="padding:var(--sp-sm) var(--sp-md)" class="hidden" data-mode-only="multi"><div class="callout info" data-testid="ab-mode-note"><svg class="icon"><use href="#i-info"/></svg><div><span lang="en">Approved takes from single-narrator mode are kept. Assign character voices in Cast to regenerate dialogue lines.</span><span lang="vi">Các bản thu đã duyệt ở chế độ một giọng được giữ lại. Gán giọng nhân vật ở bước Phân vai để tạo lại các câu thoại.</span></div></div></div>
+          <div class="tool-row" data-testid="ab-speech-tools">
+            <button class="btn primary sm" type="button" data-toast="Speech for ch 0012 added to the Task Center" data-toast-vi="Đã thêm giọng đọc ch 0012 vào Trung tâm tác vụ" data-toast-kind="success" data-testid="ab-generate"><svg class="icon sm"><use href="#i-sparkles"/></svg><span lang="en">Generate chapter</span><span lang="vi">Sinh cả chương</span></button>
+            <button class="btn sm" type="button" data-toast="2 failed segments re-queued in the Task Center" data-toast-vi="Đã xếp lại 2 đoạn lỗi vào Trung tâm tác vụ" data-toast-kind="success" data-testid="ab-retry-failed"><svg class="icon sm"><use href="#i-retry"/></svg><span lang="en">Retry failed (2)</span><span lang="vi">Thử lại đoạn lỗi (2)</span></button>
+            <label class="switch"><input type="checkbox" checked><span class="track"></span><span><span lang="en">Expressive prosody</span><span lang="vi">Ngữ điệu biểu cảm</span></span></label>
+            <label class="switch"><input type="checkbox" checked><span class="track"></span><span><span lang="en">Punctuation pauses</span><span lang="vi">Nghỉ theo dấu câu</span></span></label>
+            <label class="switch"><input type="checkbox"><span class="track"></span><span><span lang="en">Split output by segment</span><span lang="vi">Tách tệp theo đoạn</span></span></label>
+          </div>
+          <div style="padding:var(--sp-sm) var(--sp-md);border-bottom:1px solid var(--color-border)">
+            <div class="progress-row" data-testid="ab-speech-progress"><span><span data-mode-only="single"><span lang="en">29 / 31 paragraphs · 1 failed</span><span lang="vi">29 / 31 đoạn văn · 1 lỗi</span></span><span class="hidden" data-mode-only="multi"><span lang="en">46 / 48 segments · 2 failed</span><span lang="vi">46 / 48 đoạn · 2 lỗi</span></span></span><a href="#tasks" data-go="tasks" data-testid="ab-open-tasks">Task Center</a><div class="progress"><i style="--p:92%"></i><i class="fail" style="--f:4%"></i></div></div>
+          </div>
+          <div data-mode-only="single" data-select-group data-testid="ab-speech-single">
+            <div class="seg narration" data-select data-show="par-01" data-testid="ab-para-01"><span class="n">¶01</span><span class="spk"><span class="meta"><span lang="en">Narrator</span><span lang="vi">Người dẫn</span></span></span><span class="txt">Đêm ấy, gió núi Thải Hà lạnh buốt, Hàn Lập rón rén men theo rào trúc của vườn thuốc.</span><span class="end"><span class="pill success"><span lang="en">Take 1</span><span lang="vi">Bản 1</span></span><button class="play sm" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button></span></div>
+            <div class="seg narration selected" data-select data-show="par-02" data-testid="ab-para-02"><span class="n">¶02</span><span class="spk"><span class="meta"><span lang="en">Narrator</span><span lang="vi">Người dẫn</span></span></span><span class="txt">Mặc Đại Phu lạnh lùng nói: “Ngươi đến muộn ba ngày rồi.”</span><span class="end"><span class="pill success"><span lang="en">Approved</span><span lang="vi">Đã duyệt</span></span><button class="play sm" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button></span></div>
+            <div class="seg narration failed" data-select data-show="par-03" data-testid="ab-para-03"><span class="n">¶03</span><span class="spk"><span class="meta"><span lang="en">Narrator</span><span lang="vi">Người dẫn</span></span></span><span class="txt">Hàn Lập cúi đầu: “Đệ tử… đệ tử không dám.”</span><span class="end"><span class="pill danger"><span lang="en">Failed · timeout</span><span lang="vi">Lỗi · quá giờ</span></span><button class="btn ghost sm icon" type="button" title="Retry" data-toast="Paragraph ¶03 added to the Task Center" data-toast-vi="Đã thêm đoạn ¶03 vào Trung tâm tác vụ" data-toast-kind="success"><svg class="icon sm"><use href="#i-retry"/></svg></button></span></div>
+            <div class="seg narration" data-select data-show="par-04" data-testid="ab-para-04"><span class="n">¶04</span><span class="spk"><span class="meta"><span lang="en">Narrator</span><span lang="vi">Người dẫn</span></span></span><span class="txt">Lão nhân ho khẽ, ánh đèn dầu chập chờn trên vách.</span><span class="end"><span class="pill running"><span lang="en">Generating</span><span lang="vi">Đang sinh</span></span></span></div>
+            <div class="seg narration" data-select data-show="par-05" data-testid="ab-para-05"><span class="n">¶05</span><span class="spk"><span class="meta"><span lang="en">Narrator</span><span lang="vi">Người dẫn</span></span></span><span class="txt">Trường Xuân Công của ngươi đã đến tầng thứ mấy?</span><span class="end"><span class="pill"><span lang="en">Queued</span><span lang="vi">Chờ</span></span></span></div>
+          </div>
+          <div data-select-group class="hidden" data-mode-only="multi" data-testid="ab-speech-list">
+            <div class="seg narration" data-select data-show="seg-01" data-testid="ab-seg-01"><span class="n">0012·01</span><span class="spk"><span class="avatar sm" style="--c:var(--color-text-tertiary)">N</span><span><span lang="en">Narrator</span><span lang="vi">Người dẫn</span></span></span><span class="txt">Đêm ấy, gió núi Thải Hà lạnh buốt, <span class="stag pause">[pause 0.6s]</span> Hàn Lập rón rén men theo rào trúc của vườn thuốc.</span><span class="end"><span class="pill success"><span lang="en">Take 1</span><span lang="vi">Bản 1</span></span><button class="play sm" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button></span></div>
+            <div class="seg selected" data-select data-show="seg-02" data-testid="ab-seg-02"><span class="n">0012·02</span><span class="spk"><span class="avatar sm cjk" style="--c:var(--color-warning)">墨</span><span>Mặc Đại Phu</span></span><span class="txt"><span class="stag emo">[lạnh lùng]</span> “Ngươi đến muộn ba ngày rồi.” <span class="stag sfx">[sfx: tiếng ho khẽ]</span></span><span class="end"><span class="pill success"><span lang="en">Take 2 approved</span><span lang="vi">Duyệt bản 2</span></span><button class="play sm" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button></span></div>
+            <div class="seg failed" data-select data-show="seg-03" data-testid="ab-seg-03"><span class="n">0012·03</span><span class="spk"><span class="avatar sm cjk" style="--c:var(--color-primary)">韩</span><span>Hàn Lập</span></span><span class="txt"><span class="stag emo">[sợ hãi]</span> “Đệ tử… đệ tử không dám.”</span><span class="end"><span class="pill danger"><span lang="en">Failed · timeout</span><span lang="vi">Lỗi · quá giờ</span></span><button class="btn ghost sm icon" type="button" title="Retry" data-toast="Segment 0012·03 added to the Task Center" data-toast-vi="Đã thêm đoạn 0012·03 vào Trung tâm tác vụ" data-toast-kind="success"><svg class="icon sm"><use href="#i-retry"/></svg></button></span></div>
+            <div class="seg narration" data-select data-show="seg-04" data-testid="ab-seg-04"><span class="n">0012·04</span><span class="spk"><span class="avatar sm" style="--c:var(--color-text-tertiary)">N</span><span><span lang="en">Narrator</span><span lang="vi">Người dẫn</span></span></span><span class="txt">Lão nhân ho khẽ, ánh đèn dầu chập chờn trên vách.</span><span class="end"><span class="pill running"><span lang="en">Generating</span><span lang="vi">Đang sinh</span></span></span></div>
+            <div class="seg" data-select data-show="seg-05" data-testid="ab-seg-05"><span class="n">0012·05</span><span class="spk"><span class="avatar sm cjk" style="--c:var(--color-warning)">墨</span><span>Mặc Đại Phu</span></span><span class="txt"><span class="stag emo">[thì thầm]</span> “Trường Xuân Công của ngươi đã đến tầng thứ mấy?”</span><span class="end"><span class="pill"><span lang="en">Queued</span><span lang="vi">Chờ</span></span></span></div>
+            <div class="seg failed" data-select data-show="seg-06" data-testid="ab-seg-06"><span class="n">0012·06</span><span class="spk"><span class="avatar sm cjk" style="--c:var(--color-primary)">韩</span><span>Hàn Lập</span></span><span class="txt">“Tầng thứ tư.”</span><span class="end"><span class="pill danger"><span lang="en">Failed · voice missing</span><span lang="vi">Lỗi · thiếu giọng</span></span><button class="btn ghost sm icon" type="button" title="Retry" data-toast="Segment 0012·06 added to the Task Center" data-toast-vi="Đã thêm đoạn 0012·06 vào Trung tâm tác vụ" data-toast-kind="success"><svg class="icon sm"><use href="#i-retry"/></svg></button></span></div>
+          </div>
+        </div>
+        <div data-pane="assembly" data-testid="ab-pane-assembly">
+          <div class="tl" style="--head-w:120px" data-testid="ab-timeline">
+            <div class="tl-corner"></div>
+            <div class="tl-ruler"><span style="--x:0%">00:00</span><span style="--x:17%">03:00</span><span style="--x:34%">06:00</span><span style="--x:50%">09:00</span><span style="--x:67%">12:00</span><span style="--x:84%">15:00</span><i class="mk" style="--x:4%" title="Fix: 00:41"></i><i class="mk" style="--x:38%" title="Fix: 07:12"></i></div>
+            <div class="tl-track"><div class="tl-head"><svg class="icon sm"><use href="#i-mic"/></svg><span class="name"><span lang="en">Narration</span><span lang="vi">Dẫn truyện</span></span></div><div class="tl-lane"><div class="clip voice" style="--x:0%;--w:14%"><span class="wave" data-wave="4"></span><span>01</span></div><div class="clip voice" style="--x:24%;--w:12%"><span class="wave" data-wave="7"></span><span>04</span></div><div class="clip voice" style="--x:52%;--w:22%"><span class="wave" data-wave="11"></span><span>07</span></div></div></div>
+            <div class="tl-track"><div class="tl-head"><svg class="icon sm"><use href="#i-user"/></svg><span class="name"><span lang="en">Dialogue</span><span lang="vi">Thoại</span></span></div><div class="tl-lane"><div class="clip voice selected" style="--x:15%;--w:8%"><span class="wave" data-wave="5"></span><span>墨 · 02</span></div><div class="clip voice" style="--x:37%;--w:6%"><span class="wave" data-wave="6"></span><span>韩 · 03</span></div><div class="clip voice" style="--x:44%;--w:7%"><span class="wave" data-wave="9"></span><span>墨 · 05</span></div></div></div>
+            <div class="tl-track"><div class="tl-head"><svg class="icon sm"><use href="#i-music"/></svg><span class="name">BGM</span></div><div class="tl-lane"><div class="clip music" style="--x:0%;--w:90%"><span class="wave" data-wave="14"></span><span>Đêm vườn thuốc · nền</span></div></div></div>
+            <div class="tl-track"><div class="tl-head"><svg class="icon sm"><use href="#i-zap"/></svg><span class="name">SFX</span></div><div class="tl-lane"><div class="clip sfx" style="--x:22%;--w:4%"><span><span lang="en">cough</span><span lang="vi">ho</span></span></div><div class="clip sfx" style="--x:60%;--w:9%"><span><span lang="en">wind</span><span lang="vi">gió</span></span></div></div></div>
+            <div class="tl-playhead" style="--t:.04"></div>
+          </div>
+          <div class="player bar" data-player data-testid="ab-assembly-transport"><button class="play" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button><span class="time">00:41 / 18:42</span><span class="grow"></span><button class="btn ghost sm" type="button" data-testid="ab-jump"><svg class="icon sm"><use href="#i-skip"/></svg><span lang="en">Jump to segment</span><span lang="vi">Nhảy tới đoạn</span></button><button class="btn sm" type="button" data-toast="Mix sent to Finishing · open step 5" data-toast-vi="Đã gửi bản trộn sang Hoàn thiện · mở bước 5" data-toast-kind="success" data-testid="ab-send-finishing"><svg class="icon sm"><use href="#i-send"/></svg><span lang="en">Send to finishing</span><span lang="vi">Gửi sang hoàn thiện</span></button></div>
+        </div>
+        <div data-pane="finishing" data-testid="ab-pane-finishing">
+          <div class="cards" style="padding:var(--sp-md);grid-template-columns:repeat(auto-fill,minmax(300px,1fr))">
+            <div class="card compact col" data-testid="ab-card-mastering">
+              <div class="card-head"><svg class="icon lg muted"><use href="#i-waveform"/></svg><h3><span lang="en">Mastering</span><span lang="vi">Mastering</span></h3></div>
+              <div class="segmented" data-select-group data-testid="ab-mastering-preset">
+                <button type="button" aria-pressed="false" data-select>YouTube · Spotify</button>
+                <button type="button" aria-pressed="true" data-select>Podcast</button>
+                <button type="button" aria-pressed="false" data-select>EBU R128</button>
+                <button type="button" aria-pressed="false" data-select>Cinema · lo-fi</button>
+                <button type="button" aria-pressed="false" data-select>Manual</button>
+              </div>
+              <div class="mix-row"><svg class="icon"><use href="#i-volume"/></svg><span class="name"><span lang="en">Target</span><span lang="vi">Mục tiêu</span></span><input class="range" type="range" min="-24" max="-9" value="-16" data-output="ab-lufs" data-unit=" LUFS"><span class="num" data-value="ab-lufs">-16 LUFS</span></div>
+              <div class="mix-row"><svg class="icon"><use href="#i-shield"/></svg><span class="name"><span lang="en">Peak limit</span><span lang="vi">Giới hạn đỉnh</span></span><input class="range" type="range" min="-3" max="0" step="0.1" value="-1" data-output="ab-peak" data-decimals="1" data-unit=" dBTP"><span class="num" data-value="ab-peak">−1.0 dBTP</span></div>
+              <div class="mix-row"><svg class="icon"><use href="#i-sun"/></svg><span class="name"><span lang="en">Warmth</span><span lang="vi">Độ ấm</span></span><input class="range" type="range" min="0" max="100" value="40"><span class="num">40</span></div>
+              <div class="mix-row"><svg class="icon"><use href="#i-eye"/></svg><span class="name"><span lang="en">Clarity</span><span lang="vi">Độ trong</span></span><input class="range" type="range" min="0" max="100" value="55"><span class="num">55</span></div>
+              <div class="mix-row"><svg class="icon"><use href="#i-sparkles"/></svg><span class="name">Air</span><input class="range" type="range" min="0" max="100" value="25"><span class="num">25</span></div>
+              <div class="segmented" data-select-group>
+                <button type="button" aria-pressed="false" data-select><span lang="en">Before</span><span lang="vi">Trước</span></button>
+                <button type="button" aria-pressed="true" data-select><span lang="en">After</span><span lang="vi">Sau</span></button>
+              </div>
+              <div class="row" style="gap:var(--sp-lg)"><div class="meter" style="height:56px" title="L / R −16.1 LUFS"><i style="--l:62%;--pk:74%"></i><i style="--l:60%;--pk:72%"></i></div><span class="meta num">L −16.1 · R −16.2 LUFS</span></div>
+              <div class="row"><button class="btn primary sm" type="button" data-toast="Mastering for ch 0012 added to the Task Center" data-toast-vi="Đã thêm mastering ch 0012 vào Trung tâm tác vụ" data-toast-kind="success" data-testid="ab-master"><span lang="en">Master chapter</span><span lang="vi">Master cả chương</span></button></div>
+            </div>
+            <div class="card compact col" data-testid="ab-card-ducking">
+              <div class="card-head"><svg class="icon lg muted"><use href="#i-layers"/></svg><h3><span lang="en">Auto-ducking</span><span lang="vi">Tự động hạ nhạc nền</span></h3></div>
+              <div class="field"><label><span lang="en">Voice track</span><span lang="vi">Track giọng</span></label><select class="select"><option data-opt-en="Narration + Dialogue" data-opt-vi="Dẫn truyện + Thoại">Narration + Dialogue</option><option data-opt-en="Narration" data-opt-vi="Dẫn truyện">Narration</option><option data-opt-en="Dialogue" data-opt-vi="Thoại">Dialogue</option></select></div>
+              <div class="field"><label><span lang="en">Music track</span><span lang="vi">Track nhạc</span></label><select class="select"><option>BGM</option></select></div>
+              <div class="mix-row"><svg class="icon"><use href="#i-chevron-down"/></svg><span class="name"><span lang="en">Depth</span><span lang="vi">Độ hạ</span></span><input class="range" type="range" min="-24" max="0" value="-12" data-output="ab-depth" data-unit=" dB"><span class="num" data-value="ab-depth">-12 dB</span></div>
+              <div class="mix-row"><svg class="icon"><use href="#i-zap"/></svg><span class="name">Attack</span><input class="range" type="range" min="10" max="500" value="80" data-output="ab-attack" data-unit=" ms"><span class="num" data-value="ab-attack">80 ms</span></div>
+              <div class="mix-row"><svg class="icon"><use href="#i-clock"/></svg><span class="name"><span lang="en">Release (ms)</span><span lang="vi">Nhả (ms)</span></span><input class="range" type="range" min="50" max="1000" value="400" data-output="ab-release" data-unit=" ms"><span class="num" data-value="ab-release">400 ms</span></div>
+              <div class="mix-row"><svg class="icon"><use href="#i-mic"/></svg><span class="name"><span lang="en">Voice level</span><span lang="vi">Mức giọng</span></span><input class="range" type="range" min="-12" max="12" value="0" data-output="ab-voice" data-unit=" dB"><span class="num" data-value="ab-voice">0 dB</span></div>
+              <div class="tl" style="--head-w:64px" data-testid="ab-duck-preview">
+                <div class="tl-track"><div class="tl-head" style="height:28px"><span class="name"><span lang="en">Voice</span><span lang="vi">Giọng</span></span></div><div class="tl-lane" style="height:28px"><div class="clip voice" style="--x:6%;--w:20%"></div><div class="clip voice" style="--x:34%;--w:26%"></div><div class="clip voice" style="--x:68%;--w:22%"></div></div></div>
+                <div class="tl-track"><div class="tl-head" style="height:28px"><span class="name">BGM</span></div><div class="tl-lane" style="height:28px"><div class="clip music" style="--x:0%;--w:100%"><span class="wave" data-wave="15"></span></div></div></div>
+              </div>
+              <div class="row"><button class="btn sm" type="button" data-toast="Ducked mix added to the Task Center" data-toast-vi="Đã thêm bản trộn hạ nhạc vào Trung tâm tác vụ" data-toast-kind="success" data-testid="ab-render-duck"><span lang="en">Render ducked mix</span><span lang="vi">Render bản hạ nhạc</span></button></div>
+            </div>
+            <div class="card compact col" data-testid="ab-card-loop">
+              <div class="card-head"><svg class="icon lg muted"><use href="#i-repeat"/></svg><h3><span lang="en">Seamless loop</span><span lang="vi">Lặp liền mạch</span></h3></div>
+              <div class="field"><label><span lang="en">Source</span><span lang="vi">Nguồn</span></label><select class="select"><option>Đêm vườn thuốc · nền</option><option>Thất Huyền Môn · chủ đề</option></select></div>
+              <div class="field"><label><span lang="en">Target length</span><span lang="vi">Độ dài đích</span></label><select class="select"><option>30 s</option><option>1 min</option><option selected>10 min</option><option>30 min</option><option>1 h</option></select></div>
+              <div class="mix-row"><svg class="icon"><use href="#i-merge"/></svg><span class="name">Crossfade</span><input class="range" type="range" min="0.5" max="6" step="0.5" value="2" data-output="ab-xfade" data-decimals="1" data-unit=" s"><span class="num" data-value="ab-xfade">2.0 s</span></div>
+              <label class="switch"><input type="checkbox" checked><span class="track"></span><span>Equal-power</span></label>
+              <div class="player" data-player><button class="play sm" data-play aria-pressed="false" title="Preview join"><svg class="icon"><use href="#i-play"/></svg></button><span class="wave" data-wave="19"></span><span class="meta"><span lang="en">Preview join</span><span lang="vi">Nghe chỗ nối</span></span></div>
+              <div class="row"><button class="btn sm" type="button" data-toast="Loop render added to the Task Center" data-toast-vi="Đã thêm render vòng lặp vào Trung tâm tác vụ" data-toast-kind="success" data-testid="ab-render-loop"><span lang="en">Render loop</span><span lang="vi">Render vòng lặp</span></button></div>
+            </div>
+            <div class="card compact col" data-testid="ab-card-qa">
+              <div class="card-head"><svg class="icon lg muted"><use href="#i-shield"/></svg><h3><span lang="en">Loudness QA</span><span lang="vi">Kiểm tra độ to</span></h3></div>
+              <div class="col" style="gap:var(--sp-xs)">
+                <div class="row between meta"><span><span lang="en">Narrator</span><span lang="vi">Người dẫn</span></span><span class="num">−16.1 LUFS</span></div>
+                <div class="meter h"><i style="--l:64%;--pk:64%"></i></div>
+                <div class="row between meta"><span>Hàn Lập</span><span class="num">−15.8 LUFS</span></div>
+                <div class="meter h"><i style="--l:66%;--pk:64%"></i></div>
+                <div class="row between meta"><span>Mặc Đại Phu</span><span class="num">−13.9 LUFS</span></div>
+                <div class="meter h"><i class="warn" style="--l:78%;--pk:64%"></i></div>
+              </div>
+              <div>
+                <div class="issue-row warn" data-testid="ab-qa-silence"><svg class="icon sm"><use href="#i-alert-triangle"/></svg><div><span lang="en">Silence 4.2 s at 07:12</span><span lang="vi">Im lặng 4,2 s tại 07:12</span></div></div>
+                <div class="issue-row bad" data-testid="ab-qa-peak"><svg class="icon sm"><use href="#i-alert-circle"/></svg><div><span lang="en">Peak +0.4 dBTP at 11:03</span><span lang="vi">Đỉnh +0,4 dBTP tại 11:03</span></div></div>
+              </div>
+              <div class="row"><button class="btn sm" type="button" data-toast="Batch mastering 0001–0012 added to the Task Center" data-toast-vi="Đã thêm mastering hàng loạt 0001–0012 vào Trung tâm tác vụ" data-toast-kind="success" data-testid="ab-batch-master"><span lang="en">Batch master 0001–0012</span><span lang="vi">Master hàng loạt 0001–0012</span></button></div>
+            </div>
+          </div>
+        </div>
+        <div data-pane="export" data-testid="ab-pane-export">
+          <div style="padding:var(--sp-md)" class="col">
+            <div class="col" style="gap:var(--sp-xs)" data-testid="ab-export-formats">
+              <label class="check"><input type="checkbox" checked><span><span lang="en">Combined WAV</span><span lang="vi">WAV gộp cả chương</span></span></label>
+              <label class="check"><input type="checkbox" checked><span>MP3 192 kbps</span></label>
+              <label class="check"><input type="checkbox"><span><span lang="en">Per-character multitrack</span><span lang="vi">Đa track theo nhân vật</span></span></label>
+              <label class="check"><input type="checkbox" checked><span><span lang="en">Subtitles SRT</span><span lang="vi">Phụ đề SRT</span></span></label>
+            </div>
+            <div class="field"><label><span lang="en">Output</span><span lang="vi">Thư mục xuất</span></label><div class="row" style="flex-wrap:nowrap"><input class="input mono" value="novels\n-0001\audiobook\vi\0012\" data-testid="ab-export-path"><button class="btn sm" type="button" data-action="choose-folder" data-testid="ab-browse"><span lang="en">Browse</span><span lang="vi">Chọn</span></button></div></div>
+            <div data-testid="ab-preflight">
+              <h4><span lang="en">Preflight</span><span lang="vi">Kiểm tra trước khi xuất</span></h4>
+              <div class="issue-row ok"><svg class="icon sm"><use href="#i-check"/></svg><div><span lang="en">Duration</span><span lang="vi">Thời lượng</span> · <span class="num">18:42</span></div></div>
+              <div class="issue-row ok"><svg class="icon sm"><use href="#i-check"/></svg><div><span lang="en">Coverage</span><span lang="vi">Độ phủ</span> · <span class="num">100%</span> <span class="meta"><span lang="en">(1 note skipped by design)</span><span lang="vi">(1 chú thích bỏ qua có chủ đích)</span></span></div></div>
+              <div class="issue-row ok"><svg class="icon sm"><use href="#i-check"/></svg><div><span class="num">0</span> <span lang="en">broken files</span><span lang="vi">tệp hỏng</span></div></div>
+              <div class="issue-row ok"><svg class="icon sm"><use href="#i-check"/></svg><div><span lang="en">Loudness</span><span lang="vi">Độ to</span> · <span class="num">−16.1 LUFS</span></div></div>
+            </div>
+            <div class="row">
+              <button class="btn primary" type="button" data-toast="Export of ch 0012 added to the Task Center" data-toast-vi="Đã thêm xuất ch 0012 vào Trung tâm tác vụ" data-toast-kind="success" data-testid="ab-export"><svg class="icon sm"><use href="#i-download"/></svg><span lang="en">Export</span><span lang="vi">Xuất</span></button>
+              <button class="btn sm" type="button" data-go="videoeditor" data-testid="ab-send-video"><svg class="icon sm"><use href="#i-video"/></svg><span lang="en">Send to Video editor</span><span lang="vi">Gửi sang Dựng video</span></button>
+              <button class="btn sm" type="button" data-go="publishing" data-testid="ab-send-publishing"><svg class="icon sm"><use href="#i-send"/></svg><span lang="en">Send to Publishing</span><span lang="vi">Gửi sang Xuất bản</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <aside class="panel right" data-tab-scope data-testid="ab-right">
+      <div class="panel-head">
+        <div class="panel-tabs" role="tablist" data-tabs>
+          <button type="button" role="tab" aria-selected="true" data-tab="segment" data-testid="ab-tab-segment"><span data-mode-only="single"><span lang="en">Paragraph</span><span lang="vi">Đoạn văn</span></span><span class="hidden" data-mode-only="multi"><span lang="en">Segment</span><span lang="vi">Đoạn</span></span></button>
+          <button type="button" role="tab" aria-selected="false" data-tab="chapter" data-testid="ab-tab-chapter"><span lang="en">Chapter</span><span lang="vi">Chương</span></button>
+        </div>
+        <button class="btn ghost icon" data-toggle-panel="right" title="Collapse (Ctrl+Alt+B)" data-testid="ab-collapse-right"><svg class="icon"><use href="#i-panel-right"/></svg></button>
+      </div>
+      <div class="panel-body flush">
+        <div data-pane="segment" class="active">
+          <div class="hidden" data-mode-only="multi">
+          <div data-detail="seg-02">
+            <div class="panel-section col">
+              <h4>0012·02</h4>
+              <div class="field hidden" data-mode-only="multi" style="padding:0 var(--sp-sm)"><label><span lang="en">Speaker</span><span lang="vi">Người nói</span></label><select class="select" data-testid="ab-speaker"><option data-opt-en="Narrator" data-opt-vi="Người dẫn">Narrator</option><option>Hàn Lập</option><option selected>Mặc Đại Phu</option><option>Trương Thiết</option></select></div>
+              <div class="field hidden" data-mode-only="multi" style="padding:0 var(--sp-sm)"><label><span lang="en">Emotion</span><span lang="vi">Cảm xúc</span></label><div class="chips" data-testid="ab-emotions"><button type="button" class="chip" data-toggle aria-pressed="true">lạnh lùng</button><button type="button" class="chip" data-toggle aria-pressed="false">thì thầm</button><button type="button" class="chip" data-toggle aria-pressed="false">giận</button></div></div>
+              <div class="field" style="padding:0 var(--sp-sm)"><label><span lang="en">Line</span><span lang="vi">Câu thoại</span></label><textarea class="textarea" rows="3" data-testid="ab-segment-text">“Ngươi đến muộn ba ngày rồi.”</textarea></div>
+            </div>
+            <div class="panel-section" data-testid="ab-takes">
+              <h4><span lang="en">Takes</span><span lang="vi">Các bản đọc</span></h4>
+              <div class="row" style="padding:2px var(--sp-sm);flex-wrap:nowrap"><button class="play sm" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button><span class="grow">Take 1</span><span class="meta num">0:03</span><button class="btn ghost sm" type="button"><span lang="en">Approve</span><span lang="vi">Duyệt</span></button></div>
+              <div class="row" style="padding:2px var(--sp-sm);flex-wrap:nowrap"><button class="play sm" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button><span class="grow">Take 2 <span class="pill success"><span lang="en">Approved</span><span lang="vi">Đã duyệt</span></span></span><span class="meta num">0:04</span></div>
+              <div class="row" style="padding:2px var(--sp-sm);flex-wrap:nowrap"><button class="play sm" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button><span class="grow">Take 3</span><span class="meta num">0:03</span><button class="btn ghost sm" type="button"><span lang="en">Approve</span><span lang="vi">Duyệt</span></button></div>
+            </div>
+            <div class="panel-section col">
+              <div class="mix-row" style="padding:0 var(--sp-sm)"><svg class="icon"><use href="#i-zap"/></svg><span class="name"><span lang="en">Speed</span><span lang="vi">Tốc độ</span></span><input class="range" type="range" min="0.7" max="1.3" step="0.05" value="0.95" data-output="ab-speed" data-decimals="2" data-unit="×"><span class="num" data-value="ab-speed">0.95×</span></div>
+              <div class="mix-row" style="padding:0 var(--sp-sm)"><svg class="icon"><use href="#i-waveform"/></svg><span class="name">Pitch</span><input class="range" type="range" min="-6" max="6" value="-1" data-output="ab-pitch" data-unit=" st"><span class="num" data-value="ab-pitch">-1 st</span></div>
+              <div class="row" style="padding:0 var(--sp-sm)"><button class="btn sm" type="button" data-toast="Segment 0012·02 added to the Task Center" data-toast-vi="Đã thêm đoạn 0012·02 vào Trung tâm tác vụ" data-toast-kind="success" data-testid="ab-regenerate"><svg class="icon sm"><use href="#i-retry"/></svg><span lang="en">Regenerate segment</span><span lang="vi">Sinh lại đoạn</span></button></div>
+            </div>
+          
+          </div>
+          <div data-detail="seg-01" class="hidden" data-testid="ab-detail-01">
+          <div class="panel-section col">
+            <h4>0012·01</h4>
+            <div class="field hidden" data-mode-only="multi" style="padding:0 var(--sp-sm)"><label><span lang="en">Speaker</span><span lang="vi">Người nói</span></label><select class="select"><option>Narrator</option></select></div>
+            <div class="field" style="padding:0 var(--sp-sm)"><label><span lang="en">Line</span><span lang="vi">Câu thoại</span></label><textarea class="textarea" rows="3">Đêm ấy, gió núi Thải Hà lạnh buốt, [pause 0.6s] Hàn Lập rón rén men theo rào trúc của vườn thuốc.</textarea></div>
+            <div class="row" style="padding:0 var(--sp-sm)"><span class="pill success"><span lang="en">Take 1</span><span lang="vi">Bản 1</span></span><button class="btn sm" type="button" data-toast="Segment 0012·01 added to the Task Center" data-toast-vi="Đã thêm đoạn 0012·01 vào Trung tâm tác vụ" data-toast-kind="success"><svg class="icon sm"><use href="#i-retry"/></svg><span lang="en">Regenerate segment</span><span lang="vi">Sinh lại đoạn</span></button></div>
+          </div>
+        </div>
+          <div data-detail="seg-03" class="hidden" data-testid="ab-detail-03">
+          <div class="panel-section col">
+            <h4>0012·03</h4>
+            <div class="field hidden" data-mode-only="multi" style="padding:0 var(--sp-sm)"><label><span lang="en">Speaker</span><span lang="vi">Người nói</span></label><select class="select"><option>Hàn Lập</option></select></div>
+            <div class="field" style="padding:0 var(--sp-sm)"><label><span lang="en">Line</span><span lang="vi">Câu thoại</span></label><textarea class="textarea" rows="3">[sợ hãi] “Đệ tử… đệ tử không dám.”</textarea></div>
+            <div class="row" style="padding:0 var(--sp-sm)"><span class="pill danger"><span lang="en">Failed · timeout</span><span lang="vi">Lỗi · quá giờ</span></span><button class="btn sm" type="button" data-toast="Segment 0012·03 added to the Task Center" data-toast-vi="Đã thêm đoạn 0012·03 vào Trung tâm tác vụ" data-toast-kind="success"><svg class="icon sm"><use href="#i-retry"/></svg><span lang="en">Regenerate segment</span><span lang="vi">Sinh lại đoạn</span></button></div>
+          </div>
+        </div>
+          <div data-detail="seg-04" class="hidden" data-testid="ab-detail-04">
+          <div class="panel-section col">
+            <h4>0012·04</h4>
+            <div class="field hidden" data-mode-only="multi" style="padding:0 var(--sp-sm)"><label><span lang="en">Speaker</span><span lang="vi">Người nói</span></label><select class="select"><option>Narrator</option></select></div>
+            <div class="field" style="padding:0 var(--sp-sm)"><label><span lang="en">Line</span><span lang="vi">Câu thoại</span></label><textarea class="textarea" rows="3">Lão nhân ho khẽ, ánh đèn dầu chập chờn trên vách.</textarea></div>
+            <div class="row" style="padding:0 var(--sp-sm)"><span class="pill running"><span lang="en">Generating</span><span lang="vi">Đang sinh</span></span><button class="btn sm" type="button" data-toast="Segment 0012·04 added to the Task Center" data-toast-vi="Đã thêm đoạn 0012·04 vào Trung tâm tác vụ" data-toast-kind="success"><svg class="icon sm"><use href="#i-retry"/></svg><span lang="en">Regenerate segment</span><span lang="vi">Sinh lại đoạn</span></button></div>
+          </div>
+        </div>
+          <div data-detail="seg-05" class="hidden" data-testid="ab-detail-05">
+          <div class="panel-section col">
+            <h4>0012·05</h4>
+            <div class="field hidden" data-mode-only="multi" style="padding:0 var(--sp-sm)"><label><span lang="en">Speaker</span><span lang="vi">Người nói</span></label><select class="select"><option>Mặc Đại Phu</option></select></div>
+            <div class="field" style="padding:0 var(--sp-sm)"><label><span lang="en">Line</span><span lang="vi">Câu thoại</span></label><textarea class="textarea" rows="3">[thì thầm] “Trường Xuân Công của ngươi đã đến tầng thứ mấy?”</textarea></div>
+            <div class="row" style="padding:0 var(--sp-sm)"><span class="pill"><span lang="en">Queued</span><span lang="vi">Chờ</span></span><button class="btn sm" type="button" data-toast="Segment 0012·05 added to the Task Center" data-toast-vi="Đã thêm đoạn 0012·05 vào Trung tâm tác vụ" data-toast-kind="success"><svg class="icon sm"><use href="#i-retry"/></svg><span lang="en">Regenerate segment</span><span lang="vi">Sinh lại đoạn</span></button></div>
+          </div>
+        </div>
+          <div data-detail="seg-06" class="hidden" data-testid="ab-detail-06">
+          <div class="panel-section col">
+            <h4>0012·06</h4>
+            <div class="field hidden" data-mode-only="multi" style="padding:0 var(--sp-sm)"><label><span lang="en">Speaker</span><span lang="vi">Người nói</span></label><select class="select"><option>Hàn Lập</option></select></div>
+            <div class="field" style="padding:0 var(--sp-sm)"><label><span lang="en">Line</span><span lang="vi">Câu thoại</span></label><textarea class="textarea" rows="3">“Tầng thứ tư.”</textarea></div>
+            <div class="row" style="padding:0 var(--sp-sm)"><span class="pill danger"><span lang="en">Failed · voice missing</span><span lang="vi">Lỗi · thiếu giọng</span></span><button class="btn sm" type="button" data-toast="Segment 0012·06 added to the Task Center" data-toast-vi="Đã thêm đoạn 0012·06 vào Trung tâm tác vụ" data-toast-kind="success"><svg class="icon sm"><use href="#i-retry"/></svg><span lang="en">Regenerate segment</span><span lang="vi">Sinh lại đoạn</span></button></div>
+          </div>
+        </div>
+          </div>
+          <div data-mode-only="single">
+            <div data-detail="par-01" class="hidden" data-testid="ab-detail-par-01">
+              <div class="panel-section col">
+                <h4>¶01</h4>
+                <div class="field" style="padding:0 var(--sp-sm)"><label><span lang="en">Voice</span><span lang="vi">Giọng</span></label><span>Người dẫn · trầm ấm</span></div>
+                <div class="field" style="padding:0 var(--sp-sm)"><label><span lang="en">Paragraph text</span><span lang="vi">Văn bản đoạn</span></label><textarea class="textarea" rows="3">Đêm ấy, gió núi Thải Hà lạnh buốt, Hàn Lập rón rén men theo rào trúc của vườn thuốc.</textarea></div>
+                <div class="row" style="padding:0 var(--sp-sm)"><span class="pill success"><span lang="en">Take 1</span><span lang="vi">Bản 1</span></span></div>
+              </div>
+              <div class="panel-section"><h4><span lang="en">Takes</span><span lang="vi">Các bản đọc</span></h4><div class="row" style="padding:2px var(--sp-sm);flex-wrap:nowrap"><button class="play sm" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button><span class="grow">Take 1</span><span class="meta num">0:07</span></div></div>
+              <div class="panel-section"><div class="row" style="padding:0 var(--sp-sm)"><button class="btn sm" type="button" data-toast="Paragraph ¶01 added to the Task Center" data-toast-vi="Đã thêm đoạn ¶01 vào Trung tâm tác vụ" data-toast-kind="success"><svg class="icon sm"><use href="#i-retry"/></svg><span lang="en">Regenerate paragraph</span><span lang="vi">Sinh lại đoạn văn</span></button></div></div>
+            </div>
+            <div data-detail="par-02" data-testid="ab-detail-par-02">
+              <div class="panel-section col">
+                <h4>¶02</h4>
+                <div class="field" style="padding:0 var(--sp-sm)"><label><span lang="en">Voice</span><span lang="vi">Giọng</span></label><span>Người dẫn · trầm ấm</span></div>
+                <div class="field" style="padding:0 var(--sp-sm)"><label><span lang="en">Paragraph text</span><span lang="vi">Văn bản đoạn</span></label><textarea class="textarea" rows="3">Mặc Đại Phu lạnh lùng nói: “Ngươi đến muộn ba ngày rồi.”</textarea></div>
+                <div class="row" style="padding:0 var(--sp-sm)"><span class="pill success"><span lang="en">Approved</span><span lang="vi">Đã duyệt</span></span></div>
+              </div>
+              <div class="panel-section"><h4><span lang="en">Takes</span><span lang="vi">Các bản đọc</span></h4><div class="row" style="padding:2px var(--sp-sm);flex-wrap:nowrap"><button class="play sm" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button><span class="grow">Take 1</span><span class="meta num">0:04</span></div></div>
+              <div class="panel-section"><div class="row" style="padding:0 var(--sp-sm)"><button class="btn sm" type="button" data-toast="Paragraph ¶02 added to the Task Center" data-toast-vi="Đã thêm đoạn ¶02 vào Trung tâm tác vụ" data-toast-kind="success"><svg class="icon sm"><use href="#i-retry"/></svg><span lang="en">Regenerate paragraph</span><span lang="vi">Sinh lại đoạn văn</span></button></div></div>
+            </div>
+            <div data-detail="par-03" class="hidden" data-testid="ab-detail-par-03">
+              <div class="panel-section col">
+                <h4>¶03</h4>
+                <div class="field" style="padding:0 var(--sp-sm)"><label><span lang="en">Voice</span><span lang="vi">Giọng</span></label><span>Người dẫn · trầm ấm</span></div>
+                <div class="field" style="padding:0 var(--sp-sm)"><label><span lang="en">Paragraph text</span><span lang="vi">Văn bản đoạn</span></label><textarea class="textarea" rows="3">Hàn Lập cúi đầu: “Đệ tử… đệ tử không dám.”</textarea></div>
+                <div class="row" style="padding:0 var(--sp-sm)"><span class="pill danger"><span lang="en">Failed · timeout</span><span lang="vi">Lỗi · quá giờ</span></span></div>
+              </div>
+              <div class="panel-section"><h4><span lang="en">Takes</span><span lang="vi">Các bản đọc</span></h4><div class="meta" style="padding:0 var(--sp-sm)"><span lang="en">No take yet.</span><span lang="vi">Chưa có bản đọc.</span></div></div>
+              <div class="panel-section"><div class="row" style="padding:0 var(--sp-sm)"><button class="btn sm" type="button" data-toast="Paragraph ¶03 added to the Task Center" data-toast-vi="Đã thêm đoạn ¶03 vào Trung tâm tác vụ" data-toast-kind="success"><svg class="icon sm"><use href="#i-retry"/></svg><span lang="en">Regenerate paragraph</span><span lang="vi">Sinh lại đoạn văn</span></button></div></div>
+            </div>
+            <div data-detail="par-04" class="hidden" data-testid="ab-detail-par-04">
+              <div class="panel-section col">
+                <h4>¶04</h4>
+                <div class="field" style="padding:0 var(--sp-sm)"><label><span lang="en">Voice</span><span lang="vi">Giọng</span></label><span>Người dẫn · trầm ấm</span></div>
+                <div class="field" style="padding:0 var(--sp-sm)"><label><span lang="en">Paragraph text</span><span lang="vi">Văn bản đoạn</span></label><textarea class="textarea" rows="3">Lão nhân ho khẽ, ánh đèn dầu chập chờn trên vách.</textarea></div>
+                <div class="row" style="padding:0 var(--sp-sm)"><span class="pill running"><span lang="en">Generating</span><span lang="vi">Đang sinh</span></span></div>
+              </div>
+              <div class="panel-section"><h4><span lang="en">Takes</span><span lang="vi">Các bản đọc</span></h4><div class="meta" style="padding:0 var(--sp-sm)"><span lang="en">No take yet.</span><span lang="vi">Chưa có bản đọc.</span></div></div>
+              <div class="panel-section"><div class="row" style="padding:0 var(--sp-sm)"><button class="btn sm" type="button" data-toast="Paragraph ¶04 added to the Task Center" data-toast-vi="Đã thêm đoạn ¶04 vào Trung tâm tác vụ" data-toast-kind="success"><svg class="icon sm"><use href="#i-retry"/></svg><span lang="en">Regenerate paragraph</span><span lang="vi">Sinh lại đoạn văn</span></button></div></div>
+            </div>
+            <div data-detail="par-05" class="hidden" data-testid="ab-detail-par-05">
+              <div class="panel-section col">
+                <h4>¶05</h4>
+                <div class="field" style="padding:0 var(--sp-sm)"><label><span lang="en">Voice</span><span lang="vi">Giọng</span></label><span>Người dẫn · trầm ấm</span></div>
+                <div class="field" style="padding:0 var(--sp-sm)"><label><span lang="en">Paragraph text</span><span lang="vi">Văn bản đoạn</span></label><textarea class="textarea" rows="3">Trường Xuân Công của ngươi đã đến tầng thứ mấy?</textarea></div>
+                <div class="row" style="padding:0 var(--sp-sm)"><span class="pill"><span lang="en">Queued</span><span lang="vi">Chờ</span></span></div>
+              </div>
+              <div class="panel-section"><h4><span lang="en">Takes</span><span lang="vi">Các bản đọc</span></h4><div class="meta" style="padding:0 var(--sp-sm)"><span lang="en">No take yet.</span><span lang="vi">Chưa có bản đọc.</span></div></div>
+              <div class="panel-section"><div class="row" style="padding:0 var(--sp-sm)"><button class="btn sm" type="button" data-toast="Paragraph ¶05 added to the Task Center" data-toast-vi="Đã thêm đoạn ¶05 vào Trung tâm tác vụ" data-toast-kind="success"><svg class="icon sm"><use href="#i-retry"/></svg><span lang="en">Regenerate paragraph</span><span lang="vi">Sinh lại đoạn văn</span></button></div></div>
+            </div>
+          </div>
+        </div>
+        <div data-pane="chapter">
+          <div class="panel-section col">
+            <dl class="kv" style="padding:0 var(--sp-sm)" data-testid="ab-chapter-kv">
+              <dt><span lang="en">Mode</span><span lang="vi">Chế độ</span></dt><dd><span data-mode-only="single"><span lang="en">Single narrator</span><span lang="vi">Một giọng dẫn</span> · Người dẫn · trầm ấm</span><span class="hidden" data-mode-only="multi"><span lang="en">Multi-voice</span><span lang="vi">Nhiều giọng</span> · cast v3</span></dd>
+              <dt><span lang="en">Segments</span><span lang="vi">Số đoạn</span></dt><dd class="num">48</dd>
+              <dt><span lang="en">Speakers</span><span lang="vi">Người nói</span></dt><dd class="num">4</dd>
+              <dt><span lang="en">Estimated length</span><span lang="vi">Độ dài ước tính</span></dt><dd class="num">18:42</dd>
+              <dt><span lang="en">Script split</span><span lang="vi">Tách kịch bản</span></dt><dd>Claude CLI</dd>
+              <dt><span lang="en">Speech model</span><span lang="vi">Mô hình giọng</span></dt><dd>F5-TTS · vi · local</dd>
+              <dt>Cast</dt><dd>v3 <span class="meta">(<span lang="en">locked</span><span lang="vi">đã khoá</span>)</span></dd>
+              <dt>Job</dt><dd><a href="#tasks" data-go="tasks" data-testid="ab-job-link">j-2026-10-04-0021</a></dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </aside>
+    <aside class="panel bottom" data-testid="ab-bottom">
+      <div class="panel-head"><h3><span lang="en">Chapter player</span><span lang="vi">Nghe cả chương</span></h3><span class="meta num">0012 · 18:42</span><span class="spacer" style="flex:1"></span><button class="btn ghost icon" data-toggle-panel="bottom" title="Collapse (Ctrl+J)" data-testid="ab-collapse-bottom"><svg class="icon"><use href="#i-panel-bottom"/></svg></button></div>
+      <div class="panel-body flush">
+        <div style="padding:var(--sp-sm) var(--sp-md)"><div class="player" data-player data-testid="ab-chapter-player"><button class="play" data-play aria-pressed="false" title="Play"><svg class="icon"><use href="#i-play"/></svg></button><span class="time">00:41</span><span class="wave" data-wave="31" data-played="4"></span><span class="time">18:42</span></div></div>
+        <div class="panel-section" data-testid="ab-fix-points">
+          <h4><span lang="en">Fix points</span><span lang="vi">Điểm cần sửa</span></h4>
+          <div class="issue-row warn"><svg class="icon sm"><use href="#i-alert-triangle"/></svg><div class="row between" style="flex-wrap:nowrap"><div><div><span class="where">00:41</span> · <span lang="en">‘Mặc Đại Phu’ read as ‘Mặc Đại Phù’</span><span lang="vi">‘Mặc Đại Phu’ bị đọc thành ‘Mặc Đại Phù’</span></div></div><button class="btn ghost sm" type="button" data-go="pronunciation" data-testid="ab-add-pronunciation"><span lang="en">Add to Pronunciation</span><span lang="vi">Thêm vào Từ điển phát âm</span></button></div></div>
+          <div class="issue-row warn"><svg class="icon sm"><use href="#i-alert-triangle"/></svg><div><span class="where">07:12</span> · <span lang="en">silence 4.2 s</span><span lang="vi">im lặng 4,2 s</span></div></div>
+          <div class="issue-row bad"><svg class="icon sm"><use href="#i-alert-circle"/></svg><div><span class="where">11:03</span> · <span lang="en">peak +0.4 dBTP</span><span lang="vi">đỉnh +0,4 dBTP</span></div></div>
+          <div class="meta" style="padding:0 var(--sp-sm)"><span lang="en">+2 more</span><span lang="vi">+2 mục nữa</span></div>
+        </div>
+      </div>
+    </aside>
+    <aside class="annotations">
+      <ol>
+        <li lang="en"><span class="ac">M11-F01</span> Script stage: narration, dialogue and cues split per segment; split / merge; lines not read aloud; missed passages flagged against the chapter.</li>
+        <li lang="vi"><span class="ac">M11-F01</span> Bước Kịch bản: lời dẫn, thoại và dấu hiệu âm thanh được tách theo đoạn; tách / gộp; dòng không đọc thành tiếng; đoạn bị sót được đánh dấu so với chương.</li>
+        <li lang="en"><span class="ac">M11-F02</span> Tag palette, find &amp; replace, grammar polish, undo / redo, visual tag mode; every segment can be previewed.</li>
+        <li lang="vi"><span class="ac">M11-F02</span> Bảng thẻ nhanh, tìm &amp; thay, chỉnh ngữ pháp, hoàn tác / làm lại, chế độ thẻ trực quan; mọi đoạn đều nghe thử được.</li>
+        <li lang="en"><span class="ac">M11-F03</span> Cast stage reuses Voice Lab profiles; roles without a voice block generation for their lines; pause, overlap and loudness normalisation.</li>
+        <li lang="vi"><span class="ac">M11-F03</span> Bước Phân vai dùng lại hồ sơ giọng của Phòng giọng nói; vai chưa có giọng sẽ chặn việc sinh câu thoại của vai đó; nghỉ, chồng lời và cân bằng độ to.</li>
+        <li lang="en"><span class="ac">M11-F04</span> Speech stage: generate by chapter or segment through the Task Center; failed segments keep their error and retry alone; approved takes are kept.</li>
+        <li lang="vi"><span class="ac">M11-F04</span> Bước Giọng đọc: sinh theo chương hoặc đoạn qua Trung tâm tác vụ; đoạn lỗi giữ nguyên thông báo lỗi và thử lại riêng; bản đã duyệt được giữ.</li>
+        <li lang="en"><span class="ac">M11-F05</span> Assembly timeline with narration, dialogue, BGM and SFX; fix markers; jump by script.</li>
+        <li lang="vi"><span class="ac">M11-F05</span> Timeline ghép với lời dẫn, thoại, nhạc nền và SFX; dấu điểm cần sửa; nhảy theo kịch bản.</li>
+        <li lang="en"><span class="ac">M17-F01</span><span class="ac">M17-F02</span><span class="ac">M17-F03</span><span class="ac">M17-F04</span> Finishing stage: mastering presets with LUFS / peak targets and before / after, auto-ducking, seamless loop, loudness QA with batch mastering.</li>
+        <li lang="vi"><span class="ac">M17-F01</span><span class="ac">M17-F02</span><span class="ac">M17-F03</span><span class="ac">M17-F04</span> Bước Hoàn thiện: preset mastering với mục tiêu LUFS / đỉnh và nghe trước / sau, tự động hạ nhạc nền, vòng lặp liền mạch, kiểm tra độ to kèm master hàng loạt.</li>
+        <li lang="en"><span class="ac">M11-F06</span> Export formats, preflight checks, send to Video editor or Publishing.</li>
+        <li lang="vi"><span class="ac">M11-F06</span> Định dạng xuất, kiểm tra trước khi xuất, gửi sang Dựng video hoặc Xuất bản.</li>
+        <li lang="en">1280×720: the pipeline shows only the current step's label; finishing cards stack in one column; segment text moves under the speaker below 760px.</li>
+        <li lang="vi">1280×720: quy trình chỉ hiện nhãn của bước hiện tại; các thẻ Hoàn thiện xếp một cột; chữ của đoạn xuống dưới người nói khi hẹp hơn 760px.</li>
+        <li lang="en"><span class="ac">D15</span> Narration mode: single narrator by default (Chapters › Voice › Speech › Finishing › Export); multi-voice adds Script, Cast and Assembly (M11-F01…F03). Switching keeps approved takes.</li>
+        <li lang="vi"><span class="ac">D15</span> Chế độ đọc: mặc định một giọng dẫn (Chương › Giọng › Giọng đọc › Hoàn thiện › Xuất); nhiều giọng thêm Kịch bản, Phân vai và Ghép (M11-F01…F03). Chuyển chế độ vẫn giữ các bản đã duyệt.</li>
+        <li lang="en"><span class="ac">M11-F04</span> In single mode the text is split per paragraph automatically and read by one voice from Voice Lab; "Not read aloud" removes titles and notes.</li>
+        <li lang="vi"><span class="ac">M11-F04</span> Ở chế độ một giọng, văn bản được tách tự động theo đoạn văn và đọc bằng một giọng từ Phòng giọng nói; "Không đọc" loại bỏ tiêu đề và ghi chú.</li>
+      </ol>
+    </aside>
+  </section>
