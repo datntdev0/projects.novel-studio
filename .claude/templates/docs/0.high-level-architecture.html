@@ -104,8 +104,8 @@
 
 <!-- ============================================================ -->
 <h2 id="data">5. <span lang="en">Data model (high level)</span><span lang="vi">Mô hình dữ liệu (tổng quan)</span></h2>
-<p class="placeholder" lang="en">Main entities and relationships only. Field-level detail lives in each flow's solution document.</p>
-<p class="placeholder" lang="vi">Chỉ các thực thể chính và quan hệ. Chi tiết đến từng trường nằm trong tài liệu solution của mỗi flow.</p>
+<p class="placeholder" lang="en">Main entities and relationships only. Field-level detail lives in each module's solution document (<code>.claude/docs/&lt;Mxx&gt;/0.solution.html</code>).</p>
+<p class="placeholder" lang="vi">Chỉ các thực thể chính và quan hệ. Chi tiết đến từng trường nằm trong tài liệu solution của mỗi module (<code>.claude/docs/&lt;Mxx&gt;/0.solution.html</code>).</p>
 <pre class="placeholder">Entity ──&lt; Entity
 Entity ──&lt; Entity</pre>
 
@@ -137,7 +137,7 @@ Entity ──&lt; Entity</pre>
 ├── .claude/        framework docs, flows, templates
 └── …</pre>
 <ul>
-  <li><strong><span lang="en">Branching</span><span lang="vi">Nhánh</span>:</strong> <span class="placeholder" lang="en">one branch per flow: <code>flow/&lt;name&gt;</code></span><span class="placeholder" lang="vi">mỗi flow một nhánh: <code>flow/&lt;name&gt;</code></span></li>
+  <li><strong><span lang="en">Branching</span><span lang="vi">Nhánh</span>:</strong> <span class="placeholder" lang="en">one branch per flow (one work item): <code>flow/&lt;item&gt;</code>, e.g. <code>flow/m01-f01</code></span><span class="placeholder" lang="vi">mỗi flow (một hạng mục) một nhánh: <code>flow/&lt;item&gt;</code>, ví dụ <code>flow/m01-f01</code></span></li>
   <li><strong>Commits:</strong> <span lang="en">one level-1 task = one commit</span><span lang="vi">một task cấp 1 = một commit</span> — <code>&lt;type&gt;(&lt;flow&gt;): &lt;title&gt; [T&lt;n&gt;]</code></li>
   <li><strong><span lang="en">Code style</span><span lang="vi">Quy ước code</span>:</strong> <span class="placeholder">formatter / linter …</span></li>
   <li><strong>Definition of done:</strong> <span lang="en">reviewer approved · tests green · plan status updated</span><span lang="vi">reviewer đã duyệt · test xanh · trạng thái plan đã cập nhật</span></li>

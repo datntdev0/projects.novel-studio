@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{MODULE_ID}} · Requirements</title>
+<link rel="stylesheet" href="{{CSS_PATH}}">
+<script src="{{JS_PATH}}" defer></script>
+</head>
+<body>
+<main class="page">
+<!--
+  Bilingual document (EN / VI) in one file.
+  Write every sentence twice as sibling elements: lang="en" then lang="vi"
+  (<span> inline, <p>/<li> block). IDs (Mxx-Fyy, AC-n, Q1), <code>, dates, counts and status pills carry no lang attribute.
+  Written for a fast approval by the product owner:
+  - "What you approve": at most 6 rows (scope in one sentence, Stories, ACs, decisions, open questions) + the original request in one or two lines.
+  - One card per Story: the user story in one sentence, then one row per AC: AC-n · one short plain sentence · must / should / could.
+    One sentence per AC, what the user sees or can do, no implementation detail. At most 12 ACs per Story; more means split the Story.
+    Given / When / Then only in the card's collapsed detail, one row per AC, same IDs.
+  - Technical module with no Stories (e.g. M00): use the Area card (no user story, no Jira key) and title the section "Areas & acceptance criteria".
+  - Open questions stay visible; delete that block when there are none and write "none" in the card. Everything else stays folded.
+-->
+
+<header class="doc-header">
+  <p class="eyebrow">{{PROJECT_NAME}} · Module · {{MODULE_ID}} · 0</p>
+  <h1><span lang="en">Requirements</span><span lang="vi">Yêu cầu</span></h1>
+  <p class="lede" lang="en">What this module must deliver, clarified with the product owner, written as testable stories.</p>
+  <p class="lede" lang="vi">Module này phải mang lại gì, đã làm rõ với product owner, viết thành các story kiểm thử được.</p>
+  <div class="meta">
+    <span class="lang-switch" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="vi" aria-pressed="false">VI</button></span>
+    <span class="pill"><span lang="en">Status</span><span lang="vi">Trạng thái</span>: <b><span class="status draft">draft</span></b></span>
+    <span class="pill"><span lang="en">Owner</span><span lang="vi">Phụ trách</span>: <b>analyst</b></span>
+    <span class="pill"><span lang="en">Approver</span><span lang="vi">Người duyệt</span>: <b>product owner</b></span>
+    <span class="pill"><span lang="en">Updated</span><span lang="vi">Cập nhật</span>: <b>{{DATE}}</b></span>
+    <span class="pill"><span lang="en">Theme</span><span lang="vi">Chủ đề</span>: <a href="../0.high-level-requirements.html#themes"><code>TH-??</code></a></span>
+    <span class="pill"><span lang="en">Next</span><span lang="vi">Tiếp theo</span>: <a href="0.solution.html"><span lang="en">Solution</span><span lang="vi">Giải pháp</span></a></span>
+  </div>
+</header>
+
+<section class="approve" id="approve">
+  <h2><span lang="en">What you approve</span><span lang="vi">Bạn cần duyệt</span></h2>
+  <dl class="facts">
+    <dt><span lang="en">Scope</span><span lang="vi">Phạm vi</span></dt>
+    <dd><span class="placeholder" lang="en">One sentence: what this module gives the user.</span><span class="placeholder" lang="vi">Một câu: module này mang lại gì cho người dùng.</span></dd>
+    <dt><span lang="en">Stories</span><span lang="vi">Story</span></dt>
+    <dd><b>2</b> · <a href="#{{MODULE_ID}}-F01"><code>{{MODULE_ID}}-F01</code></a> · <a href="#{{MODULE_ID}}-F02"><code>{{MODULE_ID}}-F02</code></a> <span class="status open">new</span></dd>
+    <dt><span lang="en">Acceptance criteria</span><span lang="vi">Tiêu chí chấp nhận</span></dt>
+    <dd><b>3</b> · must 2 · should 1 · could 0</dd>
+    <dt><span lang="en">Decisions</span><span lang="vi">Quyết định</span></dt>
+    <dd><span lang="en"><b>1</b> taken by you (<a href="#Q1">Q1</a>) · <b>1</b> default accepted (<a href="#Q2">Q2</a>)</span><span lang="vi"><b>1</b> do bạn quyết định (<a href="#Q1">Q1</a>) · <b>1</b> mặc định được chấp nhận (<a href="#Q2">Q2</a>)</span></dd>
+    <dt><span lang="en">Open questions</span><span lang="vi">Câu hỏi còn mở</span></dt>
+    <dd><a href="#open"><b>1</b></a> · <span lang="en">answer before approving</span><span lang="vi">cần trả lời trước khi duyệt</span></dd>
+  </dl>
+  <p class="quote"><span lang="en">Original request ({{DATE}}): “<span class="placeholder">short quote, translated</span>”</span><span lang="vi">Yêu cầu gốc ({{DATE}}): “<span class="placeholder">trích ngắn, nguyên văn</span>”</span></p>
+</section>
+
+<div class="callout warn" id="open">
+  <span class="label"><span lang="en">Open questions · answer before approving</span><span lang="vi">Câu hỏi còn mở · cần trả lời trước khi duyệt</span></span>
+  <ul>
+    <li><code>Q3</code> <span class="placeholder" lang="en">Question? Recommended default: …</span><span class="placeholder" lang="vi">Câu hỏi? Mặc định đề xuất: …</span></li>
+  </ul>
+</div>
+
+<h2 id="stories"><span lang="en">Stories &amp; acceptance criteria</span><span lang="vi">Story &amp; tiêu chí chấp nhận</span></h2>
+<p class="muted" lang="en"><code>AC-n</code> is unique in the module and never renumbered once the solution is approved; Tasks (<code>Mxx-Tyy</code>) continue the sequence in <a href="0.solution.html">Solution</a>. Priority: <span class="status open">must</span> · <span class="status review">should</span> · <span class="status todo">could</span>.</p>
+<p class="muted" lang="vi"><code>AC-n</code> là duy nhất trong module và không đánh số lại sau khi giải pháp được duyệt; các Task (<code>Mxx-Tyy</code>) đánh số tiếp trong <a href="0.solution.html">Giải pháp</a>. Ưu tiên: <span class="status open">must</span> · <span class="status review">should</span> · <span class="status todo">could</span>.</p>
+
+<section class="story" id="{{MODULE_ID}}-F01">
+  <div class="story-head">
+    <h3><code>{{MODULE_ID}}-F01</code> · <span class="placeholder" lang="en">title</span><span class="placeholder" lang="vi">tiêu đề</span></h3>
+    <span class="story-meta"><code class="placeholder">JIRA-1</code> · 2 AC</span>
+  </div>
+  <p class="story-line" lang="en"><em>As a</em> <span class="placeholder">persona</span>, <em>I want</em> <span class="placeholder">…</span>, <em>so that</em> <span class="placeholder">…</span>.</p>
+  <p class="story-line" lang="vi"><em>Là</em> <span class="placeholder">chân dung</span>, <em>tôi muốn</em> <span class="placeholder">…</span>, <em>để</em> <span class="placeholder">…</span>.</p>
+  <ul class="ac-list">
+    <li><code>AC-1</code><span class="placeholder" lang="en">One short sentence the user can check.</span><span class="placeholder" lang="vi">Một câu ngắn người dùng kiểm tra được.</span><span class="status open">must</span></li>
+    <li><code>AC-2</code><span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span><span class="status review">should</span></li>
+  </ul>
+  <details class="gwt">
+    <summary><span lang="en">Detail · Given / When / Then</span><span lang="vi">Chi tiết · Cho trước / Khi / Thì</span></summary>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>ID</th><th><span lang="en">Given</span><span lang="vi">Cho trước</span></th><th><span lang="en">When</span><span lang="vi">Khi</span></th><th><span lang="en">Then</span><span lang="vi">Thì</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>AC-1</code></td><td><span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></td><td><span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></td><td><span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></td></tr>
+        <tr><td><code>AC-2</code></td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </details>
+</section>
+
+<section class="story" id="{{MODULE_ID}}-F02">
+  <div class="story-head">
+    <h3><code>{{MODULE_ID}}-F02</code> · <span class="placeholder" lang="en">title</span><span class="placeholder" lang="vi">tiêu đề</span> <span class="status open">new</span></h3>
+    <span class="story-meta">1 AC</span>
+  </div>
+  <p class="story-line placeholder">…</p>
+  <ul class="ac-list">
+    <li><code>AC-3</code><span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span><span class="status open">must</span></li>
+  </ul>
+  <details class="gwt">
+    <summary><span lang="en">Detail · Given / When / Then</span><span lang="vi">Chi tiết · Cho trước / Khi / Thì</span></summary>
+    <p class="placeholder">…</p>
+  </details>
+</section>
+
+<section class="story" id="area-name">
+  <div class="story-head">
+    <h3><span lang="en">Area</span><span lang="vi">Mảng</span> · <span class="placeholder" lang="en">name</span><span class="placeholder" lang="vi">tên</span></h3>
+    <span class="story-meta">1 AC</span>
+  </div>
+  <p class="story-line placeholder" lang="en">Technical module with no Stories only: one card like this per area, in place of the Story cards.</p>
+  <p class="story-line placeholder" lang="vi">Chỉ dùng cho module kỹ thuật không có Story: mỗi mảng một thẻ như thế này, thay cho thẻ Story.</p>
+  <ul class="ac-list">
+    <li><code>AC-n</code><span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span><span class="status open">must</span></li>
+  </ul>
+  <details class="gwt">
+    <summary><span lang="en">Detail · Given / When / Then</span><span lang="vi">Chi tiết · Cho trước / Khi / Thì</span></summary>
+    <p class="placeholder">…</p>
+  </details>
+</section>
+
+<h2 id="more"><span lang="en">Supporting detail</span><span lang="vi">Chi tiết bổ sung</span></h2>
+
+<details class="fold" id="nfr">
+  <summary><span lang="en">Non-functional requirements</span><span lang="vi">Yêu cầu phi chức năng</span> <span class="count">1</span></summary>
+  <ul>
+    <li><code>NFR-1</code> <span class="placeholder" lang="en">performance / accessibility / offline / data retention …</span><span class="placeholder" lang="vi">hiệu năng / khả năng tiếp cận / offline / lưu giữ dữ liệu …</span></li>
+  </ul>
+</details>
+
+<details class="fold" id="scope">
+  <summary><span lang="en">Scope</span><span lang="vi">Phạm vi</span> <span class="count"><span lang="en">1 in · 1 out</span><span lang="vi">1 trong · 1 ngoài</span></span></summary>
+  <div class="grid cols-2">
+    <div class="card"><h4><span lang="en">In scope</span><span lang="vi">Trong phạm vi</span></h4><ul><li><span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></li></ul></div>
+    <div class="card"><h4><span lang="en">Out of scope</span><span lang="vi">Ngoài phạm vi</span></h4><ul><li><span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></li></ul></div>
+  </div>
+</details>
+
+<details class="fold" id="clarifications">
+  <summary><span lang="en">Clarification log</span><span lang="vi">Nhật ký làm rõ</span> <span class="count">2 · PO 1 · default 1</span></summary>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>#</th><th><span lang="en">Question</span><span lang="vi">Câu hỏi</span></th><th><span lang="en">Answer</span><span lang="vi">Trả lời</span></th><th><span lang="en">Source</span><span lang="vi">Nguồn</span></th><th><span lang="en">Affects</span><span lang="vi">Ảnh hưởng</span></th></tr></thead>
+    <tbody>
+      <tr id="Q1"><td>Q1</td><td><span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></td><td><span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></td><td><span class="status approved">PO</span></td><td><code>AC-1</code></td></tr>
+      <tr id="Q2"><td>Q2</td><td><span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></td><td><span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></td><td><span class="status draft">default</span></td><td><code>AC-2</code></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="muted" lang="en"><span class="status approved">PO</span> answered by the product owner · <span class="status draft">default</span> the analyst's recommended default, accepted with this document.</p>
+  <p class="muted" lang="vi"><span class="status approved">PO</span> do product owner trả lời · <span class="status draft">default</span> mặc định analyst đề xuất, được chấp nhận cùng tài liệu này.</p>
+</details>
+
+<details class="fold" id="deps">
+  <summary><span lang="en">Dependencies &amp; assumptions</span><span lang="vi">Phụ thuộc &amp; giả định</span> <span class="count">2</span></summary>
+  <ul>
+    <li><strong><span lang="en">Depends on modules</span><span lang="vi">Phụ thuộc module</span>:</strong> <span class="placeholder">…</span></li>
+    <li><strong><span lang="en">Assumes</span><span lang="vi">Giả định</span>:</strong> <span class="placeholder" lang="en">…</span><span class="placeholder" lang="vi">…</span></li>
+  </ul>
+</details>
+
+<footer class="doc-footer">
+  <span lang="en">Produced by the <code>solution</code> skill · agent: analyst · template:</span>
+  <span lang="vi">Tạo bởi skill <code>solution</code> · agent: analyst · template:</span>
+  <code>.claude/templates/modules/0.requirements.html</code>
+</footer>
+</main>
+</body>
+</html>

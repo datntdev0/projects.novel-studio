@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
-"""Print the state of every flow: which stage documents exist and plan task statuses.
+"""Print the state of every module (requirements, solution) and every flow (plan task statuses, test report).
 
 Usage: python .claude/scripts/status.py
 """
 from __future__ import annotations
 
 import re
+import sys
 from collections import Counter
 from pathlib import Path
 
 CLAUDE_DIR = Path(__file__).resolve().parent.parent
+DOCS = CLAUDE_DIR / "docs"
 FLOWS = CLAUDE_DIR / "flows"
-STAGES = ["0.requirements.html", "0.solution.html", "1.plan.md", "2.review.md", "3.test-report.html"]
 STATUSES = ("todo", "doing", "review", "done", "blocked")
 
 
@@ -35,23 +36,33 @@ def plan_summary(path: Path) -> str:
     return f"{plan_status} ({tasks})"
 
 
+def folders(parent: Path, pattern: str) -> list[Path]:
+    return sorted(p for p in parent.glob(pattern) if p.is_dir())
+
+
 def main() -> None:
-    docs = CLAUDE_DIR / "docs"
+    sys.stdout.reconfigure(encoding="utf-8")
     print("Kickoff docs:")
     for name in ("0.high-level-requirements.html", "0.high-level-architecture.html", "0.design-system.html"):
-        print(f"  {name:36} {doc_status(docs / name)}")
+        print(f"  {name:36} {doc_status(DOCS / name)}")
 
-    flows = sorted(p for p in FLOWS.iterdir() if p.is_dir()) if FLOWS.exists() else []
+    modules = folders(DOCS, "M[0-9][0-9]")
+    print(f"\nModules ({len(modules)}):")
+    if not modules:
+        print("  none — start one with: /solution <Mxx>")
+    for module in modules:
+        flows = ", ".join(f.name for f in folders(FLOWS, f"{module.name.lower()}-*")) or "-"
+        print(f"  {module.name}  requirements {doc_status(module / '0.requirements.html')} · solution {doc_status(module / '0.solution.html')} · flows {flows}")
+
+    flows = folders(FLOWS, "*")
     print(f"\nFlows ({len(flows)}):")
     if not flows:
-        print("  none — start one with: python .claude/scripts/scaffold.py flow <name>")
+        print("  none — start one with: /planning <Mxx-Fyy|Mxx-Tyy>")
     for flow in flows:
         print(f"  {flow.name}")
-        print(f"    requirements  {doc_status(flow / STAGES[0])}")
-        print(f"    solution      {doc_status(flow / STAGES[1])}")
-        print(f"    plan          {plan_summary(flow / STAGES[2])}")
-        print(f"    review log    {'present' if (flow / STAGES[3]).exists() else '-'}")
-        print(f"    test report   {doc_status(flow / STAGES[4])}")
+        print(f"    plan          {plan_summary(flow / '1.plan.md')}")
+        print(f"    review log    {'present' if (flow / '2.review.md').exists() else '-'}")
+        print(f"    test report   {doc_status(flow / '3.test-report.html')}")
 
 
 if __name__ == "__main__":

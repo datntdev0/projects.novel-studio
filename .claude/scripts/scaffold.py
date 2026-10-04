@@ -3,12 +3,13 @@
 
 Usage:
   python .claude/scripts/scaffold.py docs                # kickoff docs + mockups
-  python .claude/scripts/scaffold.py flow <name>         # .claude/flows/<name>/
+  python .claude/scripts/scaffold.py module <Mxx>        # .claude/docs/<Mxx>/ (e.g. M01)
+  python .claude/scripts/scaffold.py flow <item>         # .claude/flows/<item>/ (e.g. m01-f01, m01-t02)
   python .claude/scripts/scaffold.py ... --project NAME  # override project name
   python .claude/scripts/scaffold.py ... --force         # overwrite existing files
 
 Placeholders replaced in every copied text file:
-  {{PROJECT_NAME}}  {{FLOW_NAME}}  {{DATE}}  {{CSS_PATH}}  {{JS_PATH}}
+  {{PROJECT_NAME}}  {{MODULE_ID}}  {{FLOW_NAME}}  {{ITEM_ID}}  {{DATE}}  {{CSS_PATH}}  {{JS_PATH}}
 """
 from __future__ import annotations
 
@@ -66,26 +67,34 @@ def asset_paths_from(folder: Path) -> dict[str, str]:
     }
 
 
+def scaffold_folder(template: str, folder: Path, values: dict[str, str], force: bool) -> None:
+    copy_tree(TEMPLATES / template, folder, {**values, **asset_paths_from(folder)}, force)
+
+
 def scaffold_docs(values: dict[str, str], force: bool) -> None:
-    docs = CLAUDE_DIR / "docs"
     print("Kickoff documents:")
-    copy_tree(TEMPLATES / "docs", docs, {**values, **asset_paths_from(docs)}, force)
+    scaffold_folder("docs", CLAUDE_DIR / "docs", values, force)
     print("Prototype:")
     copy_tree(TEMPLATES / "mockups", CLAUDE_DIR / "mockups", values, force)
     build_mockups(CLAUDE_DIR / "mockups")
 
 
+def scaffold_module(module_id: str, values: dict[str, str], force: bool) -> None:
+    if not re.fullmatch(r"M\d{2}", module_id):
+        sys.exit(f"module id must look like M01, got: {module_id!r}")
+    print(f"Module '{module_id}':")
+    scaffold_folder("modules", CLAUDE_DIR / "docs" / module_id, {**values, "MODULE_ID": module_id}, force)
+
+
 def scaffold_flow(name: str, values: dict[str, str], force: bool) -> None:
-    if not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", name):
-        sys.exit(f"flow name must be kebab-case, got: {name!r}")
+    if not re.fullmatch(r"m\d{2}-[ft]\d{2}", name):
+        sys.exit(f"flow name must be a work item id in lower case (m01-f01, m01-t02), got: {name!r}")
     folder = CLAUDE_DIR / "flows" / name
+    item_id = name.upper()
+    if not (CLAUDE_DIR / "docs" / item_id[:3] / "0.solution.html").exists():
+        sys.exit(f"module {item_id[:3]} has no solution yet: run /solution {item_id[:3]} first")
     print(f"Flow '{name}':")
-    copy_tree(
-        TEMPLATES / "flows",
-        folder,
-        {**values, "FLOW_NAME": name, **asset_paths_from(folder)},
-        force,
-    )
+    scaffold_folder("flows", folder, {**values, "FLOW_NAME": name, "ITEM_ID": item_id, "MODULE_ID": item_id[:3]}, force)
     (folder / "evidence").mkdir(exist_ok=True)
 
 
@@ -93,10 +102,12 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
     docs = sub.add_parser("docs", help="scaffold kickoff docs and mockups")
-    flow = sub.add_parser("flow", help="scaffold a flow folder")
+    module = sub.add_parser("module", help="scaffold a module folder under docs/")
+    module.add_argument("name")
+    flow = sub.add_parser("flow", help="scaffold a flow folder for one work item")
     flow.add_argument("name")
     # accept the options before or after the subcommand
-    for p in (parser, docs, flow):
+    for p in (parser, docs, module, flow):
         p.add_argument("--project", help="project name (default: README heading or folder name)")
         p.add_argument("--force", action="store_true", help="overwrite existing files")
     args = parser.parse_args()
@@ -104,6 +115,8 @@ def main() -> None:
     values = {"PROJECT_NAME": project_name(args.project), "DATE": date.today().isoformat()}
     if args.command == "docs":
         scaffold_docs(values, args.force)
+    elif args.command == "module":
+        scaffold_module(args.name, values, args.force)
     else:
         scaffold_flow(args.name, values, args.force)
 

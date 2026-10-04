@@ -1,6 +1,6 @@
 ---
 name: planning
-description: Phase 2 of a flow. Turn an approved solution into a two-level task plan (sequential commit tasks, parallel subagent subtasks) including the playwright-cli automation task. Usage: /planning <flow-name>.
+description: Phase 2, per work item. Turn one approved Story (Mxx-Fyy) or technical Task (Mxx-Tyy) of a module into a flow with a two-level task plan (sequential commit tasks, parallel subagent subtasks) including the playwright-cli automation task. Usage: /planning <Mxx-Fyy|Mxx-Tyy>.
 disable-model-invocation: true
 ---
 
@@ -8,23 +8,29 @@ disable-model-invocation: true
 
 **Participants:** product owner (human) · architect (Opus) · coder (Sonnet) · verifier (Sonnet)
 **Delegation:** see *Delegation* in `.claude/README.md`. The main session does not write the plan itself.
-**Input:** `.claude/flows/<name>/0.requirements.html` and `0.solution.html`, both approved.
-**Output:** `.claude/flows/<name>/1.plan.md` (template `templates/flows/1.plan.md`).
+**Input:** one work item ID from the *Work items* table of `.claude/docs/<Mxx>/0.solution.html`; that document and `0.requirements.html` are approved.
+**Output:** flow `.claude/flows/<item>/` (item ID in lower case, e.g. `m01-f01`) with `1.plan.md` (template `templates/flows/1.plan.md`) · Jira Subtasks per `tool-atlassian` (after confirmation).
 
 ## Steps
 
-1. **Read inputs** — launch the `architect` subagent (Opus); it reads both documents and the current codebase areas named in the solution's *Components touched* table.
+0. **Scaffold** the flow: `python .claude/scripts/scaffold.py flow <item>` (e.g. `m01-f01`). Check that the item's dependencies in the work items table are `done`, or that the product owner accepts starting early.
+1. **Read inputs** — launch the `architect` subagent (Opus); it reads the item's row and section in `0.solution.html`, its `AC-n` (Story: in `0.requirements.html`; Task: in `0.solution.html`), the shared technical design, and the current codebase areas named in the item's *Components touched* table.
 2. **Draft level-1 tasks** — architect.
    - Each task = one commit, leaves the app working, is reviewable on its own. Order them so later tasks build on earlier ones (data → logic → UI is a common order).
    - For each task: *Goal*, *Covers* (`AC-n`), *Done when*, *Reviewer focus*.
 3. **Split into level-2 subtasks** — architect, then a `coder` subagent (Sonnet) sanity-checks feasibility and file ownership (read-only, reports issues).
    - Subtasks under one task run in parallel, so each lists the files it owns exclusively. Overlap → merge or re-split.
    - Typical size: one subagent, one sitting, a handful of files.
-4. **Add the automation task** — a `verifier` subagent (Sonnet) drafts the last task: one e2e scenario per `must` AC using `playwright-cli`, specs under `tests/e2e/<name>/`. Include fixtures / seed data subtasks if needed.
+4. **Add the automation task** — a `verifier` subagent (Sonnet) drafts the last task: one e2e scenario per `must` AC of the item using `playwright-cli`, specs under `verify/specs/<flow>/`. Include fixtures / seed data subtasks if needed.
 5. **Fill the task overview table** and the change log.
-6. ⛔ **Gate** — product owner approves the plan (status `approved`). Only then may `/coding` start.
+6. ⛔ **Gate** — product owner approves the plan (status `approved`). Then set the item's *Status* to `planned`, linked to the flow, in the work items table of `0.solution.html`. Only then may `/coding` start.
+7. **Jira sync** — see `tool-atlassian`.
+   - The `architect` (read-only) compares the approved plan with Jira: for each level-1 task `T<n>`, its Subtask under the item's Story / Task. It returns a change list: **create**, **update** (summary, description that differ), **extra** (in Jira, not in the plan — report only).
+   - The main session shows the change list to the product owner and asks to confirm. Yes → apply it, then write the keys into `1.plan.md` (header `Jira` row, `Jira` column of the task overview) and the change log. No → skip; the plan stays approved.
+   - Re-run this step whenever the plan changes later (e.g. fix tasks added by `/testing`).
 
 ## Rules
+- One flow = one work item. Never plan two items in one flow, and never plan an item that is not in the approved work items table.
 - No code is written during planning.
 - A task that cannot state *Done when* in one observable sentence is not ready; split or clarify.
-- Keep plans short: ideally 3–6 level-1 tasks. Longer means the flow should be split in `/solution`.
+- Keep plans short: ideally 3–6 level-1 tasks. Longer means the item should be split in `/solution` of its module.
