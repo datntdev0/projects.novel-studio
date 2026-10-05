@@ -1,6 +1,6 @@
 ---
 name: testing
-description: Phase 4 of a flow (one work item). Verify the final output of a completed plan with playwright-cli, produce the test report and get the product owner's acceptance. Usage: /testing <flow>.
+description: Phase 4 of a flow (one work item). Verify the final output of a completed plan with Playwright Test (playwright-cli for the exploratory pass), produce the test report and get the product owner's acceptance. Usage: /testing <flow>.
 disable-model-invocation: true
 ---
 
@@ -13,7 +13,7 @@ disable-model-invocation: true
 
 ## Steps
 
-1. **Run** — *verifier* starts the app as documented in the architecture doc and runs the flow's e2e suite with `playwright-cli` on the final commit. Collect screenshots / traces into `evidence/`.
+1. **Run** — *verifier* starts the app as documented in the architecture doc and runs the flow's e2e suite with `pnpm verify <flow>` (Playwright Test) on the final commit. Collect screenshots / traces into `evidence/`.
 2. **Exploratory pass** — verifier walks the item's part of the UX flow in `.claude/docs/<Mxx>/0.solution.html` once manually via `playwright-cli`, looking for anything the scenarios do not cover (empty states, errors, mobile width).
 3. **Report** — fill the test report: environment, AC coverage, scenarios, defects, verdict.
 4. **Triage defects** with the product owner:

@@ -24,7 +24,7 @@ disable-model-invocation: true
 5. **Review.** Launch the *reviewer* for `T<n>`. Task status `review`.
    - `changes-requested` → send blockers/majors back to the owning coder(s), then re-review. Max two rounds; after that, escalate to the product owner.
    - `approved` → continue.
-6. **Commit.** One commit: `<type>(<flow>): <task title> [T<n>]`. Record the SHA in the task overview table, task status `done`. Jira sync on → move the `T<n>` Subtask to `Done`.
+6. **Commit.** One commit: `<type>(<flow>): <task title>`. Record the SHA in the task overview table, task status `done`. Jira sync on → move the `T<n>` Subtask to `Done`.
 7. Next task. After the last task set plan status `done` and suggest `/testing <flow>`.
 
 ## Rules

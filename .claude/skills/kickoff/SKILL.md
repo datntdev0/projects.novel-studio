@@ -32,7 +32,7 @@ Scaffold them with: `python .claude/scripts/scaffold.py docs`
    - Write `0.high-level-requirements.html` in both languages (EN + VI, see Rules). Status `draft`.
    - ⛔ **Gate 1** — product owner reviews the document in the browser and approves (status → `approved`) or answers more questions.
 3. **Propose architecture** — launch the `architect` subagent (Opus).
-   - Propose a technical stack with alternatives, system context, components, conventions, ADR-lite decisions. Testing row must include `playwright-cli`.
+   - Propose a technical stack with alternatives, system context, components, conventions, ADR-lite decisions. Testing row must include Playwright Test for e2e specs (`playwright-cli` is for agents' manual work only).
    - Write `0.high-level-architecture.html`.
    - ⛔ **Gate 2** — product owner approves the stack.
 4. **Design system & prototype** — design on Opus, build on Sonnet.

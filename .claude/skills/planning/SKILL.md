@@ -1,6 +1,6 @@
 ---
 name: planning
-description: Phase 2, per work item. Turn one approved Story (Mxx-Fyy) or technical Task (Mxx-Tyy) of a module into a flow with a two-level task plan (sequential commit tasks, parallel subagent subtasks) including the playwright-cli automation task. Usage: /planning <Mxx-Fyy|Mxx-Tyy>.
+description: Phase 2, per work item. Turn one approved Story (Mxx-Fyy) or technical Task (Mxx-Tyy) of a module into a flow with a two-level task plan (sequential commit tasks, parallel subagent subtasks) including the Playwright Test automation task. Usage: /planning <Mxx-Fyy|Mxx-Tyy>.
 disable-model-invocation: true
 ---
 
@@ -21,7 +21,7 @@ disable-model-invocation: true
 3. **Split into level-2 subtasks** — architect, then a `coder` subagent (Sonnet) sanity-checks feasibility and file ownership (read-only, reports issues).
    - Subtasks under one task run in parallel, so each lists the files it owns exclusively. Overlap → merge or re-split.
    - Typical size: one subagent, one sitting, a handful of files.
-4. **Add the automation task** — a `verifier` subagent (Sonnet) drafts the last task: one e2e scenario per `must` AC of the item using `playwright-cli`, specs under `verify/specs/<flow>/`. Include fixtures / seed data subtasks if needed.
+4. **Add the automation task** — a `verifier` subagent (Sonnet) drafts the last task: one e2e scenario per `must` AC of the item as a Playwright Test spec under `verify/specs/<flow>/`, run by `pnpm verify <flow>`. Include shared fixtures / seed data subtasks if needed.
 5. **Fill the task overview table** and the change log.
 6. ⛔ **Gate** — product owner approves the plan (status `approved`). Then set the item's *Status* to `planned`, linked to the flow, in the work items table of `0.solution.html`. Only then may `/coding` start.
 7. **Jira sync** — see `tool-atlassian`.

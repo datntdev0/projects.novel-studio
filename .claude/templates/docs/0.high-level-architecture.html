@@ -47,8 +47,8 @@
 <!-- ============================================================ -->
 <h2 id="principles">1. <span lang="en">Principles</span><span lang="vi">Nguyên tắc</span></h2>
 <ul>
-  <li class="placeholder" lang="en">e.g. local-first · boring tech · one deployable · every feature testable via playwright-cli …</li>
-  <li class="placeholder" lang="vi">ví dụ: local-first · công nghệ quen thuộc · một gói triển khai · mọi tính năng kiểm thử được bằng playwright-cli …</li>
+  <li class="placeholder" lang="en">e.g. local-first · boring tech · one deployable · every feature testable via Playwright Test …</li>
+  <li class="placeholder" lang="vi">ví dụ: local-first · công nghệ quen thuộc · một gói triển khai · mọi tính năng kiểm thử được bằng Playwright Test …</li>
 </ul>
 
 <!-- ============================================================ -->
@@ -68,7 +68,7 @@
     <tr><td><span lang="en">State / data</span><span lang="vi">State / dữ liệu</span></td><td class="placeholder">…</td><td></td><td></td><td></td></tr>
     <tr><td><span lang="en">Storage</span><span lang="vi">Lưu trữ</span></td><td class="placeholder">…</td><td></td><td></td><td></td></tr>
     <tr><td><span lang="en">Build / tooling</span><span lang="vi">Build / công cụ</span></td><td class="placeholder">…</td><td></td><td></td><td></td></tr>
-    <tr><td><span lang="en">Testing</span><span lang="vi">Kiểm thử</span></td><td>playwright-cli (e2e) · <span class="placeholder" lang="en">unit runner …</span><span class="placeholder" lang="vi">unit runner …</span></td><td></td><td><span lang="en">Required by the <code>testing</code> skill</span><span lang="vi">Bắt buộc bởi skill <code>testing</code></span></td><td></td></tr>
+    <tr><td><span lang="en">Testing</span><span lang="vi">Kiểm thử</span></td><td>Playwright Test (e2e specs) · playwright-cli <span lang="en">(manual exploration, mockup screenshots)</span><span lang="vi">(khám phá thủ công, chụp màn hình mockup)</span> · <span class="placeholder" lang="en">unit runner …</span><span class="placeholder" lang="vi">unit runner …</span></td><td></td><td><span lang="en">Required by the <code>testing</code> skill</span><span lang="vi">Bắt buộc bởi skill <code>testing</code></span></td><td></td></tr>
     <tr><td><span lang="en">Hosting / packaging</span><span lang="vi">Hosting / đóng gói</span></td><td class="placeholder">…</td><td></td><td></td><td></td></tr>
   </tbody>
 </table>
@@ -122,7 +122,7 @@ Entity ──&lt; Entity</pre>
     <tr><td><span lang="en">Persistence &amp; migrations</span><span lang="vi">Lưu trữ &amp; migration</span></td><td class="placeholder">…</td></tr>
     <tr><td><span lang="en">Error handling &amp; logging</span><span lang="vi">Xử lý lỗi &amp; logging</span></td><td class="placeholder">…</td></tr>
     <tr><td><span lang="en">Configuration &amp; secrets</span><span lang="vi">Cấu hình &amp; bí mật</span></td><td class="placeholder">…</td></tr>
-    <tr><td><span lang="en">Testing strategy</span><span lang="vi">Chiến lược kiểm thử</span></td><td><span class="placeholder" lang="en">unit · integration · e2e (playwright-cli) — what goes where</span><span class="placeholder" lang="vi">unit · integration · e2e (playwright-cli) — cái gì kiểm ở đâu</span></td></tr>
+    <tr><td><span lang="en">Testing strategy</span><span lang="vi">Chiến lược kiểm thử</span></td><td><span class="placeholder" lang="en">unit · integration · e2e (Playwright Test) — what goes where</span><span class="placeholder" lang="vi">unit · integration · e2e (Playwright Test) — cái gì kiểm ở đâu</span></td></tr>
     <tr><td><span lang="en">Performance budgets</span><span lang="vi">Ngân sách hiệu năng</span></td><td class="placeholder">…</td></tr>
     <tr><td><span lang="en">Accessibility &amp; i18n</span><span lang="vi">Khả năng tiếp cận &amp; i18n</span></td><td class="placeholder">…</td></tr>
   </tbody>
@@ -138,7 +138,7 @@ Entity ──&lt; Entity</pre>
 └── …</pre>
 <ul>
   <li><strong><span lang="en">Branching</span><span lang="vi">Nhánh</span>:</strong> <span class="placeholder" lang="en">one branch per flow (one work item): <code>flow/&lt;item&gt;</code>, e.g. <code>flow/m01-f01</code></span><span class="placeholder" lang="vi">mỗi flow (một hạng mục) một nhánh: <code>flow/&lt;item&gt;</code>, ví dụ <code>flow/m01-f01</code></span></li>
-  <li><strong>Commits:</strong> <span lang="en">one level-1 task = one commit</span><span lang="vi">một task cấp 1 = một commit</span> — <code>&lt;type&gt;(&lt;flow&gt;): &lt;title&gt; [T&lt;n&gt;]</code></li>
+  <li><strong>Commits:</strong> <span lang="en">one level-1 task = one commit</span><span lang="vi">một task cấp 1 = một commit</span> — <code>&lt;type&gt;(&lt;flow&gt;): &lt;title&gt;</code></li>
   <li><strong><span lang="en">Code style</span><span lang="vi">Quy ước code</span>:</strong> <span class="placeholder">formatter / linter …</span></li>
   <li><strong>Definition of done:</strong> <span lang="en">reviewer approved · tests green · plan status updated</span><span lang="vi">reviewer đã duyệt · test xanh · trạng thái plan đã cập nhật</span></li>
 </ul>
