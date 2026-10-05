@@ -3,10 +3,9 @@
   "compilerOptions": {
     "module": "nodenext",
     "moduleResolution": "nodenext",
-    "allowJs": true,
-    "checkJs": true,
+    "allowImportingTsExtensions": true,
     "noEmit": true,
     "types": ["node"]
   },
-  "include": ["**/*.mjs"]
+  "include": ["**/*.ts"]
 }

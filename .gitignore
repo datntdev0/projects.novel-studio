@@ -24,3 +24,6 @@ dist
 
 # Vendored binaries
 vendor/ffmpeg/
+
+# Playwright test output
+verify/test-results/

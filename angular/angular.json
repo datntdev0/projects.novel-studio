@@ -21,9 +21,14 @@
           },
           "configurations": {
             "production": { "outputHashing": "all" },
-            "development": { "optimization": false, "sourceMap": true, "extractLicenses": false }
+            "development": { "optimization": false, "sourceMap": true, "extractLicenses": false },
+            "e2e": { "optimization": false, "sourceMap": true, "extractLicenses": false }
           },
           "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": { "e2e": { "buildTarget": "angular:build:e2e", "watch": false, "liveReload": false, "hmr": false } }
         }
       }
     }

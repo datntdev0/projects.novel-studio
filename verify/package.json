@@ -5,5 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "tsc -p ."
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0"
   }
 }
