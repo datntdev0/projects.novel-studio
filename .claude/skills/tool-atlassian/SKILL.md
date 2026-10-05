@@ -6,7 +6,7 @@ user-invocable: false
 
 # Tool — Atlassian (Jira)
 
-**Purpose:** one place for the Jira facts and conventions used by `/solution`, `/planning`, `/coding` and `/testing`. Module solutions in `.claude/docs/<Mxx>/` and plans in `.claude/flows/` stay the source of truth for work; Jira mirrors them for tracking.
+**Purpose:** one place for the Jira facts and conventions used by `/solution`, `/planning`, `/coding`, `/testing` and `/implement`. Module solutions in `.claude/docs/<Mxx>/` and plans in `.claude/flows/` stay the source of truth for work; Jira mirrors them for tracking.
 
 ## Space
 
@@ -92,6 +92,7 @@ python .claude/scripts/jira.py fix-version <NAME> <KEY>...     # add a release t
 - Reading is free for the main session and subagents.
 - Every write (create, edit, transition, link, comment, version, fixVersion) is done only by the main session, and only after the product owner confirms the concrete list of changes in the chat.
 - Status moves in `/coding` are confirmed once per run (its step 0); the yes covers only the moves `/coding` defines, for that run.
+- `/implement` confirms once per run (its step 1); with `--auto` the flag itself is the confirmation. Either covers only the moves `/implement` defines, for that run.
 - Subagents never write to Jira; they return proposed changes in their report.
 - Never delete Jira issues; report extras instead.
 - Never print, echo or commit the API token.

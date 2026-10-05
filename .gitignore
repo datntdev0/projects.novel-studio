@@ -1,5 +1,6 @@
 # Claude's framework temporary files
 .claude/mockups/screenshots/
+.claude/flows/
 
 # Playwright CLI temporary files
 .playwright-cli/
