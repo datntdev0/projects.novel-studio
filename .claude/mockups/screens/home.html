@@ -4,67 +4,139 @@
       <div class="ws-toolbar">
         <h2><span lang="en">Home</span><span lang="vi">Trang chủ</span></h2>
         <span class="spacer"></span>
-        <button class="btn sm" data-go="import" data-testid="home-import"><svg class="icon sm"><use href="#i-download"/></svg><span lang="en">Import novel</span><span lang="vi">Nhập truyện</span><kbd>Ctrl</kbd><kbd>O</kbd></button>
-        <button class="btn primary sm" data-go="library" data-testid="home-open-library"><svg class="icon sm"><use href="#i-library"/></svg><span lang="en">Open library</span><span lang="vi">Mở thư viện</span></button>
+        <div class="segmented proto" data-mode-for="#home" data-testid="home-state-preview">
+          <button data-mode="filled" aria-pressed="true" data-testid="home-state-filled"><span lang="en">Filled</span><span lang="vi">Có dữ liệu</span></button>
+          <button data-mode="empty" aria-pressed="false" data-testid="home-state-empty"><span lang="en">Empty</span><span lang="vi">Trống</span></button>
+          <button data-mode="loading" aria-pressed="false" data-testid="home-state-loading"><span lang="en">Loading</span><span lang="vi">Đang tải</span></button>
+          <button data-mode="error" aria-pressed="false" data-testid="home-state-error"><span lang="en">Error</span><span lang="vi">Lỗi</span></button>
+          <button data-mode="first" aria-pressed="false" data-testid="home-state-first"><span lang="en">First launch</span><span lang="vi">Lần đầu</span></button>
+        </div>
+        <button class="btn sm" data-mode-only="filled empty loading error" data-go="import" data-testid="home-import"><svg class="icon sm"><use href="#i-download"/></svg><span lang="en">Import novel</span><span lang="vi">Nhập truyện</span><kbd>Ctrl</kbd><kbd>O</kbd></button>
+        <button class="btn primary sm" data-mode-only="filled empty loading error" data-go="library" data-testid="home-open-library"><svg class="icon sm"><use href="#i-library"/></svg><span lang="en">Open library</span><span lang="vi">Mở thư viện</span></button>
       </div>
       <div class="ws-body">
         <div class="ws-page">
-          <div class="cards" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+          <div class="cards" data-mode-only="filled empty loading error" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
             <div class="card" data-testid="home-library-folder">
-              <div class="card-head"><svg class="icon lg muted"><use href="#i-folder"/></svg><h3><span lang="en">Library folder</span><span lang="vi">Thư mục thư viện</span></h3><span class="pill success"><span lang="en">Ready</span><span lang="vi">Sẵn sàng</span></span></div>
-              <code style="font-size:11px">D:\NovelStudio\Library</code>
-              <p class="meta" style="margin-top:6px"><span lang="en">7 novels · 9,812 chapters · 1.9 GB · 412 GB free · library.sqlite OK</span><span lang="vi">7 truyện · 9.812 chương · 1,9 GB · còn trống 412 GB · library.sqlite OK</span></p>
-              <div class="row"><button class="btn sm" data-action="choose-folder"><span lang="en">Switch library…</span><span lang="vi">Chuyển thư viện…</span></button><button class="btn ghost sm"><svg class="icon sm"><use href="#i-external"/></svg><span lang="en">Open folder</span><span lang="vi">Mở thư mục</span></button></div>
+              <div class="card-head"><svg class="icon lg muted"><use href="#i-folder"/></svg><h3><span lang="en">Library folder</span><span lang="vi">Thư mục thư viện</span></h3><span class="pill success" data-mode-only="filled"><span lang="en">Ready</span><span lang="vi">Sẵn sàng</span></span></div>
+              <div data-mode-only="filled">
+                <code style="font-size:11px">D:\NovelStudio\Library</code>
+                <p class="meta" style="margin-top:6px"><span lang="en">7 novels · 9,812 chapters · 1.9 GB · 412 GB free · library.sqlite OK</span><span lang="vi">7 truyện · 9.812 chương · 1,9 GB · còn trống 412 GB · library.sqlite OK</span></p>
+                <div class="row"><button class="btn sm" data-action="choose-folder" data-testid="home-switch-library"><span lang="en">Switch library…</span><span lang="vi">Chuyển thư viện…</span></button><button class="btn ghost sm" data-testid="home-open-folder"><svg class="icon sm"><use href="#i-external"/></svg><span lang="en">Open folder</span><span lang="vi">Mở thư mục</span></button></div>
+              </div>
+              <div class="empty compact hidden" data-mode-only="empty">
+                <svg class="icon xl"><use href="#i-folder"/></svg>
+                <p lang="en">Library information not available yet</p>
+                <p lang="vi">Chưa có thông tin thư viện</p>
+              </div>
+              <div class="empty compact hidden" data-mode-only="loading" role="status">
+                <div class="progress indeterminate"><i></i></div>
+                <p lang="en">Loading library information…</p>
+                <p lang="vi">Đang tải thông tin thư viện…</p>
+              </div>
+              <div class="empty compact error hidden" data-mode-only="error" role="alert">
+                <svg class="icon xl"><use href="#i-alert-circle"/></svg>
+                <h3 lang="en">Could not read the library information</h3>
+                <h3 lang="vi">Không đọc được thông tin thư viện</h3>
+                <details class="error-details" data-testid="home-library-error-details"><summary><span lang="en">Details</span><span lang="vi">Chi tiết</span></summary><pre class="log">SqliteError: SQLITE_BUSY: database is locked (library.sqlite)</pre></details>
+              </div>
             </div>
             <div class="card" data-testid="home-ai-tools">
-              <div class="card-head"><svg class="icon lg muted"><use href="#i-terminal"/></svg><h3><span lang="en">AI tools</span><span lang="vi">Công cụ AI</span></h3><a href="#settings" data-go="settings"><span lang="en">Settings</span><span lang="vi">Cài đặt</span></a></div>
-              <div class="col" style="gap:6px">
-                <div class="row between"><span class="row" style="gap:6px"><span class="dot ok"></span>Claude CLI <span class="meta">2.1.288</span></span><span class="pill success"><span lang="en">Ready</span><span lang="vi">Sẵn sàng</span></span></div>
-                <div class="row between"><span class="row" style="gap:6px"><span class="dot warn"></span>Codex CLI <span class="meta">0.160.0</span></span><span class="pill warning"><span lang="en">Not logged in</span><span lang="vi">Chưa đăng nhập</span></span></div>
+              <div class="card-head"><svg class="icon lg muted"><use href="#i-terminal"/></svg><h3><span lang="en">AI tools</span><span lang="vi">Công cụ AI</span></h3><a href="#settings" data-go="settings" data-testid="home-ai-settings"><span lang="en">Settings</span><span lang="vi">Cài đặt</span></a></div>
+              <div data-mode-only="filled error">
+                <div class="col" style="gap:6px">
+                  <div class="row between"><span class="row" style="gap:6px"><span class="dot ok"></span>Claude CLI <span class="meta">2.1.288</span></span><span class="pill success"><span lang="en">Ready</span><span lang="vi">Sẵn sàng</span></span></div>
+                  <div class="row between"><span class="row" style="gap:6px"><span class="dot warn"></span>Codex CLI <span class="meta">0.160.0</span></span><span class="pill warning"><span lang="en">Not logged in</span><span lang="vi">Chưa đăng nhập</span></span></div>
+                </div>
+                <p class="meta" style="margin:10px 0 0"><span lang="en">Analysis → Claude CLI · Translation → Codex CLI · 2 parallel jobs</span><span lang="vi">Phân tích → Claude CLI · Dịch → Codex CLI · 2 job song song</span></p>
               </div>
-              <p class="meta" style="margin:10px 0 0"><span lang="en">Analysis → Claude CLI · Translation → Codex CLI · 2 parallel jobs</span><span lang="vi">Phân tích → Claude CLI · Dịch → Codex CLI · 2 job song song</span></p>
+              <div class="hidden" data-mode-only="empty">
+                <div class="col" style="gap:6px">
+                  <div class="row between"><span class="row" style="gap:6px"><span class="dot"></span>Claude CLI</span><span class="pill"><span lang="en">Unknown</span><span lang="vi">Không rõ</span></span></div>
+                  <div class="row between"><span class="row" style="gap:6px"><span class="dot"></span>Codex CLI</span><span class="pill"><span lang="en">Unknown</span><span lang="vi">Không rõ</span></span></div>
+                </div>
+                <p class="meta" style="margin:10px 0 0"><span lang="en">Backend per task and parallel-job limit: unknown</span><span lang="vi">Backend theo loại việc và giới hạn job song song: không rõ</span></p>
+              </div>
+              <div class="empty compact hidden" data-mode-only="loading" role="status">
+                <div class="progress indeterminate"><i></i></div>
+                <p lang="en">Checking AI tools…</p>
+                <p lang="vi">Đang kiểm tra công cụ AI…</p>
+              </div>
             </div>
             <div class="card" data-testid="home-running">
-              <div class="card-head"><svg class="icon lg muted"><use href="#i-tasks"/></svg><h3><span lang="en">Running now</span><span lang="vi">Đang chạy</span></h3><a href="#tasks" data-go="tasks"><span lang="en">Task Center</span><span lang="vi">Trung tâm tác vụ</span></a></div>
-              <div class="progress-row"><span><span lang="en">Translate 0001–0100 · 凡人修仙传</span><span lang="vi">Dịch 0001–0100 · 凡人修仙传</span></span><span class="num"><span data-job-done>37</span>/100 · <span data-job-failed>1</span> <span lang="en">failed</span><span lang="vi">lỗi</span></span><span class="progress" data-job-progress><i></i><i class="fail"></i></span></div>
-              <div class="progress-row" style="margin-top:10px"><span><span lang="en">Analyse 1201–1300 · 凡人修仙传</span><span lang="vi">Phân tích 1201–1300 · 凡人修仙传</span></span><span class="num">0/100 · <span lang="en">queued</span><span lang="vi">chờ</span></span><span class="progress"><i style="--p:0%"></i></span></div>
+              <div class="card-head"><svg class="icon lg muted"><use href="#i-tasks"/></svg><h3><span lang="en">Running now</span><span lang="vi">Đang chạy</span></h3><a href="#tasks" data-go="tasks" data-testid="home-running-taskcenter"><span lang="en">Task Center</span><span lang="vi">Trung tâm tác vụ</span></a></div>
+              <div data-mode-only="filled error">
+                <div class="progress-row"><span><span lang="en">Translate 0001–0100 · 凡人修仙传</span><span lang="vi">Dịch 0001–0100 · 凡人修仙传</span></span><span class="num"><span data-job-done>37</span>/100 · <span data-job-failed>1</span> <span lang="en">failed</span><span lang="vi">lỗi</span></span><span class="progress" data-job-progress><i></i><i class="fail"></i></span></div>
+                <div class="progress-row" style="margin-top:10px"><span><span lang="en">Analyse 1201–1300 · 凡人修仙传</span><span lang="vi">Phân tích 1201–1300 · 凡人修仙传</span></span><span class="num">0/100 · <span lang="en">queued</span><span lang="vi">chờ</span></span><span class="progress"><i style="--p:0%"></i></span></div>
+              </div>
+              <div class="empty compact hidden" data-mode-only="empty">
+                <svg class="icon xl"><use href="#i-tasks"/></svg>
+                <p lang="en">No running tasks</p>
+                <p lang="vi">Không có tác vụ đang chạy</p>
+              </div>
+              <div class="empty compact hidden" data-mode-only="loading" role="status">
+                <div class="progress indeterminate"><i></i></div>
+                <p lang="en">Loading jobs…</p>
+                <p lang="vi">Đang tải job…</p>
+              </div>
             </div>
           </div>
 
-          <section>
-            <div class="row between" style="margin-bottom:var(--sp-sm)"><h3><span lang="en">Continue reading</span><span lang="vi">Đọc tiếp</span></h3><a href="#library" data-go="library"><span lang="en">All novels</span><span lang="vi">Tất cả truyện</span></a></div>
-            <div class="novel-grid" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr))">
+          <section data-mode-only="filled empty loading error" data-testid="home-recent">
+            <div class="row between" style="margin-bottom:var(--sp-sm)"><h3><span lang="en">Continue reading</span><span lang="vi">Đọc tiếp</span></h3><a href="#library" data-go="library" data-testid="home-all-novels"><span lang="en">All novels</span><span lang="vi">Tất cả truyện</span></a></div>
+            <div class="novel-grid" data-mode-only="filled" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr))">
               <a class="novel-card" href="#reader" data-go="reader" data-testid="home-recent-1"><div class="cover" style="--c:#3ecf8e"><span class="lang">ZH</span><span class="cjk">凡人修仙传</span></div><div class="title">Phàm Nhân Tu Tiên</div><div class="sub"><span lang="en">Chapter 12 · 2 h ago</span><span lang="vi">Chương 12 · 2 giờ trước</span></div></a>
-              <a class="novel-card" href="#reader" data-go="reader"><div class="cover" style="--c:#f2bd5b"><span class="lang">ZH</span><span class="cjk">斗破苍穹</span></div><div class="title">Đấu Phá Thương Khung</div><div class="sub"><span lang="en">Chapter 1,648 · yesterday</span><span lang="vi">Chương 1.648 · hôm qua</span></div></a>
-              <a class="novel-card" href="#reader" data-go="reader"><div class="cover" style="--c:#6addaa"><span class="lang">KO</span><span class="cjk">나 혼자만 레벨업</span></div><div class="title">Solo Leveling</div><div class="sub"><span lang="en">Chapter 88 · 3 days ago</span><span lang="vi">Chương 88 · 3 ngày trước</span></div></a>
-              <a class="novel-card" href="#reader" data-go="reader"><div class="cover" style="--c:#ff8a91"><span class="lang">JA</span><span class="cjk">転生したらスライムだった件</span></div><div class="title">Tensei Slime</div><div class="sub"><span lang="en">Chapter 5 · last week</span><span lang="vi">Chương 5 · tuần trước</span></div></a>
+              <a class="novel-card" href="#reader" data-go="reader" data-testid="home-recent-2"><div class="cover" style="--c:#f2bd5b"><span class="lang">ZH</span><span class="cjk">斗破苍穹</span></div><div class="title">Đấu Phá Thương Khung</div><div class="sub"><span lang="en">Chapter 1,648 · yesterday</span><span lang="vi">Chương 1.648 · hôm qua</span></div></a>
+              <a class="novel-card" href="#reader" data-go="reader" data-testid="home-recent-3"><div class="cover" style="--c:#6addaa"><span class="lang">KO</span><span class="cjk">나 혼자만 레벨업</span></div><div class="title">Solo Leveling</div><div class="sub"><span lang="en">Chapter 88 · 3 days ago</span><span lang="vi">Chương 88 · 3 ngày trước</span></div></a>
+              <a class="novel-card" href="#reader" data-go="reader" data-testid="home-recent-4"><div class="cover" style="--c:#ff8a91"><span class="lang">JA</span><span class="cjk">転生したらスライムだった件</span></div><div class="title">Tensei Slime</div><div class="sub"><span lang="en">Chapter 5 · last week</span><span lang="vi">Chương 5 · tuần trước</span></div></a>
               <a class="novel-card" href="#reader" data-go="reader" data-testid="home-recent-5"><div class="cover" style="--c:#8e9792"><span class="lang">ZH</span><span class="cjk">全职高手</span></div><div class="title">Toàn Chức Cao Thủ</div><div class="sub"><span lang="en">Chapter 214 · 2 weeks ago</span><span lang="vi">Chương 214 · 2 tuần trước</span></div></a>
               <a class="novel-card" href="#reader" data-go="reader" data-testid="home-recent-6"><div class="cover" style="--c:#b5bcb8"><span class="lang">ZH</span><span class="cjk">庆余年</span></div><div class="title">Khánh Dư Niên</div><div class="sub"><span lang="en">Chapter 37 · 3 weeks ago</span><span lang="vi">Chương 37 · 3 tuần trước</span></div></a>
             </div>
-          </section>
-
-          <section class="card compact" data-testid="home-first-launch">
-            <div class="row between"><h3><span lang="en">First launch (empty library) — shown when no folder is chosen yet</span><span lang="vi">Lần khởi động đầu (thư viện trống) — hiển thị khi chưa chọn thư mục</span></h3><span class="pill plain"><span lang="en">state preview</span><span lang="vi">xem trước trạng thái</span></span></div>
-            <div class="empty" style="margin:0 auto">
-              <svg class="icon xl"><use href="#i-folder"/></svg>
-              <h2><span lang="en">Choose where your library lives</span><span lang="vi">Chọn nơi lưu thư viện của bạn</span></h2>
-              <p lang="en">Novel Studio keeps everything — novels, story worlds, translations, media — as plain files in one folder on this computer. Nothing is uploaded.</p>
-              <p lang="vi">Novel Studio lưu mọi thứ — truyện, thế giới truyện, bản dịch, media — dưới dạng tệp thuần trong một thư mục trên máy này. Không tải lên đâu cả.</p>
-              <div class="row"><button class="btn primary" data-action="choose-folder" data-testid="home-create-library"><span lang="en">Create library folder…</span><span lang="vi">Tạo thư mục thư viện…</span></button><button class="btn" data-action="choose-folder"><span lang="en">Open existing library…</span><span lang="vi">Mở thư viện có sẵn…</span></button></div>
+            <div class="empty hidden" data-mode-only="empty" style="margin:0 auto">
+              <svg class="icon xl"><use href="#i-library"/></svg>
+              <h3 lang="en">No novels opened yet</h3>
+              <h3 lang="vi">Chưa mở truyện nào</h3>
+              <p lang="en">Import a novel to start reading and translating.</p>
+              <p lang="vi">Nhập một truyện để bắt đầu đọc và dịch.</p>
+              <div class="row"><button class="btn primary" data-go="import" data-testid="home-recent-empty-import"><span lang="en">Import novel</span><span lang="vi">Nhập truyện</span></button></div>
+            </div>
+            <div class="empty compact hidden" data-mode-only="loading" role="status">
+              <div class="progress indeterminate"><i></i></div>
+              <p lang="en">Loading recent novels…</p>
+              <p lang="vi">Đang tải truyện gần đây…</p>
+            </div>
+            <div class="empty compact error hidden" data-mode-only="error" role="alert" data-testid="home-recent-error" style="max-width:420px;margin:0 auto">
+              <svg class="icon xl"><use href="#i-alert-circle"/></svg>
+              <h3><span lang="en">Could not load your recent novels</span><span lang="vi">Không tải được truyện gần đây</span></h3>
+              <details class="error-details"><summary data-testid="home-recent-error-details"><span lang="en">Details</span><span lang="vi">Chi tiết</span></summary><pre class="log">SqliteError: SQLITE_BUSY: database is locked (library.sqlite)</pre></details>
             </div>
           </section>
+
+          <div class="empty hidden" data-mode-only="first" data-testid="home-first-launch" style="margin:var(--sp-huge) auto 0">
+            <svg class="icon xl"><use href="#i-folder"/></svg>
+            <h2><span lang="en">Choose where your library lives</span><span lang="vi">Chọn nơi lưu thư viện của bạn</span></h2>
+            <p lang="en">Novel Studio keeps everything — novels, story worlds, translations, media — as plain files in one folder on this computer. Nothing is uploaded.</p>
+            <p lang="vi">Novel Studio lưu mọi thứ — truyện, thế giới truyện, bản dịch, media — dưới dạng tệp thuần trong một thư mục trên máy này. Không tải lên đâu cả.</p>
+            <div class="row"><button class="btn primary" data-action="choose-folder" data-testid="home-create-library"><span lang="en">Create library folder…</span><span lang="vi">Tạo thư mục thư viện…</span></button><button class="btn" data-action="choose-folder" data-testid="home-open-existing"><span lang="en">Open existing library…</span><span lang="vi">Mở thư viện có sẵn…</span></button></div>
+          </div>
         </div>
       </div>
     </main>
     <aside class="annotations"><ol>
-      <li lang="en"><span class="ac">M01-F01 · M01-F05</span> The persistent shell: top bar (brand, novel context, command palette, progress pill linking to the Task Center, CLI readiness, VI/EN, theme, settings), 48px module rail, status bar. Everything else is a screen inside this frame.</li>
-      <li lang="vi"><span class="ac">M01-F01 · M01-F05</span> Khung cố định: thanh trên (thương hiệu, ngữ cảnh truyện, bảng lệnh, nhãn tiến độ liên kết tới Trung tâm tác vụ, trạng thái CLI, VI/EN, giao diện, cài đặt), thanh module 48px, thanh trạng thái. Mọi thứ còn lại là màn hình bên trong khung này.</li>
-      <li lang="en"><span class="ac">M06-F01</span> The library folder card shows path, counts, free space and the integrity check; switching libraries uses the OS folder picker.</li>
-      <li lang="vi"><span class="ac">M06-F01</span> Thẻ thư mục thư viện hiển thị đường dẫn, số lượng, dung lượng trống và kết quả kiểm tra toàn vẹn; chuyển thư viện dùng hộp thoại chọn thư mục của hệ điều hành.</li>
-      <li lang="en"><span class="ac">M03-F02</span> Running jobs are visible here, in the top-bar progress pill (links to the Task Center) and in the status bar at the same time. The progress bar is live (fake job) and never blocks the UI.</li>
-      <li lang="vi"><span class="ac">M03-F02</span> Job đang chạy hiển thị đồng thời ở đây, ở nhãn tiến độ trên thanh trên (liên kết tới Trung tâm tác vụ) và ở thanh trạng thái. Thanh tiến độ chạy trực tiếp (job giả lập) và không bao giờ khoá giao diện.</li>
-      <li lang="en">The bottom card previews the first-launch empty state (choose or create the library folder) — it replaces the whole page before a folder exists.</li>
-      <li lang="vi">Thẻ dưới cùng xem trước trạng thái trống lần đầu khởi động (chọn hoặc tạo thư mục thư viện) — nó thay thế toàn bộ trang trước khi có thư mục.</li>
+      <li lang="en"><span class="ac">M01-F06 · AC-49 to AC-54</span> Three cards: library folder (path, counts, free space, Switch library, Open folder), AI tools (CLI status, link to Settings) and Running now (jobs, link to Task Center), then Continue reading with the six most recent novels, newest first.</li>
+      <li lang="vi"><span class="ac">M01-F06 · AC-49 đến AC-54</span> Ba thẻ: thư mục thư viện (đường dẫn, số lượng, dung lượng trống, Chuyển thư viện, Mở thư mục), công cụ AI (trạng thái CLI, liên kết tới Cài đặt) và Đang chạy (job, liên kết tới Trung tâm tác vụ), rồi Đọc tiếp với sáu truyện gần nhất, mới nhất trước.</li>
+      <li lang="en"><span class="ac">AC-51 · AC-52 · AC-53 · AC-55</span> Empty is what M01 ships until M02 / M03 / M04 / M06 fill the cards: no numbers, unknown CLI status, no running tasks, no recent novels.</li>
+      <li lang="vi"><span class="ac">AC-51 · AC-52 · AC-53 · AC-55</span> Trống là những gì M01 giao cho tới khi M02 / M03 / M04 / M06 điền dữ liệu vào các thẻ: không có số liệu, trạng thái CLI không rõ, không có tác vụ chạy, chưa có truyện gần đây.</li>
+      <li lang="en"><span class="ac">AC-28 · AC-29</span> Loading and Error follow the area-state rules; the raw error text sits under Details. Error previews a library database that cannot be read: the Library card and Continue reading fail, while AI tools (M02) and Running now (M03) have their own sources and keep their data.</li>
+      <li lang="vi"><span class="ac">AC-28 · AC-29</span> Đang tải và Lỗi theo quy tắc trạng thái theo vùng; nội dung lỗi gốc nằm dưới Chi tiết. Lỗi xem trước trường hợp không đọc được cơ sở dữ liệu thư viện: thẻ Thư mục thư viện và Đọc tiếp báo lỗi, còn Công cụ AI (M02) và Đang chạy (M03) có nguồn riêng nên vẫn giữ dữ liệu.</li>
+      <li lang="en"><span class="ac">AC-56</span> First launch replaces the whole page; its actions belong to M06.</li>
+      <li lang="vi"><span class="ac">AC-56</span> Lần đầu khởi động thay thế toàn bộ trang; các hành động của nó thuộc M06.</li>
+      <li lang="en">Job progress and CLI status appear in the status bar only, not in the top bar (D21).</li>
+      <li lang="vi">Tiến độ job và trạng thái CLI chỉ hiển thị ở thanh trạng thái, không ở thanh trên (D21).</li>
+      <li lang="en">The dashed state preview is prototype only.</li>
+      <li lang="vi">Bộ xem trước trạng thái nét đứt chỉ dùng cho prototype.</li>
+      <li lang="en"><span class="ac">AC-9 · AC-7</span> The app always starts on Home, and Home closes the open novel.</li>
+      <li lang="vi"><span class="ac">AC-9 · AC-7</span> Ứng dụng luôn mở ở Trang chủ, và Trang chủ đóng truyện đang mở.</li>
       <li lang="en">Try: <kbd>Ctrl</kbd><kbd>K</kbd> palette · <kbd>Ctrl</kbd><kbd>/</kbd> shortcuts · <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>L</kbd> theme · <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>U</kbd> language.</li>
       <li lang="vi">Thử: <kbd>Ctrl</kbd><kbd>K</kbd> bảng lệnh · <kbd>Ctrl</kbd><kbd>/</kbd> phím tắt · <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>L</kbd> giao diện · <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>U</kbd> ngôn ngữ.</li>
     </ol></aside>

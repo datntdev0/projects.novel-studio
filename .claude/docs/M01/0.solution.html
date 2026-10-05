@@ -1,0 +1,684 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>M01 · Solution</title>
+<link rel="stylesheet" href="../../templates/assets/claude.css">
+<script src="../../templates/assets/claude.js" defer></script>
+</head>
+<body>
+<main class="page">
+
+<header class="doc-header">
+  <p class="eyebrow">projects.novel-studio · Module · M01 · 0</p>
+  <h1><span lang="en">Solution — M01 · App Shell &amp; Workspace</span><span lang="vi">Giải pháp — M01 · Khung ứng dụng &amp; không gian làm việc</span></h1>
+  <p class="lede" lang="en">How this module will satisfy its requirements: the work items, user experience, technical design and the way it will be verified.</p>
+  <p class="lede" lang="vi">Cách module này đáp ứng yêu cầu: các hạng mục công việc, trải nghiệm người dùng, thiết kế kỹ thuật và cách kiểm chứng.</p>
+  <div class="meta">
+    <span class="lang-switch" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="vi" aria-pressed="false">VI</button></span>
+    <span class="pill"><span lang="en">Status</span><span lang="vi">Trạng thái</span>: <b><span class="status approved">approved</span></b> 2026-10-05</span>
+    <span class="pill"><span lang="en">Owner</span><span lang="vi">Phụ trách</span>: <b>architect</b> + <b>designer</b></span>
+    <span class="pill"><span lang="en">Approver</span><span lang="vi">Người duyệt</span>: <b>product owner</b></span>
+    <span class="pill"><span lang="en">Updated</span><span lang="vi">Cập nhật</span>: <b>2026-10-05</b></span>
+    <span class="pill"><span lang="en">Input</span><span lang="vi">Đầu vào</span>: <a href="0.requirements.html"><span lang="en">Requirements</span><span lang="vi">Yêu cầu</span></a> · <a href="../M00/0.solution.html">M00</a></span>
+    <span class="pill">Epic: <code>PNS-1</code> · <code>TH-01</code> · <code>R1.1</code></span>
+    <span class="pill"><span lang="en">Next</span><span lang="vi">Tiếp theo</span>: <code>/planning M01-T01</code></span>
+  </div>
+</header>
+
+<section class="approve" id="approve">
+  <h2><span lang="en">What you approve</span><span lang="vi">Bạn cần duyệt</span></h2>
+  <dl class="facts">
+    <dt><span lang="en">Scope</span><span lang="vi">Phạm vi</span></dt>
+    <dd><span lang="en">The studio shell on top of M00: two shared Tasks first (frame, registry, contracts; commands and shortcuts), then the six Stories, each in its own folder.</span><span lang="vi">Khung studio trên nền M00: hai Task dùng chung làm trước (khung, sổ đăng ký, hợp đồng; lệnh và phím tắt), sau đó sáu Story, mỗi Story trong thư mục riêng.</span></dd>
+    <dt><span lang="en">Work items</span><span lang="vi">Hạng mục</span></dt>
+    <dd><a href="#items"><b>8</b></a> · 6 Story · 2 Task · new 3 · changed 4 · split 0 · dropped 0 · <span lang="en">63 AC (<code>AC-57</code>–<code>AC-63</code> for the Tasks)</span><span lang="vi">63 AC (<code>AC-57</code>–<code>AC-63</code> cho các Task)</span></dd>
+    <dt><span lang="en">Build order</span><span lang="vi">Thứ tự xây dựng</span></dt>
+    <dd><span lang="en">after all of M00 (<code>PNS-122</code>):</span><span lang="vi">sau toàn bộ M00 (<code>PNS-122</code>):</span> <a href="#M01-T01"><code>T01</code></a> → <a href="#M01-T02"><code>T02</code></a> → <a href="#M01-F03"><code>F03</code></a> → <a href="#M01-F04"><code>F04</code></a> → <a href="#M01-F01"><code>F01</code></a> → <a href="#M01-F05"><code>F05</code></a> → <a href="#M01-F02"><code>F02</code></a> → <a href="#M01-F06"><code>F06</code></a></dd>
+    <dt><span lang="en">Decisions</span><span lang="vi">Quyết định</span></dt>
+    <dd><a href="#decisions"><b>11</b></a> · <span lang="en">shared base as two Tasks; contract-first data on the AD-22 bridge</span><span lang="vi">phần nền thành hai Task; dữ liệu theo hợp đồng trước trên cầu nối AD-22</span> (<a href="#S-1">S-1</a>, <a href="#S-2">S-2</a>)</dd>
+    <dt><span lang="en">Questions</span><span lang="vi">Câu hỏi</span></dt>
+    <dd><span lang="en"><b>0</b> answered by you · <b>8</b> defaults accepted at Gate 2 · <b>1</b> resolved by the designer · <a href="#questions"><b>0</b> open</a></span><span lang="vi"><b>0</b> do bạn trả lời · <b>8</b> mặc định được chấp nhận tại Gate 2 · <b>1</b> do designer giải quyết · <a href="#questions"><b>0</b> còn mở</a></span></dd>
+    <dt><span lang="en">Architecture</span><span lang="vi">Kiến trúc</span></dt>
+    <dd><a href="#impact"><b>3</b></a> · <span lang="en">adds</span><span lang="vi">thêm</span> <code>AD-23</code>, <code>AD-24</code>; <span lang="en">wording fixes in the HLA</span><span lang="vi">sửa câu chữ trong HLA</span></dd>
+  </dl>
+</section>
+
+<h2 id="items"><span lang="en">Work items</span><span lang="vi">Hạng mục công việc</span></h2>
+<div class="table-wrap">
+<table class="items">
+  <thead><tr><th>ID</th><th><span lang="en">Title</span><span lang="vi">Tiêu đề</span></th><th><span lang="en">Type</span><span lang="vi">Loại</span></th><th>AC</th><th><span lang="en">Depends on</span><span lang="vi">Phụ thuộc</span></th><th><span lang="en">Size</span><span lang="vi">Cỡ</span></th><th>Jira</th><th><span lang="en">Status</span><span lang="vi">Trạng thái</span></th></tr></thead>
+  <tbody>
+    <tr><td><a href="#M01-T01"><code>M01-T01</code></a></td><td><span lang="en">Shell frame, module registry &amp; data contracts</span><span lang="vi">Khung, sổ đăng ký module &amp; hợp đồng dữ liệu</span> <span class="status open">new</span></td><td>Task</td><td><code>AC-57</code>–<code>AC-61</code></td><td><code>M00-T01</code>–<code>T06</code></td><td>M&nbsp;·&nbsp;5</td><td><code>PNS-133</code></td><td><span class="status todo">todo</span></td></tr>
+    <tr><td><a href="#M01-T02"><code>M01-T02</code></a></td><td><span lang="en">Commands &amp; shortcut framework</span><span lang="vi">Khung lệnh &amp; phím tắt</span> <span class="status open">new</span></td><td>Task</td><td><code>AC-62</code>–<code>AC-63</code></td><td><code>T01</code></td><td>M&nbsp;·&nbsp;4</td><td><code>PNS-134</code></td><td><span class="status todo">todo</span></td></tr>
+    <tr><td><a href="#M01-F03"><code>M01-F03</code></a></td><td><span lang="en">Appearance</span><span lang="vi">Giao diện</span></td><td>Story</td><td><code>AC-21</code>–<code>AC-29</code></td><td><code>T02</code></td><td>M&nbsp;·&nbsp;4</td><td><code>PNS-25</code></td><td><span class="status todo">todo</span></td></tr>
+    <tr><td><a href="#M01-F04"><code>M01-F04</code></a></td><td><span lang="en">Keyboard shortcuts &amp; command palette</span><span lang="vi">Phím tắt &amp; bảng lệnh</span> <span class="status review">changed</span></td><td>Story</td><td><code>AC-30</code>–<code>AC-39</code></td><td><code>F03</code></td><td>M&nbsp;·&nbsp;4</td><td><code>PNS-26</code></td><td><span class="status todo">todo</span></td></tr>
+    <tr><td><a href="#M01-F01"><code>M01-F01</code></a></td><td><span lang="en">Navigation</span><span lang="vi">Điều hướng</span> <span class="status review">changed</span></td><td>Story</td><td><code>AC-1</code>–<code>AC-11</code></td><td><code>F04</code></td><td>M&nbsp;·&nbsp;5</td><td><code>PNS-23</code></td><td><span class="status todo">todo</span></td></tr>
+    <tr><td><a href="#M01-F05"><code>M01-F05</code></a></td><td><span lang="en">Global status</span><span lang="vi">Trạng thái toàn cục</span> <span class="status review">changed</span></td><td>Story</td><td><code>AC-40</code>–<code>AC-48</code></td><td><code>F01</code></td><td>M&nbsp;·&nbsp;4</td><td><code>PNS-27</code></td><td><span class="status todo">todo</span></td></tr>
+    <tr><td><a href="#M01-F02"><code>M01-F02</code></a></td><td><span lang="en">Studio layout</span><span lang="vi">Bố cục studio</span> <span class="status review">changed</span></td><td>Story</td><td><code>AC-12</code>–<code>AC-20</code></td><td><code>F05</code></td><td>M&nbsp;·&nbsp;5</td><td><code>PNS-24</code></td><td><span class="status todo">todo</span></td></tr>
+    <tr><td><a href="#M01-F06"><code>M01-F06</code></a></td><td><span lang="en">Home screen</span><span lang="vi">Màn hình Trang chủ</span> <span class="status open">new</span></td><td>Story</td><td><code>AC-49</code>–<code>AC-56</code></td><td><code>F05</code></td><td>M&nbsp;·&nbsp;4</td><td><code>PNS-132</code></td><td><span class="status todo">todo</span></td></tr>
+  </tbody>
+</table>
+</div>
+<p class="muted" lang="en">Rows in build order; “Depends on” shows the direct predecessor, the full list is in each card. Change pill after the title: <span class="status open">new</span> · <span class="status review">changed</span> (Jira wording updated at sync) · none = existing. Size = expected level-1 tasks: S ≤ 3 · M 4–5 · L 6. All items: release <code>R1.1</code>, Epic <code>PNS-1</code>.</p>
+<p class="muted" lang="vi">Các dòng theo thứ tự xây dựng; “Phụ thuộc” ghi hạng mục liền trước, danh sách đầy đủ ở từng thẻ. Nhãn thay đổi sau tiêu đề: <span class="status open">new</span> · <span class="status review">changed</span> (chữ trên Jira đã sửa khi đồng bộ) · không có = existing. Cỡ = số task cấp 1 dự kiến: S ≤ 3 · M 4–5 · L 6. Mọi hạng mục: release <code>R1.1</code>, Epic <code>PNS-1</code>.</p>
+<details class="fold" id="gap">
+  <summary><span lang="en">Gap analysis against Jira</span><span lang="vi">Phân tích khoảng trống so với Jira</span> <span class="count">4</span></summary>
+  <ul>
+    <li><span lang="en">Jira had <code>PNS-1</code> and <code>PNS-23</code>–<code>PNS-27</code>; created at sync (2026-10-05): <code>PNS-132</code> (F06), <code>PNS-133</code> (T01), <code>PNS-134</code> (T02).</span><span lang="vi">Jira đã có <code>PNS-1</code> và <code>PNS-23</code>–<code>PNS-27</code>; tạo khi đồng bộ (2026-10-05): <code>PNS-132</code> (F06), <code>PNS-133</code> (T01), <code>PNS-134</code> (T02).</span></li>
+    <li><span lang="en">Wording updated: <code>PNS-26</code> renamed “… &amp; command palette”; <code>PNS-23</code> drops “recent screens”; <code>PNS-24</code> adds focus mode and window; <code>PNS-27</code> says status bar; <code>PNS-1</code> no longer says “task tray” and runs 2026-10-10 → 2026-10-14.</span><span lang="vi">Đã sửa chữ: <code>PNS-26</code> đổi tên “… &amp; command palette”; <code>PNS-23</code> bỏ “màn hình gần đây”; <code>PNS-24</code> thêm chế độ tập trung và cửa sổ; <code>PNS-27</code> ghi thanh trạng thái; <code>PNS-1</code> không còn “task tray” và chạy 2026-10-10 → 2026-10-14.</span></li>
+    <li><span lang="en">Links: by the product owner's choice there are no Blocks links inside M01 and none from M00 Tasks; only the Epic link M00 <code>PNS-122</code> blocks <code>PNS-1</code>. The build order lives in this document.</span><span lang="vi">Liên kết: theo lựa chọn của product owner, không có liên kết Blocks trong M01 và không có từ các Task M00; chỉ có liên kết Epic M00 <code>PNS-122</code> chặn <code>PNS-1</code>. Thứ tự xây dựng nằm trong tài liệu này.</span></li>
+    <li><span lang="en">Split: none. Dropped: none. Extra in Jira: none.</span><span lang="vi">Tách: không. Bỏ: không. Thừa trên Jira: không.</span></li>
+  </ul>
+</details>
+
+<h2 id="item-details"><span lang="en">Item details</span><span lang="vi">Chi tiết hạng mục</span></h2>
+<p class="muted" lang="en">M00 Task keys: <code>M00-T01</code> <code>PNS-123</code> · T02 <code>PNS-124</code> · T03 <code>PNS-125</code> · T04 <code>PNS-126</code> · T05 <code>PNS-127</code> · T06 <code>PNS-128</code> · T07 <code>PNS-129</code> · T08 <code>PNS-130</code> · T09 <code>PNS-131</code>. Every item adds its i18n keys to <code>shared/src/core/i18n/en.json</code> / <code>vi.json</code> and its specs to <code>verify/specs/&lt;flow&gt;/</code>.</p>
+<p class="muted" lang="vi">Khóa Task M00: <code>M00-T01</code> <code>PNS-123</code> · T02 <code>PNS-124</code> · T03 <code>PNS-125</code> · T04 <code>PNS-126</code> · T05 <code>PNS-127</code> · T06 <code>PNS-128</code> · T07 <code>PNS-129</code> · T08 <code>PNS-130</code> · T09 <code>PNS-131</code>. Mọi hạng mục thêm khóa i18n vào <code>shared/src/core/i18n/en.json</code> / <code>vi.json</code> và spec vào <code>verify/specs/&lt;flow&gt;/</code>.</p>
+
+<section class="story" id="M01-T01">
+  <div class="story-head">
+    <h3><code>M01-T01</code> · <span lang="en">Shell frame, module registry &amp; data contracts</span><span lang="vi">Khung, sổ đăng ký module &amp; hợp đồng dữ liệu</span> <span class="status open">new</span></h3>
+    <span class="story-meta">Task · <code>R1.1</code> · <code>PNS-133</code></span>
+  </div>
+  <p lang="en">The frame, registry, shell state and data contracts that every other M01 item plugs into.</p>
+  <p lang="vi">Khung, sổ đăng ký, trạng thái khung và hợp đồng dữ liệu mà mọi hạng mục khác của M01 gắn vào.</p>
+  <ul>
+    <li lang="en">Shell frame replacing the M00 root view: top bar, rail, panel areas, workspace and status bar as named slots at default sizes.</li>
+    <li lang="vi">Khung thay màn hình gốc của M00: thanh trên, thanh module, vùng panel, vùng làm việc và thanh trạng thái là các vị trí có tên ở kích thước mặc định.</li>
+    <li lang="en">Module registry (M01's own type) with the 17 entries of design system §7, one hash route each, shown in a module host.</li>
+    <li lang="vi">Sổ đăng ký module (kiểu riêng của M01) với 17 mục theo mục 7 design system, mỗi mục một route hash, hiển thị trong nơi chứa module.</li>
+    <li lang="en">Shell store (signals): active module, open novel, novel list, badges, open chapter.</li>
+    <li lang="vi">Store của khung (signal): module đang mở, truyện đang mở, danh sách truyện, huy hiệu, chương đang mở.</li>
+    <li lang="en">Data contracts on the AD-22 bridge with main stubs and BrowserBridge fixtures (<a href="#design">design</a>).</li>
+    <li lang="vi">Hợp đồng dữ liệu trên cầu nối AD-22 với stub ở main và fixture của BrowserBridge (<a href="#design">thiết kế</a>).</li>
+    <li lang="en">An e2e-only probe module (<code>?probe=1</code>), never in the app build.</li>
+    <li lang="vi">Module thăm dò chỉ cho e2e (<code>?probe=1</code>), không bao giờ có trong bản build ứng dụng.</li>
+  </ul>
+  <ul class="ac-list">
+    <li><code>AC-57</code><span lang="en">The app opens in the shell frame with top bar, rail, panel areas, workspace and status bar, each with a <code>data-testid</code>, at 1440×900 and 1280×720.</span><span lang="vi">Ứng dụng mở trong khung với thanh trên, thanh module, vùng panel, vùng làm việc và thanh trạng thái, mỗi vùng có <code>data-testid</code>, ở 1440×900 và 1280×720.</span><span class="status open">must</span></li>
+    <li><code>AC-58</code><span lang="en">The registry holds exactly the 17 entries of design system §7, and each entry's route opens its module host.</span><span lang="vi">Sổ đăng ký có đúng 17 mục theo mục 7 design system, và route của mỗi mục mở nơi chứa module của nó.</span><span class="status open">must</span></li>
+    <li><code>AC-59</code><span lang="en">Adding a module needs only its registry entry and its own feature folder; shell code has no branch on a module id.</span><span lang="vi">Thêm một module chỉ cần mục trong sổ đăng ký và thư mục tính năng riêng; mã khung không rẽ nhánh theo mã module.</span><span class="status open">must</span></li>
+    <li><code>AC-60</code><span lang="en">Every data contract M01 reads is typed in <code>@shared/core</code>; main answers “not available” until the owner module ships, BrowserBridge answers with fixtures, and any mismatch fails the build.</span><span lang="vi">Mọi hợp đồng dữ liệu M01 đọc đều có kiểu trong <code>@shared/core</code>; main trả “chưa có” tới khi module chủ quản xong, BrowserBridge trả dữ liệu fixture, và mọi sai lệch làm build lỗi.</span><span class="status open">must</span></li>
+    <li><code>AC-61</code><span lang="en">An e2e scenario chooses the data fixture (<code>none</code>, <code>empty</code>, <code>busy</code>, <code>first-run</code>) and the probe module by URL, with no code change.</span><span lang="vi">Kịch bản e2e chọn fixture dữ liệu (<code>none</code>, <code>empty</code>, <code>busy</code>, <code>first-run</code>) và module thăm dò qua URL, không sửa mã.</span><span class="status open">must</span></li>
+  </ul>
+  <dl class="facts">
+    <dt><span lang="en">Depends on</span><span lang="vi">Phụ thuộc</span></dt>
+    <dd><code>M00-T01</code> <span lang="en">tooling</span><span lang="vi">công cụ</span> · <code>M00-T02</code> <span lang="en">harness</span><span lang="vi">bộ chạy test</span> · <code>M00-T03</code> <span lang="en">bridge</span><span lang="vi">cầu nối</span> · <code>M00-T04</code> <span lang="en">i18n, settings</span><span lang="vi">i18n, cài đặt</span> · <code>M00-T05</code> <span lang="en">tokens, icons</span><span lang="vi">token, biểu tượng</span> · <code>M00-T06</code> <span lang="en">UI kit</span><span lang="vi">bộ UI</span></dd>
+  </dl>
+  <details class="inner">
+    <summary><span lang="en">Components touched · files · notes</span><span lang="vi">Thành phần · file · ghi chú</span></summary>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th><span lang="en">Component</span><span lang="vi">Thành phần</span></th><th><span lang="en">Change</span><span lang="vi">Thay đổi</span></th><th><span lang="en">Files (expected)</span><span lang="vi">File (dự kiến)</span></th></tr></thead>
+      <tbody>
+        <tr><td><span lang="en">Module registry</span><span lang="vi">Sổ đăng ký module</span></td><td><span lang="en">add</span><span lang="vi">thêm</span></td><td><code>angular/src/app/shell/registry/module-registry.ts</code> · <code>module-entries.ts</code></td></tr>
+        <tr><td><span lang="en">Frame, hash routes, module host</span><span lang="vi">Khung, route hash, nơi chứa module</span></td><td><span lang="en">add · modify · remove</span><span lang="vi">thêm · sửa · xoá</span></td><td><code>angular/src/app/shell/shell.component.ts|html|scss</code> · <code>shell.routes.ts</code> · <code>module-host.component.ts</code> · <code>angular/src/app/app.routes.ts</code> · <code>angular/src/app/root-view/*</code></td></tr>
+        <tr><td><span lang="en">Shell store</span><span lang="vi">Store của khung</span></td><td><span lang="en">add</span><span lang="vi">thêm</span></td><td><code>angular/src/app/shell/shell.store.ts</code></td></tr>
+        <tr><td><span lang="en">Data contracts</span><span lang="vi">Hợp đồng dữ liệu</span></td><td><span lang="en">add · modify</span><span lang="vi">thêm · sửa</span></td><td><code>shared/src/core/shell-contract.ts</code> · <code>shared/src/core/ipc-contract.ts</code> · <code>electron/src/main/ipc/shell-stubs.ts</code> · <code>electron/src/preload.ts</code> (<span lang="en">allowlist</span><span lang="vi">allowlist</span>)</td></tr>
+        <tr><td><span lang="en">Fixtures &amp; probe (e2e only)</span><span lang="vi">Fixture &amp; module thăm dò (chỉ e2e)</span></td><td><span lang="en">add · modify</span><span lang="vi">thêm · sửa</span></td><td><code>angular/src/app/core/bridge/browser-bridge.ts</code> · <code>angular/src/app/core/bridge/fixtures/shell-fixtures.ts</code> · <code>angular/src/e2e/probe/probe.component.ts</code></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p lang="en"><b>Out of scope.</b> Any visible shell part (rail, top-bar buttons, status items, Home). <b>Planning notes.</b> 5 tasks: registry + routes · frame + module host · shell store · contracts, stubs, fixtures, probe · e2e.</p>
+    <p lang="vi"><b>Ngoài phạm vi.</b> Mọi phần khung nhìn thấy được (thanh module, nút thanh trên, mục trạng thái, Trang chủ). <b>Ghi chú lập plan.</b> 5 task: sổ đăng ký + route · khung + nơi chứa module · store của khung · hợp đồng, stub, fixture, module thăm dò · e2e.</p>
+  </details>
+</section>
+
+<section class="story" id="M01-T02">
+  <div class="story-head">
+    <h3><code>M01-T02</code> · <span lang="en">Commands &amp; shortcut framework</span><span lang="vi">Khung lệnh &amp; phím tắt</span> <span class="status open">new</span></h3>
+    <span class="story-meta">Task · <code>R1.1</code> · <code>PNS-134</code></span>
+  </div>
+  <p lang="en">One command and shortcut list that every Story registers into.</p>
+  <p lang="vi">Một danh sách lệnh và phím tắt duy nhất mà mọi Story đăng ký vào.</p>
+  <ul>
+    <li lang="en">Command list (id, label key, keywords, keys, scope, needs-novel guard, run) read by the palette, sheet, tooltips and key handler.</li>
+    <li lang="vi">Danh sách lệnh (mã, khóa nhãn, từ khóa, phím, phạm vi, điều kiện cần truyện, hành động) được bảng lệnh, bảng phím tắt, tooltip và bộ xử lý phím cùng đọc.</li>
+    <li lang="en">Key bindings with global and module scopes; single keys ignored in text inputs; duplicates in one scope refused and logged (<a href="0.requirements.html#Q9">Q9</a>).</li>
+    <li lang="vi">Gán phím với phạm vi toàn cục và module; bỏ qua phím đơn trong ô nhập; phím trùng trong một phạm vi bị từ chối và ghi log (<a href="0.requirements.html#Q9">Q9</a>).</li>
+    <li lang="en">One Esc layer stack for overlays and modes (the mechanism behind <code>AC-37</code>–<code>AC-39</code>, verified in F04).</li>
+    <li lang="vi">Một ngăn xếp lớp Esc cho lớp phủ và chế độ (cơ chế cho <code>AC-37</code>–<code>AC-39</code>, kiểm chứng ở F04).</li>
+    <li lang="en">Navigation commands generated from the registry: Ctrl+1…7, Ctrl+, , Ctrl+Shift+T.</li>
+    <li lang="vi">Lệnh điều hướng sinh từ sổ đăng ký: Ctrl+1…7, Ctrl+, , Ctrl+Shift+T.</li>
+  </ul>
+  <ul class="ac-list">
+    <li><code>AC-62</code><span lang="en">The navigation shortcuts generated from the registry (Ctrl+1…7, Ctrl+, , Ctrl+Shift+T) open their module from every screen.</span><span lang="vi">Các phím điều hướng sinh từ sổ đăng ký (Ctrl+1…7, Ctrl+, , Ctrl+Shift+T) mở module tương ứng từ mọi màn hình.</span><span class="status open">must</span></li>
+    <li><code>AC-63</code><span lang="en">A second binding of the same keys in the same scope is refused and logged; the first one keeps working.</span><span lang="vi">Phím gán lần hai cho cùng tổ hợp trong cùng phạm vi bị từ chối và ghi log; phím gán đầu vẫn hoạt động.</span><span class="status open">must</span></li>
+  </ul>
+  <dl class="facts">
+    <dt><span lang="en">Depends on</span><span lang="vi">Phụ thuộc</span></dt>
+    <dd><a href="#M01-T01"><code>M01-T01</code></a></dd>
+  </dl>
+  <details class="inner">
+    <summary><span lang="en">Components touched · files · notes</span><span lang="vi">Thành phần · file · ghi chú</span></summary>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th><span lang="en">Component</span><span lang="vi">Thành phần</span></th><th><span lang="en">Change</span><span lang="vi">Thay đổi</span></th><th><span lang="en">Files (expected)</span><span lang="vi">File (dự kiến)</span></th></tr></thead>
+      <tbody>
+        <tr><td><span lang="en">Commands &amp; key bindings</span><span lang="vi">Lệnh &amp; gán phím</span></td><td><span lang="en">add</span><span lang="vi">thêm</span></td><td><code>angular/src/app/core/shortcuts/command.ts</code> · <code>command.service.ts</code> · <code>keybinding.service.ts</code> · <code>key-chord.ts</code></td></tr>
+        <tr><td><span lang="en">Esc layer stack</span><span lang="vi">Ngăn xếp lớp Esc</span></td><td><span lang="en">add</span><span lang="vi">thêm</span></td><td><code>angular/src/app/core/shortcuts/layer.service.ts</code></td></tr>
+        <tr><td><span lang="en">Navigation commands</span><span lang="vi">Lệnh điều hướng</span></td><td><span lang="en">add</span><span lang="vi">thêm</span></td><td><code>angular/src/app/shell/commands/navigation.commands.ts</code></td></tr>
+        <tr><td><span lang="en">Probe bindings</span><span lang="vi">Phím của module thăm dò</span></td><td><span lang="en">modify</span><span lang="vi">sửa</span></td><td><code>angular/src/e2e/probe/</code></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p lang="en"><b>Out of scope.</b> Palette and sheet UI and the “Open a novel first” toast (F04); custom bindings. <b>Planning notes.</b> 4 tasks: commands + key bindings · layer stack · navigation commands with novel guard · e2e.</p>
+    <p lang="vi"><b>Ngoài phạm vi.</b> Giao diện bảng lệnh, bảng phím tắt và toast “Hãy mở một truyện trước” (F04); tuỳ chỉnh phím. <b>Ghi chú lập plan.</b> 4 task: lệnh + gán phím · ngăn xếp lớp · lệnh điều hướng kèm điều kiện cần truyện · e2e.</p>
+  </details>
+</section>
+
+<section class="story" id="M01-F03">
+  <div class="story-head">
+    <h3><code>M01-F03</code> · <span lang="en">Appearance</span><span lang="vi">Giao diện</span></h3>
+    <span class="story-meta">Story · <code>R1.1</code> · <code>PNS-25</code></span>
+  </div>
+  <p lang="en">Instant language and theme switching from the top bar, and one consistent way to show toasts, confirmations, area states and errors.</p>
+  <p lang="vi">Đổi ngôn ngữ và giao diện tức thì từ thanh trên, và một cách thống nhất để hiện toast, xác nhận, trạng thái vùng và lỗi.</p>
+  <ul>
+    <li lang="en">Language and theme buttons with Ctrl+Shift+U / L, calling the M00 <code>I18nService</code> and <code>ThemeService</code>.</li>
+    <li lang="vi">Nút ngôn ngữ và giao diện với Ctrl+Shift+U / L, gọi <code>I18nService</code> và <code>ThemeService</code> của M00.</li>
+    <li lang="en">Toast service: info, success and warning close after 5 s, errors stay, max 3 (<a href="#Q-7">Q-7</a>).</li>
+    <li lang="vi">Dịch vụ toast: thông tin, thành công và cảnh báo đóng sau 5 giây, lỗi ở lại, tối đa 3 (<a href="#Q-7">Q-7</a>).</li>
+    <li lang="en">Confirm service on the M00 confirm dialog (<code>dlg-confirm</code>): names the object, Cancel focused.</li>
+    <li lang="vi">Dịch vụ xác nhận trên hộp xác nhận của M00 (<code>dlg-confirm</code>): nêu đối tượng, Huỷ có tiêu điểm.</li>
+    <li lang="en">Error message with a Details part (raw text) on top of the M00 <code>error.&lt;code&gt;</code> mapping.</li>
+    <li lang="vi">Thông báo lỗi có phần Chi tiết (văn bản gốc) trên cách ánh xạ <code>error.&lt;code&gt;</code> của M00.</li>
+    <li lang="en">One area-state helper (loading / empty / error) over the M00 state components.</li>
+    <li lang="vi">Một helper trạng thái vùng (đang tải / trống / lỗi) trên các thành phần trạng thái của M00.</li>
+  </ul>
+  <dl class="facts">
+    <dt><span lang="en">Acceptance</span><span lang="vi">Chấp nhận</span></dt>
+    <dd><a href="0.requirements.html#M01-F03"><code>AC-21</code>–<code>AC-29</code></a></dd>
+    <dt><span lang="en">Depends on</span><span lang="vi">Phụ thuộc</span></dt>
+    <dd><a href="#M01-T02"><code>M01-T02</code></a> · <code>M00-T04</code> · <code>M00-T05</code> · <code>M00-T06</code></dd>
+  </dl>
+  <details class="inner">
+    <summary><span lang="en">Components touched · files · notes</span><span lang="vi">Thành phần · file · ghi chú</span></summary>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th><span lang="en">Component</span><span lang="vi">Thành phần</span></th><th><span lang="en">Change</span><span lang="vi">Thay đổi</span></th><th><span lang="en">Files (expected)</span><span lang="vi">File (dự kiến)</span></th></tr></thead>
+      <tbody>
+        <tr><td><span lang="en">Toast, confirm, error details, area state</span><span lang="vi">Toast, xác nhận, chi tiết lỗi, trạng thái vùng</span></td><td><span lang="en">add</span><span lang="vi">thêm</span></td><td><code>angular/src/app/shell/feedback/toast.service.ts</code> · <code>confirm.service.ts</code> · <code>error-message.component.ts</code> · <code>area-state.ts</code></td></tr>
+        <tr><td><span lang="en">Top-bar buttons &amp; commands</span><span lang="vi">Nút thanh trên &amp; lệnh</span></td><td><span lang="en">add</span><span lang="vi">thêm</span></td><td><code>angular/src/app/shell/topbar/appearance-buttons.component.ts</code> · <code>angular/src/app/shell/commands/appearance.commands.ts</code></td></tr>
+        <tr><td><span lang="en">Probe: toasts, destructive action, async area</span><span lang="vi">Module thăm dò: toast, thao tác phá huỷ, vùng bất đồng bộ</span></td><td><span lang="en">modify</span><span lang="vi">sửa</span></td><td><code>angular/src/e2e/probe/</code></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p lang="en"><b>Out of scope.</b> Default EN + dark, persistence, first paint and Intl formatting are built by M00 (<code>M00-T04</code>, <code>M00-T05</code>); here <code>AC-21</code>, <code>AC-24</code>, <code>AC-25</code> are only verified (a relative-time helper only if <code>M00-T04</code> lacks one). The palette path of <code>AC-22</code> / <code>AC-23</code> is checked in F04; the Settings page is M02. <b>Planning notes.</b> 4 tasks: toast + confirm · error details + area state · top-bar buttons + commands · probe additions + e2e.</p>
+    <p lang="vi"><b>Ngoài phạm vi.</b> Mặc định EN + tối, lưu trữ, khung hình đầu và định dạng Intl do M00 làm (<code>M00-T04</code>, <code>M00-T05</code>); ở đây <code>AC-21</code>, <code>AC-24</code>, <code>AC-25</code> chỉ được kiểm chứng (chỉ thêm helper thời gian tương đối nếu <code>M00-T04</code> chưa có). Đường bảng lệnh của <code>AC-22</code> / <code>AC-23</code> kiểm ở F04; trang Cài đặt thuộc M02. <b>Ghi chú lập plan.</b> 4 task: toast + xác nhận · chi tiết lỗi + trạng thái vùng · nút thanh trên + lệnh · bổ sung module thăm dò + e2e.</p>
+  </details>
+</section>
+
+<section class="story" id="M01-F04">
+  <div class="story-head">
+    <h3><code>M01-F04</code> · <span lang="en">Keyboard shortcuts &amp; command palette</span><span lang="vi">Phím tắt &amp; bảng lệnh</span> <span class="status review">changed</span></h3>
+    <span class="story-meta">Story · <code>R1.1</code> · <code>PNS-26</code></span>
+  </div>
+  <p lang="en">Keyboard-first access to every module, command and novel.</p>
+  <p lang="vi">Tới mọi module, lệnh và truyện bằng bàn phím.</p>
+  <ul>
+    <li lang="en">Palette button in the top bar and Ctrl+K.</li>
+    <li lang="vi">Nút bảng lệnh trên thanh trên và Ctrl+K.</li>
+    <li lang="en">Command palette: search in EN + VI + keywords; sections Go to module per rail group, Commands, Novels; optional Novels filter; “No results”.</li>
+    <li lang="vi">Bảng lệnh: tìm bằng EN + VI + từ khóa; các phần Đi tới module theo nhóm thanh, Lệnh, Truyện; bộ lọc Truyện tuỳ chọn; “Không có kết quả”.</li>
+    <li lang="en">Shortcut sheet (Ctrl+/ and ?), grouped by scope, active ones marked.</li>
+    <li lang="vi">Bảng phím tắt (Ctrl+/ và ?), nhóm theo phạm vi, đánh dấu phím đang hiệu lực.</li>
+    <li lang="en">The “Open a novel first” guard toast for novel shortcuts.</li>
+    <li lang="vi">Toast chặn “Hãy mở một truyện trước” cho phím tắt của truyện.</li>
+  </ul>
+  <dl class="facts">
+    <dt><span lang="en">Acceptance</span><span lang="vi">Chấp nhận</span></dt>
+    <dd><a href="0.requirements.html#M01-F04"><code>AC-30</code>–<code>AC-39</code></a></dd>
+    <dt><span lang="en">Depends on</span><span lang="vi">Phụ thuộc</span></dt>
+    <dd><a href="#M01-F03"><code>M01-F03</code></a> · <a href="#M01-T02"><code>M01-T02</code></a> · <a href="#M01-T01"><code>M01-T01</code></a> · <code>M00-T06</code></dd>
+  </dl>
+  <details class="inner">
+    <summary><span lang="en">Components touched · files · notes</span><span lang="vi">Thành phần · file · ghi chú</span></summary>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th><span lang="en">Component</span><span lang="vi">Thành phần</span></th><th><span lang="en">Change</span><span lang="vi">Thay đổi</span></th><th><span lang="en">Files (expected)</span><span lang="vi">File (dự kiến)</span></th></tr></thead>
+      <tbody>
+        <tr><td><span lang="en">Palette search</span><span lang="vi">Tìm trong bảng lệnh</span></td><td><span lang="en">add</span><span lang="vi">thêm</span></td><td><code>angular/src/app/shell/palette/palette-search.ts</code></td></tr>
+        <tr><td><span lang="en">Palette overlay &amp; button</span><span lang="vi">Bảng lệnh &amp; nút</span></td><td><span lang="en">add</span><span lang="vi">thêm</span></td><td><code>angular/src/app/shell/palette/palette.component.ts</code> · <code>palette-button.component.ts</code></td></tr>
+        <tr><td><span lang="en">Shortcut sheet</span><span lang="vi">Bảng phím tắt</span></td><td><span lang="en">add</span><span lang="vi">thêm</span></td><td><code>angular/src/app/shell/shortcut-sheet/shortcut-sheet.component.ts</code></td></tr>
+        <tr><td><span lang="en">Overlay commands</span><span lang="vi">Lệnh mở lớp phủ</span></td><td><span lang="en">add</span><span lang="vi">thêm</span></td><td><code>angular/src/app/shell/commands/overlay.commands.ts</code></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p lang="en"><b>Out of scope.</b> Novel ordering by last opened (<code>AC-8</code>, F01); domain commands of later modules. <b>Planning notes.</b> 4 tasks: search model · palette + button · sheet · e2e. <code>AC-33</code> and <code>AC-39</code> are checked for what exists; F02 adds the panel and focus-mode keys (<a href="#Q-4">Q-4</a>).</p>
+    <p lang="vi"><b>Ngoài phạm vi.</b> Sắp xếp truyện theo lần mở gần nhất (<code>AC-8</code>, F01); lệnh nghiệp vụ của module sau. <b>Ghi chú lập plan.</b> 4 task: mô hình tìm kiếm · bảng lệnh + nút · bảng phím tắt · e2e. <code>AC-33</code> và <code>AC-39</code> kiểm với những gì đã có; F02 thêm phím panel và chế độ tập trung (<a href="#Q-4">Q-4</a>).</p>
+  </details>
+</section>
+
+<section class="story" id="M01-F01">
+  <div class="story-head">
+    <h3><code>M01-F01</code> · <span lang="en">Navigation</span><span lang="vi">Điều hướng</span> <span class="status review">changed</span></h3>
+    <span class="story-meta">Story · <code>R1.1</code> · <code>PNS-23</code></span>
+  </div>
+  <p lang="en">Every module one click away, and the open novel always visible and switchable.</p>
+  <p lang="vi">Mọi module chỉ cách một cú nhấp, truyện đang mở luôn hiện và đổi được.</p>
+  <ul>
+    <li lang="en">Rail: six groups, novel-scoped groups, active indicator, “name · shortcut” tooltips, badges from the store.</li>
+    <li lang="vi">Thanh module: sáu nhóm, nhóm thuộc truyện, vạch đang mở, tooltip “tên · phím tắt”, huy hiệu lấy từ store.</li>
+    <li lang="en">Brand toggle with the remembered expanded state.</li>
+    <li lang="vi">Logo bật/tắt với trạng thái mở rộng được ghi nhớ.</li>
+    <li lang="en">Crumbs and novel chip: switch opens the palette filtered to Novels, clear closes the novel.</li>
+    <li lang="vi">Crumbs và chip truyện: đổi truyện mở bảng lệnh lọc Truyện, xoá thì đóng truyện.</li>
+    <li lang="en">Neutral page for unbuilt modules (D22).</li>
+    <li lang="vi">Trang trung tính cho module chưa làm (D22).</li>
+    <li lang="en">Recent-novel ordering; the app starts on Home with no novel.</li>
+    <li lang="vi">Sắp xếp truyện gần đây; ứng dụng khởi động ở Trang chủ, không có truyện.</li>
+  </ul>
+  <dl class="facts">
+    <dt><span lang="en">Acceptance</span><span lang="vi">Chấp nhận</span></dt>
+    <dd><a href="0.requirements.html#M01-F01"><code>AC-1</code>–<code>AC-11</code></a></dd>
+    <dt><span lang="en">Depends on</span><span lang="vi">Phụ thuộc</span></dt>
+    <dd><a href="#M01-F04"><code>M01-F04</code></a> · <a href="#M01-T01"><code>M01-T01</code></a> · <code>M00-T04</code></dd>
+  </dl>
+  <details class="inner">
+    <summary><span lang="en">Components touched · files · notes</span><span lang="vi">Thành phần · file · ghi chú</span></summary>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th><span lang="en">Component</span><span lang="vi">Thành phần</span></th><th><span lang="en">Change</span><span lang="vi">Thay đổi</span></th><th><span lang="en">Files (expected)</span><span lang="vi">File (dự kiến)</span></th></tr></thead>
+      <tbody>
+        <tr><td><span lang="en">Rail</span><span lang="vi">Thanh module</span></td><td><span lang="en">add</span><span lang="vi">thêm</span></td><td><code>angular/src/app/shell/rail/rail.component.ts|html|scss</code></td></tr>
+        <tr><td><span lang="en">Brand, crumbs, novel chip</span><span lang="vi">Logo, crumbs, chip truyện</span></td><td><span lang="en">add</span><span lang="vi">thêm</span></td><td><code>angular/src/app/shell/topbar/brand.component.ts</code> · <code>crumbs.component.ts</code> · <code>novel-chip.component.ts</code></td></tr>
+        <tr><td><span lang="en">Unbuilt module page</span><span lang="vi">Trang module chưa làm</span></td><td><span lang="en">add</span><span lang="vi">thêm</span></td><td><code>angular/src/app/shell/module-empty/module-empty.component.ts</code></td></tr>
+        <tr><td><span lang="en">Novel open / close, ordering</span><span lang="vi">Mở / đóng truyện, sắp xếp</span></td><td><span lang="en">modify</span><span lang="vi">sửa</span></td><td><code>angular/src/app/shell/shell.store.ts</code></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p lang="en"><b>Out of scope.</b> Recent screens and history; the Library and Import screens (M04). <b>Planning notes.</b> 5 tasks: rail · brand + remembered state · crumbs + chip + ordering · unbuilt page + start on Home · e2e.</p>
+    <p lang="vi"><b>Ngoài phạm vi.</b> Màn hình gần đây và lịch sử; màn hình Thư viện và Nhập truyện (M04). <b>Ghi chú lập plan.</b> 5 task: thanh module · logo + trạng thái ghi nhớ · crumbs + chip + sắp xếp · trang chưa làm + khởi động ở Trang chủ · e2e.</p>
+  </details>
+</section>
+
+<section class="story" id="M01-F05">
+  <div class="story-head">
+    <h3><code>M01-F05</code> · <span lang="en">Global status</span><span lang="vi">Trạng thái toàn cục</span> <span class="status review">changed</span></h3>
+    <span class="story-meta">Story · <code>R1.1</code> · <code>PNS-27</code></span>
+  </div>
+  <p lang="en">All global status in the status bar (D21): CLIs, the running job, what needs attention, and the backend.</p>
+  <p lang="vi">Mọi trạng thái toàn cục ở thanh trạng thái (D21): CLI, job đang chạy, việc cần xử lý và backend.</p>
+  <ul>
+    <li lang="en">Status store: CLIs, jobs with throttled live progress, backend status, library path.</li>
+    <li lang="vi">Store trạng thái: CLI, job với tiến độ trực tiếp có giới hạn tần suất, trạng thái backend, đường dẫn thư viện.</li>
+    <li lang="en">One item per CLI (Claude, Codex; <a href="#Q-8">Q-8</a>): ready · warning · missing · unknown; click opens Settings.</li>
+    <li lang="vi">Mỗi CLI một mục (Claude, Codex; <a href="#Q-8">Q-8</a>): sẵn sàng · cảnh báo · không có · không rõ; nhấp mở Cài đặt.</li>
+    <li lang="en">Job item: running · needs attention · idle “No running tasks”; opens the Task Center.</li>
+    <li lang="vi">Mục job: đang chạy · cần xử lý · rảnh “Không có tác vụ đang chạy”; mở Trung tâm tác vụ.</li>
+    <li lang="en">Library folder, open-chapter size, key hints, language · theme, backend item.</li>
+    <li lang="vi">Thư mục thư viện, cỡ chương đang mở, gợi ý phím, ngôn ngữ · giao diện, mục backend.</li>
+    <li lang="en">Task Center rail badge (danger, <a href="#Q-9">Q-9</a>) and the top-bar settings gear; no tray, no CLI dots.</li>
+    <li lang="vi">Huy hiệu Trung tâm tác vụ trên thanh module (màu nguy hiểm, <a href="#Q-9">Q-9</a>) và bánh răng cài đặt trên thanh trên; không khay, không chấm CLI.</li>
+  </ul>
+  <dl class="facts">
+    <dt><span lang="en">Acceptance</span><span lang="vi">Chấp nhận</span></dt>
+    <dd><a href="0.requirements.html#M01-F05"><code>AC-40</code>–<code>AC-48</code></a></dd>
+    <dt><span lang="en">Depends on</span><span lang="vi">Phụ thuộc</span></dt>
+    <dd><a href="#M01-F01"><code>M01-F01</code></a> · <a href="#M01-F03"><code>M01-F03</code></a> · <a href="#M01-T01"><code>M01-T01</code></a> · <code>M00-T07</code> (<code>library:status</code>) · <code>M00-T08</code> (<code>backend:status</code>)</dd>
+  </dl>
+  <details class="inner">
+    <summary><span lang="en">Components touched · files · notes</span><span lang="vi">Thành phần · file · ghi chú</span></summary>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th><span lang="en">Component</span><span lang="vi">Thành phần</span></th><th><span lang="en">Change</span><span lang="vi">Thay đổi</span></th><th><span lang="en">Files (expected)</span><span lang="vi">File (dự kiến)</span></th></tr></thead>
+      <tbody>
+        <tr><td><span lang="en">Status store</span><span lang="vi">Store trạng thái</span></td><td><span lang="en">add</span><span lang="vi">thêm</span></td><td><code>angular/src/app/shell/status/status.store.ts</code></td></tr>
+        <tr><td><span lang="en">Status bar &amp; items</span><span lang="vi">Thanh trạng thái &amp; các mục</span></td><td><span lang="en">add</span><span lang="vi">thêm</span></td><td><code>angular/src/app/shell/status/status-bar.component.ts</code> · <code>cli-item.component.ts</code> · <code>job-item.component.ts</code></td></tr>
+        <tr><td><span lang="en">Settings gear</span><span lang="vi">Nút bánh răng</span></td><td><span lang="en">add</span><span lang="vi">thêm</span></td><td><code>angular/src/app/shell/topbar/settings-button.component.ts</code></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p lang="en"><b>Out of scope.</b> CLI detection (M02), the job runner and Task Center screen (M03), any notification centre; the focus-mode <code>zen-progress</code> bar is F02. <b>Planning notes.</b> 4 tasks: status store · CLI + job + backend items and badge · other items + gear · e2e.</p>
+    <p lang="vi"><b>Ngoài phạm vi.</b> Phát hiện CLI (M02), bộ chạy job và màn hình Trung tâm tác vụ (M03), mọi trung tâm thông báo; vạch <code>zen-progress</code> của chế độ tập trung thuộc F02. <b>Ghi chú lập plan.</b> 4 task: store trạng thái · mục CLI + job + backend và huy hiệu · các mục còn lại + bánh răng · e2e.</p>
+  </details>
+</section>
+
+<section class="story" id="M01-F02">
+  <div class="story-head">
+    <h3><code>M01-F02</code> · <span lang="en">Studio layout</span><span lang="vi">Bố cục studio</span> <span class="status review">changed</span></h3>
+    <span class="story-meta">Story · <code>R1.1</code> · <code>PNS-24</code></span>
+  </div>
+  <p lang="en">Panels the user can resize, collapse and reset, remembered per screen, plus focus mode.</p>
+  <p lang="vi">Panel người dùng đổi cỡ, thu gọn và đặt lại được, nhớ theo màn hình, cùng chế độ tập trung.</p>
+  <ul>
+    <li lang="en">Per-screen layout store on CSS variables (D3), making the T01 grid live.</li>
+    <li lang="vi">Store bố cục theo màn hình bằng biến CSS (D3), làm lưới của T01 hoạt động.</li>
+    <li lang="en">Three resizers (drag within range, double-click reset) and panel toggles with Ctrl+B / Ctrl+Alt+B / Ctrl+J.</li>
+    <li lang="vi">Ba thanh kéo (kéo trong giới hạn, nhấp đúp đặt lại) và nút panel với Ctrl+B / Ctrl+Alt+B / Ctrl+J.</li>
+    <li lang="en">Reset layout: all screens, rail collapsed, focus mode left; language and theme kept.</li>
+    <li lang="vi">Đặt lại bố cục: mọi màn hình, thu gọn thanh module, thoát tập trung; giữ ngôn ngữ và giao diện.</li>
+    <li lang="en">Focus mode (Shift+F, Esc) with the 2px <code>zen-progress</code> job bar (D21), fed by the F05 status store.</li>
+    <li lang="vi">Chế độ tập trung (Shift+F, Esc) với vạch job <code>zen-progress</code> 2px (D21), lấy dữ liệu từ store trạng thái của F05.</li>
+    <li lang="en">Window bounds saved and restored in main; off-screen → centred.</li>
+    <li lang="vi">Lưu và khôi phục kích thước cửa sổ trong main; ngoài màn hình → đặt giữa.</li>
+  </ul>
+  <dl class="facts">
+    <dt><span lang="en">Acceptance</span><span lang="vi">Chấp nhận</span></dt>
+    <dd><a href="0.requirements.html#M01-F02"><code>AC-12</code>–<code>AC-20</code></a></dd>
+    <dt><span lang="en">Depends on</span><span lang="vi">Phụ thuộc</span></dt>
+    <dd><a href="#M01-F05"><code>M01-F05</code></a> · <a href="#M01-F01"><code>M01-F01</code></a> · <a href="#M01-F04"><code>M01-F04</code></a> · <code>M00-T03</code> · <code>M00-T04</code></dd>
+  </dl>
+  <details class="inner">
+    <summary><span lang="en">Components touched · files · notes</span><span lang="vi">Thành phần · file · ghi chú</span></summary>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th><span lang="en">Component</span><span lang="vi">Thành phần</span></th><th><span lang="en">Change</span><span lang="vi">Thay đổi</span></th><th><span lang="en">Files (expected)</span><span lang="vi">File (dự kiến)</span></th></tr></thead>
+      <tbody>
+        <tr><td><span lang="en">Layout store, grid variables</span><span lang="vi">Store bố cục, biến lưới</span></td><td><span lang="en">add · modify</span><span lang="vi">thêm · sửa</span></td><td><code>angular/src/app/shell/layout/layout.store.ts</code> · <code>angular/src/app/shell/shell.component.scss</code></td></tr>
+        <tr><td><span lang="en">Resizers, panel collapse, toggles</span><span lang="vi">Thanh kéo, thu gọn panel, nút panel</span></td><td><span lang="en">add</span><span lang="vi">thêm</span></td><td><code>angular/src/app/shell/layout/resizer.directive.ts</code> · <code>panel-collapse.directive.ts</code> · <code>angular/src/app/shell/topbar/panel-toggles.component.ts</code></td></tr>
+        <tr><td><span lang="en">Reset, focus mode, commands</span><span lang="vi">Đặt lại, chế độ tập trung, lệnh</span></td><td><span lang="en">add</span><span lang="vi">thêm</span></td><td><code>angular/src/app/shell/commands/layout.commands.ts</code> · <code>angular/src/app/shell/layout/focus-bar.component.ts</code></td></tr>
+        <tr><td><span lang="en">Window bounds</span><span lang="vi">Kích thước cửa sổ</span></td><td><span lang="en">add</span><span lang="vi">thêm</span></td><td><code>electron/src/main/window-state.ts</code></td></tr>
+        <tr><td><span lang="en">Probe: three panels, scroll, input</span><span lang="vi">Module thăm dò: ba panel, cuộn, ô nhập</span></td><td><span lang="en">modify</span><span lang="vi">sửa</span></td><td><code>angular/src/e2e/probe/</code></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p lang="en"><b>Out of scope.</b> Window size and minimum (<code>M00-T03</code>; <code>AC-17</code> only verified here); Settings › Layout page (M02); layouts of real module screens. <b>Planning notes.</b> 5 tasks: layout store + grid · resizers + toggles · reset + focus mode · window bounds restore · e2e + smoke.</p>
+    <p lang="vi"><b>Ngoài phạm vi.</b> Kích thước và mức tối thiểu cửa sổ (<code>M00-T03</code>; <code>AC-17</code> ở đây chỉ kiểm chứng); trang Cài đặt › Bố cục (M02); bố cục của màn hình module thật. <b>Ghi chú lập plan.</b> 5 task: store bố cục + lưới · thanh kéo + nút panel · đặt lại + chế độ tập trung · khôi phục kích thước cửa sổ · e2e + smoke.</p>
+  </details>
+</section>
+
+<section class="story" id="M01-F06">
+  <div class="story-head">
+    <h3><code>M01-F06</code> · <span lang="en">Home screen</span><span lang="vi">Màn hình Trang chủ</span> <span class="status open">new</span></h3>
+    <span class="story-meta">Story · <code>R1.1</code> · <code>PNS-132</code></span>
+  </div>
+  <p lang="en">A Home page to pick up where I left off, honest about data that is not available yet.</p>
+  <p lang="vi">Một Trang chủ để tiếp tục chỗ đã dừng, nói rõ dữ liệu nào chưa có.</p>
+  <ul>
+    <li lang="en">Centred page without panels.</li>
+    <li lang="vi">Trang căn giữa, không có panel.</li>
+    <li lang="en">Library folder, AI tools and Running now cards, each showing “not available” when there is no source.</li>
+    <li lang="vi">Thẻ Thư mục thư viện, Công cụ AI và Đang chạy, mỗi thẻ hiện “chưa có” khi không có nguồn.</li>
+    <li lang="en">Continue reading (six most recent) with its empty state.</li>
+    <li lang="vi">Đọc tiếp (sáu truyện gần nhất) cùng trạng thái trống.</li>
+    <li lang="en">Open library and Import novel actions.</li>
+    <li lang="vi">Hành động Mở thư viện và Nhập truyện.</li>
+    <li lang="en">First-run page when no library is open (<code>library:status</code> = <code>null</code>); its buttons stay disabled until M06 (<a href="#Q-2">Q-2</a>).</li>
+    <li lang="vi">Trang lần đầu khi chưa mở thư viện (<code>library:status</code> = <code>null</code>); các nút bị vô hiệu tới khi có M06 (<a href="#Q-2">Q-2</a>).</li>
+  </ul>
+  <dl class="facts">
+    <dt><span lang="en">Acceptance</span><span lang="vi">Chấp nhận</span></dt>
+    <dd><a href="0.requirements.html#M01-F06"><code>AC-49</code>–<code>AC-56</code></a></dd>
+    <dt><span lang="en">Depends on</span><span lang="vi">Phụ thuộc</span></dt>
+    <dd><a href="#M01-F05"><code>M01-F05</code></a> · <a href="#M01-F01"><code>M01-F01</code></a> · <a href="#M01-F03"><code>M01-F03</code></a> · <code>M00-T07</code> · <code>M00-T04</code></dd>
+  </dl>
+  <details class="inner">
+    <summary><span lang="en">Components touched · files · notes</span><span lang="vi">Thành phần · file · ghi chú</span></summary>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th><span lang="en">Component</span><span lang="vi">Thành phần</span></th><th><span lang="en">Change</span><span lang="vi">Thay đổi</span></th><th><span lang="en">Files (expected)</span><span lang="vi">File (dự kiến)</span></th></tr></thead>
+      <tbody>
+        <tr><td><span lang="en">Home page &amp; first run</span><span lang="vi">Trang chủ &amp; lần đầu</span></td><td><span lang="en">add</span><span lang="vi">thêm</span></td><td><code>angular/src/app/features/home/home.component.ts|html|scss</code> · <code>home-first-run.component.ts</code></td></tr>
+        <tr><td><span lang="en">Cards</span><span lang="vi">Các thẻ</span></td><td><span lang="en">add</span><span lang="vi">thêm</span></td><td><code>angular/src/app/features/home/library-card.component.ts</code> · <code>ai-tools-card.component.ts</code> · <code>running-card.component.ts</code> · <code>recent-novels.component.ts</code></td></tr>
+        <tr><td><span lang="en">Registry entry</span><span lang="vi">Mục sổ đăng ký</span></td><td><span lang="en">modify</span><span lang="vi">sửa</span></td><td><code>angular/src/app/shell/registry/module-entries.ts</code></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p lang="en"><b>Out of scope.</b> Library folder actions (M06; until then <code>--library &lt;path&gt;</code> of <code>M00-T07</code>), CLI detection (M02), the Content screen (M05). <b>Planning notes.</b> 4 tasks: page + first run · three cards · Continue reading + actions · e2e.</p>
+    <p lang="vi"><b>Ngoài phạm vi.</b> Hành động thư mục thư viện (M06; trước đó dùng <code>--library &lt;path&gt;</code> của <code>M00-T07</code>), phát hiện CLI (M02), màn hình Nội dung (M05). <b>Ghi chú lập plan.</b> 4 task: trang + lần đầu · ba thẻ · Đọc tiếp + hành động · e2e.</p>
+  </details>
+</section>
+
+<h2 id="ux"><span lang="en">UX flow &amp; mockups</span><span lang="vi">Luồng UX &amp; mockup</span></h2>
+<p lang="en">29 steps from the designer cover every Story AC (<code>AC-1</code>–<code>AC-56</code>); Task ACs have no user steps. Screens: <a href="../../mockups/index.html#home"><code>#home</code></a> (start, first launch, empty, loading / error, filled) · <a href="../../mockups/index.html#reader"><code>#reader</code></a> (rail, chip, panels, focus mode) · <a href="../../mockups/index.html#components"><code>#components</code></a> (unbuilt-module page, status-bar states, toasts, dialogs) · <a href="../../mockups/index.html#tasks"><code>#tasks</code></a> · <a href="../../mockups/index.html#settings"><code>#settings</code></a>.</p>
+<p lang="vi">29 bước của designer phủ mọi AC của Story (<code>AC-1</code>–<code>AC-56</code>); AC của Task không có bước người dùng. Màn hình: <a href="../../mockups/index.html#home"><code>#home</code></a> (khởi động, lần đầu, trống, đang tải / lỗi, có dữ liệu) · <a href="../../mockups/index.html#reader"><code>#reader</code></a> (thanh module, chip, panel, chế độ tập trung) · <a href="../../mockups/index.html#components"><code>#components</code></a> (trang module chưa làm, trạng thái thanh trạng thái, toast, hộp thoại) · <a href="../../mockups/index.html#tasks"><code>#tasks</code></a> · <a href="../../mockups/index.html#settings"><code>#settings</code></a>.</p>
+<details class="fold" id="ux-steps">
+  <summary><span lang="en">All steps</span><span lang="vi">Mọi bước</span> <span class="count">29</span></summary>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>#</th><th><span lang="en">Screen</span><span lang="vi">Màn hình</span></th><th><span lang="en">User does → system shows</span><span lang="vi">Người dùng làm → hệ thống hiển thị</span></th><th>AC</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><a href="../../mockups/index.html#home"><span lang="en">Home</span><span lang="vi">Trang chủ</span></a></td><td><span lang="en">Start the app → Home opens with no novel open; rail shows 10 entries in 4 groups; status bar shows library, CLIs, job item, language and theme</span><span lang="vi">Khởi động ứng dụng → Trang chủ mở, không có truyện mở; thanh module hiện 10 mục trong 4 nhóm; thanh trạng thái hiện thư viện, CLI, mục job, ngôn ngữ và giao diện</span></td><td><code>AC-9</code> <code>AC-1</code> <code>AC-21</code> <code>AC-24</code> <code>AC-46</code></td></tr>
+      <tr><td>2</td><td><a href="../../mockups/index.html#home"><span lang="en">Home · first launch</span><span lang="vi">Trang chủ · lần đầu</span></a></td><td><span lang="en">Start with no library folder → Whole page is “Choose where your library lives” with Create / Open existing (actions owned by M06)</span><span lang="vi">Khởi động khi chưa có thư mục thư viện → Cả trang là “Chọn nơi lưu thư viện của bạn” với Tạo / Mở có sẵn (hành động thuộc M06)</span></td><td><code>AC-56</code></td></tr>
+      <tr><td>3</td><td><a href="../../mockups/index.html#home"><span lang="en">Home · empty</span><span lang="vi">Trang chủ · trống</span></a></td><td><span lang="en">View Home before M02 / M03 / M04 / M06 provide data → Library “not available yet”; CLIs “unknown”; “No running tasks”; Continue reading empty with Import novel</span><span lang="vi">Xem Trang chủ trước khi M02 / M03 / M04 / M06 cung cấp dữ liệu → Thư viện “chưa có thông tin”; CLI “không rõ”; “Không có tác vụ đang chạy”; Đọc tiếp trống kèm Nhập truyện</span></td><td><code>AC-51</code> <code>AC-52</code> <code>AC-53</code> <code>AC-55</code> <code>AC-40</code> <code>AC-43</code></td></tr>
+      <tr><td>4</td><td><a href="../../mockups/index.html#home"><span lang="en">Home · loading / error</span><span lang="vi">Trang chủ · đang tải / lỗi</span></a></td><td><span lang="en">Open Home while data loads or fails → Each area shows loading; on failure a translated message with raw text under Details</span><span lang="vi">Mở Trang chủ khi dữ liệu đang tải hoặc lỗi → Mỗi vùng hiện đang tải; khi lỗi hiện thông báo đã dịch, văn bản gốc trong Chi tiết</span></td><td><code>AC-28</code> <code>AC-29</code></td></tr>
+      <tr><td>5</td><td><a href="../../mockups/index.html#home"><span lang="en">Home · filled</span><span lang="vi">Trang chủ · có dữ liệu</span></a></td><td><span lang="en">Click a Continue-reading card → Novel opens in Content at its last chapter; novel chip appears; Workspace and Production groups appear</span><span lang="vi">Nhấp một thẻ Đọc tiếp → Truyện mở trong Nội dung ở chương cuối đã đọc; chip truyện xuất hiện; nhóm Không gian làm việc và Sản xuất xuất hiện</span></td><td><code>AC-49</code> <code>AC-54</code> <code>AC-5</code></td></tr>
+      <tr><td>6</td><td><a href="../../mockups/index.html#home"><span lang="en">Home → Library / Import</span><span lang="vi">Trang chủ → Thư viện / Nhập truyện</span></a></td><td><span lang="en">Click Open library / Import novel (Ctrl+O) → Library or Import opens (the unbuilt-module page until M04 exists)</span><span lang="vi">Nhấp Mở thư viện / Nhập truyện (Ctrl+O) → Thư viện hoặc Nhập truyện mở (trang module chưa làm tới khi có M04)</span></td><td><code>AC-50</code> <code>AC-4</code></td></tr>
+      <tr><td>7</td><td><a href="../../mockups/index.html#reader"><span lang="en">any → module</span><span lang="vi">bất kỳ → module</span></a></td><td><span lang="en">Click a rail entry or Ctrl+1…7 → Screen opens with the 2px active indicator; breadcrumb Module · [chip]</span><span lang="vi">Nhấp một mục trên thanh hoặc Ctrl+1…7 → Màn hình mở với vạch đang mở 2px; breadcrumb Module · [chip]</span></td><td><code>AC-2</code> <code>AC-3</code></td></tr>
+      <tr><td>8</td><td><a href="../../mockups/index.html#components"><span lang="en">Unbuilt module page</span><span lang="vi">Trang module chưa làm</span></a></td><td><span lang="en">Open an unbuilt module from rail, palette or shortcut → Neutral page with name and description; no release wording (D22)</span><span lang="vi">Mở module chưa làm từ thanh, bảng lệnh hoặc phím tắt → Trang trung tính có tên và mô tả; không có chữ về release (D22)</span></td><td><code>AC-4</code></td></tr>
+      <tr><td>9</td><td><a href="../../mockups/index.html#reader"><span lang="en">any</span><span lang="vi">bất kỳ</span></a></td><td><span lang="en">Click the brand, then restart → Rail expands to 200px with labels; remembered</span><span lang="vi">Nhấp logo, rồi khởi động lại → Thanh mở rộng 200px có nhãn; được ghi nhớ</span></td><td><code>AC-10</code></td></tr>
+      <tr><td>10</td><td><a href="../../mockups/index.html#reader"><span lang="en">any</span><span lang="vi">bất kỳ</span></a></td><td><span lang="en">Click the chip, pick a novel in the palette → Palette filtered to Novels (last opened first); chip switches</span><span lang="vi">Nhấp chip, chọn truyện trong bảng lệnh → Bảng lệnh lọc Truyện (mở gần nhất trước); chip đổi truyện</span></td><td><code>AC-6</code> <code>AC-8</code></td></tr>
+      <tr><td>11</td><td><a href="../../mockups/index.html#reader"><span lang="en">any</span><span lang="vi">bất kỳ</span></a></td><td><span lang="en">Clear the chip, or go Home → Novel closes, its groups hide; Library or Home opens</span><span lang="vi">Xoá chip, hoặc về Trang chủ → Truyện đóng, nhóm của truyện ẩn; Thư viện hoặc Trang chủ mở</span></td><td><code>AC-7</code></td></tr>
+      <tr><td>12</td><td><a href="../../mockups/index.html#reader"><span lang="en">any at 1280</span><span lang="vi">bất kỳ ở 1280</span></a></td><td><span lang="en">Look at the top bar → Module name whole; chip hides chapter count; window cannot shrink below 1280×720</span><span lang="vi">Xem thanh trên → Tên module đầy đủ; chip ẩn số chương; cửa sổ không thu nhỏ dưới 1280×720</span></td><td><code>AC-11</code> <code>AC-17</code></td></tr>
+      <tr><td>13</td><td><a href="../../mockups/index.html#reader"><span lang="en">Content / Task Center</span><span lang="vi">Nội dung / Trung tâm tác vụ</span></a></td><td><span lang="en">Drag a gutter, double-click it, toggles or Ctrl+B / Ctrl+Alt+B / Ctrl+J → Size within limits; double-click resets that panel; collapse / restore; layout kept per screen; scroll and unsaved input kept</span><span lang="vi">Kéo rãnh, nhấp đúp, nút panel hoặc Ctrl+B / Ctrl+Alt+B / Ctrl+J → Kích thước trong giới hạn; nhấp đúp đặt lại panel đó; thu gọn / hiện lại; bố cục giữ theo màn hình; giữ vị trí cuộn và dữ liệu chưa lưu</span></td><td><code>AC-12–AC-15</code> <code>AC-20</code></td></tr>
+      <tr><td>14</td><td><a href="../../mockups/index.html#reader"><span lang="en">Palette</span><span lang="vi">Bảng lệnh</span></a></td><td><span lang="en">Run Reset layout → All screens back to defaults, rail collapsed, focus mode off; language and theme kept</span><span lang="vi">Chạy Đặt lại bố cục → Mọi màn hình về mặc định, thanh thu gọn, tắt chế độ tập trung; giữ ngôn ngữ và giao diện</span></td><td><code>AC-16</code></td></tr>
+      <tr><td>15</td><td><a href="../../mockups/index.html#reader"><span lang="en">any</span><span lang="vi">bất kỳ</span></a></td><td><span lang="en">Shift+F, then Esc → Only the workspace remains, with a 2px job bar (zen-progress) on top; Esc restores</span><span lang="vi">Shift+F, rồi Esc → Chỉ còn vùng làm việc, có vạch job 2px (zen-progress) ở trên; Esc khôi phục</span></td><td><code>AC-19</code></td></tr>
+      <tr><td>16</td><td><a href="../../mockups/index.html#home"><span lang="en">Top bar / status bar</span><span lang="vi">Thanh trên / thanh trạng thái</span></a></td><td><span lang="en">Language button, Ctrl+Shift+U; theme button, Ctrl+Shift+L → Instant switch, no reload; kept after restart; numbers and dates follow language</span><span lang="vi">Nút ngôn ngữ, Ctrl+Shift+U; nút giao diện, Ctrl+Shift+L → Đổi tức thì, không tải lại; giữ sau khi khởi động lại; số và ngày theo ngôn ngữ</span></td><td><code>AC-22–AC-25</code></td></tr>
+      <tr><td>17</td><td><a href="../../mockups/index.html#home"><span lang="en">Palette</span><span lang="vi">Bảng lệnh</span></a></td><td><span lang="en">Ctrl+K, type, ↑ ↓, Enter → Results grouped like the rail; EN and VI filter; “No results”; Enter runs and closes</span><span lang="vi">Ctrl+K, gõ, ↑ ↓, Enter → Kết quả nhóm như thanh module; lọc EN và VI; “Không có kết quả”; Enter chạy và đóng</span></td><td><code>AC-30–AC-32</code></td></tr>
+      <tr><td>18</td><td><a href="../../mockups/index.html#home"><span lang="en">Shortcut sheet</span><span lang="vi">Bảng phím tắt</span></a></td><td><span lang="en">Ctrl+/ or ? → Global then per module; current screen's group marked</span><span lang="vi">Ctrl+/ hoặc ? → Toàn cục trước rồi từng module; nhóm của màn hình hiện tại được đánh dấu</span></td><td><code>AC-33</code> <code>AC-35</code> <code>AC-36</code></td></tr>
+      <tr><td>19</td><td><a href="../../mockups/index.html#home"><span lang="en">Home</span><span lang="vi">Trang chủ</span></a></td><td><span lang="en">Ctrl+3 with no novel open → Info toast “Open a novel first”; screen unchanged</span><span lang="vi">Ctrl+3 khi chưa mở truyện → Toast thông tin “Hãy mở một truyện trước”; màn hình không đổi</span></td><td><code>AC-34</code></td></tr>
+      <tr><td>20</td><td><a href="../../mockups/index.html#reader"><span lang="en">any</span><span lang="vi">bất kỳ</span></a></td><td><span lang="en">Type ? or Shift+F in a field; module shortcut on its screen → No single-key shortcut fires; Ctrl+K still works; module shortcut wins only on its screen</span><span lang="vi">Gõ ? hoặc Shift+F trong ô nhập; phím module trên màn hình của nó → Không phím đơn nào chạy; Ctrl+K vẫn hoạt động; phím module chỉ thắng trên màn hình của nó</span></td><td><code>AC-37</code> <code>AC-38</code></td></tr>
+      <tr><td>21</td><td><a href="../../mockups/index.html#components"><span lang="en">Dialog + palette</span><span lang="vi">Hộp thoại + bảng lệnh</span></a></td><td><span lang="en">Esc three times → Closes palette, then dialog, then focus mode</span><span lang="vi">Esc ba lần → Đóng bảng lệnh, rồi hộp thoại, rồi chế độ tập trung</span></td><td><code>AC-39</code></td></tr>
+      <tr><td>22</td><td><a href="../../mockups/index.html#components"><span lang="en">Status bar</span><span lang="vi">Thanh trạng thái</span></a></td><td><span lang="en">Look at / click a CLI item → Ready / warning / missing / unknown; click opens Settings</span><span lang="vi">Xem / nhấp một mục CLI → Sẵn sàng / cảnh báo / không có / không rõ; nhấp mở Cài đặt</span></td><td><code>AC-40</code> <code>AC-41</code></td></tr>
+      <tr><td>23</td><td><a href="../../mockups/index.html#settings"><span lang="en">any</span><span lang="vi">bất kỳ</span></a></td><td><span lang="en">Gear, Settings rail entry, Ctrl+, / Ctrl+7, palette → Settings opens</span><span lang="vi">Bánh răng, mục Cài đặt trên thanh, Ctrl+, / Ctrl+7, bảng lệnh → Cài đặt mở</span></td><td><code>AC-41</code></td></tr>
+      <tr><td>24</td><td><a href="../../mockups/index.html#components"><span lang="en">Status bar</span><span lang="vi">Thanh trạng thái</span></a></td><td><span lang="en">Look at the job item → Running “Translating 37/100 · 37%” or idle “No running tasks”; live updates</span><span lang="vi">Xem mục job → Đang chạy “Đang dịch 37/100 · 37%” hoặc rảnh “Không có tác vụ đang chạy”; cập nhật trực tiếp</span></td><td><code>AC-42</code> <code>AC-43</code> <code>AC-47</code></td></tr>
+      <tr><td>25</td><td><a href="../../mockups/index.html#tasks"><span lang="en">Status bar → Task Center</span><span lang="vi">Thanh trạng thái → Trung tâm tác vụ</span></a></td><td><span lang="en">Click the job item or Ctrl+Shift+T → Task Center opens</span><span lang="vi">Nhấp mục job hoặc Ctrl+Shift+T → Trung tâm tác vụ mở</span></td><td><code>AC-44</code></td></tr>
+      <tr><td>26</td><td><a href="../../mockups/index.html#components"><span lang="en">Status bar + rail</span><span lang="vi">Thanh trạng thái + thanh module</span></a></td><td><span lang="en">A job fails or pauses, then is resolved → Job item warning, rail badge count; both clear</span><span lang="vi">Một job lỗi hoặc tạm dừng, rồi được xử lý → Mục job cảnh báo, huy hiệu đếm trên thanh; cả hai hết</span></td><td><code>AC-45</code></td></tr>
+      <tr><td>27</td><td><a href="../../mockups/index.html#components"><span lang="en">Status bar</span><span lang="vi">Thanh trạng thái</span></a></td><td><span lang="en">App starts; backend fails → “Starting local backend…”, then a warning with the reason; gone once ready</span><span lang="vi">Ứng dụng khởi động; backend lỗi → “Đang khởi động backend cục bộ…”, rồi cảnh báo kèm lý do; mất khi sẵn sàng</span></td><td><code>AC-48</code></td></tr>
+      <tr><td>28</td><td><a href="../../mockups/index.html#components"><span lang="en">any</span><span lang="vi">bất kỳ</span></a></td><td><span lang="en">Toasts appear; start a destructive action → Info 5 s, errors stay, max 3; confirm names the object, Cancel focused</span><span lang="vi">Toast xuất hiện; bắt đầu thao tác phá huỷ → Thông tin 5 giây, lỗi ở lại, tối đa 3; hộp xác nhận nêu đối tượng, Huỷ có tiêu điểm</span></td><td><code>AC-26</code> <code>AC-27</code></td></tr>
+      <tr><td>29</td><td><a href="../../mockups/index.html#reader"><span lang="en">Window</span><span lang="vi">Cửa sổ</span></a></td><td><span lang="en">Restart after moving / resizing → Same bounds; an off-screen window is centred on the main display</span><span lang="vi">Khởi động lại sau khi di chuyển / đổi cỡ → Cùng kích thước; cửa sổ ngoài màn hình được đặt giữa màn hình chính</span></td><td><code>AC-18</code></td></tr>
+    </tbody>
+  </table>
+  </div>
+</details>
+<p class="muted" lang="en">Mockup changes: top-bar <code>button.tray</code> and <code>.cli-dots</code> removed (D21) · job item and CLI item states and the <code>zen-progress</code> bar on <code>#components</code> · new unbuilt-module page (D22), generic <code>dlg-confirm</code>, palette “No results” · toast auto-close 5 s in the design system and prototype.</p>
+<p class="muted" lang="vi">Thay đổi mockup: bỏ <code>button.tray</code> và <code>.cli-dots</code> khỏi thanh trên (D21) · trạng thái mục job, mục CLI và vạch <code>zen-progress</code> ở <code>#components</code> · trang module chưa làm mới (D22), <code>dlg-confirm</code> chung, “Không có kết quả” của bảng lệnh · toast tự đóng 5 giây trong design system và bản mẫu.</p>
+
+<h2 id="more"><span lang="en">Supporting detail</span><span lang="vi">Chi tiết bổ sung</span></h2>
+
+<details class="fold" id="design">
+  <summary><span lang="en">Shared technical design</span><span lang="vi">Thiết kế kỹ thuật dùng chung</span> <span class="count">5</span></summary>
+<h4><span lang="en">Data contracts (contract-first, <a href="0.requirements.html#Q1">Q1</a>)</span><span lang="vi">Hợp đồng dữ liệu (hợp đồng trước, <a href="0.requirements.html#Q1">Q1</a>)</span></h4>
+<p lang="en">M01 adds the channels it reads to the M00 <code>IpcContract</code> / <code>IpcEvents</code> (AD-22: one generic <code>invoke</code> + <code>on</code>, a preload allowlist typed against the same keys, results as <code>{ ok, value | error }</code>). Main registers a stub handler that answers <code>{ ok: true, value: null }</code>; the owner module later replaces the handler and keeps the type. <code>null</code> means “no source yet” and is shown as “unknown” or empty, never as invented values; <code>{ ok: false }</code> is a real error.</p>
+<p lang="vi">M01 thêm các kênh nó đọc vào <code>IpcContract</code> / <code>IpcEvents</code> của M00 (AD-22: một <code>invoke</code> + <code>on</code> chung, allowlist của preload có kiểu theo cùng các khóa, kết quả dạng <code>{ ok, value | error }</code>). Main đăng ký một xử lý stub trả <code>{ ok: true, value: null }</code>; module chủ quản sau này thay xử lý và giữ nguyên kiểu. <code>null</code> nghĩa là “chưa có nguồn” và hiện là “không rõ” hoặc trống, không bao giờ là giá trị bịa; <code>{ ok: false }</code> là lỗi thật.</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th><span lang="en">Channel / event</span><span lang="vi">Kênh / sự kiện</span></th><th><span lang="en">Value</span><span lang="vi">Giá trị</span></th><th><span lang="en">Real owner</span><span lang="vi">Chủ quản thật</span></th><th><span lang="en">Until then</span><span lang="vi">Trước đó</span></th><th><span lang="en">Read by</span><span lang="vi">Được đọc bởi</span></th></tr></thead>
+  <tbody>
+    <tr><td><code>library:status</code></td><td><code>LibraryInfo | null</code> (M00)</td><td><code>M00-T07</code></td><td><span lang="en">real: <code>null</code> = no library open → first-run page</span><span lang="vi">thật: <code>null</code> = chưa mở thư viện → trang lần đầu</span></td><td>F05 · F06</td></tr>
+    <tr><td><code>library:listNovels</code></td><td><code>NovelSummary[] | null</code></td><td>M04</td><td><span lang="en">M01 stub: <code>null</code></span><span lang="vi">stub M01: <code>null</code></span></td><td>F01 · F04 · F06</td></tr>
+    <tr><td><code>library:markNovelOpened</code></td><td><code>null</code></td><td>M04</td><td><span lang="en">M01 stub: no-op</span><span lang="vi">stub M01: không làm gì</span></td><td>F01</td></tr>
+    <tr><td><code>data:libraryStats</code></td><td><code>LibraryStats | null</code></td><td>M06</td><td><span lang="en">M01 stub: <code>null</code></span><span lang="vi">stub M01: <code>null</code></span></td><td>F06</td></tr>
+    <tr><td><code>services:detect</code></td><td><code>CliStatus[] | null</code></td><td>M02</td><td><span lang="en">M01 stub: <code>null</code></span><span lang="vi">stub M01: <code>null</code></span></td><td>F05 · F06</td></tr>
+    <tr><td><code>settings:assignments</code></td><td><code>Assignments | null</code></td><td>M02</td><td><span lang="en">M01 stub: <code>null</code></span><span lang="vi">stub M01: <code>null</code></span></td><td>F06</td></tr>
+    <tr><td><code>job:list</code> + <span lang="en">event</span><span lang="vi">sự kiện</span> <code>job:progress</code></td><td><code>JobSummary[] | null</code></td><td>M03</td><td><span lang="en">M01 stub: <code>null</code>, no events</span><span lang="vi">stub M01: <code>null</code>, không sự kiện</span></td><td>F02 · F05 · F06</td></tr>
+    <tr><td><span lang="en">event</span><span lang="vi">sự kiện</span> <code>backend:status</code></td><td><code>BackendState</code> (M00)</td><td><code>M00-T08</code></td><td><span lang="en">real</span><span lang="vi">thật</span></td><td>F05</td></tr>
+  </tbody>
+</table>
+</div>
+<pre>// shared/src/core/shell-contract.ts
+export interface NovelSummary { id: string; title: string; chapterCount: number; lastOpenedAt: string | null; lastChapter: number | null; coverPath: string | null }
+export interface LibraryStats { novels: number; chapters: number; sizeBytes: number; freeBytes: number; integrity: 'ok' | 'warning' | 'unknown' }
+export interface CliStatus { name: 'claude' | 'codex'; state: 'ready' | 'warning' | 'missing' | 'unknown'; version: string | null; problemCode: string | null }
+export interface JobSummary { id: string; labelKey: string; novelTitle: string | null; state: 'queued' | 'running' | 'paused' | 'failed' | 'done'; done: number; failed: number; total: number }
+export interface Assignments { byTaskType: { taskType: string; cli: 'claude' | 'codex' | null }[]; parallelLimit: number }
+
+// added to IpcContract / IpcEvents in shared/src/core/ipc-contract.ts (M00-T03, AD-22)
+'library:listNovels': { req: null; res: NovelSummary[] | null };
+'library:markNovelOpened': { req: { novelId: string }; res: null };
+'data:libraryStats': { req: null; res: LibraryStats | null };
+'services:detect': { req: null; res: CliStatus[] | null };
+'settings:assignments': { req: null; res: Assignments | null };
+'job:list': { req: null; res: JobSummary[] | null };
+'job:progress': JobSummary;</pre>
+<p lang="en">BrowserBridge fixtures (M01 adds them next to the M00 BrowserBridge), chosen by the query string before the hash route (<code>/?fixture=busy#/home</code>): <code>none</code> (every M01 channel <code>null</code>, a library open), <code>empty</code> (sources present, nothing in them), <code>busy</code> (7 novels with recents, “Translating 37/100”, claude ready / codex not logged in, 2 jobs needing attention), <code>first-run</code> (<code>library:status</code> = <code>null</code>), <code>flood</code> (busy + 10 progress events per second), <code>slow</code> / <code>fail</code> (area states), and scripted <code>backend:status</code> sequences. <code>?probe=1</code> adds the probe module. The M00-T04 BrowserBridge keeps app settings in <code>localStorage</code>, so “restart” in e2e = page reload.</p>
+<p lang="vi">Fixture của BrowserBridge (M01 thêm cạnh BrowserBridge của M00), chọn bằng query string trước route hash (<code>/?fixture=busy#/home</code>): <code>none</code> (mọi kênh M01 là <code>null</code>, có thư viện mở), <code>empty</code> (có nguồn, không có dữ liệu), <code>busy</code> (7 truyện có lịch sử mở, “Đang dịch 37/100”, claude sẵn sàng / codex chưa đăng nhập, 2 job cần xử lý), <code>first-run</code> (<code>library:status</code> = <code>null</code>), <code>flood</code> (busy + 10 sự kiện tiến độ mỗi giây), <code>slow</code> / <code>fail</code> (trạng thái vùng), và chuỗi <code>backend:status</code> theo kịch bản. <code>?probe=1</code> thêm module thăm dò. BrowserBridge của M00-T04 lưu cài đặt ứng dụng trong <code>localStorage</code>, nên “khởi động lại” trong e2e = tải lại trang.</p>
+
+<h4><span lang="en">Renderer interfaces &amp; state</span><span lang="vi">Giao diện &amp; state phía renderer</span></h4>
+<pre>// angular/src/app/shell/registry/module-registry.ts  (M01's own type, Q11; not AD-18)
+export type RailGroup = 'library' | 'workspace' | 'media' | 'production' | 'distribution' | 'system'
+export interface PanelSet { left: boolean; right: boolean; bottom: boolean }
+export interface ModuleEntry { id: string; group: RailGroup; scope: 'app' | 'library' | 'novel'; icon: string; labelKey: string; descriptionKey: string; moduleIds: string[]; keywords: string[]; keys: string[]; panels: PanelSet; load: (() =&gt; Promise&lt;Type&lt;unknown&gt;&gt;) | null }
+
+// angular/src/app/core/shortcuts/command.ts
+export interface Command { id: string; labelKey: string; keywords: string[]; keys: string[]; scope: string; needsNovel: boolean; run: () =&gt; void }
+
+// ShellStore (signals): activeModule · openNovel · novels · badges · openChapter · go(id) · openNovel(id) · closeNovel()
+// StatusStore (signals): clis · jobs · runningJob · attentionCount · backend · library
+// LayoutStore (signals): layout(moduleId) · railExpanded · focusMode · resize(side, px) · toggle(side) · reset()</pre>
+<div class="table-wrap">
+<table>
+  <thead><tr><th><span lang="en">AppSettings field (M00-T04, app-settings.json)</span><span lang="vi">Trường AppSettings (M00-T04, app-settings.json)</span></th><th><span lang="en">Value</span><span lang="vi">Giá trị</span></th><th><span lang="en">Written by</span><span lang="vi">Ghi bởi</span></th><th><span lang="en">Cleared by Reset layout</span><span lang="vi">Bị xoá khi Đặt lại bố cục</span></th></tr></thead>
+  <tbody>
+    <tr><td><span lang="en">shell layout per screen (exists in M00)</span><span lang="vi">bố cục khung theo màn hình (đã có ở M00)</span></td><td><code>{ [moduleId]: { left, right, bottom, collapsed } }</code></td><td>F02</td><td><span lang="en">yes</span><span lang="vi">có</span></td></tr>
+    <tr><td><code>railExpanded</code> <span lang="en">(added by M01)</span><span lang="vi">(M01 thêm)</span></td><td><code>boolean</code></td><td>F01</td><td><span lang="en">yes</span><span lang="vi">có</span></td></tr>
+    <tr><td><span lang="en">window bounds (exists in M00)</span><span lang="vi">kích thước cửa sổ (đã có ở M00)</span></td><td><code>{ x, y, width, height, maximized }</code></td><td>F02 (main)</td><td><span lang="en">no</span><span lang="vi">không</span></td></tr>
+    <tr><td><span lang="en">language, theme (exist in M00)</span><span lang="vi">ngôn ngữ, giao diện (đã có ở M00)</span></td><td><code>'en' | 'vi'</code> · <code>'dark' | 'light'</code></td><td>M00 · F03</td><td><span lang="en">no</span><span lang="vi">không</span></td></tr>
+  </tbody>
+</table>
+</div>
+<p lang="en">Panel sizes follow design system §7: <code>--left-w</code> / <code>--right-w</code> / <code>--bottom-h</code> are defaults, a dragged size goes to <code>--user-*</code>, and the grid reads <code>--cur-*</code>, which hidden, collapsed and focus states force to 0, so resizing never re-renders the workspace (<code>AC-20</code>). Focus mode is not remembered across restarts. Test ids follow the mockup where it has them (<code>topbar-*</code>, <code>rail-*</code>, <code>statusbar-*</code>, <code>palette-*</code>), plus <code>module-host-&lt;id&gt;</code> and <code>home-*</code>.</p>
+<p lang="vi">Kích thước panel theo mục 7 design system: <code>--left-w</code> / <code>--right-w</code> / <code>--bottom-h</code> là mặc định, kích thước kéo được lưu vào <code>--user-*</code>, và lưới đọc <code>--cur-*</code>, giá trị bị ép về 0 khi ẩn, thu gọn hoặc tập trung, nên đổi cỡ không render lại vùng làm việc (<code>AC-20</code>). Chế độ tập trung không được nhớ qua lần khởi động. Test id theo mockup khi mockup đã có (<code>topbar-*</code>, <code>rail-*</code>, <code>statusbar-*</code>, <code>palette-*</code>), thêm <code>module-host-&lt;id&gt;</code> và <code>home-*</code>.</p>
+
+<h4><span lang="en">Sequence — open a novel from the palette</span><span lang="vi">Trình tự — mở truyện từ bảng lệnh</span></h4>
+<figure class="diagram">
+  <pre>User ─Ctrl+K─▶ KeybindingService ─▶ Command "palette.open" ─▶ Palette (Novels from ShellStore.novels)
+User ─Enter──▶ Command "novel.open" ─▶ ShellStore.openNovel(id) ─▶ bridge.invoke('library:markNovelOpened')
+                                         └▶ signals: openNovel ─▶ Rail (Workspace + Production) · Crumbs + chip · StatusBar</pre>
+  <figcaption><span lang="en">Figure 1 — One state change in the store; every shell part reacts through signals.</span><span lang="vi">Hình 1 — Một thay đổi trạng thái trong store; mọi phần của khung phản ứng qua signal.</span></figcaption>
+</figure>
+
+<h4><span lang="en">Edge cases</span><span lang="vi">Trường hợp biên</span></h4>
+<ul>
+  <li lang="en">A novel-scoped route without an open novel (deep link, stale URL) goes to Home with the “Open a novel first” toast (<a href="#questions">Q-5</a>).</li>
+  <li lang="vi">Route thuộc truyện khi chưa mở truyện (liên kết trực tiếp, URL cũ) chuyển về Trang chủ kèm toast “Hãy mở một truyện trước” (<a href="#questions">Q-5</a>).</li>
+  <li lang="en">An unknown module id in the URL goes to Home; a stored size out of range is clamped; a stored window position off every display is centred on the primary display.</li>
+  <li lang="vi">Mã module lạ trong URL chuyển về Trang chủ; kích thước đã lưu ngoài giới hạn bị kẹp lại; vị trí cửa sổ đã lưu nằm ngoài mọi màn hình được đặt giữa màn hình chính.</li>
+  <li lang="en">A channel error is shown with the <code>M01-F03</code> error presenter; a <code>null</code> answer is never treated as an error.</li>
+  <li lang="vi">Lỗi kênh được hiện bằng bộ hiển thị lỗi của <code>M01-F03</code>; câu trả lời <code>null</code> không bao giờ bị coi là lỗi.</li>
+  <li lang="en">Progress events are coalesced in the status store to one update per animation frame (<code>AC-47</code>).</li>
+  <li lang="vi">Sự kiện tiến độ được gộp trong store trạng thái thành một lần cập nhật mỗi khung hình (<code>AC-47</code>).</li>
+</ul>
+</details>
+
+<details class="fold" id="decisions">
+  <summary><span lang="en">Decisions</span><span lang="vi">Quyết định</span> <span class="count">11 · architect 9 · designer 2</span></summary>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>#</th><th><span lang="en">Topic</span><span lang="vi">Chủ đề</span></th><th><span lang="en">Decision</span><span lang="vi">Quyết định</span></th><th><span lang="en">Item</span><span lang="vi">Hạng mục</span></th></tr></thead>
+    <tbody>
+      <tr id="S-1"><td>S-1</td><td><span lang="en">Shared base</span><span lang="vi">Phần nền dùng chung</span></td><td><span lang="en">Two Tasks before the Stories (frame + registry + contracts; commands + shortcuts), so every item stays within one flow and Stories own their folders.</span><span lang="vi">Hai Task trước các Story (khung + sổ đăng ký + hợp đồng; lệnh + phím tắt), để mỗi hạng mục vừa một flow và Story sở hữu thư mục riêng.</span></td><td><code>T01</code> <code>T02</code></td></tr>
+      <tr id="S-2"><td>S-2</td><td><span lang="en">Data of unbuilt modules</span><span lang="vi">Dữ liệu của module chưa làm</span></td><td><span lang="en">Contract-first channels on the AD-22 bridge; main answers <code>null</code> until the owner ships; BrowserBridge fixtures in e2e (<a href="0.requirements.html#Q1">Q1</a>) → <code>AD-24</code>.</span><span lang="vi">Kênh theo hợp đồng trước trên cầu nối AD-22; main trả <code>null</code> tới khi chủ quản xong; fixture BrowserBridge trong e2e (<a href="0.requirements.html#Q1">Q1</a>) → <code>AD-24</code>.</span></td><td><code>T01</code></td></tr>
+      <tr id="S-3"><td>S-3</td><td><span lang="en">Module registry</span><span lang="vi">Sổ đăng ký module</span></td><td><span lang="en">M01's own renderer-side type, with its 17 entries in T01 (<a href="#Q-1">Q-1</a>); F01 keeps rail, brand, crumbs, chip and the unbuilt page → <code>AD-23</code>.</span><span lang="vi">Kiểu riêng phía renderer của M01, 17 mục nằm ở T01 (<a href="#Q-1">Q-1</a>); F01 giữ thanh module, logo, crumbs, chip và trang chưa làm → <code>AD-23</code>.</span></td><td><code>T01</code> <code>F01</code></td></tr>
+      <tr id="S-4"><td>S-4</td><td><span lang="en">Testing without real screens</span><span lang="vi">Kiểm thử khi chưa có màn hình thật</span></td><td><span lang="en">An e2e-only probe module (<code>?probe=1</code>) with three panels, scroll, input, dialogs and a module shortcut.</span><span lang="vi">Module thăm dò chỉ cho e2e (<code>?probe=1</code>) có ba panel, cuộn, ô nhập, hộp thoại và phím tắt module.</span></td><td><code>T01</code> <code>F02</code> <code>F03</code> <code>F04</code></td></tr>
+      <tr id="S-5"><td>S-5</td><td><span lang="en">Build order</span><span lang="vi">Thứ tự xây dựng</span></td><td><span lang="en">Palette (F04) before the rail (F01), since chip switching, Reset layout and Settings use it; F02 completes <code>AC-33</code> / <code>AC-39</code> (<a href="#Q-4">Q-4</a>).</span><span lang="vi">Bảng lệnh (F04) trước thanh module (F01), vì đổi truyện từ chip, Đặt lại bố cục và Cài đặt dùng nó; F02 hoàn tất <code>AC-33</code> / <code>AC-39</code> (<a href="#Q-4">Q-4</a>).</span></td><td><code>F04</code> <code>F02</code></td></tr>
+      <tr id="S-6"><td>S-6</td><td><span lang="en">Reuse of M00</span><span lang="vi">Dùng lại M00</span></td><td><span lang="en">Window size and minimum (<code>M00-T03</code>), first paint (<code>M00-T04</code>/<code>T05</code>), Intl (<code>M00-T04</code>), <code>backend:status</code> (<code>M00-T08</code>) are verified, not rebuilt.</span><span lang="vi">Kích thước và mức tối thiểu cửa sổ (<code>M00-T03</code>), khung hình đầu (<code>M00-T04</code>/<code>T05</code>), Intl (<code>M00-T04</code>), <code>backend:status</code> (<code>M00-T08</code>) chỉ kiểm chứng, không làm lại.</span></td><td><code>F02</code> <code>F03</code> <code>F05</code></td></tr>
+      <tr id="S-7"><td>S-7</td><td><span lang="en">Library data</span><span lang="vi">Dữ liệu thư viện</span></td><td><span lang="en">Path and first run from M00 <code>library:status</code>; size and counts from <code>data:libraryStats</code> (M06).</span><span lang="vi">Đường dẫn và lần đầu lấy từ <code>library:status</code> của M00; dung lượng và số lượng từ <code>data:libraryStats</code> (M06).</span></td><td><code>F05</code> <code>F06</code></td></tr>
+      <tr id="S-8"><td>S-8</td><td><span lang="en">Focus-mode job bar</span><span lang="vi">Vạch job ở chế độ tập trung</span></td><td><span lang="en">The <code>zen-progress</code> bar belongs to F02 (focus mode, <code>AC-19</code>) and reads the F05 status store.</span><span lang="vi">Vạch <code>zen-progress</code> thuộc F02 (chế độ tập trung, <code>AC-19</code>) và đọc store trạng thái của F05.</span></td><td><code>F02</code></td></tr>
+      <tr id="S-9"><td>S-9</td><td><span lang="en">Deep links</span><span lang="vi">Liên kết trực tiếp</span></td><td><span lang="en">A novel screen opened by URL with no novel open goes Home with the “Open a novel first” toast (<a href="#Q-5">Q-5</a>).</span><span lang="vi">Màn hình thuộc truyện mở qua URL khi chưa có truyện sẽ về Trang chủ kèm toast “Hãy mở một truyện trước” (<a href="#Q-5">Q-5</a>).</span></td><td><code>T01</code> <code>F01</code></td></tr>
+      <tr id="D21"><td>D21</td><td><span lang="en">Status bar only (designer)</span><span lang="vi">Chỉ thanh trạng thái (designer)</span></td><td><span lang="en">Top bar keeps brand, context, palette button, panel toggles, language, theme and the gear; “task tray” = status-bar job item + Task Center screen; job states running / needs attention / idle; CLI states ready / warning / missing / unknown; danger rail badge; 2px <code>zen-progress</code> in focus mode.</span><span lang="vi">Thanh trên giữ logo, ngữ cảnh, nút bảng lệnh, nút panel, ngôn ngữ, giao diện và bánh răng; “khay tác vụ” = mục job trên thanh trạng thái + màn hình Trung tâm tác vụ; trạng thái job đang chạy / cần xử lý / rảnh; trạng thái CLI sẵn sàng / cảnh báo / không có / không rõ; huy hiệu màu nguy hiểm; <code>zen-progress</code> 2px ở chế độ tập trung.</span></td><td><code>F05</code> <code>F02</code></td></tr>
+      <tr id="D22"><td>D22</td><td><span lang="en">Unbuilt modules (designer)</span><span lang="vi">Module chưa làm (designer)</span></td><td><span lang="en">A neutral page: icon, name and one-line description from the registry; no action, no release wording; no panels (<a href="#Q-6">Q-6</a>).</span><span lang="vi">Một trang trung tính: biểu tượng, tên và một dòng mô tả từ sổ đăng ký; không hành động, không chữ về release; không panel (<a href="#Q-6">Q-6</a>).</span></td><td><code>F01</code></td></tr>
+    </tbody>
+  </table>
+  </div>
+</details>
+
+<details class="fold" id="alternatives">
+  <summary><span lang="en">Alternatives</span><span lang="vi">Phương án đã cân nhắc</span> <span class="count">3 chosen · 4 rejected</span></summary>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th><span lang="en">Option</span><span lang="vi">Phương án</span></th><th><span lang="en">Pros</span><span lang="vi">Ưu điểm</span></th><th><span lang="en">Cons</span><span lang="vi">Nhược điểm</span></th><th><span lang="en">Verdict</span><span lang="vi">Kết luận</span></th></tr></thead>
+    <tbody>
+    <tr><td><span lang="en">Shared base: A — two Tasks (frame + registry + contracts; commands + shortcuts)</span><span lang="vi">Phần nền: A — hai Task (khung + sổ đăng ký + hợp đồng; lệnh + phím tắt)</span></td><td><span lang="en">Each item ≤ 6 tasks; Stories own their folders; toast and palette can come early.</span><span lang="vi">Mỗi hạng mục ≤ 6 task; Story sở hữu thư mục riêng; toast và bảng lệnh làm sớm được.</span></td><td><span lang="en">Two flows with no visible feature of their own.</span><span lang="vi">Hai flow không có tính năng nhìn thấy riêng.</span></td><td><span class="status approved">chosen</span></td></tr>
+    <tr><td><span lang="en">B — no Tasks; <code>M01-F01</code> builds the frame, <code>M01-F04</code> the framework</span><span lang="vi">B — không có Task; <code>M01-F01</code> làm khung, <code>M01-F04</code> làm khung phím</span></td><td><span lang="en">Fewer items.</span><span lang="vi">Ít hạng mục hơn.</span></td><td><span lang="en"><code>M01-F01</code> exceeds 6 tasks; F03 needs shortcuts before F04 exists; circular order.</span><span lang="vi"><code>M01-F01</code> vượt 6 task; F03 cần phím tắt trước khi có F04; thứ tự vòng tròn.</span></td><td><span class="status rejected">rejected</span></td></tr>
+    <tr><td><span lang="en">C — one Task for frame and framework together</span><span lang="vi">C — một Task chung cho khung và khung phím</span></td><td><span lang="en">One foundation flow.</span><span lang="vi">Một flow nền.</span></td><td><span lang="en">About 8 level-1 tasks; must be split anyway.</span><span lang="vi">Khoảng 8 task cấp 1; đằng nào cũng phải tách.</span></td><td><span class="status rejected">rejected</span></td></tr>
+    <tr><td><span lang="en">Unbuilt data: A — typed bridge channels, main stub answers <code>null</code>, BrowserBridge fixtures</span><span lang="vi">Dữ liệu chưa có: A — kênh cầu nối có kiểu, stub main trả <code>null</code>, fixture của BrowserBridge</span></td><td><span lang="en">Same path as the real app (AD-07, AD-22): one more key in <code>IpcContract</code>; owners swap one handler.</span><span lang="vi">Cùng đường với ứng dụng thật (AD-07, AD-22): thêm một khóa trong <code>IpcContract</code>; chủ quản chỉ thay một xử lý.</span></td><td><span lang="en">M01 names channels other modules own; shapes may grow later.</span><span lang="vi">M01 đặt tên kênh của module khác; cấu trúc có thể mở rộng sau.</span></td><td><span class="status approved">chosen</span></td></tr>
+    <tr><td><span lang="en">B — renderer-only data sources with fake providers in the e2e build</span><span lang="vi">B — nguồn dữ liệu chỉ ở renderer, bản giả trong build e2e</span></td><td><span lang="en">No channels declared early.</span><span lang="vi">Không khai báo kênh sớm.</span></td><td><span lang="en">Bypasses the bridge; e2e no longer exercises the app path; owners must rewire the shell.</span><span lang="vi">Bỏ qua cầu nối; e2e không còn đi đúng đường ứng dụng; chủ quản phải nối lại khung.</span></td><td><span class="status rejected">rejected</span></td></tr>
+    <tr><td><span lang="en">Layout tests: A — e2e-only probe module (three panels, scroll, input, module key)</span><span lang="vi">Kiểm bố cục: A — module thăm dò chỉ cho e2e (ba panel, cuộn, ô nhập, phím module)</span></td><td><span lang="en">F02, F03 and F04 are testable inside M01.</span><span lang="vi">F02, F03 và F04 kiểm được ngay trong M01.</span></td><td><span lang="en">A small fixture to keep out of the app build.</span><span lang="vi">Một fixture nhỏ phải giữ ngoài bản build ứng dụng.</span></td><td><span class="status approved">chosen</span></td></tr>
+    <tr><td><span lang="en">B — wait for the M04 / M05 screens</span><span lang="vi">B — chờ màn hình M04 / M05</span></td><td><span lang="en">No fixture code.</span><span lang="vi">Không có mã fixture.</span></td><td><span lang="en"><code>AC-12</code>–<code>AC-20</code>, <code>AC-27</code>, <code>AC-36</code>, <code>AC-37</code> untestable in M01.</span><span lang="vi"><code>AC-12</code>–<code>AC-20</code>, <code>AC-27</code>, <code>AC-36</code>, <code>AC-37</code> không kiểm được trong M01.</span></td><td><span class="status rejected">rejected</span></td></tr>
+  </tbody>
+  </table>
+  </div>
+</details>
+
+<details class="fold" id="impact">
+  <summary><span lang="en">Impact on architecture</span><span lang="vi">Ảnh hưởng tới kiến trúc</span> <span class="count">3</span></summary>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th><span lang="en">Document</span><span lang="vi">Tài liệu</span></th><th><span lang="en">Edit at hand-off</span><span lang="vi">Sửa khi bàn giao</span></th></tr></thead>
+    <tbody>
+      <tr><td><a href="../0.high-level-architecture.html">HLA</a> · ADs</td><td><span lang="en">Adds <code>AD-23</code> (S-3: the shell module registry is M01's own renderer-side type; AD-18 types may wrap it in their release) and <code>AD-24</code> (S-2: a module may add an <code>IpcContract</code> key owned by a later module, with a main handler answering <code>{ ok: true, value: null }</code> and a BrowserBridge fixture; the owner replaces the handler and keeps the type). <code>AD-19</code>–<code>AD-22</code> are M00's.</span><span lang="vi">Thêm <code>AD-23</code> (S-3: sổ đăng ký module của khung là kiểu riêng phía renderer của M01; các kiểu AD-18 có thể bọc lại ở release của chúng) và <code>AD-24</code> (S-2: một module được thêm khóa <code>IpcContract</code> do module sau sở hữu, với xử lý ở main trả <code>{ ok: true, value: null }</code> và fixture BrowserBridge; chủ quản thay xử lý và giữ nguyên kiểu). <code>AD-19</code>–<code>AD-22</code> là của M00.</span></td></tr>
+      <tr><td>HLA · <span lang="en">wording</span><span lang="vi">câu chữ</span></td><td><span lang="en">“Task tray” → “status-bar job item + Task Center screen” in Components, Figure 2 and the performance budget (<a href="0.requirements.html#Q12">Q12</a>, D21).</span><span lang="vi">“Task tray” → “mục job trên thanh trạng thái + màn hình Trung tâm tác vụ” trong Thành phần, Hình 2 và ngân sách hiệu năng (<a href="0.requirements.html#Q12">Q12</a>, D21).</span></td></tr>
+      <tr><td>HLA · <span lang="en">layout</span><span lang="vi">cấu trúc</span></td><td><span lang="en">Feature list gains <code>features/home/</code> (M01-F06); repository layout gains <code>angular/src/e2e/probe/</code>. No stack change.</span><span lang="vi">Danh sách tính năng thêm <code>features/home/</code> (M01-F06); cấu trúc repo thêm <code>angular/src/e2e/probe/</code>. Không đổi stack.</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+</details>
+
+<details class="fold" id="verification">
+  <summary><span lang="en">Verification per AC</span><span lang="vi">Kiểm chứng theo AC</span> <span class="count">63</span></summary>
+  <p lang="en">Same format as M00 (S4, S5): e2e = one Node script per scenario, <code>verify/specs/&lt;flow&gt;/S&lt;n&gt;-&lt;slug&gt;.mjs</code>, driving <code>playwright-cli</code> on the e2e build (BrowserBridge) at 1440×900 (and 1280×720 where stated), selecting by <code>data-testid</code> only, run by <code>pnpm verify &lt;flow&gt;</code> with screenshots in the flow's <code>evidence/</code>; smoke = the M00-T02 Electron smoke launcher. Every must AC has a scenario in its item's last task.</p>
+<p lang="vi">Cùng định dạng với M00 (S4, S5): e2e = mỗi kịch bản một script Node, <code>verify/specs/&lt;flow&gt;/S&lt;n&gt;-&lt;slug&gt;.mjs</code>, điều khiển <code>playwright-cli</code> trên bản build e2e (BrowserBridge) ở 1440×900 (và 1280×720 khi ghi rõ), chỉ chọn theo <code>data-testid</code>, chạy bằng <code>pnpm verify &lt;flow&gt;</code>, ảnh chụp lưu trong <code>evidence/</code> của flow; smoke = bộ khởi chạy Electron smoke của M00-T02. Mọi AC must có kịch bản trong task cuối của hạng mục.</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>AC</th><th><span lang="en">Item</span><span lang="vi">Hạng mục</span></th><th><span lang="en">Level</span><span lang="vi">Mức</span></th><th><span lang="en">How to verify</span><span lang="vi">Cách kiểm chứng</span></th></tr></thead>
+    <tbody>
+      <tr><td><code>AC-57</code>, <code>AC-58</code></td><td>T01</td><td>e2e</td><td><span lang="en">Region test ids at both sizes; open each of the 17 routes (fixture <code>busy</code>, novel open) and see <code>module-host-&lt;id&gt;</code>.</span><span lang="vi">Test id các vùng ở hai cỡ; mở từng route trong 17 route (fixture <code>busy</code>, có truyện mở) và thấy <code>module-host-&lt;id&gt;</code>.</span></td></tr>
+      <tr><td><code>AC-59</code></td><td>T01</td><td><span lang="en">review</span><span lang="vi">review</span></td><td><span lang="en">Reviewer checklist: no module-id branch in <code>shell/</code>.</span><span lang="vi">Checklist reviewer: không có rẽ nhánh theo mã module trong <code>shell/</code>.</span></td></tr>
+      <tr><td><code>AC-60</code></td><td>T01</td><td><span lang="en">build + smoke</span><span lang="vi">build + smoke</span></td><td><span lang="en"><code>pnpm build</code> type-checks the handler map, preload allowlist and BrowserBridge against <code>IpcContract</code>; smoke invokes each M01 channel and gets <code>{ ok: true, value: null }</code>.</span><span lang="vi"><code>pnpm build</code> kiểm kiểu bảng xử lý, allowlist của preload và BrowserBridge theo <code>IpcContract</code>; smoke gọi từng kênh M01 và nhận <code>{ ok: true, value: null }</code>.</span></td></tr>
+      <tr><td><code>AC-61</code></td><td>T01</td><td>e2e</td><td><span lang="en">Probe page shows the values of each fixture.</span><span lang="vi">Trang thăm dò hiện giá trị của từng fixture.</span></td></tr>
+      <tr><td><code>AC-62</code>, <code>AC-63</code></td><td>T02</td><td>e2e</td><td><span lang="en">Each navigation key from several screens; probe registers a duplicate → first wins, warning in console.</span><span lang="vi">Từng phím điều hướng từ vài màn hình; module thăm dò đăng ký phím trùng → phím đầu thắng, cảnh báo trong console.</span></td></tr>
+      <tr><td><code>AC-21</code>–<code>AC-25</code></td><td>F03</td><td>e2e</td><td><span lang="en">Clean storage → EN + dark; buttons and keys switch in place with probe dialog, scroll and input kept; reload keeps the choice; EN / VI number and relative-time strings.</span><span lang="vi">Bộ nhớ sạch → EN + tối; nút và phím đổi tại chỗ, hộp thoại, cuộn và dữ liệu của module thăm dò được giữ; tải lại vẫn giữ lựa chọn; chuỗi số và thời gian tương đối EN / VI.</span></td></tr>
+      <tr><td><code>AC-26</code>–<code>AC-29</code></td><td>F03</td><td>e2e</td><td><span lang="en">Probe raises toasts (timing, 4th pushes oldest out), a destructive action (Cancel focused, Tab trapped, Esc does nothing), an async area with <code>slow</code> / <code>fail</code>, an error with code and raw detail.</span><span lang="vi">Module thăm dò tạo toast (thời gian, cái thứ 4 đẩy cái cũ nhất), thao tác phá huỷ (Huỷ có tiêu điểm, Tab bị giữ, Esc không làm gì), vùng bất đồng bộ với <code>slow</code> / <code>fail</code>, lỗi có mã và chi tiết gốc.</span></td></tr>
+      <tr><td><code>AC-30</code>–<code>AC-32</code></td><td>F04</td><td>e2e</td><td><span lang="en">Ctrl+K / button, arrows, Enter, Esc returns focus; sections with and without a novel; “audio” → four rows; nonsense → “No results”; theme and language run from the palette.</span><span lang="vi">Ctrl+K / nút, mũi tên, Enter, Esc trả tiêu điểm; các phần khi có và không có truyện; “audio” → bốn dòng; chuỗi vô nghĩa → “Không có kết quả”; chạy giao diện và ngôn ngữ từ bảng lệnh.</span></td></tr>
+      <tr><td><code>AC-33</code></td><td>F04 (+F02)</td><td>e2e</td><td><span lang="en">Every registered global key on each of the 17 screens; F02 adds its panel and focus keys to the same scenario.</span><span lang="vi">Mọi phím toàn cục đã đăng ký trên từng màn hình trong 17 màn hình; F02 thêm phím panel và tập trung vào cùng kịch bản.</span></td></tr>
+      <tr><td><code>AC-34</code>–<code>AC-38</code></td><td>F04</td><td>e2e</td><td><span lang="en">No novel: Ctrl+3 → toast, screen unchanged; sheet groups and marks; probe module key and command appear in sheet, palette and rail tooltip; probe key overrides a global key only on its screen; typing <code>?</code> / Shift+F in the probe input types characters.</span><span lang="vi">Chưa có truyện: Ctrl+3 → toast, màn hình không đổi; bảng phím tắt có nhóm và đánh dấu; phím và lệnh của module thăm dò có trong bảng phím tắt, bảng lệnh và tooltip thanh module; phím thăm dò chỉ thay phím toàn cục trên màn hình của nó; gõ <code>?</code> / Shift+F trong ô nhập ra ký tự.</span></td></tr>
+      <tr><td><code>AC-39</code></td><td>F04 (+F02)</td><td>e2e</td><td><span lang="en">Palette over probe dialog: Esc, Esc closes them in order; F02 adds the third Esc leaving focus mode.</span><span lang="vi">Bảng lệnh trên hộp thoại thăm dò: Esc, Esc đóng lần lượt; F02 thêm Esc thứ ba thoát chế độ tập trung.</span></td></tr>
+      <tr><td><code>AC-1</code>–<code>AC-5</code>, <code>AC-7</code></td><td>F01</td><td>e2e</td><td><span lang="en">Count <code>rail-*</code> per group with and without a novel (no rail scroll at 1280×720); active indicator; every unbuilt module from rail, palette and key shows the empty state with no “Release” text and no <code>aria-disabled</code>; open via palette → chip + groups; clear / Home → closed.</span><span lang="vi">Đếm <code>rail-*</code> theo nhóm khi có và không có truyện (không cuộn thanh ở 1280×720); vạch đang mở; mọi module chưa làm mở từ thanh, bảng lệnh và phím đều hiện trạng thái trống, không có chữ “Release”, không có <code>aria-disabled</code>; mở qua bảng lệnh → chip + nhóm; xoá / Trang chủ → đóng.</span></td></tr>
+      <tr><td><code>AC-6</code>, <code>AC-8</code>, <code>AC-9</code></td><td>F01</td><td>e2e</td><td><span lang="en">Chip opens palette filtered to Novels; order by last opened then title; <code>empty</code> → “No novels yet”; reload → Home, no novel.</span><span lang="vi">Chip mở bảng lệnh lọc Truyện; thứ tự theo lần mở gần nhất rồi theo tên; <code>empty</code> → “Chưa có truyện”; tải lại → Trang chủ, không có truyện.</span></td></tr>
+      <tr><td><code>AC-10</code>, <code>AC-11</code></td><td>F01</td><td>e2e</td><td><span lang="en">Brand → 200px with labels, kept after reload; at 1280×720 the module crumb is not truncated and the chip hides its count.</span><span lang="vi">Logo → 200px có nhãn, giữ sau khi tải lại; ở 1280×720 crumb tên module không bị cắt và chip ẩn số chương.</span></td></tr>
+      <tr><td><code>AC-40</code>–<code>AC-46</code></td><td>F05</td><td>e2e</td><td><span lang="en">Fixtures <code>busy</code> / <code>none</code> / <code>empty</code>: CLI dots and texts, “Translating 37/100 · 37%”, idle text, job item and Ctrl+Shift+T → Task Center, warning + badge 2 then cleared by an event, all Settings paths, other items or empty.</span><span lang="vi">Fixture <code>busy</code> / <code>none</code> / <code>empty</code>: chấm và chữ CLI, “Đang dịch 37/100 · 37%”, chữ rảnh, mục job và Ctrl+Shift+T → Trung tâm tác vụ, cảnh báo + huy hiệu 2 rồi hết khi có sự kiện, mọi đường tới Cài đặt, các mục khác hoặc trống.</span></td></tr>
+      <tr><td><code>AC-47</code></td><td>F05</td><td><span lang="en">e2e (should)</span><span lang="vi">e2e (should)</span></td><td><span lang="en">Fixture <code>flood</code>: type in the probe input and measure echo time; threshold 100 ms is <code>[unverified]</code>.</span><span lang="vi">Fixture <code>flood</code>: gõ vào ô nhập thăm dò và đo thời gian hiện ký tự; ngưỡng 100 ms là <code>[unverified]</code>.</span></td></tr>
+      <tr><td><code>AC-48</code></td><td>F05</td><td><span lang="en">e2e + smoke (should)</span><span lang="vi">e2e + smoke (should)</span></td><td><span lang="en">BrowserBridge emits starting → failed → ready; smoke sees the real <code>backend:status</code>.</span><span lang="vi">BrowserBridge phát starting → failed → ready; smoke thấy <code>backend:status</code> thật.</span></td></tr>
+      <tr><td><code>AC-12</code>–<code>AC-16</code>, <code>AC-19</code>, <code>AC-20</code></td><td>F02</td><td>e2e</td><td><span lang="en">Probe (<code>?probe=1</code>): measured panel widths; drag past limits; double-click; toggles and keys; per-screen memory after reload; Reset keeps VI + light; Shift+F / Esc with 2px job bar; scroll and input kept.</span><span lang="vi">Module thăm dò (<code>?probe=1</code>): đo bề rộng panel; kéo quá giới hạn; nhấp đúp; nút và phím; nhớ theo màn hình sau khi tải lại; Đặt lại vẫn giữ VI + sáng; Shift+F / Esc với vạch job 2px; giữ cuộn và dữ liệu.</span></td></tr>
+      <tr><td><code>AC-17</code>, <code>AC-18</code></td><td>F02</td><td>smoke</td><td><span lang="en">Electron: shrink below minimum → stays 1280×720; move / resize / maximise, relaunch, compare; off-screen bounds → centred.</span><span lang="vi">Electron: thu nhỏ dưới mức tối thiểu → giữ 1280×720; di chuyển / đổi cỡ / phóng to, mở lại, so sánh; vị trí ngoài màn hình → giữa màn hình.</span></td></tr>
+      <tr><td><code>AC-49</code>–<code>AC-56</code></td><td>F06</td><td>e2e</td><td><span lang="en">Fixtures <code>busy</code> (cards, six recents, open at chapter), <code>none</code> (“not available”, “unknown”, “No running tasks”, import invitation), <code>empty</code>, <code>first-run</code> (whole page); actions reach Library / Import empty screens.</span><span lang="vi">Fixture <code>busy</code> (các thẻ, sáu truyện gần đây, mở ở chương), <code>none</code> (“chưa có”, “không rõ”, “Không có tác vụ đang chạy”, lời mời nhập truyện), <code>empty</code>, <code>first-run</code> (cả trang); hành động tới màn hình trống Thư viện / Nhập truyện.</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+</details>
+
+<details class="fold" id="risks">
+  <summary><span lang="en">Risks &amp; rollout</span><span lang="vi">Rủi ro &amp; triển khai</span> <span class="count">4</span></summary>
+  <ul>
+    <li><strong><span lang="en">Risk</span><span lang="vi">Rủi ro</span>:</strong> <span lang="en">AppSettings field names and the exact <code>LibraryInfo</code> shape are fixed in M00 planning <code>[unverified]</code> → M01 plans read the M00 code first.</span><span lang="vi">Tên trường AppSettings và cấu trúc chính xác của <code>LibraryInfo</code> được chốt khi lập plan M00 <code>[unverified]</code> → plan của M01 đọc mã M00 trước.</span></li>
+    <li><strong><span lang="en">Risk</span><span lang="vi">Rủi ro</span>:</strong> <span lang="en">contract shapes may need fields when M02 / M03 / M04 / M06 arrive → extend, never rename.</span><span lang="vi">cấu trúc hợp đồng có thể cần thêm trường khi M02 / M03 / M04 / M06 tới → chỉ mở rộng, không đổi tên.</span></li>
+    <li><strong><span lang="en">Risk</span><span lang="vi">Rủi ro</span>:</strong> <span lang="en"><code>AC-47</code> uses a 100 ms threshold that is <code>[unverified]</code> → measured in F05, a should.</span><span lang="vi"><code>AC-47</code> dùng ngưỡng 100 ms chưa kiểm chứng <code>[unverified]</code> → đo trong F05, mức should.</span></li>
+    <li><strong><span lang="en">Rollout · rollback</span><span lang="vi">Triển khai · hoàn tác</span>:</strong> <span lang="en">no database migration, one new AppSettings field; the probe is excluded from the app build by the e2e configuration; rollback = revert the flow branch, stale settings are ignored.</span><span lang="vi">không có migration cơ sở dữ liệu, thêm một trường AppSettings; module thăm dò bị loại khỏi bản build ứng dụng qua cấu hình e2e; hoàn tác = hoàn tác nhánh flow, cài đặt cũ bị bỏ qua.</span></li>
+  </ul>
+</details>
+
+<details class="fold" id="questions">
+  <summary><span lang="en">Questions</span><span lang="vi">Câu hỏi</span> <span class="count">9 · default 8 · designer 1</span></summary>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>#</th><th><span lang="en">Question</span><span lang="vi">Câu hỏi</span></th><th><span lang="en">Answer</span><span lang="vi">Trả lời</span></th><th><span lang="en">Source</span><span lang="vi">Nguồn</span></th><th><span lang="en">Affects</span><span lang="vi">Ảnh hưởng</span></th></tr></thead>
+    <tbody>
+      <tr id="Q-1"><td>Q-1</td><td><span lang="en">Move the registry type and its 17 entries from F01 to T01?</span><span lang="vi">Chuyển kiểu sổ đăng ký và 17 mục từ F01 sang T01?</span></td><td><span lang="en">Yes; F01 keeps rail, brand, crumbs, chip and the unbuilt page.</span><span lang="vi">Có; F01 giữ thanh module, logo, crumbs, chip và trang chưa làm.</span></td><td><span class="status draft">default</span></td><td><code>T01</code> <code>F01</code></td></tr>
+      <tr id="Q-2"><td>Q-2</td><td><span lang="en">Before M06, what do the first-run buttons do (<code>AC-56</code>)?</span><span lang="vi">Trước khi có M06, các nút ở trang lần đầu làm gì (<code>AC-56</code>)?</span></td><td><span lang="en">Shown but disabled until M06 registers their commands; no “coming later” text; a library opens with <code>--library &lt;path&gt;</code>.</span><span lang="vi">Hiện nhưng bị vô hiệu tới khi M06 đăng ký lệnh; không có chữ “sắp có”; thư viện mở bằng <code>--library &lt;path&gt;</code>.</span></td><td><span class="status draft">default</span></td><td><code>F06</code></td></tr>
+      <tr id="Q-3"><td>Q-3</td><td><span lang="en">Toast auto-close: 5 s (<code>AC-26</code>) or 6 s (design system)?</span><span lang="vi">Toast tự đóng: 5 giây (<code>AC-26</code>) hay 6 giây (design system)?</span></td><td><span lang="en">5 s; already set in the design system and prototype.</span><span lang="vi">5 giây; đã đặt trong design system và bản mẫu.</span></td><td><span class="status approved">designer</span></td><td><code>F03</code></td></tr>
+      <tr id="Q-4"><td>Q-4</td><td><span lang="en">F02's e2e completes <code>AC-33</code> and <code>AC-39</code> (F04) for panel and focus-mode keys?</span><span lang="vi">e2e của F02 hoàn tất <code>AC-33</code> và <code>AC-39</code> (F04) cho phím panel và chế độ tập trung?</span></td><td><span lang="en">Yes.</span><span lang="vi">Có.</span></td><td><span class="status draft">default</span></td><td><code>F04</code> <code>F02</code></td></tr>
+      <tr id="Q-5"><td>Q-5</td><td><span lang="en">A novel screen opened by URL with no novel open?</span><span lang="vi">Màn hình thuộc truyện mở qua URL khi chưa có truyện?</span></td><td><span lang="en">Go Home with the “Open a novel first” toast.</span><span lang="vi">Về Trang chủ kèm toast “Hãy mở một truyện trước”.</span></td><td><span class="status draft">default</span></td><td><code>S-9</code></td></tr>
+      <tr id="Q-6"><td>Q-6</td><td><span lang="en">Unbuilt module screens: workspace only, no empty panels?</span><span lang="vi">Màn hình module chưa làm: chỉ vùng làm việc, không panel trống?</span></td><td><span lang="en">Yes; matches D22.</span><span lang="vi">Có; khớp D22.</span></td><td><span class="status draft">default</span></td><td><code>F01</code></td></tr>
+      <tr id="Q-7"><td>Q-7</td><td><span lang="en">How do warning toasts behave?</span><span lang="vi">Toast cảnh báo hoạt động thế nào?</span></td><td><span lang="en">Close after 5 s, like info.</span><span lang="vi">Đóng sau 5 giây, như thông tin.</span></td><td><span class="status draft">default</span></td><td><code>F03</code></td></tr>
+      <tr id="Q-8"><td>Q-8</td><td><span lang="en">Which CLIs get a status-bar item?</span><span lang="vi">CLI nào có mục trên thanh trạng thái?</span></td><td><span lang="en">Claude and Codex in R1; others when their module adds them.</span><span lang="vi">Claude và Codex ở R1; CLI khác khi module của chúng thêm vào.</span></td><td><span class="status draft">default</span></td><td><code>F05</code></td></tr>
+      <tr id="Q-9"><td>Q-9</td><td><span lang="en">Danger rail badge with a warning job dot?</span><span lang="vi">Huy hiệu màu nguy hiểm cùng chấm job màu cảnh báo?</span></td><td><span lang="en">Keep the mix.</span><span lang="vi">Giữ cách phối này.</span></td><td><span class="status draft">default</span></td><td><code>F05</code></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="muted" lang="en"><span class="status draft">default</span> the architect's recommended default, accepted by the product owner at Gate 2 (2026-10-05) · <span class="status approved">designer</span> resolved by the designer before the gate.</p>
+  <p class="muted" lang="vi"><span class="status draft">default</span> mặc định architect đề xuất, product owner chấp nhận tại Gate 2 (2026-10-05) · <span class="status approved">designer</span> designer giải quyết trước gate.</p>
+</details>
+
+<footer class="doc-footer">
+  <span lang="en">Produced by the <code>solution</code> skill · agents: architect, designer · template:</span>
+  <span lang="vi">Tạo bởi skill <code>solution</code> · agent: architect, designer · template:</span>
+  <code>.claude/templates/modules/0.solution.html</code>
+</footer>
+</main>
+</body>
+</html>

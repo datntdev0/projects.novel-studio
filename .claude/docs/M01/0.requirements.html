@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>M01 · Requirements</title>
+<link rel="stylesheet" href="../../templates/assets/claude.css">
+<script src="../../templates/assets/claude.js" defer></script>
+</head>
+<body>
+<main class="page">
+
+<header class="doc-header">
+  <p class="eyebrow">projects.novel-studio · Module · M01 · 0</p>
+  <h1><span lang="en">Requirements</span><span lang="vi">Yêu cầu</span></h1>
+  <p class="lede" lang="en">What this module must deliver, clarified with the product owner, written as testable stories.</p>
+  <p class="lede" lang="vi">Module này phải mang lại gì, đã làm rõ với product owner, viết thành các story kiểm thử được.</p>
+  <div class="meta">
+    <span class="lang-switch" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="vi" aria-pressed="false">VI</button></span>
+    <span class="pill"><span lang="en">Status</span><span lang="vi">Trạng thái</span>: <b><span class="status approved">approved</span></b> 2026-10-04</span>
+    <span class="pill"><span lang="en">Owner</span><span lang="vi">Phụ trách</span>: <b>analyst</b></span>
+    <span class="pill"><span lang="en">Approver</span><span lang="vi">Người duyệt</span>: <b>product owner</b></span>
+    <span class="pill"><span lang="en">Updated</span><span lang="vi">Cập nhật</span>: <b>2026-10-04</b></span>
+    <span class="pill"><span lang="en">Theme</span><span lang="vi">Chủ đề</span>: <a href="../0.high-level-requirements.html#themes"><code>TH-01</code></a></span>
+    <span class="pill"><span lang="en">Next</span><span lang="vi">Tiếp theo</span>: <a href="0.solution.html"><span lang="en">Solution</span><span lang="vi">Giải pháp</span></a></span>
+  </div>
+</header>
+
+<section class="approve" id="approve">
+  <h2><span lang="en">What you approve</span><span lang="vi">Bạn cần duyệt</span></h2>
+  <dl class="facts">
+    <dt><span lang="en">Scope</span><span lang="vi">Phạm vi</span></dt>
+    <dd><span lang="en">The studio frame every tool lives in: rail, panels, language and theme, shortcuts and palette, global status and Home; built on M00 · Foundation. Epic <code>PNS-1</code> · R1.1.</span><span lang="vi">Khung studio chứa mọi công cụ: thanh module, panel, ngôn ngữ và giao diện, phím tắt và bảng lệnh, trạng thái toàn cục và Trang chủ; xây trên M00 · Foundation. Epic <code>PNS-1</code> · R1.1.</span></dd>
+    <dt><span lang="en">Stories</span><span lang="vi">Story</span></dt>
+    <dd><b>6</b> · <a href="#M01-F01"><code>M01-F01</code></a> · <a href="#M01-F02"><code>M01-F02</code></a> · <a href="#M01-F03"><code>M01-F03</code></a> · <a href="#M01-F04"><code>M01-F04</code></a> · <a href="#M01-F05"><code>M01-F05</code></a> · <a href="#M01-F06"><code>M01-F06</code></a> <span class="status open">new</span></dd>
+    <dt><span lang="en">Acceptance criteria</span><span lang="vi">Tiêu chí chấp nhận</span></dt>
+    <dd><b>56</b> · must 50 · should 6 · could 0</dd>
+    <dt><span lang="en">Decisions</span><span lang="vi">Quyết định</span></dt>
+    <dd><span lang="en"><b>10</b> taken by you (<a href="#Q1">Q1</a>–<a href="#Q5">Q5</a>, <a href="#Q11">Q11</a>–<a href="#Q15">Q15</a>) · <b>5</b> defaults accepted (<a href="#Q6">Q6</a>–<a href="#Q10">Q10</a>)</span><span lang="vi"><b>10</b> do bạn quyết định (<a href="#Q1">Q1</a>–<a href="#Q5">Q5</a>, <a href="#Q11">Q11</a>–<a href="#Q15">Q15</a>) · <b>5</b> mặc định được chấp nhận (<a href="#Q6">Q6</a>–<a href="#Q10">Q10</a>)</span></dd>
+    <dt><span lang="en">Open questions</span><span lang="vi">Câu hỏi còn mở</span></dt>
+    <dd><span lang="en">none · approved by the product owner at Gate 1, 2026-10-04, with the Q6–Q10 defaults and the component split (<a href="#scope">Scope</a>)</span><span lang="vi">không có · product owner đã duyệt tại Gate 1, 2026-10-04, cùng các mặc định Q6–Q10 và cách chia thành phần (<a href="#scope">Phạm vi</a>)</span></dd>
+  </dl>
+  <p class="quote"><span lang="en">Original request (2026-10-04): “We need to implement M1, but it is the foundation and the project has nothing yet; we need the shared technical tasks.”</span><span lang="vi">Yêu cầu gốc (2026-10-04): “chúng ta cần implement module M1, tuy nhiên tôi thấy nó là foundation và project hiện tại chưa có gì… chúng ta cần các shared technical tasks.”</span></p>
+</section>
+
+<h2 id="stories"><span lang="en">Stories &amp; acceptance criteria</span><span lang="vi">Story &amp; tiêu chí chấp nhận</span></h2>
+<p class="muted" lang="en"><code>AC-n</code> is unique in the module and never renumbered once the solution is approved; Tasks (<code>Mxx-Tyy</code>) continue the sequence in <a href="0.solution.html">Solution</a>. Priority: <span class="status open">must</span> · <span class="status review">should</span> · <span class="status todo">could</span>. Data from modules not built yet shows “unknown” or empty, never invented values (<a href="#Q1">Q1</a>).</p>
+<p class="muted" lang="vi"><code>AC-n</code> là duy nhất trong module và không đánh số lại sau khi giải pháp được duyệt; các Task (<code>Mxx-Tyy</code>) đánh số tiếp trong <a href="0.solution.html">Giải pháp</a>. Ưu tiên: <span class="status open">must</span> · <span class="status review">should</span> · <span class="status todo">could</span>. Dữ liệu từ module chưa làm hiện “không rõ” hoặc trống, không bao giờ là giá trị bịa (<a href="#Q1">Q1</a>).</p>
+
+<section class="story" id="M01-F01">
+  <div class="story-head">
+    <h3><code>M01-F01</code> · <span lang="en">Navigation</span><span lang="vi">Điều hướng</span></h3>
+    <span class="story-meta"><code>PNS-23</code> · 11 AC</span>
+  </div>
+  <p class="story-line" lang="en"><em>As a</em> translator or creator, <em>I want</em> to reach every module and switch novels from one frame, <em>so that</em> every tool is one click away and I know which novel is open.</p>
+  <p class="story-line" lang="vi"><em>Là</em> người dịch hoặc người làm nội dung, <em>tôi muốn</em> tới mọi module và đổi truyện từ một khung, <em>để</em> mọi công cụ chỉ cách một cú nhấp và tôi biết truyện nào đang mở.</p>
+  <ul class="ac-list">
+    <li><code>AC-1</code><span lang="en">With no novel open, the rail shows 10 entries in four groups.</span><span lang="vi">Khi chưa mở truyện, thanh module hiện 10 mục trong bốn nhóm.</span><span class="status open">must</span></li>
+    <li><code>AC-2</code><span lang="en">With a novel open, the rail shows all 17 entries in six groups, without scrolling.</span><span lang="vi">Khi đang mở truyện, thanh hiện đủ 17 mục trong sáu nhóm, không phải cuộn.</span><span class="status open">must</span></li>
+    <li><code>AC-3</code><span lang="en">Clicking a rail entry opens its screen and marks it active.</span><span lang="vi">Nhấp một mục mở màn hình của nó và đánh dấu mục đang mở.</span><span class="status open">must</span></li>
+    <li><code>AC-4</code><span lang="en">A module not built yet opens a neutral empty screen, with no release wording.</span><span lang="vi">Module chưa làm mở một màn hình trống trung tính, không có chữ về release.</span><span class="status open">must</span></li>
+    <li><code>AC-5</code><span lang="en">Opening a novel shows its chip in the top bar and the novel groups in the rail.</span><span lang="vi">Mở truyện thì chip truyện hiện trên thanh trên và nhóm của truyện hiện trên thanh module.</span><span class="status open">must</span></li>
+    <li><code>AC-6</code><span lang="en">The chip lets me switch to another novel.</span><span lang="vi">Chip cho phép tôi đổi sang truyện khác.</span><span class="status open">must</span></li>
+    <li><code>AC-7</code><span lang="en">Clearing the chip or going Home closes the novel.</span><span lang="vi">Xoá chip hoặc về Trang chủ thì đóng truyện.</span><span class="status open">must</span></li>
+    <li><code>AC-8</code><span lang="en">The palette lists novels by last opened.</span><span lang="vi">Bảng lệnh liệt kê truyện theo thứ tự mở gần nhất.</span><span class="status open">must</span></li>
+    <li><code>AC-9</code><span lang="en">The app always starts on Home with no novel open.</span><span lang="vi">Ứng dụng luôn khởi động ở Trang chủ, không có truyện mở.</span><span class="status open">must</span></li>
+    <li><code>AC-10</code><span lang="en">Clicking the brand expands the rail with labels, and it is remembered.</span><span lang="vi">Nhấp logo mở rộng thanh module kèm nhãn, và được ghi nhớ.</span><span class="status review">should</span></li>
+    <li><code>AC-11</code><span lang="en">In a narrow window the module name stays whole.</span><span lang="vi">Ở cửa sổ hẹp, tên module vẫn hiện đầy đủ.</span><span class="status review">should</span></li>
+  </ul>
+  <details class="gwt">
+    <summary><span lang="en">Detail · Given / When / Then</span><span lang="vi">Chi tiết · Cho trước / Khi / Thì</span></summary>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>ID</th><th><span lang="en">Given</span><span lang="vi">Cho trước</span></th><th><span lang="en">When</span><span lang="vi">Khi</span></th><th><span lang="en">Then</span><span lang="vi">Thì</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>AC-1</code></td><td><span lang="en">no novel open</span><span lang="vi">chưa mở truyện</span></td><td><span lang="en">view rail</span><span lang="vi">xem thanh</span></td><td><span lang="en">Library (Home, Library) top · Media · Distribution · System (Task Center, Settings) bottom; no Workspace / Production</span><span lang="vi">Thư viện (Trang chủ, Thư viện) trên · Media · Phân phối · Hệ thống (Trung tâm tác vụ, Cài đặt) dưới; không có Không gian làm việc / Sản xuất</span></td></tr>
+        <tr><td><code>AC-2</code></td><td><span lang="en">novel open, window 1280×720</span><span lang="vi">đang mở truyện, cửa sổ 1280×720</span></td><td><span lang="en">view rail</span><span lang="vi">xem thanh</span></td><td><span lang="en">Library · Workspace · Media · Production · Distribution · System (D11, D16), no scroll or clipping</span><span lang="vi">Thư viện · Không gian làm việc · Media · Sản xuất · Phân phối · Hệ thống (D11, D16), không cuộn, không bị cắt</span></td></tr>
+        <tr><td><code>AC-3</code></td><td><span lang="en">any screen</span><span lang="vi">màn hình bất kỳ</span></td><td><span lang="en">click an entry</span><span lang="vi">nhấp một mục</span></td><td><span lang="en">screen opens; 2px emerald indicator; top bar shows Module · [novel chip]</span><span lang="vi">màn hình mở; vạch xanh ngọc 2px; thanh trên hiện Module · [chip truyện]</span></td></tr>
+        <tr><td><code>AC-4</code></td><td><span lang="en">module not built</span><span lang="vi">module chưa làm</span></td><td><span lang="en">open from rail, palette or shortcut</span><span lang="vi">mở từ thanh, bảng lệnh hoặc phím tắt</span></td><td><span lang="en">empty state with name and one-line description; entry not dimmed; no “Release N” or “coming later” (D13)</span><span lang="vi">trạng thái trống có tên và một dòng mô tả; mục không bị mờ; không có “Release N” hay “sắp có” (D13)</span></td></tr>
+        <tr><td><code>AC-5</code></td><td><span lang="en">no novel open</span><span lang="vi">chưa mở truyện</span></td><td><span lang="en">open a novel (palette, Home, Library)</span><span lang="vi">mở truyện (bảng lệnh, Trang chủ, Thư viện)</span></td><td><span lang="en">chip with title and chapter count; Workspace and Production shown; last-opened time updated</span><span lang="vi">chip có tên và số chương; hiện Không gian làm việc và Sản xuất; cập nhật thời điểm mở gần nhất</span></td></tr>
+        <tr><td><code>AC-6</code></td><td><span lang="en">novel open</span><span lang="vi">đang mở truyện</span></td><td><span lang="en">click chip, pick another novel</span><span lang="vi">nhấp chip, chọn truyện khác</span></td><td><span lang="en">palette opens filtered to Novels; chip shows the new novel</span><span lang="vi">bảng lệnh mở với bộ lọc Truyện; chip hiện truyện mới</span></td></tr>
+        <tr><td><code>AC-7</code></td><td><span lang="en">novel open</span><span lang="vi">đang mở truyện</span></td><td><span lang="en">clear chip / go Home</span><span lang="vi">xoá chip / về Trang chủ</span></td><td><span lang="en">novel closed, novel groups hidden; Library / Home opens</span><span lang="vi">đóng truyện, ẩn nhóm của truyện; mở Thư viện / Trang chủ</span></td></tr>
+        <tr><td><code>AC-8</code></td><td><span lang="en">some novels opened before</span><span lang="vi">vài truyện đã từng mở</span></td><td><span lang="en">open palette</span><span lang="vi">mở bảng lệnh</span></td><td><span lang="en">Novels: most recent first, never-opened after by title; none → “No novels yet”</span><span lang="vi">Truyện: mới nhất trước, chưa mở xếp sau theo tên; không có → “Chưa có truyện”</span></td></tr>
+        <tr><td><code>AC-9</code></td><td><span lang="en">closed on any screen or novel</span><span lang="vi">đóng ở màn hình hoặc truyện bất kỳ</span></td><td><span lang="en">start app</span><span lang="vi">khởi động</span></td><td><span lang="en">Home, no novel open</span><span lang="vi">Trang chủ, không có truyện mở</span></td></tr>
+        <tr><td><code>AC-10</code></td><td><span lang="en">rail collapsed (48px)</span><span lang="vi">thanh thu gọn (48px)</span></td><td><span lang="en">click brand, restart</span><span lang="vi">nhấp logo, khởi động lại</span></td><td><span lang="en">200px with labels and group titles; kept after restart; cleared by Reset layout</span><span lang="vi">200px có nhãn và tiêu đề nhóm; giữ sau khi khởi động lại; bị xoá bởi Đặt lại bố cục</span></td></tr>
+        <tr><td><code>AC-11</code></td><td><span lang="en">novel open, window &lt; 1440px</span><span lang="vi">đang mở truyện, cửa sổ &lt; 1440px</span></td><td><span lang="en">view top bar</span><span lang="vi">xem thanh trên</span></td><td><span lang="en">module name in full; chip hides chapter count</span><span lang="vi">tên module đầy đủ; chip ẩn số chương</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </details>
+</section>
+
+<section class="story" id="M01-F02">
+  <div class="story-head">
+    <h3><code>M01-F02</code> · <span lang="en">Studio layout</span><span lang="vi">Bố cục studio</span></h3>
+    <span class="story-meta"><code>PNS-24</code> · 9 AC</span>
+  </div>
+  <p class="story-line" lang="en"><em>As a</em> translator, <em>I want</em> to arrange the panels and have each screen remember them, <em>so that</em> my workspace fits my work and I can always reset it.</p>
+  <p class="story-line" lang="vi"><em>Là</em> người dịch, <em>tôi muốn</em> sắp xếp các panel và mỗi màn hình tự nhớ, <em>để</em> không gian hợp với công việc và luôn đặt lại được.</p>
+  <ul class="ac-list">
+    <li><code>AC-12</code><span lang="en">A screen first opens with the default panel sizes.</span><span lang="vi">Màn hình mở lần đầu với kích thước panel mặc định.</span><span class="status open">must</span></li>
+    <li><code>AC-13</code><span lang="en">I can drag a panel edge to resize it, and double-click to reset it.</span><span lang="vi">Tôi kéo mép panel để đổi kích thước, và nhấp đúp để đặt lại.</span><span class="status open">must</span></li>
+    <li><code>AC-14</code><span lang="en">I can collapse and restore each panel by button or shortcut.</span><span lang="vi">Tôi thu gọn và hiện lại từng panel bằng nút hoặc phím tắt.</span><span class="status open">must</span></li>
+    <li><code>AC-15</code><span lang="en">Each screen keeps its own layout after restart.</span><span lang="vi">Mỗi màn hình giữ bố cục riêng sau khi khởi động lại.</span><span class="status open">must</span></li>
+    <li><code>AC-16</code><span lang="en">Reset layout restores all screens but keeps language and theme.</span><span lang="vi">Đặt lại bố cục khôi phục mọi màn hình nhưng giữ ngôn ngữ và giao diện.</span><span class="status open">must</span></li>
+    <li><code>AC-17</code><span lang="en">The window cannot be made smaller than 1280×720.</span><span lang="vi">Cửa sổ không thu nhỏ được dưới 1280×720.</span><span class="status open">must</span></li>
+    <li><code>AC-18</code><span lang="en">The window reopens where and how I left it.</span><span lang="vi">Cửa sổ mở lại đúng vị trí và kích thước tôi để.</span><span class="status review">should</span></li>
+    <li><code>AC-19</code><span lang="en">Focus mode shows only the workspace; Esc brings the layout back.</span><span lang="vi">Chế độ tập trung chỉ để lại vùng làm việc; Esc trả lại bố cục.</span><span class="status open">must</span></li>
+    <li><code>AC-20</code><span lang="en">Changing panels never loses my scroll position or unsaved text.</span><span lang="vi">Đổi panel không làm mất vị trí cuộn hay chữ chưa lưu.</span><span class="status review">should</span></li>
+  </ul>
+  <details class="gwt">
+    <summary><span lang="en">Detail · Given / When / Then</span><span lang="vi">Chi tiết · Cho trước / Khi / Thì</span></summary>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>ID</th><th><span lang="en">Given</span><span lang="vi">Cho trước</span></th><th><span lang="en">When</span><span lang="vi">Khi</span></th><th><span lang="en">Then</span><span lang="vi">Thì</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>AC-12</code></td><td><span lang="en">screen with three panels, first visit</span><span lang="vi">màn hình có ba panel, lần đầu</span></td><td><span lang="en">open it</span><span lang="vi">mở</span></td><td><span lang="en">272 / 304 / 208px; bottom panel only under the workspace; a screen without a panel (Home) shows no gap or toggle for it</span><span lang="vi">272 / 304 / 208px; panel dưới chỉ nằm dưới vùng làm việc; màn hình không có panel (Trang chủ) không chừa chỗ, không có nút cho panel đó</span></td></tr>
+        <tr><td><code>AC-13</code></td><td><span lang="en">panel shown</span><span lang="vi">panel đang hiện</span></td><td><span lang="en">drag / double-click gutter</span><span lang="vi">kéo / nhấp đúp rãnh</span></td><td><span lang="en">stops at left 180–480, right 220–520, bottom 120–480px; double-click resets only that panel</span><span lang="vi">dừng ở trái 180–480, phải 220–520, dưới 120–480px; nhấp đúp chỉ đặt lại panel đó</span></td></tr>
+        <tr><td><code>AC-14</code></td><td><span lang="en">panel shown</span><span lang="vi">panel đang hiện</span></td><td><span lang="en">header button, top-bar toggle, Ctrl+B / Ctrl+Alt+B / Ctrl+J, twice</span><span lang="vi">nút đầu panel, nút thanh trên, Ctrl+B / Ctrl+Alt+B / Ctrl+J, hai lần</span></td><td><span lang="en">collapses to 0px, then returns at its previous size; toggle pressed only while shown</span><span lang="vi">thu về 0px, rồi trở lại kích thước cũ; nút ở trạng thái nhấn chỉ khi panel hiện</span></td></tr>
+        <tr><td><code>AC-15</code></td><td><span lang="en">layout changed on screen A</span><span lang="vi">đổi bố cục ở màn hình A</span></td><td><span lang="en">open B; restart; switch library</span><span lang="vi">mở B; khởi động lại; đổi thư viện</span></td><td><span lang="en">B unchanged; A restored each time (per screen, per machine)</span><span lang="vi">B không đổi; A được khôi phục mỗi lần (theo màn hình, theo máy)</span></td></tr>
+        <tr><td><code>AC-16</code></td><td><span lang="en">changed layouts, rail expanded, focus mode, VI + light</span><span lang="vi">bố cục đã đổi, thanh mở rộng, chế độ tập trung, VI + sáng</span></td><td><span lang="en">Reset layout (palette, later Settings › Layout)</span><span lang="vi">Đặt lại bố cục (bảng lệnh, sau này Cài đặt › Bố cục)</span></td><td><span lang="en">all screens at defaults, rail collapsed, focus mode left; still VI + light</span><span lang="vi">mọi màn hình về mặc định, thanh thu gọn, thoát tập trung; vẫn VI + sáng</span></td></tr>
+        <tr><td><code>AC-17</code></td><td><span lang="en">first start</span><span lang="vi">khởi động lần đầu</span></td><td><span lang="en">shrink the window</span><span lang="vi">thu nhỏ cửa sổ</span></td><td><span lang="en">opened at 1440×900; stops at 1280×720 with a workspace ≥ 648px</span><span lang="vi">mở ở 1440×900; dừng ở 1280×720 với vùng làm việc ≥ 648px</span></td></tr>
+        <tr><td><code>AC-18</code></td><td><span lang="en">window moved, resized or maximised</span><span lang="vi">cửa sổ đã di chuyển, đổi cỡ hoặc phóng to</span></td><td><span lang="en">restart</span><span lang="vi">khởi động lại</span></td><td><span lang="en">same bounds and state; off-screen position → centred on the primary display</span><span lang="vi">cùng kích thước và trạng thái; vị trí ngoài màn hình → giữa màn hình chính</span></td></tr>
+        <tr><td><code>AC-19</code></td><td><span lang="en">not in a text input</span><span lang="vi">không ở ô nhập chữ</span></td><td><span lang="en">Shift+F, then Esc</span><span lang="vi">Shift+F, rồi Esc</span></td><td><span lang="en">rail, top bar, panels, status bar hidden; running job as 2px top bar; Esc restores the exact layout</span><span lang="vi">ẩn thanh module, thanh trên, panel, thanh trạng thái; job đang chạy thành vạch 2px ở trên; Esc trả đúng bố cục</span></td></tr>
+        <tr><td><code>AC-20</code></td><td><span lang="en">scrolled workspace with unsaved input</span><span lang="vi">vùng làm việc đã cuộn, có dữ liệu chưa lưu</span></td><td><span lang="en">resize or collapse a panel</span><span lang="vi">đổi cỡ hoặc thu gọn panel</span></td><td><span lang="en">scroll and input kept; nothing reloads</span><span lang="vi">giữ vị trí cuộn và dữ liệu; không tải lại</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </details>
+</section>
+
+<section class="story" id="M01-F03">
+  <div class="story-head">
+    <h3><code>M01-F03</code> · <span lang="en">Appearance</span><span lang="vi">Giao diện</span></h3>
+    <span class="story-meta"><code>PNS-25</code> · 9 AC</span>
+  </div>
+  <p class="story-line" lang="en"><em>As a</em> Vietnamese translator or reader, <em>I want</em> to switch language and theme instantly and get the same feedback everywhere, <em>so that</em> long sessions are comfortable and I always know what is happening.</p>
+  <p class="story-line" lang="vi"><em>Là</em> người dịch hoặc người đọc người Việt, <em>tôi muốn</em> đổi ngôn ngữ và giao diện tức thì và nhận phản hồi giống nhau ở mọi nơi, <em>để</em> làm việc lâu vẫn dễ chịu và luôn biết điều gì đang xảy ra.</p>
+  <ul class="ac-list">
+    <li><code>AC-21</code><span lang="en">A fresh install starts in English with the dark theme.</span><span lang="vi">Bản cài mới khởi động bằng tiếng Anh, giao diện tối.</span><span class="status open">must</span></li>
+    <li><code>AC-22</code><span lang="en">I can switch between Vietnamese and English instantly, without losing my work.</span><span lang="vi">Tôi đổi Việt / Anh tức thì mà không mất việc đang làm.</span><span class="status open">must</span></li>
+    <li><code>AC-23</code><span lang="en">I can switch between Dark and Light instantly; there is no other theme.</span><span lang="vi">Tôi đổi Tối / Sáng tức thì; không có giao diện nào khác.</span><span class="status open">must</span></li>
+    <li><code>AC-24</code><span lang="en">My language and theme are kept after restart.</span><span lang="vi">Ngôn ngữ và giao diện được giữ sau khi khởi động lại.</span><span class="status open">must</span></li>
+    <li><code>AC-25</code><span lang="en">Numbers and dates follow the UI language.</span><span lang="vi">Số và ngày theo ngôn ngữ giao diện.</span><span class="status open">must</span></li>
+    <li><code>AC-26</code><span lang="en">Info toasts close by themselves; error toasts stay until I close them.</span><span lang="vi">Toast thông tin tự đóng; toast lỗi ở lại tới khi tôi đóng.</span><span class="status open">must</span></li>
+    <li><code>AC-27</code><span lang="en">A destructive action always asks me to confirm, with Cancel as the default.</span><span lang="vi">Thao tác phá huỷ luôn hỏi xác nhận, Huỷ là mặc định.</span><span class="status open">must</span></li>
+    <li><code>AC-28</code><span lang="en">Every area shows a clear loading, empty or error state.</span><span lang="vi">Mọi vùng hiện rõ trạng thái đang tải, trống hoặc lỗi.</span><span class="status open">must</span></li>
+    <li><code>AC-29</code><span lang="en">An error is explained in my language, with the original message in details.</span><span lang="vi">Lỗi được giải thích bằng ngôn ngữ của tôi, kèm thông báo gốc trong phần chi tiết.</span><span class="status open">must</span></li>
+  </ul>
+  <details class="gwt">
+    <summary><span lang="en">Detail · Given / When / Then</span><span lang="vi">Chi tiết · Cho trước / Khi / Thì</span></summary>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>ID</th><th><span lang="en">Given</span><span lang="vi">Cho trước</span></th><th><span lang="en">When</span><span lang="vi">Khi</span></th><th><span lang="en">Then</span><span lang="vi">Thì</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>AC-21</code></td><td><span lang="en">nothing stored</span><span lang="vi">chưa lưu gì</span></td><td><span lang="en">start app</span><span lang="vi">khởi động</span></td><td><span lang="en">English, dark (D1, D19)</span><span lang="vi">tiếng Anh, tối (D1, D19)</span></td></tr>
+        <tr><td><code>AC-22</code></td><td><span lang="en">dialog open, scrolled, unsaved input</span><span lang="vi">đang mở hộp thoại, đã cuộn, có dữ liệu chưa lưu</span></td><td><span lang="en">VI / EN button, Ctrl+Shift+U or palette</span><span lang="vi">nút VI / EN, Ctrl+Shift+U hoặc bảng lệnh</span></td><td><span lang="en">all text changes in place, no reload; <code>&lt;html lang&gt;</code> updated; screen, dialog, scroll and input kept</span><span lang="vi">mọi chữ đổi tại chỗ, không tải lại; cập nhật <code>&lt;html lang&gt;</code>; giữ màn hình, hộp thoại, cuộn và dữ liệu</span></td></tr>
+        <tr><td><code>AC-23</code></td><td><span lang="en">any screen</span><span lang="vi">màn hình bất kỳ</span></td><td><span lang="en">theme button, Ctrl+Shift+L or palette</span><span lang="vi">nút giao diện, Ctrl+Shift+L hoặc bảng lệnh</span></td><td><span lang="en">Dark ↔ Light in place, no layout shift; moon / sun icon; no “System” option</span><span lang="vi">Tối ↔ Sáng tại chỗ, không xê dịch; biểu tượng trăng / mặt trời; không có “Theo hệ thống”</span></td></tr>
+        <tr><td><code>AC-24</code></td><td><span lang="en">language and theme chosen</span><span lang="vi">đã chọn ngôn ngữ và giao diện</span></td><td><span lang="en">restart</span><span lang="vi">khởi động lại</span></td><td><span lang="en">used from the first frame</span><span lang="vi">dùng ngay từ khung hình đầu</span></td></tr>
+        <tr><td><code>AC-25</code></td><td><span lang="en">9812 chapters, 2 hours ago</span><span lang="vi">9812 chương, 2 giờ trước</span></td><td><span lang="en">EN, then VI</span><span lang="vi">EN, rồi VI</span></td><td><span lang="en">“9,812 · 2 h ago” / “9.812 · 2 giờ trước”</span><span lang="vi">“9,812 · 2 h ago” / “9.812 · 2 giờ trước”</span></td></tr>
+        <tr><td><code>AC-26</code></td><td><span lang="en">toasts raised</span><span lang="vi">có toast</span></td><td><span lang="en">info, error, then a 4th while 3 show</span><span lang="vi">thông tin, lỗi, rồi cái thứ 4 khi đang có 3</span></td><td><span lang="en">info / success close after 5 s; errors stay; max 3, newest on top, oldest pushed out</span><span lang="vi">thông tin / thành công đóng sau 5 giây; lỗi ở lại; tối đa 3, mới nhất ở trên, cũ nhất bị đẩy ra</span></td></tr>
+        <tr><td><code>AC-27</code></td><td><span lang="en">destructive action started</span><span lang="vi">bắt đầu thao tác phá huỷ</span></td><td><span lang="en">Tab, Esc or Cancel</span><span lang="vi">Tab, Esc hoặc Huỷ</span></td><td><span lang="en">names the object and the loss; Cancel focused; focus trapped; Esc / Cancel do nothing</span><span lang="vi">nêu đối tượng và phần bị mất; Huỷ có tiêu điểm; tiêu điểm nằm trong hộp thoại; Esc / Huỷ không làm gì</span></td></tr>
+        <tr><td><code>AC-28</code></td><td><span lang="en">async area (Home card, palette Novels)</span><span lang="vi">vùng bất đồng bộ (thẻ Trang chủ, Truyện của bảng lệnh)</span></td><td><span lang="en">loading, then empty, then failure</span><span lang="vi">đang tải, rồi rỗng, rồi lỗi</span></td><td><span lang="en">loading indicator; empty message with its action; translated error</span><span lang="vi">chỉ báo đang tải; thông báo trống kèm hành động; lỗi đã dịch</span></td></tr>
+        <tr><td><code>AC-29</code></td><td><span lang="en">error with code and raw text (CLI stderr)</span><span lang="vi">lỗi có mã và văn bản gốc (stderr của CLI)</span></td><td><span lang="en">shown</span><span lang="vi">hiển thị</span></td><td><span lang="en">message translated from the code; “Details” shows the raw text untranslated</span><span lang="vi">thông báo dịch từ mã; “Chi tiết” hiện văn bản gốc không dịch</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </details>
+</section>
+
+<section class="story" id="M01-F04">
+  <div class="story-head">
+    <h3><code>M01-F04</code> · <span lang="en">Keyboard shortcuts &amp; command palette</span><span lang="vi">Phím tắt &amp; bảng lệnh</span></h3>
+    <span class="story-meta"><code>PNS-26</code> · 10 AC</span>
+  </div>
+  <p class="story-line" lang="en"><em>As a</em> keyboard-first translator, <em>I want</em> shortcuts, a shortcut list and a command palette, <em>so that</em> I reach any module or command without the mouse.</p>
+  <p class="story-line" lang="vi"><em>Là</em> người dịch quen dùng bàn phím, <em>tôi muốn</em> có phím tắt, bảng phím tắt và bảng lệnh, <em>để</em> tới mọi module hay lệnh mà không cần chuột.</p>
+  <ul class="ac-list">
+    <li><code>AC-30</code><span lang="en">Ctrl+K opens the palette, which I drive with the keyboard.</span><span lang="vi">Ctrl+K mở bảng lệnh, tôi điều khiển bằng bàn phím.</span><span class="status open">must</span></li>
+    <li><code>AC-31</code><span lang="en">The palette lists modules, commands and novels.</span><span lang="vi">Bảng lệnh liệt kê module, lệnh và truyện.</span><span class="status open">must</span></li>
+    <li><code>AC-32</code><span lang="en">Typing in English or Vietnamese filters the palette.</span><span lang="vi">Gõ tiếng Anh hoặc tiếng Việt đều lọc được bảng lệnh.</span><span class="status open">must</span></li>
+    <li><code>AC-33</code><span lang="en">Every global shortcut works on every screen.</span><span lang="vi">Mọi phím tắt toàn cục hoạt động ở mọi màn hình.</span><span class="status open">must</span></li>
+    <li><code>AC-34</code><span lang="en">Without an open novel, novel shortcuts only say “Open a novel first”.</span><span lang="vi">Khi chưa mở truyện, phím tắt của truyện chỉ báo “Hãy mở một truyện trước”.</span><span class="status open">must</span></li>
+    <li><code>AC-35</code><span lang="en">Ctrl+/ shows every shortcut, marking those of the current screen.</span><span lang="vi">Ctrl+/ hiện mọi phím tắt, đánh dấu các phím của màn hình hiện tại.</span><span class="status open">must</span></li>
+    <li><code>AC-36</code><span lang="en">Shortcuts and commands of each module appear in the list and the palette.</span><span lang="vi">Phím tắt và lệnh của mỗi module có trong bảng phím tắt và bảng lệnh.</span><span class="status open">must</span></li>
+    <li><code>AC-37</code><span lang="en">A module shortcut only replaces a global one on its own screen.</span><span lang="vi">Phím tắt của module chỉ thay phím toàn cục trên màn hình của nó.</span><span class="status open">must</span></li>
+    <li><code>AC-38</code><span lang="en">Typing in a text field never triggers a single-key shortcut.</span><span lang="vi">Gõ trong ô nhập chữ không bao giờ kích hoạt phím tắt một phím.</span><span class="status open">must</span></li>
+    <li><code>AC-39</code><span lang="en">Esc closes the topmost window first, then leaves focus mode.</span><span lang="vi">Esc đóng cửa sổ trên cùng trước, rồi thoát chế độ tập trung.</span><span class="status open">must</span></li>
+  </ul>
+  <details class="gwt">
+    <summary><span lang="en">Detail · Given / When / Then</span><span lang="vi">Chi tiết · Cho trước / Khi / Thì</span></summary>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>ID</th><th><span lang="en">Given</span><span lang="vi">Cho trước</span></th><th><span lang="en">When</span><span lang="vi">Khi</span></th><th><span lang="en">Then</span><span lang="vi">Thì</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>AC-30</code></td><td><span lang="en">any screen</span><span lang="vi">màn hình bất kỳ</span></td><td><span lang="en">Ctrl+K or palette button; ↑ ↓ Enter Esc</span><span lang="vi">Ctrl+K hoặc nút bảng lệnh; ↑ ↓ Enter Esc</span></td><td><span lang="en">focus in search; arrows move; Enter runs and closes; Esc closes and returns focus</span><span lang="vi">tiêu điểm ở ô tìm; mũi tên di chuyển; Enter chạy và đóng; Esc đóng và trả tiêu điểm</span></td></tr>
+        <tr><td><code>AC-31</code></td><td><span lang="en">empty query</span><span lang="vi">ô tìm trống</span></td><td><span lang="en">view palette</span><span lang="vi">xem bảng lệnh</span></td><td><span lang="en">Go to module per rail group (name, ids, keys), built or not; novel modules only with a novel open · Commands: theme, language, three panel toggles, rail, Reset layout, Focus mode, Keyboard shortcuts · Novels</span><span lang="vi">Đi tới module theo nhóm thanh (tên, mã, phím), đã làm hay chưa; module của truyện chỉ khi đang mở truyện · Lệnh: giao diện, ngôn ngữ, ba nút panel, thanh module, Đặt lại bố cục, Chế độ tập trung, Phím tắt · Truyện</span></td></tr>
+        <tr><td><code>AC-32</code></td><td><span lang="en">palette open</span><span lang="vi">bảng lệnh mở</span></td><td><span lang="en">type “audio”, then nonsense</span><span lang="vi">gõ “audio”, rồi chuỗi vô nghĩa</span></td><td><span lang="en">Audiobook, Voice Lab, Pronunciation, Sound and Music; then “No results”</span><span lang="vi">Sách nói, Phòng giọng nói, Từ điển phát âm, Âm thanh &amp; nhạc; rồi “Không có kết quả”</span></td></tr>
+        <tr><td><code>AC-33</code></td><td><span lang="en">novel open</span><span lang="vi">đang mở truyện</span></td><td><span lang="en">each global shortcut</span><span lang="vi">từng phím tắt toàn cục</span></td><td><span lang="en">table of design system §7: Ctrl+K, Ctrl+/ and ?, Ctrl+B, Ctrl+Alt+B, Ctrl+J, Ctrl+1…7, Ctrl+, , Ctrl+Shift+T / L / U, Shift+F, Esc</span><span lang="vi">bảng ở mục 7 design system: Ctrl+K, Ctrl+/ và ?, Ctrl+B, Ctrl+Alt+B, Ctrl+J, Ctrl+1…7, Ctrl+, , Ctrl+Shift+T / L / U, Shift+F, Esc</span></td></tr>
+        <tr><td><code>AC-34</code></td><td><span lang="en">no novel open</span><span lang="vi">chưa mở truyện</span></td><td><span lang="en">Ctrl+3…5 or a Workspace / Production shortcut</span><span lang="vi">Ctrl+3…5 hoặc phím của Không gian làm việc / Sản xuất</span></td><td><span lang="en">info toast “Open a novel first”; screen unchanged (D20)</span><span lang="vi">toast “Hãy mở một truyện trước”; màn hình không đổi (D20)</span></td></tr>
+        <tr><td><code>AC-35</code></td><td><span lang="en">shortcuts registered</span><span lang="vi">đã đăng ký phím tắt</span></td><td><span lang="en">Ctrl+/ or ?</span><span lang="vi">Ctrl+/ hoặc ?</span></td><td><span lang="en">global first, then per module, in UI language; active ones marked</span><span lang="vi">toàn cục trước, rồi từng module, theo ngôn ngữ giao diện; phím đang hiệu lực được đánh dấu</span></td></tr>
+        <tr><td><code>AC-36</code></td><td><span lang="en">a module registers a shortcut and command</span><span lang="vi">module đăng ký phím tắt và lệnh</span></td><td><span lang="en">open sheet, palette, hover rail</span><span lang="vi">mở bảng phím tắt, bảng lệnh, rê lên thanh</span></td><td><span lang="en">shown without shell changes, with the registered keys everywhere</span><span lang="vi">hiện mà không sửa khung, cùng tổ hợp đã đăng ký ở mọi nơi</span></td></tr>
+        <tr><td><code>AC-37</code></td><td><span lang="en">module binding = global keys</span><span lang="vi">phím module trùng phím toàn cục</span></td><td><span lang="en">press on its screen, then elsewhere</span><span lang="vi">nhấn ở màn hình của nó, rồi nơi khác</span></td><td><span lang="en">module action there; global action elsewhere</span><span lang="vi">hành động của module ở đó; hành động toàn cục ở nơi khác</span></td></tr>
+        <tr><td><code>AC-38</code></td><td><span lang="en">focus in a text input</span><span lang="vi">tiêu điểm ở ô nhập chữ</span></td><td><span lang="en">type ? or Shift+F, then Ctrl+K</span><span lang="vi">gõ ? hoặc Shift+F, rồi Ctrl+K</span></td><td><span lang="en">characters typed, no shortcut; Ctrl+K still opens the palette</span><span lang="vi">ký tự được gõ, không chạy phím tắt; Ctrl+K vẫn mở bảng lệnh</span></td></tr>
+        <tr><td><code>AC-39</code></td><td><span lang="en">palette over a dialog, in focus mode</span><span lang="vi">bảng lệnh trên hộp thoại, đang ở chế độ tập trung</span></td><td><span lang="en">Esc three times</span><span lang="vi">Esc ba lần</span></td><td><span lang="en">palette, then dialog, then focus mode</span><span lang="vi">bảng lệnh, rồi hộp thoại, rồi chế độ tập trung</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </details>
+</section>
+
+<section class="story" id="M01-F05">
+  <div class="story-head">
+    <h3><code>M01-F05</code> · <span lang="en">Global status</span><span lang="vi">Trạng thái toàn cục</span></h3>
+    <span class="story-meta"><code>PNS-27</code> · 9 AC</span>
+  </div>
+  <p class="story-line" lang="en"><em>As a</em> translator running long AI jobs, <em>I want</em> to see which CLIs are ready, what runs and what needs me, <em>so that</em> I notice problems without opening every screen.</p>
+  <p class="story-line" lang="vi"><em>Là</em> người dịch chạy job AI dài, <em>tôi muốn</em> thấy CLI nào sẵn sàng, việc gì đang chạy và việc gì cần tôi, <em>để</em> phát hiện vấn đề mà không phải mở từng màn hình.</p>
+  <p class="muted" lang="en">All global status lives in the status bar; the top bar has no progress button and no CLI dots (<a href="#Q12">Q12</a>). “Task tray” = the status-bar job item plus the Task Center screen it opens; no bottom tray, no popover (<a href="#Q3">Q3</a>). Progress data comes from the M03 job runner and CLI status from M02; until then M01 defines the types it reads and shows “unknown” or empty (<a href="#Q1">Q1</a>).</p>
+  <p class="muted" lang="vi">Mọi trạng thái toàn cục nằm ở thanh trạng thái; thanh trên không có nút tiến độ và không có chấm CLI (<a href="#Q12">Q12</a>). “Khay tác vụ” = mục job trên thanh trạng thái cùng màn hình Trung tâm tác vụ mà nó mở; không có khay dưới, không có popover (<a href="#Q3">Q3</a>). Dữ liệu tiến độ đến từ bộ chạy job của M03 và trạng thái CLI từ M02; trước đó M01 tự định nghĩa các kiểu nó đọc và hiện “không rõ” hoặc trống (<a href="#Q1">Q1</a>).</p>
+  <ul class="ac-list">
+    <li><code>AC-40</code><span lang="en">The status bar shows whether each AI CLI is ready, and why not.</span><span lang="vi">Thanh trạng thái cho biết mỗi CLI AI có sẵn sàng không, và lý do.</span><span class="status open">must</span></li>
+    <li><code>AC-41</code><span lang="en">Settings is one step away from the rail, the top-bar gear, the palette or Ctrl+,.</span><span lang="vi">Cài đặt chỉ cách một bước từ thanh module, nút bánh răng trên thanh trên, bảng lệnh hoặc Ctrl+,.</span><span class="status open">must</span></li>
+    <li><code>AC-42</code><span lang="en">The status-bar job item shows the running job and how far it is.</span><span lang="vi">Mục job trên thanh trạng thái cho thấy job đang chạy và đã tới đâu.</span><span class="status open">must</span></li>
+    <li><code>AC-43</code><span lang="en">With nothing running, the job item says so.</span><span lang="vi">Khi không có gì chạy, mục job báo như vậy.</span><span class="status open">must</span></li>
+    <li><code>AC-44</code><span lang="en">The job item or Ctrl+Shift+T opens the Task Center.</span><span lang="vi">Mục job hoặc Ctrl+Shift+T mở Trung tâm tác vụ.</span><span class="status open">must</span></li>
+    <li><code>AC-45</code><span lang="en">Jobs that need me are flagged on the job item and the Task Center rail entry.</span><span lang="vi">Job cần tôi xử lý được báo trên mục job và mục Trung tâm tác vụ của thanh module.</span><span class="status open">must</span></li>
+    <li><code>AC-46</code><span lang="en">The status bar also shows the library, open chapter, hints, language and theme.</span><span lang="vi">Thanh trạng thái còn hiện thư viện, chương đang mở, gợi ý, ngôn ngữ và giao diện.</span><span class="status open">must</span></li>
+    <li><code>AC-47</code><span lang="en">Live progress never makes typing or scrolling lag.</span><span lang="vi">Tiến độ cập nhật trực tiếp không làm gõ hay cuộn bị chậm.</span><span class="status review">should</span></li>
+    <li><code>AC-48</code><span lang="en">The status bar shows when the local backend is starting or failed.</span><span lang="vi">Thanh trạng thái báo khi backend cục bộ đang khởi động hoặc lỗi.</span><span class="status review">should</span></li>
+  </ul>
+  <details class="gwt">
+    <summary><span lang="en">Detail · Given / When / Then</span><span lang="vi">Chi tiết · Cho trước / Khi / Thì</span></summary>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>ID</th><th><span lang="en">Given</span><span lang="vi">Cho trước</span></th><th><span lang="en">When</span><span lang="vi">Khi</span></th><th><span lang="en">Then</span><span lang="vi">Thì</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>AC-40</code></td><td><span lang="en">Claude ready, Codex not logged in; or no status source yet</span><span lang="vi">Claude sẵn sàng, Codex chưa đăng nhập; hoặc chưa có nguồn trạng thái</span></td><td><span lang="en">view / hover the status-bar CLI items</span><span lang="vi">xem / rê lên mục CLI trên thanh trạng thái</span></td><td><span lang="en">one item per CLI: dot + name + version or problem (e.g. “codex not logged in”); ready, warning, missing or unknown use the same item with the matching dot and text; no source → both “unknown”</span><span lang="vi">mỗi CLI một mục: chấm + tên + phiên bản hoặc vấn đề (ví dụ “codex chưa đăng nhập”); sẵn sàng, cảnh báo, không có hay không rõ dùng cùng mục với chấm và chữ tương ứng; chưa có nguồn → cả hai “không rõ”</span></td></tr>
+        <tr><td><code>AC-41</code></td><td><span lang="en">any screen</span><span lang="vi">màn hình bất kỳ</span></td><td><span lang="en">Settings rail entry, top-bar gear, palette, Ctrl+, or Ctrl+7, or click a CLI item</span><span lang="vi">mục Cài đặt trên thanh module, bánh răng trên thanh trên, bảng lệnh, Ctrl+, hoặc Ctrl+7, hoặc nhấp một mục CLI</span></td><td><span lang="en">Settings opens (AI tools section from a CLI item, once M02 has it)</span><span lang="vi">Cài đặt mở (mục Công cụ AI khi bấm từ mục CLI, khi M02 có)</span></td></tr>
+        <tr><td><code>AC-42</code></td><td><span lang="en">Translating 37 of 100</span><span lang="vi">Đang dịch 37 trên 100</span></td><td><span lang="en">view the status-bar job item</span><span lang="vi">xem mục job trên thanh trạng thái</span></td><td><span lang="en">running dot, “Translating 37/100 · 37%”</span><span lang="vi">chấm đang chạy, “Đang dịch 37/100 · 37%”</span></td></tr>
+        <tr><td><code>AC-43</code></td><td><span lang="en">no running job, or no job source yet</span><span lang="vi">không có job đang chạy, hoặc chưa có nguồn job</span></td><td><span lang="en">view the job item</span><span lang="vi">xem mục job</span></td><td><span lang="en">idle text “No running tasks”, no progress</span><span lang="vi">chữ rảnh “Không có tác vụ đang chạy”, không có tiến độ</span></td></tr>
+        <tr><td><code>AC-44</code></td><td><span lang="en">any screen</span><span lang="vi">màn hình bất kỳ</span></td><td><span lang="en">click the job item, or Ctrl+Shift+T</span><span lang="vi">nhấp mục job, hoặc Ctrl+Shift+T</span></td><td><span lang="en">Task Center screen opens; no tray or popover</span><span lang="vi">mở màn hình Trung tâm tác vụ; không có khay hay popover</span></td></tr>
+        <tr><td><code>AC-45</code></td><td><span lang="en">failed or paused jobs, later resolved</span><span lang="vi">job lỗi hoặc tạm dừng, sau đó được xử lý</span></td><td><span lang="en">view status bar and rail</span><span lang="vi">xem thanh trạng thái và thanh module</span></td><td><span lang="en">job item in warning state; Task Center badge with the count; both clear when resolved; no notification centre</span><span lang="vi">mục job ở trạng thái cảnh báo; huy hiệu Trung tâm tác vụ có số lượng; cả hai hết khi xử lý xong; không có trung tâm thông báo</span></td></tr>
+        <tr><td><code>AC-46</code></td><td><span lang="en">outside focus mode</span><span lang="vi">ngoài chế độ tập trung</span></td><td><span lang="en">view status bar</span><span lang="vi">xem thanh trạng thái</span></td><td><span lang="en">besides CLI and job items: library path, open chapter size, Ctrl+K / Ctrl+/ hints, language and theme; unknown items empty</span><span lang="vi">ngoài mục CLI và job: đường dẫn thư viện, cỡ chương đang mở, gợi ý Ctrl+K / Ctrl+/, ngôn ngữ và giao diện; mục chưa có dữ liệu để trống</span></td></tr>
+        <tr><td><code>AC-47</code></td><td><span lang="en">10 progress updates per second</span><span lang="vi">10 cập nhật tiến độ mỗi giây</span></td><td><span lang="en">type, scroll, drag a gutter</span><span lang="vi">gõ, cuộn, kéo rãnh</span></td><td><span lang="en">job item updates live; each typed character appears within 100 ms <code>[unverified]</code></span><span lang="vi">mục job cập nhật trực tiếp; mỗi ký tự hiện trong 100 ms <code>[unverified]</code></span></td></tr>
+        <tr><td><code>AC-48</code></td><td><span lang="en">backend starting, then failing</span><span lang="vi">backend đang khởi động, rồi lỗi</span></td><td><span lang="en">view status bar</span><span lang="vi">xem thanh trạng thái</span></td><td><span lang="en">“Starting local backend…”, then a warning with the reason; gone when ready</span><span lang="vi">“Đang khởi động backend cục bộ…”, rồi cảnh báo kèm lý do; mất khi sẵn sàng</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </details>
+</section>
+
+<section class="story" id="M01-F06">
+  <div class="story-head">
+    <h3><code>M01-F06</code> · <span lang="en">Home screen</span><span lang="vi">Màn hình Trang chủ</span> <span class="status open">new</span></h3>
+    <span class="story-meta">8 AC</span>
+  </div>
+  <p class="story-line" lang="en"><em>As a</em> returning user, <em>I want</em> a Home page summarising my library, AI tools, running jobs and recent novels, <em>so that</em> I pick up where I left off in one click.</p>
+  <p class="story-line" lang="vi"><em>Là</em> người dùng quay lại, <em>tôi muốn</em> một Trang chủ tóm tắt thư viện, công cụ AI, job đang chạy và truyện gần đây, <em>để</em> tiếp tục chỗ đã dừng chỉ với một cú nhấp.</p>
+  <ul class="ac-list">
+    <li><code>AC-49</code><span lang="en">Home shows my library, AI tools, running jobs and recent novels on one page.</span><span lang="vi">Trang chủ hiện thư viện, công cụ AI, job đang chạy và truyện gần đây trên một trang.</span><span class="status open">must</span></li>
+    <li><code>AC-50</code><span lang="en">I can open the Library or start an import from Home.</span><span lang="vi">Từ Trang chủ tôi mở được Thư viện hoặc bắt đầu nhập truyện.</span><span class="status open">must</span></li>
+    <li><code>AC-51</code><span lang="en">The library card shows where my library is and how big it is.</span><span lang="vi">Thẻ thư viện cho biết thư viện ở đâu và lớn cỡ nào.</span><span class="status open">must</span></li>
+    <li><code>AC-52</code><span lang="en">The AI tools card shows each CLI and which one each task uses.</span><span lang="vi">Thẻ công cụ AI hiện từng CLI và loại việc nào dùng CLI nào.</span><span class="status open">must</span></li>
+    <li><code>AC-53</code><span lang="en">The running card shows my jobs with live progress.</span><span lang="vi">Thẻ đang chạy hiện các job với tiến độ trực tiếp.</span><span class="status open">must</span></li>
+    <li><code>AC-54</code><span lang="en">“Continue reading” reopens one of my last six novels where I stopped.</span><span lang="vi">“Đọc tiếp” mở lại một trong sáu truyện gần nhất đúng chỗ tôi dừng.</span><span class="status open">must</span></li>
+    <li><code>AC-55</code><span lang="en">With no recent novel, Home invites me to import one.</span><span lang="vi">Khi chưa có truyện gần đây, Trang chủ mời tôi nhập truyện.</span><span class="status open">must</span></li>
+    <li><code>AC-56</code><span lang="en">On first launch, Home asks me to choose a library folder.</span><span lang="vi">Ở lần khởi động đầu, Trang chủ yêu cầu tôi chọn thư mục thư viện.</span><span class="status open">must</span></li>
+  </ul>
+  <details class="gwt">
+    <summary><span lang="en">Detail · Given / When / Then</span><span lang="vi">Chi tiết · Cho trước / Khi / Thì</span></summary>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>ID</th><th><span lang="en">Given</span><span lang="vi">Cho trước</span></th><th><span lang="en">When</span><span lang="vi">Khi</span></th><th><span lang="en">Then</span><span lang="vi">Thì</span></th></tr></thead>
+      <tbody>
+        <tr><td><code>AC-49</code></td><td><span lang="en">library configured</span><span lang="vi">đã có thư viện</span></td><td><span lang="en">launch, rail, Ctrl+1 or palette</span><span lang="vi">khởi động, thanh, Ctrl+1 hoặc bảng lệnh</span></td><td><span lang="en">centred page ≤ 1040px, no panels; cards Library folder, AI tools, Running now; “Continue reading”</span><span lang="vi">trang căn giữa ≤ 1040px, không panel; thẻ Thư mục thư viện, Công cụ AI, Đang chạy; “Đọc tiếp”</span></td></tr>
+        <tr><td><code>AC-50</code></td><td><span lang="en">Home open</span><span lang="vi">Trang chủ mở</span></td><td><span lang="en">“Open library” / “Import novel”</span><span lang="vi">“Mở thư viện” / “Nhập truyện”</span></td><td><span lang="en">Library screen / Import screen (empty state as <code>AC-4</code> until M04)</span><span lang="vi">màn hình Thư viện / Nhập truyện (trạng thái trống như <code>AC-4</code> tới khi có M04)</span></td></tr>
+        <tr><td><code>AC-51</code></td><td><span lang="en">library data, or no source yet</span><span lang="vi">có dữ liệu thư viện, hoặc chưa có nguồn</span></td><td><span lang="en">view card</span><span lang="vi">xem thẻ</span></td><td><span lang="en">path, novels, chapters, size, free space, integrity, “Switch library…”, “Open folder”; else “Library information not available yet”, no numbers or actions</span><span lang="vi">đường dẫn, số truyện, số chương, dung lượng, chỗ trống, toàn vẹn, “Chuyển thư viện…”, “Mở thư mục”; nếu không: “Chưa có thông tin thư viện”, không số liệu, không hành động</span></td></tr>
+        <tr><td><code>AC-52</code></td><td><span lang="en">CLI data, or no source yet</span><span lang="vi">có dữ liệu CLI, hoặc chưa có nguồn</span></td><td><span lang="en">view card</span><span lang="vi">xem thẻ</span></td><td><span lang="en">name, version, status as <code>AC-40</code>, backend per task type, parallel-job limit, Settings link; else “unknown”</span><span lang="vi">tên, phiên bản, trạng thái như <code>AC-40</code>, backend theo loại việc, giới hạn job song song, liên kết Cài đặt; nếu không: “không rõ”</span></td></tr>
+        <tr><td><code>AC-53</code></td><td><span lang="en">running and queued jobs, or none</span><span lang="vi">có job chạy và chờ, hoặc không</span></td><td><span lang="en">view card</span><span lang="vi">xem thẻ</span></td><td><span lang="en">label, novel, done / failed / total, live bar, Task Center link; else “No running tasks”</span><span lang="vi">nhãn, truyện, xong / lỗi / tổng, thanh trực tiếp, liên kết Trung tâm tác vụ; nếu không: “Không có tác vụ đang chạy”</span></td></tr>
+        <tr><td><code>AC-54</code></td><td><span lang="en">eight novels opened before</span><span lang="vi">đã mở tám truyện</span></td><td><span lang="en">view, click a card</span><span lang="vi">xem, nhấp một thẻ</span></td><td><span lang="en">six most recent, newest first (cover, title, last chapter, relative time); opens the novel at that chapter in Content; “All novels” → Library</span><span lang="vi">sáu truyện gần nhất, mới nhất trước (bìa, tên, chương cuối, thời gian); mở truyện ở chương đó trong Nội dung; “Tất cả truyện” → Thư viện</span></td></tr>
+        <tr><td><code>AC-55</code></td><td><span lang="en">none opened, or no source yet</span><span lang="vi">chưa mở truyện nào, hoặc chưa có nguồn</span></td><td><span lang="en">view section</span><span lang="vi">xem mục</span></td><td><span lang="en">empty state with “Import novel”</span><span lang="vi">trạng thái trống có “Nhập truyện”</span></td></tr>
+        <tr><td><code>AC-56</code></td><td><span lang="en">no library folder configured</span><span lang="vi">chưa cấu hình thư mục thư viện</span></td><td><span lang="en">Home opens</span><span lang="vi">mở Trang chủ</span></td><td><span lang="en">whole page = “Choose where your library lives” with “Create library folder…” and “Open existing library…” (actions owned by M06)</span><span lang="vi">cả trang = “Chọn nơi lưu thư viện của bạn” với “Tạo thư mục thư viện…” và “Mở thư viện có sẵn…” (hành động thuộc M06)</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </details>
+</section>
+
+<h2 id="more"><span lang="en">Supporting detail</span><span lang="vi">Chi tiết bổ sung</span></h2>
+
+<details class="fold" id="nfr">
+  <summary><span lang="en">Non-functional requirements</span><span lang="vi">Yêu cầu phi chức năng</span> <span class="count">6</span></summary>
+  <ul>
+    <li><code>NFR-1</code> <span lang="en">Target, measured later: usable shell in under 3 s from a cold start (HLA budget) <code>[unverified]</code>; not an acceptance gate for M01.</span><span lang="vi">Mục tiêu, đo sau: khung dùng được trong dưới 3 giây từ khởi động nguội (ngân sách HLA) <code>[unverified]</code>; không phải điều kiện nghiệm thu của M01.</span></li>
+    <li><code>NFR-2</code> <span lang="en">Works fully offline; the shell opens no network connection and sends no telemetry.</span><span lang="vi">Chạy đầy đủ khi offline; khung không mở kết nối mạng và không gửi dữ liệu sử dụng.</span></li>
+    <li><code>NFR-3</code> <span lang="en">Every action is reachable by keyboard, with visible focus in both themes.</span><span lang="vi">Mọi thao tác dùng được bằng bàn phím, tiêu điểm hiển thị rõ ở cả hai giao diện.</span></li>
+    <li><code>NFR-4</code> <span lang="en">No hard-coded text; every string exists in English and Vietnamese (labels per D16).</span><span lang="vi">Không viết cứng chữ; mọi chuỗi có tiếng Anh và tiếng Việt (nhãn theo D16).</span></li>
+    <li><code>NFR-5</code> <span lang="en">Every surface is designed and checked in dark and light, using tokens only.</span><span lang="vi">Mọi bề mặt được thiết kế và kiểm tra ở tối và sáng, chỉ dùng token.</span></li>
+    <li><code>NFR-6</code> <span lang="en">Every interactive element has a <code>data-testid</code>; every must AC has an e2e scenario on <code>BrowserBridge</code> data; Windows only.</span><span lang="vi">Mọi phần tử tương tác có <code>data-testid</code>; mọi AC must có kịch bản e2e trên dữ liệu <code>BrowserBridge</code>; chỉ Windows.</span></li>
+  </ul>
+</details>
+
+<details class="fold" id="scope">
+  <summary><span lang="en">Scope</span><span lang="vi">Phạm vi</span> <span class="count"><span lang="en">6 in · 5 out</span><span lang="vi">6 trong · 5 ngoài</span></span></summary>
+  <p lang="en">M01 depends on M00 · Foundation (tooling, Electron + Angular + typed bridge, tokens and base UI kit, i18n and settings persistence, SQLite, Python backend lifecycle, portable zip with ffmpeg); M01 keeps only the shell and defines its own module-registry type (<a href="#Q11">Q11</a>).</p>
+  <p lang="vi">M01 phụ thuộc M00 · Foundation (công cụ, Electron + Angular + cầu nối có kiểu, token và bộ UI cơ bản, i18n và lưu cài đặt, SQLite, vòng đời backend Python, zip portable kèm ffmpeg); M01 chỉ giữ phần khung và tự định nghĩa kiểu sổ đăng ký module (<a href="#Q11">Q11</a>).</p>
+  <div class="grid cols-2">
+    <div class="card"><h4><span lang="en">In scope</span><span lang="vi">Trong phạm vi</span></h4><ul>
+      <li><span lang="en">Frame: top bar, rail, panels, status bar, focus mode.</span><span lang="vi">Khung: thanh trên, thanh module, panel, thanh trạng thái, chế độ tập trung.</span></li>
+      <li><span lang="en">Module registry with an empty screen for unbuilt modules.</span><span lang="vi">Sổ đăng ký module với màn hình trống cho module chưa làm.</span></li>
+      <li><span lang="en">Navigation, novel chip, recent novels.</span><span lang="vi">Điều hướng, chip truyện, truyện gần đây.</span></li>
+      <li><span lang="en">Layout memory, window bounds, Reset layout; language and theme; feedback rules.</span><span lang="vi">Ghi nhớ bố cục, kích thước cửa sổ, Đặt lại bố cục; ngôn ngữ và giao diện; quy tắc phản hồi.</span></li>
+      <li><span lang="en">Shortcut framework, shortcut sheet, command palette.</span><span lang="vi">Khung phím tắt, bảng phím tắt, bảng lệnh.</span></li>
+      <li><span lang="en">Global status and the Home screen.</span><span lang="vi">Trạng thái toàn cục và màn hình Trang chủ.</span></li>
+    </ul></div>
+    <div class="card"><h4><span lang="en">Out of scope</span><span lang="vi">Ngoài phạm vi</span></h4><ul>
+      <li><span lang="en">Everything in M00.</span><span lang="vi">Mọi thứ thuộc M00.</span></li>
+      <li><span lang="en">CLI detection and Settings pages (M02); jobs and Task Center (M03); novels, Library, Import (M04); library folder (M06); diagnostics (M22).</span><span lang="vi">Phát hiện CLI và các trang Cài đặt (M02); job và Trung tâm tác vụ (M03); truyện, Thư viện, Nhập truyện (M04); thư mục thư viện (M06); chẩn đoán (M22).</span></li>
+      <li><span lang="en">Custom shortcuts, a “System” theme, a notification centre.</span><span lang="vi">Tuỳ chỉnh phím tắt, giao diện “Theo hệ thống”, trung tâm thông báo.</span></li>
+      <li><span lang="en">A bottom task tray or popover.</span><span lang="vi">Khay tác vụ dưới hoặc popover.</span></li>
+      <li><span lang="en">Recent screens, back / forward history, restoring the last session.</span><span lang="vi">Màn hình gần đây, lịch sử lùi / tiến, khôi phục phiên trước.</span></li>
+    </ul></div>
+  </div>
+  <h4><span lang="en">Shell parts per Story (approved at Gate 1, 2026-10-04)</span><span lang="vi">Phần khung theo Story (duyệt tại Gate 1, 2026-10-04)</span></h4>
+  <ul>
+    <li><code>M01-F01</code> <span lang="en"><code>rail</code> (groups, titles, scroll, novel-scoped groups), <code>brand</code> toggling the rail, <code>crumbs</code> + novel context chip, empty-state page for unbuilt modules. The module registry type and its 17 entries belong to Task <code>M01-T01</code> (<a href="#Q15">Q15</a>).</span><span lang="vi"><code>rail</code> (nhóm, tiêu đề, cuộn, nhóm thuộc truyện), <code>brand</code> bật/tắt thanh module, <code>crumbs</code> + chip ngữ cảnh truyện, trang trống cho module chưa làm. Kiểu sổ đăng ký module và 17 mục của nó thuộc Task <code>M01-T01</code> (<a href="#Q15">Q15</a>).</span></li>
+    <li><code>M01-F02</code> <span lang="en"><code>.app</code> grid (left / right / bottom / workspace), the 3 resizers, <code>panel-toggles</code>, focus mode, Reset layout.</span><span lang="vi">lưới <code>.app</code> (trái / phải / dưới / vùng làm việc), 3 thanh kéo, <code>panel-toggles</code>, chế độ tập trung, Đặt lại bố cục.</span></li>
+    <li><code>M01-F03</code> <span lang="en">language button, theme button, toast service + confirm service (usage rules).</span><span lang="vi">nút ngôn ngữ, nút giao diện, dịch vụ toast + dịch vụ xác nhận (quy tắc sử dụng).</span></li>
+    <li><code>M01-F04</code> <span lang="en"><code>palette-btn</code>, command palette (search, results, groups, command rows), shortcut sheet.</span><span lang="vi"><code>palette-btn</code>, bảng lệnh (ô tìm, kết quả, nhóm, dòng lệnh), bảng phím tắt.</span></li>
+    <li><code>M01-F05</code> <span lang="en">status bar (library folder, CLI items, job item, key hints, language / theme), top-bar settings gear; top-bar <code>button.tray</code> and <code>.cli-dots</code> removed.</span><span lang="vi">thanh trạng thái (thư mục thư viện, mục CLI, mục job, gợi ý phím, ngôn ngữ / giao diện), nút bánh răng cài đặt trên thanh trên; bỏ <code>button.tray</code> và <code>.cli-dots</code> khỏi thanh trên.</span></li>
+    <li><code>M01-F06</code> <span lang="en">Home with its cards in empty states.</span><span lang="vi">Trang chủ với các thẻ ở trạng thái trống.</span></li>
+  </ul>
+  <p lang="en">The generic UI kit (btn, field / input / select / check / segmented, callout / pill / badge / dot / progress / kbd, scrim / dialog / confirm, toasts container, panel / table / kv, empty / loading / error, icons, tokens, fonts) belongs to M00. Domain dialogs belong to their own modules.</p>
+  <p lang="vi">Bộ UI chung (btn, field / input / select / check / segmented, callout / pill / badge / dot / progress / kbd, scrim / dialog / confirm, vùng chứa toast, panel / table / kv, empty / loading / error, biểu tượng, token, phông chữ) thuộc M00. Hộp thoại nghiệp vụ thuộc module của chúng.</p>
+</details>
+
+<details class="fold" id="clarifications">
+  <summary><span lang="en">Clarification log</span><span lang="vi">Nhật ký làm rõ</span> <span class="count">15 · PO 10 · default 5</span></summary>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>#</th><th><span lang="en">Question</span><span lang="vi">Câu hỏi</span></th><th><span lang="en">Answer</span><span lang="vi">Trả lời</span></th><th><span lang="en">Source</span><span lang="vi">Nguồn</span></th><th><span lang="en">Affects</span><span lang="vi">Ảnh hưởng</span></th></tr></thead>
+    <tbody>
+      <tr id="Q1"><td>Q1</td><td><span lang="en">What shows data of modules not built yet?</span><span lang="vi">Dữ liệu của module chưa làm hiện thế nào?</span></td><td><span lang="en">Contract-first: typed contracts, fake data in e2e, “unknown” / empty in the app until M02 / M03 / M04 wire it.</span><span lang="vi">Hợp đồng trước: hợp đồng có kiểu, dữ liệu giả trong e2e, “không rõ” / trống trong ứng dụng tới khi M02 / M03 / M04 nối.</span></td><td><span class="status approved">PO</span></td><td><code>AC-8</code> <code>AC-40</code> <code>AC-43</code> <code>AC-46</code> <code>AC-51</code>–<code>AC-55</code></td></tr>
+      <tr id="Q2"><td>Q2</td><td><span lang="en">How do unbuilt modules appear?</span><span lang="vi">Module chưa làm xuất hiện thế nào?</span></td><td><span lang="en">All 17 entries in rail, palette and Ctrl+n; an unbuilt module opens a neutral empty screen, no release wording, no dimming (D13).</span><span lang="vi">Đủ 17 mục trên thanh, bảng lệnh và Ctrl+n; module chưa làm mở màn hình trống trung tính, không chữ về release, không làm mờ (D13).</span></td><td><span class="status approved">PO</span></td><td><code>AC-2</code> <code>AC-4</code> <code>AC-31</code></td></tr>
+      <tr id="Q3"><td>Q3</td><td><span lang="en">What is the “task tray”?</span><span lang="vi">“Khay tác vụ” là gì?</span></td><td><span lang="en">A progress indicator plus the Task Center screen; no bottom tray, no popover. Since <a href="#Q12">Q12</a> the indicator is the status-bar job item.</span><span lang="vi">Một chỉ báo tiến độ cùng màn hình Trung tâm tác vụ; không khay dưới, không popover. Từ <a href="#Q12">Q12</a>, chỉ báo là mục job trên thanh trạng thái.</span></td><td><span class="status approved">PO</span></td><td><code>AC-42</code>–<code>AC-45</code></td></tr>
+      <tr id="Q4"><td>Q4</td><td><span lang="en">Who owns Home?</span><span lang="vi">Ai sở hữu Trang chủ?</span></td><td><span lang="en">New Story M01-F06; cards empty until M02 / M03 / M04 / M06 fill them.</span><span lang="vi">Story mới M01-F06; các thẻ trống tới khi M02 / M03 / M04 / M06 cung cấp dữ liệu.</span></td><td><span class="status approved">PO</span></td><td><code>AC-49</code>–<code>AC-56</code></td></tr>
+      <tr id="Q5"><td>Q5</td><td><span lang="en">What is “recent”, and what opens at launch?</span><span lang="vi">“Gần đây” là gì, khởi động thì mở gì?</span></td><td><span lang="en">Recent novels only (Home up to 6, palette by last opened); start on Home with no novel.</span><span lang="vi">Chỉ truyện gần đây (Trang chủ tối đa 6, bảng lệnh theo lần mở gần nhất); khởi động ở Trang chủ, không có truyện mở.</span></td><td><span class="status approved">PO</span></td><td><code>AC-8</code> <code>AC-9</code> <code>AC-54</code></td></tr>
+      <tr id="Q6"><td>Q6</td><td><span lang="en">What does layout remember and reset?</span><span lang="vi">Bố cục nhớ và đặt lại những gì?</span></td><td><span lang="en">Per screen (D17 over D3) and per machine; window bounds remembered; Reset restores all screens and the rail, not theme or language.</span><span lang="vi">Theo màn hình (D17 thay D3) và theo máy; nhớ kích thước cửa sổ; Đặt lại khôi phục mọi màn hình và thanh module, không đổi giao diện hay ngôn ngữ.</span></td><td><span class="status draft">default</span> <span lang="en">accepted by PO at Gate 1, 2026-10-04</span><span lang="vi">PO chấp nhận tại Gate 1, 2026-10-04</span></td><td><code>AC-10</code> <code>AC-15</code> <code>AC-16</code> <code>AC-18</code></td></tr>
+      <tr id="Q7"><td>Q7</td><td><span lang="en">Which themes?</span><span lang="vi">Những giao diện nào?</span></td><td><span lang="en">Dark (default) and Light only; no “System”.</span><span lang="vi">Chỉ Tối (mặc định) và Sáng; không có “Theo hệ thống”.</span></td><td><span class="status draft">default</span> <span lang="en">accepted by PO at Gate 1, 2026-10-04</span><span lang="vi">PO chấp nhận tại Gate 1, 2026-10-04</span></td><td><code>AC-21</code> <code>AC-23</code></td></tr>
+      <tr id="Q8"><td>Q8</td><td><span lang="en">Rules for toasts, dialogs, states?</span><span lang="vi">Quy tắc cho toast, hộp thoại, trạng thái?</span></td><td><span lang="en">Info 5 s, errors stay, max 3; confirm names the object, Cancel focused; loading / empty / error everywhere; translated error + raw details.</span><span lang="vi">Thông tin 5 giây, lỗi ở lại, tối đa 3; xác nhận nêu đối tượng, Huỷ có tiêu điểm; đang tải / trống / lỗi ở mọi nơi; lỗi đã dịch + chi tiết gốc.</span></td><td><span class="status draft">default</span> <span lang="en">accepted by PO at Gate 1, 2026-10-04</span><span lang="vi">PO chấp nhận tại Gate 1, 2026-10-04</span></td><td><code>AC-26</code>–<code>AC-29</code></td></tr>
+      <tr id="Q9"><td>Q9</td><td><span lang="en">Shortcut sheet and conflicts?</span><span lang="vi">Bảng phím tắt và trùng phím?</span></td><td><span lang="en">Sheet grouped by scope, active ones marked; module key wins only on its screen; single keys ignored in inputs; a duplicate in the same scope is refused and logged (architect Task).</span><span lang="vi">Bảng nhóm theo phạm vi, phím đang hiệu lực được đánh dấu; phím module chỉ thắng trên màn hình của nó; phím đơn bị bỏ qua trong ô nhập; phím trùng cùng phạm vi bị từ chối và ghi log (Task của architect).</span></td><td><span class="status draft">default</span> <span lang="en">accepted by PO at Gate 1, 2026-10-04</span><span lang="vi">PO chấp nhận tại Gate 1, 2026-10-04</span></td><td><code>AC-35</code>–<code>AC-38</code></td></tr>
+      <tr id="Q10"><td>Q10</td><td><span lang="en">How are warnings shown?</span><span lang="vi">Cảnh báo hiển thị thế nào?</span></td><td><span lang="en">No notification centre; in place: status-bar CLI and job items, Task Center rail badge, backend status item.</span><span lang="vi">Không có trung tâm thông báo; tại chỗ: mục CLI và mục job trên thanh trạng thái, huy hiệu Trung tâm tác vụ trên thanh module, mục trạng thái backend.</span></td><td><span class="status draft">default</span> <span lang="en">accepted by PO at Gate 1, 2026-10-04</span><span lang="vi">PO chấp nhận tại Gate 1, 2026-10-04</span></td><td><code>AC-40</code> <code>AC-45</code> <code>AC-46</code> <code>AC-48</code></td></tr>
+      <tr id="Q11"><td>Q11</td><td><span lang="en">Where does the shared technical base live?</span><span lang="vi">Phần nền kỹ thuật dùng chung nằm ở đâu?</span></td><td><span lang="en">New Epic M00 · Foundation (TH-01, R1.1, solved before M01): tooling, Electron + Angular + typed bridge, tokens and base UI kit, i18n and settings persistence, SQLite, Python backend lifecycle, portable zip with ffmpeg. The job runner moved to M03; services and fakes belong to the module that first needs them. M01 keeps the shell, its own registry type and F01–F06.</span><span lang="vi">Epic mới M00 · Foundation (TH-01, R1.1, làm giải pháp trước M01): công cụ, Electron + Angular + cầu nối có kiểu, token và bộ UI cơ bản, i18n và lưu cài đặt, SQLite, vòng đời backend Python, zip portable kèm ffmpeg. Bộ chạy job chuyển sang M03; service và bản giả thuộc module cần chúng đầu tiên. M01 giữ khung, kiểu sổ đăng ký riêng và F01–F06.</span></td><td><span class="status approved">PO</span></td><td><span lang="en">scope</span><span lang="vi">phạm vi</span></td></tr>
+      <tr id="Q12"><td>Q12</td><td><span lang="en">What replaces “task tray”, and where is status shown?</span><span lang="vi">Cái gì thay “khay tác vụ”, và trạng thái hiện ở đâu?</span></td><td><span lang="en">“Task tray” = the status-bar job item plus the Task Center screen. Status is shown once, in the status bar only: the top bar loses <code>button.tray</code> and <code>.cli-dots</code>. PNS-1 wording is fixed at Jira sync; the FR clarifications are updated; the HLA wording is fixed at its next revision.</span><span lang="vi">“Khay tác vụ” = mục job trên thanh trạng thái cùng màn hình Trung tâm tác vụ. Trạng thái chỉ hiện một lần, ở thanh trạng thái: thanh trên bỏ <code>button.tray</code> và <code>.cli-dots</code>. Chữ trong PNS-1 sửa khi đồng bộ Jira; phần làm rõ trong FR đã cập nhật; chữ trong HLA sửa ở lần sửa tới.</span></td><td><span class="status approved">PO</span></td><td><code>AC-40</code>–<code>AC-46</code></td></tr>
+      <tr id="Q13"><td>Q13</td><td><span lang="en">Who specifies toasts, dialogs and states?</span><span lang="vi">Ai đặc tả toast, hộp thoại và trạng thái?</span></td><td><span lang="en">M00 builds the components; M01-F03 owns the usage rules.</span><span lang="vi">M00 làm thành phần; M01-F03 giữ quy tắc sử dụng.</span></td><td><span class="status approved">PO</span></td><td><code>AC-26</code>–<code>AC-29</code></td></tr>
+      <tr id="Q14"><td>Q14</td><td><span lang="en">Do the idle job state and the “missing” / “unknown” CLI states need new visuals?</span><span lang="vi">Trạng thái job rảnh và trạng thái CLI “không có” / “không rõ” có cần hình mới không?</span></td><td><span lang="en">No. Idle is the existing job item with idle text and no progress; every CLI state uses the existing status-bar CLI item (dot + name + version or problem) with the matching dot and text.</span><span lang="vi">Không. Rảnh là mục job hiện có với chữ rảnh và không tiến độ; mọi trạng thái CLI dùng mục CLI hiện có trên thanh trạng thái (chấm + tên + phiên bản hoặc vấn đề) với chấm và chữ tương ứng.</span></td><td><span class="status approved">PO</span></td><td><code>AC-40</code> <code>AC-43</code></td></tr>
+      <tr id="Q15"><td>Q15</td><td><span lang="en">Gate 2 (2026-10-05): who owns the module registry type and its 17 entries?</span><span lang="vi">Gate 2 (2026-10-05): ai sở hữu kiểu sổ đăng ký module và 17 mục của nó?</span></td><td><span lang="en">Task <code>M01-T01</code> (Shell frame, module registry &amp; data contracts), not F01; F01 keeps the rail, brand toggle, crumbs + novel chip and the unbuilt-module empty page. ACs unchanged.</span><span lang="vi">Task <code>M01-T01</code> (Khung shell, sổ đăng ký module &amp; hợp đồng dữ liệu), không phải F01; F01 giữ thanh module, nút logo, crumbs + chip truyện và trang trống cho module chưa làm. AC không đổi.</span></td><td><span class="status approved">PO</span></td><td><span lang="en">scope</span><span lang="vi">phạm vi</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="muted" lang="en"><span class="status approved">PO</span> answered by the product owner · <span class="status draft">default</span> the analyst's recommended default, accepted with this document.</p>
+  <p class="muted" lang="vi"><span class="status approved">PO</span> do product owner trả lời · <span class="status draft">default</span> mặc định analyst đề xuất, được chấp nhận cùng tài liệu này.</p>
+</details>
+
+<details class="fold" id="deps">
+  <summary><span lang="en">Dependencies &amp; assumptions</span><span lang="vi">Phụ thuộc &amp; giả định</span> <span class="count">2</span></summary>
+  <ul>
+    <li><strong><span lang="en">Depends on modules</span><span lang="vi">Phụ thuộc module</span>:</strong> <span lang="en"><code>M00</code> (tooling, Electron + Angular + typed bridge, tokens and base UI kit, i18n and settings persistence, SQLite, Python backend lifecycle, portable zip with ffmpeg); data wired later by <code>M02</code> (CLIs, Settings), <code>M03</code> (job runner, jobs, Task Center), <code>M04</code> (novels, Library, Import), <code>M05</code> (chapter size), <code>M06</code> (library folder), <code>M22</code> (backend health).</span><span lang="vi"><code>M00</code> (công cụ, Electron + Angular + cầu nối có kiểu, token và bộ UI cơ bản, i18n và lưu cài đặt, SQLite, vòng đời backend Python, zip portable kèm ffmpeg); dữ liệu được nối sau bởi <code>M02</code> (CLI, Cài đặt), <code>M03</code> (bộ chạy job, job, Trung tâm tác vụ), <code>M04</code> (truyện, Thư viện, Nhập truyện), <code>M05</code> (cỡ chương), <code>M06</code> (thư mục thư viện), <code>M22</code> (tình trạng backend).</span></li>
+    <li><strong><span lang="en">Assumes</span><span lang="vi">Giả định</span>:</strong> <span lang="en">panel defaults and the shortcut table of design system §7 as approved (D17); English + dark on a fresh install (D19); “Open a novel first” for novel shortcuts (D20, F04); focus mode and Reset layout in F02; rail groups and labels per D11, D12, D16; no custom shortcuts (M02-F04); toast, dialog and state components come from M00; M00 declares no extension-point types, services or fakes, so M01 defines its module-registry type and the data types it reads; the designer removes <code>button.tray</code> and <code>.cli-dots</code> from the top bar in step 3, and a design-system decision is to be added (<a href="#Q12">Q12</a>).</span><span lang="vi">kích thước panel mặc định và bảng phím tắt ở mục 7 design system như đã duyệt (D17); tiếng Anh + tối khi cài mới (D19); “Hãy mở một truyện trước” cho phím tắt của truyện (D20, F04); chế độ tập trung và Đặt lại bố cục thuộc F02; nhóm và nhãn thanh module theo D11, D12, D16; không tuỳ chỉnh phím tắt (M02-F04); thành phần toast, hộp thoại và trạng thái đến từ M00; M00 không khai báo kiểu điểm mở rộng, service hay bản giả, nên M01 tự định nghĩa kiểu sổ đăng ký module và các kiểu dữ liệu nó đọc; designer bỏ <code>button.tray</code> và <code>.cli-dots</code> khỏi thanh trên ở bước 3, và sẽ thêm một quyết định vào design system (<a href="#Q12">Q12</a>).</span></li>
+  </ul>
+</details>
+
+<footer class="doc-footer">
+  <span lang="en">Produced by the <code>solution</code> skill · agent: analyst · template:</span>
+  <span lang="vi">Tạo bởi skill <code>solution</code> · agent: analyst · template:</span>
+  <code>.claude/templates/modules/0.requirements.html</code>
+</footer>
+</main>
+</body>
+</html>

@@ -123,15 +123,6 @@
       <span class="grow"><span lang="en">Search or run a command…</span><span lang="vi">Tìm hoặc chạy lệnh…</span></span>
       <kbd>Ctrl</kbd><kbd>K</kbd>
     </button>
-    <button class="tray" data-go="tasks" data-testid="topbar-tray" title="Task Center (Ctrl+Shift+T)">
-      <span class="dot run"></span>
-      <span class="label"><b><span lang="en">Translating</span><span lang="vi">Đang dịch</span></b> · <span class="num" data-job-done>37</span>/100</span>
-      <span class="progress" data-job-progress style="--p:37%;--f:1%"><i></i><i class="fail"></i></span>
-      <span class="badge" title="Running jobs">2</span>
-    </button>
-    <div class="cli-dots" title="AI tools detected" data-testid="topbar-cli">
-      <span class="dot ok"></span>claude<span class="dot warn"></span>codex
-    </div>
     <div class="panel-toggles" data-testid="topbar-panel-toggles">
       <button class="btn ghost icon" data-toggle-panel="left" aria-pressed="true" data-testid="topbar-toggle-left" title="Left panel · Ctrl+B"><svg class="icon"><use href="#i-panel-left"/></svg></button>
       <button class="btn ghost icon" data-toggle-panel="bottom" aria-pressed="true" data-testid="topbar-toggle-bottom" title="Bottom panel · Ctrl+J"><svg class="icon"><use href="#i-panel-bottom"/></svg></button>
@@ -185,7 +176,7 @@
     <div class="rail-group" data-testid="rail-group-system">
       <span class="sep"></span>
       <span class="rail-title"><span lang="en">System</span><span lang="vi">Hệ thống</span></span>
-      <a href="#tasks" data-screen="tasks" data-go="tasks" data-keys="Ctrl+6" title="Task Center · Ctrl+6" data-testid="rail-tasks"><svg class="icon"><use href="#i-tasks"/></svg><span class="label"><span lang="en">Task Center</span><span lang="vi">Trung tâm tác vụ</span></span><span class="badge">2</span></a>
+      <a href="#tasks" data-screen="tasks" data-go="tasks" data-keys="Ctrl+6" title="Task Center · Ctrl+6" data-testid="rail-tasks"><svg class="icon"><use href="#i-tasks"/></svg><span class="label"><span lang="en">Task Center</span><span lang="vi">Trung tâm tác vụ</span></span><span class="badge danger" data-when-attention data-job-attention>1</span></a>
       <a href="#settings" data-screen="settings" data-go="settings" data-keys="Ctrl+7" title="Settings · Ctrl+7" data-testid="rail-settings"><svg class="icon"><use href="#i-settings"/></svg><span class="label"><span lang="en">Settings</span><span lang="vi">Cài đặt</span></span></a>
     </div>
   </nav>
@@ -234,17 +225,18 @@
 
   <!-- ================= status bar ================= -->
   <footer class="statusbar" data-testid="statusbar">
-    <span class="item"><svg class="icon"><use href="#i-folder"/></svg>D:\NovelStudio\Library</span>
-    <span class="item"><span class="dot ok"></span>claude 2.1.288</span>
-    <span class="item"><span class="dot warn"></span>codex <span lang="en">not logged in</span><span lang="vi">chưa đăng nhập</span></span>
-    <span class="item" data-go="tasks" style="cursor:pointer"><span class="dot run"></span><span lang="en">Translating</span><span lang="vi">Đang dịch</span> <span class="num" data-job-done>37</span>/100 · <span data-job-pct>37%</span></span>
+    <span class="item" data-testid="statusbar-library"><svg class="icon"><use href="#i-folder"/></svg>D:\NovelStudio\Library</span>
+    <button type="button" class="item link" data-go="settings" data-testid="statusbar-cli-claude" title="Claude CLI · Settings"><span class="dot ok"></span>claude 2.1.288</button>
+    <button type="button" class="item link" data-go="settings" data-testid="statusbar-cli-codex" title="Codex CLI · Settings"><span class="dot warn"></span>codex <span lang="en">not logged in</span><span lang="vi">chưa đăng nhập</span></button>
+    <button type="button" class="item link" data-go="tasks" data-testid="statusbar-job" title="Task Center · Ctrl+Shift+T"><span class="dot run" data-job-dot></span><span data-when-running><span lang="en">Translating</span><span lang="vi">Đang dịch</span> <span class="num" data-job-done>37</span>/100 · <span data-job-pct>37%</span></span><span class="hidden" data-when-idle><span lang="en">No running tasks</span><span lang="vi">Không có tác vụ đang chạy</span></span><span data-when-attention> · <span class="num" data-job-attention>1</span> <span lang="en">needs attention</span><span lang="vi">cần xử lý</span></span></button>
     <span class="spacer"></span>
-    <span class="item"><span lang="en">Ch. 0012 · 3,208 chars</span><span lang="vi">Ch. 0012 · 3.208 ký tự</span></span>
-    <span class="item hint"><kbd>Ctrl</kbd><kbd>K</kbd> <span lang="en">commands</span><span lang="vi">lệnh</span></span>
-    <span class="item hint"><kbd>Ctrl</kbd><kbd>/</kbd> <span lang="en">shortcuts</span><span lang="vi">phím tắt</span></span>
-    <span class="item"><span data-lang-label>EN</span> · <span data-effective-theme>dark</span></span>
+    <span class="item" data-when-novel data-testid="statusbar-chapter"><span lang="en">Ch. 0012 · 3,208 chars</span><span lang="vi">Ch. 0012 · 3.208 ký tự</span></span>
+    <span class="item hint" data-testid="statusbar-hint-palette"><kbd>Ctrl</kbd><kbd>K</kbd> <span lang="en">commands</span><span lang="vi">lệnh</span></span>
+    <span class="item hint" data-testid="statusbar-hint-shortcuts"><kbd>Ctrl</kbd><kbd>/</kbd> <span lang="en">shortcuts</span><span lang="vi">phím tắt</span></span>
+    <span class="item" data-testid="statusbar-lang-theme"><span data-lang-label>EN</span> · <span data-effective-theme>dark</span></span>
     <button class="item proto-fab" data-testid="proto-fab" title="Prototype screens and notes (not part of the product)"><svg class="icon"><use href="#i-info"/></svg>Prototype</button>
   </footer>
+  <div class="progress zen-progress" data-job-progress data-when-running aria-hidden="true" data-testid="zen-progress"><i></i><i class="fail"></i></div>
 </div><!-- /.app -->
 
 <div class="toasts" aria-live="polite"></div>
@@ -300,6 +292,7 @@
       <div class="cmd" data-select-novel="転生したらスライムだった件" data-action="open-novel" data-keywords="novel truyện switch" data-testid="palette-novel-5"><svg class="icon"><use href="#i-book"/></svg><span class="text">転生したらスライムだった件 · Tensei Slime<small>304 <span lang="en">chapters</span><span lang="vi">chương</span></small></span></div>
       <div class="cmd" data-select-novel="庆余年" data-action="open-novel" data-keywords="novel truyện switch" data-testid="palette-novel-6"><svg class="icon"><use href="#i-book"/></svg><span class="text">庆余年 · Khánh Dư Niên<small>746 <span lang="en">chapters</span><span lang="vi">chương</span></small></span></div>
       <div class="cmd" data-select-novel="Mother of Learning" data-action="open-novel" data-keywords="novel truyện switch" data-testid="palette-novel-7"><svg class="icon"><use href="#i-book"/></svg><span class="text">Mother of Learning<small>108 <span lang="en">chapters</span><span lang="vi">chương</span></small></span></div>
+      <div class="empty compact hidden" data-palette-empty data-testid="palette-empty"><svg class="icon xl"><use href="#i-search"/></svg><h3><span lang="en">No results</span><span lang="vi">Không có kết quả</span></h3><p><span lang="en">Try a module name, a command or a novel title.</span><span lang="vi">Thử tên module, tên lệnh hoặc tên truyện.</span></p></div>
     </div>
     <div class="foot"><span><kbd>↑</kbd><kbd>↓</kbd> <span lang="en">navigate</span><span lang="vi">di chuyển</span></span><span><kbd>Enter</kbd> <span lang="en">run</span><span lang="vi">chạy</span></span><span><kbd>Esc</kbd> <span lang="en">close</span><span lang="vi">đóng</span></span></div>
   </div>
@@ -308,7 +301,7 @@
 <!-- ================= shortcut sheet (Ctrl+/) ================= -->
 <div class="scrim" id="shortcuts" data-testid="shortcuts">
   <div class="dialog wide shortcut-sheet" role="dialog" aria-label="Keyboard shortcuts">
-    <div class="dialog-head"><svg class="icon lg"><use href="#i-keyboard"/></svg><h2><span lang="en">Keyboard shortcuts</span><span lang="vi">Phím tắt</span></h2><span class="meta"><span lang="en">Default set · proposal for Q5</span><span lang="vi">Bộ mặc định · đề xuất cho Q5</span></span><button class="btn ghost icon" data-close aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button></div>
+    <div class="dialog-head"><svg class="icon lg"><use href="#i-keyboard"/></svg><h2><span lang="en">Keyboard shortcuts</span><span lang="vi">Phím tắt</span></h2><span class="meta"><span lang="en">Global first, then per module</span><span lang="vi">Toàn cục trước, rồi theo module</span></span><button class="btn ghost icon" data-close aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button></div>
     <div class="dialog-body">
       <div class="groups">
         <div><h4><span lang="en">Global</span><span lang="vi">Toàn cục</span></h4>
@@ -331,7 +324,7 @@
           <div class="sc"><span><span lang="en">Focus mode</span><span lang="vi">Chế độ tập trung</span></span><span class="keys"><kbd>Shift</kbd><kbd>F</kbd></span></div>
           <div class="sc"><span><span lang="en">Reset panel (gutter)</span><span lang="vi">Đặt lại panel (rãnh)</span></span><span class="keys"><span lang="en">double-click</span><span lang="vi">nhấp đúp</span></span></div>
         </div>
-        <div><h4><span lang="en">Content & editor</span><span lang="vi">Nội dung & sửa</span></h4>
+        <div data-sheet-scope="reader"><h4><span lang="en">Content & editor</span><span lang="vi">Nội dung & sửa</span> <span class="pill info hidden" data-sheet-here><span lang="en">this screen</span><span lang="vi">màn hình này</span></span></h4>
           <div class="sc"><span><span lang="en">Previous / next chapter</span><span lang="vi">Chương trước / sau</span></span><span class="keys"><kbd>Alt</kbd><kbd>←</kbd> <kbd>Alt</kbd><kbd>→</kbd></span></div>
           <div class="sc"><span><span lang="en">Find in chapter</span><span lang="vi">Tìm trong chương</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>F</kbd></span></div>
           <div class="sc"><span><span lang="en">Search whole novel</span><span lang="vi">Tìm toàn truyện</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>F</kbd></span></div>
@@ -340,7 +333,7 @@
           <div class="sc"><span><span lang="en">Undo / redo</span><span lang="vi">Hoàn tác / làm lại</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>Z</kbd> <kbd>Ctrl</kbd><kbd>Y</kbd></span></div>
           <div class="sc"><span><span lang="en">Bigger / smaller text</span><span lang="vi">Chữ to / nhỏ</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>+</kbd> <kbd>Ctrl</kbd><kbd>−</kbd></span></div>
         </div>
-        <div><h4><span lang="en">Tasks & lists</span><span lang="vi">Tác vụ & danh sách</span></h4>
+        <div data-sheet-scope="tasks"><h4><span lang="en">Tasks & lists</span><span lang="vi">Tác vụ & danh sách</span> <span class="pill info hidden" data-sheet-here><span lang="en">this screen</span><span lang="vi">màn hình này</span></span></h4>
           <div class="sc"><span><span lang="en">Pause / resume selected job</span><span lang="vi">Tạm dừng / chạy tiếp job đã chọn</span></span><span class="keys"><kbd>Space</kbd></span></div>
           <div class="sc"><span><span lang="en">Retry failed items</span><span lang="vi">Thử lại mục lỗi</span></span><span class="keys"><kbd>R</kbd></span></div>
           <div class="sc"><span><span lang="en">Move in lists</span><span lang="vi">Di chuyển trong danh sách</span></span><span class="keys"><kbd>↑</kbd><kbd>↓</kbd> <kbd>Home</kbd><kbd>End</kbd></span></div>
@@ -349,11 +342,22 @@
         </div>
       </div>
     </div>
-    <div class="dialog-foot"><span class="meta left"><span lang="en">Shortcuts are registered per module (TH-01 framework). Custom bindings: Q5 follow-up.</span><span lang="vi">Phím tắt đăng ký theo module (khung TH-01). Tuỳ chỉnh phím: việc tiếp theo của Q5.</span></span><button class="btn" data-close><span lang="en">Close</span><span lang="vi">Đóng</span></button></div>
+    <div class="dialog-foot"><span class="meta left"><span lang="en">Each module registers its own shortcuts; a module shortcut replaces a global one only on its own screen.</span><span lang="vi">Mỗi module tự đăng ký phím tắt; phím tắt của module chỉ thay phím toàn cục trên màn hình của nó.</span></span><button class="btn" data-close><span lang="en">Close</span><span lang="vi">Đóng</span></button></div>
   </div>
 </div>
 
 <!-- ================= dialogs ================= -->
+<div class="scrim" id="dlg-confirm" data-testid="dlg-confirm">
+  <div class="dialog" role="alertdialog" aria-label="Confirm">
+    <div class="dialog-head"><svg class="icon lg danger"><use href="#i-alert-triangle"/></svg><h2><span lang="en">Discard changes to chapter 0012?</span><span lang="vi">Bỏ thay đổi ở chương 0012?</span></h2><button class="btn ghost icon" data-close aria-label="Close" data-testid="dlg-confirm-close"><svg class="icon"><use href="#i-x"/></svg></button></div>
+    <div class="dialog-body">
+      <p lang="en">Your edits to 第十二章 夜探药园 since 14:20 are not saved and will be lost.</p>
+      <p lang="vi">Các chỉnh sửa của bạn ở 第十二章 夜探药园 từ 14:20 chưa được lưu và sẽ bị mất.</p>
+    </div>
+    <div class="dialog-foot"><button class="btn" data-close autofocus data-testid="dlg-confirm-cancel"><span lang="en">Cancel</span><span lang="vi">Huỷ</span></button><button class="btn danger solid" data-close data-toast="Changes to chapter 0012 discarded" data-toast-vi="Đã bỏ thay đổi ở chương 0012" data-testid="dlg-confirm-ok"><span lang="en">Discard changes</span><span lang="vi">Bỏ thay đổi</span></button></div>
+  </div>
+</div>
+
 <div class="scrim" id="dlg-export" data-testid="dlg-export">
   <div class="dialog" role="dialog" aria-label="Export translation">
     <div class="dialog-head"><svg class="icon lg"><use href="#i-upload"/></svg><h2><span lang="en">Export translation</span><span lang="vi">Xuất bản dịch</span></h2><button class="btn ghost icon" data-close aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button></div>
@@ -388,7 +392,7 @@
     <div class="dialog-head"><svg class="icon lg"><use href="#i-download"/></svg><h2><span lang="en">Import 746 chapters?</span><span lang="vi">Nhập 746 chương?</span></h2><button class="btn ghost icon" data-close aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button></div>
     <div class="dialog-body">
       <dl class="kv" style="grid-template-columns:140px 1fr"><dt><span lang="en">Novel</span><span lang="vi">Truyện</span></dt><dd>庆余年 · Khánh Dư Niên · 猫腻</dd><dt><span lang="en">Source</span><span lang="vi">Nguồn</span></dt><dd>庆余年.txt · 5.1 MB · UTF-8 · zh</dd><dt><span lang="en">Chapters</span><span lang="vi">Chương</span></dt><dd>746 <span lang="en">imported · 1 duplicate skipped · numbers renumbered</span><span lang="vi">được nhập · bỏ 1 trùng · đánh số lại</span></dd><dt><span lang="en">Destination</span><span lang="vi">Đích</span></dt><dd><code>novels\n-0008\chapters\</code></dd></dl>
-      <div class="callout info" style="margin-top:var(--sp-md)"><svg class="icon"><use href="#i-info"/></svg><div><span lang="en">The import runs as a background job. You can keep working; progress shows in the top bar and in the Task Center.</span><span lang="vi">Việc nhập chạy như một job nền. Bạn có thể tiếp tục làm việc; tiến độ hiển thị trên thanh trên và trong Trung tâm tác vụ.</span></div></div>
+      <div class="callout info" style="margin-top:var(--sp-md)"><svg class="icon"><use href="#i-info"/></svg><div><span lang="en">The import runs as a background job. You can keep working; progress shows in the status bar and in the Task Center.</span><span lang="vi">Việc nhập chạy như một job nền. Bạn có thể tiếp tục làm việc; tiến độ hiển thị trên thanh trạng thái và trong Trung tâm tác vụ.</span></div></div>
     </div>
     <div class="dialog-foot"><button class="btn" data-close><span lang="en">Back</span><span lang="vi">Quay lại</span></button><button class="btn primary" data-action="import-start" data-testid="dlg-import-confirm"><span lang="en">Start import</span><span lang="vi">Bắt đầu nhập</span></button></div>
   </div>

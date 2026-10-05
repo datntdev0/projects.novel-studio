@@ -10,7 +10,7 @@
     get(key, fallback) { try { const v = localStorage.getItem("ns." + key); return v === null ? fallback : JSON.parse(v); } catch (e) { return fallback; } },
     set(key, value) { try { localStorage.setItem("ns." + key, JSON.stringify(value)); } catch (e) { /* storage may be blocked */ } }
   };
-  const state = { theme: store.get("theme", "dark"), lang: store.get("lang", "en"), layout: store.get("layout", {}), novel: store.get("novel", null), screen: defaultScreen, job: { done: 37, failed: 1, total: 100, running: true } };
+  const state = { theme: store.get("theme", "dark"), lang: store.get("lang", "en"), layout: store.get("layout", {}), novel: store.get("novel", null), screen: defaultScreen, job: { done: 37, failed: 1, total: 100, running: true, attention: 1 } };
   window.proto = { state, go: show, toast };
 
   // Theme ------------------------------------------------------------
@@ -19,7 +19,7 @@
   function applyTheme() {
     root.setAttribute("data-theme", resolvedTheme());
     document.querySelectorAll("[data-set-theme]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.setTheme === state.theme)));
-    document.querySelectorAll("[data-effective-theme]").forEach((el) => { el.textContent = resolvedTheme(); });
+    document.querySelectorAll("[data-effective-theme]").forEach((el) => { el.innerHTML = resolvedTheme() === "dark" ? bi("dark", "tối") : bi("light", "sáng"); });
     document.querySelectorAll("[data-theme-icon]").forEach((el) => { el.querySelector("use").setAttribute("href", resolvedTheme() === "dark" ? "#i-moon" : "#i-sun"); });
   }
   function setTheme(theme) { state.theme = theme; store.set("theme", theme); applyTheme(); }
@@ -75,7 +75,7 @@
     const [en, vi] = moduleNames[state.screen] || [state.screen, state.screen];
     const module = `<b>${bi(en, vi)}</b>`;
     document.querySelector("[data-crumbs]").innerHTML = key ? module + sep + novelChip(key) : module;
-    document.querySelectorAll('[data-rail-scope="novel"]').forEach((g) => g.classList.toggle("hidden", !key));
+    document.querySelectorAll('[data-rail-scope="novel"], [data-when-novel]').forEach((g) => g.classList.toggle("hidden", !key));
   }
 
   // Screens ----------------------------------------------------------
@@ -139,16 +139,22 @@
   });
 
   // Overlays: dialogs, palette, shortcut sheet, prototype drawer -----
+  const overlays = [];
   function openOverlay(id, scope) {
     const el = document.getElementById(id);
     if (!el) return;
+    if (!overlays.includes(el)) overlays.push(el);
+    el.style.zIndex = 50 + overlays.length;
     el.classList.add("open");
     renderWaves(el);
     const focus = el.querySelector("[autofocus], .input");
     if (focus) setTimeout(() => focus.focus(), 0);
     if (id === "palette") resetPalette(scope);
+    if (id === "shortcuts") el.querySelectorAll("[data-sheet-scope]").forEach((g) => g.querySelector("[data-sheet-here]").classList.toggle("hidden", g.dataset.sheetScope !== state.screen));
   }
-  function closeOverlays() { document.querySelectorAll(".scrim.open").forEach((el) => el.classList.remove("open")); }
+  function closeOverlays() { overlays.length = 0; document.querySelectorAll(".scrim.open").forEach((el) => el.classList.remove("open")); }
+  function closeOverlay(el) { if (!el) return; el.classList.remove("open"); const i = overlays.indexOf(el); if (i >= 0) overlays.splice(i, 1); }
+  function closeTopOverlay() { closeOverlay(overlays[overlays.length - 1] || document.querySelector(".scrim.open")); }
 
   // Command palette --------------------------------------------------
   const paletteInput = document.querySelector("#palette .input");
@@ -170,10 +176,11 @@
     });
     document.querySelectorAll("#palette .group").forEach((g) => {
       let next = g.nextElementSibling, any = false;
-      while (next && !next.classList.contains("group")) { if (!next.classList.contains("hidden")) any = true; next = next.nextElementSibling; }
+      while (next && !next.classList.contains("group")) { if (next.matches(".cmd:not(.hidden)")) any = true; next = next.nextElementSibling; }
       g.classList.toggle("hidden", !any);
     });
     if (first) first.classList.add("focus");
+    document.querySelectorAll("[data-palette-empty]").forEach((el) => el.classList.toggle("hidden", Boolean(first)));
   }
   function moveFocus(dir) {
     const visible = Array.from(document.querySelectorAll("#palette .cmd:not(.hidden)"));
@@ -215,9 +222,9 @@
     "job-pause": () => setJob(false),
     "job-resume": () => setJob(true),
     "job-cancel": () => { setJob(false); state.job.cancelled = true; renderJob(); toast("Job cancelled — 37 items kept, resume continues the same job", "Đã huỷ job — giữ 37 mục, chạy tiếp sẽ dùng cùng job", "warning"); },
-    "retry-failed": () => { state.job.failed = 0; state.job.running = true; renderJob(); toast("1 failed item re-queued", "Đã xếp lại 1 mục lỗi", "success"); },
+    "retry-failed": () => { state.job.failed = 0; state.job.attention = 0; state.job.running = true; renderJob(); toast("1 failed item re-queued", "Đã xếp lại 1 mục lỗi", "success"); },
     "test-cli": (btn) => testCli(btn),
-    "rescan": (btn) => { btn.classList.add("loading"); setTimeout(() => { btn.classList.remove("loading"); toast("Rescan finished — 2 CLIs found", "Quét lại xong — tìm thấy 2 CLI", "success"); }, 900); },
+    "rescan": (btn) => { btn.classList.add("loading"); setTimeout(() => { btn.classList.remove("loading"); toast("Rescan finished — 3 CLIs found", "Quét lại xong — tìm thấy 3 CLI", "success"); }, 900); },
     "import-start": () => { closeOverlays(); show("library"); toast("Import started in the background", "Đã bắt đầu nhập nền", "success"); },
     "delete-novel": () => { closeOverlays(); toast("Novel deleted — 1,648 chapters, translations and Omniscient data removed", "Đã xoá truyện — gỡ 1.648 chương, bản dịch và dữ liệu Toàn tri", "danger"); },
     "export-done": () => { closeOverlays(); toast("Exported 100 chapters to exports/vi/", "Đã xuất 100 chương vào exports/vi/", "success"); },
@@ -229,19 +236,22 @@
   };
   document.addEventListener("click", (e) => {
     const t = e.target;
+    if (t.closest("#palette .cmd")) closeOverlay(document.getElementById("palette"));
     const note = t.closest("[data-toast]");
     if (note) toast(note.dataset.toast, note.dataset.toastVi || note.dataset.toast, note.dataset.toastKind);
     const go = t.closest("[data-go]");
     if (t.closest("[data-select-novel]") || (go && novelScreens.includes(go.dataset.go))) { const key = novelFrom(t); if (novels[key]) { setNovel(key); renderContext(); } }
     if (go) { e.preventDefault(); show(go.dataset.go); return; }
     const open = t.closest("[data-open]"); if (open) { e.preventDefault(); openOverlay(open.dataset.open); return; }
-    if (t.closest("[data-close]") || (t.classList.contains("scrim") && t.classList.contains("open"))) { closeOverlays(); return; }
+    if (t.closest("[data-close]") || (t.classList.contains("scrim") && t.classList.contains("open"))) { closeOverlay(t.closest(".scrim")); return; }
     const theme = t.closest("[data-set-theme]"); if (theme) { setTheme(theme.dataset.setTheme); return; }
     const lang = t.closest("[data-set-lang]"); if (lang) { setLang(lang.dataset.setLang); return; }
     const toggle = t.closest("[data-toggle-panel]"); if (toggle) { togglePanel(toggle.dataset.togglePanel); return; }
     const play = t.closest("[data-play]"); if (play) { togglePlay(play); return; }
     const view = t.closest("[data-view]"); if (view) { setView(view); return; }
     const mode = t.closest("[data-mode]"); if (mode) { setMode(mode); return; }
+    const toggleTarget = t.closest("[data-toggle-target]");
+    if (toggleTarget) { const target = document.querySelector(toggleTarget.dataset.toggleTarget); if (target) { target.classList.toggle("hidden"); toggleTarget.setAttribute("aria-expanded", String(!target.classList.contains("hidden"))); } return; }
     const pressed = t.closest("[data-toggle]"); if (pressed) { pressed.setAttribute("aria-pressed", String(pressed.getAttribute("aria-pressed") !== "true")); return; }
     const act = t.closest("[data-action]"); if (act) { const fn = actions[act.dataset.action]; if (fn) fn(act); return; }
     const tab = t.closest("[data-tab]"); if (tab) { switchTab(tab); return; }
@@ -274,7 +284,7 @@
     const group = btn.closest("[data-mode-for]");
     group.querySelectorAll("[data-mode]").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
     document.querySelectorAll(group.dataset.modeFor).forEach((scope) => scope.querySelectorAll("[data-mode-only]").forEach((el) => {
-      const on = el.dataset.modeOnly === btn.dataset.mode;
+      const on = el.dataset.modeOnly.split(" ").includes(btn.dataset.mode);
       el.classList.toggle("hidden", !on);
       if (on && el.querySelector("[data-detail]") && !el.querySelector("[data-detail]:not(.hidden)")) showDetail(el.querySelector("[data-detail-default]") || el.querySelector("[data-detail]"));
     }));
@@ -363,8 +373,15 @@
       const key = j.cancelled ? "cancelled" : j.done >= j.total ? (j.failed ? "errors" : "completed") : j.running ? "running" : "paused";
       el.querySelectorAll("[data-state]").forEach((s) => s.classList.toggle("hidden", s.dataset.state !== key));
     });
-    document.querySelectorAll("[data-when-running]").forEach((el) => el.classList.toggle("hidden", !j.running || j.done >= j.total));
+    const active = !j.cancelled && j.done < j.total;
+    const running = active && j.running;
+    const attention = j.attention + (active && !j.running ? 1 : 0);
+    document.querySelectorAll("[data-when-running]").forEach((el) => el.classList.toggle("hidden", !running));
+    document.querySelectorAll("[data-when-idle]").forEach((el) => el.classList.toggle("hidden", running));
     document.querySelectorAll("[data-when-paused]").forEach((el) => el.classList.toggle("hidden", j.running || j.done >= j.total));
+    document.querySelectorAll("[data-job-attention]").forEach((el) => { el.textContent = attention; });
+    document.querySelectorAll("[data-when-attention]").forEach((el) => el.classList.toggle("hidden", !attention));
+    document.querySelectorAll("[data-job-dot]").forEach((el) => { el.className = "dot" + (attention ? " warn" : running ? " run" : ""); });
   }
   setInterval(() => {
     if (!state.job.running || state.job.done >= state.job.total) return;
@@ -379,7 +396,8 @@
     setTimeout(() => {
       btn.classList.remove("loading");
       const ok = btn.dataset.result !== "fail";
-      toast(ok ? "claude --version → 2.1.288 · OK" : "codex exec → error: not logged in (run `codex login`)", ok ? "claude --version → 2.1.288 · OK" : "codex exec → lỗi: chưa đăng nhập (chạy `codex login`)", ok ? "success" : "danger");
+      const name = btn.dataset.testName || "Claude CLI";
+      toast(ok ? `${name} check passed` : "codex exec → error: not logged in (run `codex login`)", ok ? `Kiểm tra ${name} đạt` : "codex exec → lỗi: chưa đăng nhập (chạy `codex login`)", ok ? "success" : "danger");
     }, 1200);
   }
 
@@ -391,8 +409,9 @@
     const icon = kind === "success" ? "#i-check" : kind === "danger" ? "#i-alert-circle" : kind === "warning" ? "#i-alert-triangle" : "#i-info";
     el.innerHTML = `<svg class="icon"><use href="${icon}"/></svg><div class="body"><span lang="en">${en}</span><span lang="vi">${vi}</span></div><button class="btn ghost icon" data-dismiss aria-label="Dismiss"><svg class="icon sm"><use href="#i-x"/></svg></button>`;
     el.querySelector("[data-dismiss]").addEventListener("click", () => el.remove());
-    host.appendChild(el);
-    setTimeout(() => el.remove(), 5200);
+    host.prepend(el);
+    while (host.children.length > 3) host.lastElementChild.remove();
+    if (kind !== "danger") setTimeout(() => el.remove(), 5000);
   }
 
   // Prototype drawer notes -------------------------------------------
@@ -406,7 +425,7 @@
   // Keyboard shortcuts -----------------------------------------------
   function needsNovel(id) {
     if (!novelScreens.includes(id) || novels[state.novel]) return false;
-    toast("Open a novel first", "Hãy mở một truyện trước", "warning");
+    toast("Open a novel first", "Hãy mở một truyện trước");
     return true;
   }
   const moduleKeys = { 1: "home", 2: "library", 3: "reader", 4: "storyworld", 5: "translation", 6: "tasks", 7: "settings" };
@@ -414,7 +433,7 @@
     const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName) || e.target.isContentEditable;
     const mod = e.ctrlKey || e.metaKey;
     if (mod && e.key === "Enter" && e.target.closest("[data-chat]")) { e.preventDefault(); sendChat(e.target); return; }
-    if (e.key === "Escape") { if (app.classList.contains("zen")) app.classList.remove("zen"); closeOverlays(); document.querySelector(".proto-drawer").classList.remove("open"); return; }
+    if (e.key === "Escape") { const drawer = document.querySelector(".proto-drawer.open"); const overlay = document.querySelector(".scrim.open"); if (overlay) closeTopOverlay(); else if (drawer) drawer.classList.remove("open"); else app.classList.remove("zen"); return; }
     if (mod && e.key.toLowerCase() === "k") { e.preventDefault(); openOverlay("palette"); return; }
     if (mod && e.key === "/") { e.preventDefault(); openOverlay("shortcuts"); return; }
     if (mod && e.key.toLowerCase() === "b" && !e.altKey) { e.preventDefault(); togglePanel("left"); return; }
@@ -437,6 +456,7 @@
 
   window.addEventListener("hashchange", () => show(location.hash.slice(1)));
   window.addEventListener("resize", () => { const active = document.querySelector(".screen.active"); if (active) renderWaves(active); });
+  document.querySelectorAll("[data-indeterminate]").forEach((box) => { box.indeterminate = true; });
   applyTheme(); applyLang(); applyLayout(); renderJob(); toggleEdit(false);
   show(location.hash.slice(1) || defaultScreen);
 })();

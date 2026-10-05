@@ -107,7 +107,7 @@
     <span class="pill"><span lang="en">Analysed</span><span lang="vi">Ngày phân tích</span>: <b>2026-10-04</b></span>
     <span class="pill"><span lang="en">Input</span><span lang="vi">Đầu vào</span>: <b><a href="0.high-level-requirements.html">High-level Requirements</a></b></span>
     <span class="pill"><span lang="en">Scope</span><span lang="vi">Phạm vi</span>: <b><span lang="en">Whole product lifecycle</span><span lang="vi">Toàn bộ vòng đời sản phẩm</span></b></span>
-    <span class="pill"><span lang="en">Plan</span><span lang="vi">Kế hoạch</span>: <b><span lang="en">22 modules · 99 function groups</span><span lang="vi">22 module · 99 nhóm chức năng</span></b></span>
+    <span class="pill"><span lang="en">Plan</span><span lang="vi">Kế hoạch</span>: <b><span lang="en">23 modules · 99 function groups</span><span lang="vi">23 module · 99 nhóm chức năng</span></b></span>
   </div>
 </header>
 
@@ -138,6 +138,7 @@
 
 <pre class="map" lang="en">NOVEL STUDIO
 ├── A. Workspace
+│   ├── M00. Foundation (new)
 │   ├── M01. App Shell &amp; Workspace
 │   ├── M02. Settings &amp; AI Backends
 │   └── M03. Task Center
@@ -167,6 +168,7 @@
     └── M22. System Information &amp; Support</pre>
 <pre class="map" lang="vi">NOVEL STUDIO
 ├── A. Không gian làm việc
+│   ├── M00. Foundation (mới)
 │   ├── M01. App Shell &amp; Workspace
 │   ├── M02. Settings &amp; AI Backends
 │   └── M03. Task Center
@@ -201,9 +203,10 @@
 <table class="compact">
   <thead><tr><th>ID</th><th>Module</th><th><span lang="en">Business goal</span><span lang="vi">Mục tiêu nghiệp vụ</span></th><th><span lang="en">Phase</span><span lang="vi">Giai đoạn</span></th><th><span lang="en">Traceability</span><span lang="vi">Truy vết</span></th><th><span lang="en">Proposed main screens</span><span lang="vi">Màn hình chính đề xuất</span></th></tr></thead>
   <tbody>
-    <tr><td class="module-id">M01</td><td>App Shell &amp; Workspace</td><td><span lang="en">Provide a stable desktop frame for every tool.</span><span lang="vi">Cung cấp khung desktop ổn định cho mọi công cụ.</span></td><td><span class="status approved">Release 1 · Part 1</span></td><td><code>TH-01</code>, <code>G8</code>, <code>A4–A5</code>, <code>Q5</code></td><td>Studio shell, command palette, task tray</td></tr>
+    <tr><td class="module-id">M00</td><td>Foundation</td><td><span lang="en">Build the shared technical base that no functional Story owns, before M01, so every module plugs into a tested skeleton.</span><span lang="vi">Xây nền kỹ thuật dùng chung mà không Story chức năng nào sở hữu, trước M01, để mọi module cắm vào một bộ khung đã kiểm thử.</span></td><td><span class="status approved">Release 1 · Part 1</span> <span class="status open">new</span></td><td><code>TH-01</code>, <code>G8</code>, <code>G10</code>, <code>NG4</code>, <code>A5–A6</code>, <code>A10–A11</code>, <code>M6–M7</code></td><td>—</td></tr>
+    <tr><td class="module-id">M01</td><td>App Shell &amp; Workspace</td><td><span lang="en">Provide a stable desktop frame for every tool.</span><span lang="vi">Cung cấp khung desktop ổn định cho mọi công cụ.</span></td><td><span class="status approved">Release 1 · Part 1</span></td><td><code>TH-01</code>, <code>G8</code>, <code>A4–A5</code>, <code>Q5</code></td><td>Studio shell, command palette, task tray <span lang="en">(the status-bar job item plus the Task Center screen, design decision D9; the top bar has no progress button, M01 Q12)</span><span lang="vi">(mục job trên thanh trạng thái cộng màn hình Task Center, quyết định thiết kế D9; thanh trên không có nút tiến độ, M01 Q12)</span></td></tr>
     <tr><td class="module-id">M02</td><td>Settings &amp; AI Backends</td><td><span lang="en">Manage app settings and choose the CLI for each task type.</span><span lang="vi">Quản lý cấu hình ứng dụng và chọn CLI cho từng loại tác vụ.</span></td><td><span class="status approved">Release 1 · Part 3</span></td><td><code>TH-03</code>, <code>G6</code>, <code>A3</code>, <code>A8</code></td><td>General, AI tools, shortcuts</td></tr>
-    <tr><td class="module-id">M03</td><td>Task Center</td><td><span lang="en">Run, track and resume long AI tasks without blocking the UI.</span><span lang="vi">Chạy, theo dõi và tiếp tục các tác vụ AI dài mà không khóa UI.</span></td><td><span class="status approved">Release 1 · Part 1</span></td><td><code>TH-01</code>, <code>A11</code>, <code>M1</code></td><td>Task tray, task detail, history</td></tr>
+    <tr><td class="module-id">M03</td><td>Task Center</td><td><span lang="en">Run, track and resume long AI tasks without blocking the UI.</span><span lang="vi">Chạy, theo dõi và tiếp tục các tác vụ AI dài mà không khóa UI.</span></td><td><span class="status approved">Release 1 · Part 1</span></td><td><code>TH-01</code>, <code>A11</code>, <code>M1</code></td><td>Task tray <span lang="en">(the status-bar job item plus the Task Center screen, design decision D9; the top bar has no progress button, M01 Q12)</span><span lang="vi">(mục job trên thanh trạng thái cộng màn hình Task Center, quyết định thiết kế D9; thanh trên không có nút tiến độ, M01 Q12)</span>, task detail, history</td></tr>
     <tr><td class="module-id">M04</td><td>Novel Library</td><td><span lang="en">Manage the personal library and import novels from local files.</span><span lang="vi">Quản lý thư viện cá nhân và nhập truyện từ tệp cục bộ.</span></td><td><span class="status approved">Release 1 · Part 2</span></td><td><code>TH-02</code>, <code>G1</code>, <code>A2</code>, <code>Q8–Q9</code></td><td>Library grid/list, import wizard, novel overview</td></tr>
     <tr><td class="module-id">M05</td><td>Chapter Reader &amp; Editor</td><td><span lang="en">Browse, read, search and edit source content by chapter.</span><span lang="vi">Duyệt, đọc, tìm và sửa nội dung nguồn theo chương.</span></td><td><span class="status approved">Release 1 · Part 2</span></td><td><code>TH-02</code>, <code>G1</code>, <code>A7</code>, <code>Q7</code></td><td>Chapter workspace</td></tr>
     <tr><td class="module-id">M06</td><td>Local Data &amp; Export</td><td><span lang="en">Keep data transparent on the machine and export results to usable files.</span><span lang="vi">Giữ dữ liệu minh bạch trên máy và đưa kết quả ra tệp dùng được.</span></td><td><span class="status approved">Release 1 · Part 1 · Release 2 · Part 2</span></td><td><code>TH-01</code>, <code>NG1</code>, <code>NG4</code>, <code>A6–A10</code>, <code>Q12</code></td><td>Library location, export dialog, diagnostics</td></tr>
@@ -232,6 +235,30 @@
 <p class="details-lede" lang="vi">Chọn một module để xem ranh giới sản phẩm và thông tin truy vết, sau đó mở từng nhóm chức năng để xem các năng lực cụ thể. ID module là ranh giới kiến trúc ổn định; ID nhóm chức năng là đơn vị dùng để lập flow và chia backlog.</p>
 
 <div id="fr-details-source">
+
+<h3>M00 · Foundation <span class="status open">new</span></h3>
+<table class="compact"><thead><tr><th><span lang="en">Function group</span><span lang="vi">Nhóm chức năng</span></th><th><span lang="en">Functions</span><span lang="vi">Chức năng</span></th><th><span lang="en">Status</span><span lang="vi">Trạng thái</span></th></tr></thead><tbody>
+  <tr><td><span lang="en">Technical foundation (no Stories; Tasks <code>M00-Tyy</code> in the module solution)</span><span lang="vi">Nền tảng kỹ thuật (không có Story; các Task <code>M00-Tyy</code> nằm trong giải pháp module)</span></td><td><ul class="function-list">
+    <li lang="en">Workspace and tooling: pnpm, strict TypeScript, exact-pinned versions, lint and format rules that encode <code>CLAUDE.md</code>.</li>
+    <li lang="vi">Workspace và bộ công cụ: pnpm, TypeScript strict, phiên bản ghim chính xác, quy tắc lint và format mã hóa <code>CLAUDE.md</code>.</li>
+    <li lang="en">Verification harness: <code>verify/</code> e2e with Playwright through <code>BrowserBridge</code>, Electron smoke run, fake CLIs.</li>
+    <li lang="vi">Bộ khung kiểm thử: e2e <code>verify/</code> với Playwright qua <code>BrowserBridge</code>, lượt smoke Electron, CLI giả.</li>
+    <li lang="en">Electron + Angular skeleton and typed bridge: preload, IPC contract, <code>ElectronBridge</code> / <code>BrowserBridge</code>, security profile, error and logging baseline.</li>
+    <li lang="vi">Bộ khung Electron + Angular và bridge có kiểu: preload, hợp đồng IPC, <code>ElectronBridge</code> / <code>BrowserBridge</code>, cấu hình bảo mật, nền tảng lỗi và log.</li>
+    <li lang="en">Design tokens and base UI kit ported from the mockup stylesheet and the design system.</li>
+    <li lang="vi">Design token và bộ UI cơ bản chuyển từ stylesheet của bản mẫu và design system.</li>
+    <li lang="en">i18n infrastructure (en / vi, key parity) and app settings persistence.</li>
+    <li lang="vi">Hạ tầng i18n (en / vi, đồng bộ khóa) và lưu cài đặt ứng dụng.</li>
+    <li lang="en">SQLite data layer with numbered migrations.</li>
+    <li lang="vi">Tầng dữ liệu SQLite với migration đánh số.</li>
+    <li lang="en">Python backend lifecycle: start, <code>/health</code>, restart, stop.</li>
+    <li lang="vi">Vòng đời backend Python: khởi động, <code>/health</code>, khởi động lại, dừng.</li>
+    <li lang="en">Job runner and <code>Service</code> interface with fakes.</li>
+    <li lang="vi">Bộ chạy tác vụ và giao diện <code>Service</code> kèm bản giả.</li>
+    <li lang="en">Portable zip packaging.</li>
+    <li lang="vi">Đóng gói zip portable.</li>
+  </ul></td><td><span class="status open">new</span> <span lang="en">product owner decision 2026-10-04; criteria in <a href="M00/0.requirements.html"><code>M00/0.requirements.html</code></a></span><span lang="vi">quyết định của product owner 2026-10-04; tiêu chí trong <a href="M00/0.requirements.html"><code>M00/0.requirements.html</code></a></span></td></tr>
+</tbody></table>
 
 <h3>M01 · App Shell &amp; Workspace</h3>
 <table class="compact"><thead><tr><th><span lang="en">Function group</span><span lang="vi">Nhóm chức năng</span></th><th><span lang="en">Functions</span><span lang="vi">Chức năng</span></th><th><span lang="en">Status</span><span lang="vi">Trạng thái</span></th></tr></thead><tbody>
@@ -318,8 +345,8 @@
     <li lang="vi">Tiến độ done/failed/total, chương hiện tại, thời gian và thông báo ngắn.</li>
     <li lang="en">States: queued, running, paused, completed, completed-with-errors, failed and cancelled.</li>
     <li lang="vi">Trạng thái queued, running, paused, completed, completed-with-errors, failed và cancelled.</li>
-    <li lang="en">Show progress in both the task tray and the feature screen.</li>
-    <li lang="vi">Hiển thị tiến độ ở cả task tray và màn hình tính năng.</li>
+    <li lang="en">Show progress in both the task tray (the status-bar job item plus the Task Center screen, design decision D9; the top bar has no progress button, M01 Q12) and the feature screen.</li>
+    <li lang="vi">Hiển thị tiến độ ở cả task tray (mục job trên thanh trạng thái cộng màn hình Task Center, quyết định thiết kế D9; thanh trên không có nút tiến độ, M01 Q12) và màn hình tính năng.</li>
   </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span></td></tr>
   <tr><td>M03-F03 · <span lang="en">Control</span><span lang="vi">Điều khiển</span></td><td><ul class="function-list">
     <li lang="en">Pause or cancel safely.</li>
@@ -855,7 +882,7 @@
 
       rows.forEach(function (row, functionIndex) {
         var cells = row.querySelectorAll("td");
-        var groupId = cells[0].textContent.match(/M\d+-F\d+/)[0];
+        var groupId = (cells[0].textContent.match(/M\d+-F\d+/) || [moduleId + "-tasks"])[0];
         var groupName = cells[0].innerHTML.replace(/^M\d+-F\d+\s*·\s*/, "");
         var itemCount = cells[1].querySelectorAll("li[lang=en]").length || Math.ceil(cells[1].querySelectorAll("li").length / 2) || 1;
         var item = document.createElement("details");
