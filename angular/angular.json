@@ -12,7 +12,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist",
+            "outputPath": { "base": "../dist/app/renderer", "browser": "" },
             "baseHref": "./",
             "index": "src/index.html",
             "browser": "src/main.ts",

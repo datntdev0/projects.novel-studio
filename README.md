@@ -18,8 +18,8 @@ pnpm build
 ## Root scripts
 
 - `pnpm run bootstrap`: install dependencies with the frozen lockfile, install the git pre-commit hook and build `python/.venv` with ruff
-- `pnpm build`: build all packages
-- `pnpm dev`: build Angular and Electron, then open the desktop app (first run downloads the Electron binary)
+- `pnpm build`: build all packages; the runnable app goes to `dist/app/`
+- `pnpm dev`: build Angular and Electron, then run Electron on `dist/app/` (first run downloads the Electron binary)
 - `pnpm lint`: ESLint, pin check and ruff
 - `pnpm format`: format all files (Prettier and ruff)
 - `pnpm format:check`: check formatting without writing (Prettier and ruff)
