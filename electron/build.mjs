@@ -4,6 +4,7 @@ await build({
   entryPoints: ['src/main/main.ts'],
   outfile: 'dist/main.cjs',
   bundle: true,
+  sourcemap: true,
   platform: 'node',
   format: 'cjs',
   target: 'node24',

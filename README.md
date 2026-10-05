@@ -29,3 +29,12 @@ pnpm build
 The pre-commit hook runs `pnpm lint` and `pnpm format:check`. A failing check rejects the commit and names the file and rule. Fix it with `pnpm format` or by hand.
 
 Git for Windows runs the hook with `sh`, so `pnpm` must be on PATH. Do not use `--no-verify`.
+
+## VS Code
+
+Open the folder and install the recommended extensions. Run `pnpm run bootstrap` first. Debug configurations:
+
+- `Electron: main`: build the desktop app and launch Electron with the main process attached
+- `Electron: renderer`: attach to the Electron window on port 9223
+- `Electron: main + renderer`: run both together
+- `Python: current file`: debug the open Python file with `python/.venv`

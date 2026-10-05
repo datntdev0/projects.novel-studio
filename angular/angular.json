@@ -19,7 +19,10 @@
             "tsConfig": "tsconfig.app.json",
             "styles": ["src/styles.scss"]
           },
-          "configurations": { "production": { "outputHashing": "all" } },
+          "configurations": {
+            "production": { "outputHashing": "all" },
+            "development": { "optimization": false, "sourceMap": true, "extractLicenses": false }
+          },
           "defaultConfiguration": "production"
         }
       }

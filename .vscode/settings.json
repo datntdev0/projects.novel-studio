@@ -1,0 +1,30 @@
+{
+  "editor.formatOnSave": true,
+  "editor.rulers": [140],
+  "files.eol": "\n",
+  "js/ts.tsdk.path": "node_modules/typescript/lib",
+  "eslint.validate": ["typescript", "javascript", "html"],
+  "python.defaultInterpreterPath": "${workspaceFolder}/python/.venv/Scripts/python.exe",
+  "[typescript][javascript][json][jsonc][html][scss][markdown][yaml]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.codeActionsOnSave": { "source.fixAll.ruff": "explicit", "source.organizeImports.ruff": "explicit" }
+  },
+  "files.watcherExclude": { "**/dist": true, "**/.angular": true, "python/.venv": true, "**/__pycache__": true, "**/.ruff_cache": true },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/.jj": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/.ruff_cache": true,
+    "python/.venv": true,
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/.angular": true,
+    "**/.dev-data": true,
+    "**/.playwright-cli": true,
+    "vendor/ffmpeg": true
+  }
+}
