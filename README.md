@@ -15,12 +15,17 @@ pnpm run bootstrap
 pnpm build
 ```
 
-`bootstrap` installs dependencies with the frozen lockfile and builds `python/.venv` with ruff.
-
 ## Root scripts
 
-- `pnpm run bootstrap`: install dependencies and build `python/.venv`
+- `pnpm run bootstrap`: install dependencies with the frozen lockfile, install the git pre-commit hook and build `python/.venv` with ruff
 - `pnpm build`: build all packages
-- `pnpm format`: format all files
 - `pnpm dev`: build Angular and Electron, then open the desktop app (first run downloads the Electron binary)
-- `pnpm format:check`: check formatting without writing
+- `pnpm lint`: ESLint, pin check and ruff
+- `pnpm format`: format all files (Prettier and ruff)
+- `pnpm format:check`: check formatting without writing (Prettier and ruff)
+
+## Commit checks
+
+The pre-commit hook runs `pnpm lint` and `pnpm format:check`. A failing check rejects the commit and names the file and rule. Fix it with `pnpm format` or by hand.
+
+Git for Windows runs the hook with `sh`, so `pnpm` must be on PATH. Do not use `--no-verify`.
