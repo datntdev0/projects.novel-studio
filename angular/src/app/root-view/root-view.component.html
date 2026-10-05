@@ -11,3 +11,10 @@
 <p>
   Theme: <span data-testid="root-app-theme">{{ info()?.theme }}</span>
 </p>
+@if (lastError(); as error) {
+  <p role="alert">
+    <span data-testid="root-error-code">{{ error.code }}</span>
+    <span>{{ ': ' }}</span>
+    <span data-testid="root-error-message">{{ error.message }}</span>
+  </p>
+}
