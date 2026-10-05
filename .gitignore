@@ -7,3 +7,20 @@
 
 # Python cache files
 __pycache__/
+*.pyc
+.ruff_cache/
+
+# Python virtual environment
+python/.venv
+
+# Node dependencies and build output
+node_modules
+dist
+.angular
+*.tsbuildinfo
+
+# Local development data
+.dev-data/
+
+# Vendored binaries
+vendor/ffmpeg/

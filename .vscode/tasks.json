@@ -1,0 +1,13 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build: desktop (debug)",
+      "type": "shell",
+      "command": "pnpm --filter ./angular exec ng build --configuration development && pnpm --filter ./electron build",
+      "options": { "cwd": "${workspaceFolder}", "shell": { "executable": "cmd.exe", "args": ["/d", "/c"] } },
+      "group": "build",
+      "problemMatcher": []
+    }
+  ]
+}

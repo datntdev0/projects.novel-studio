@@ -1,0 +1,33 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Electron: main",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/electron",
+      "runtimeExecutable": "${workspaceFolder}/electron/node_modules/.bin/electron.cmd",
+      "args": [".", "--remote-debugging-port=9223"],
+      "preLaunchTask": "build: desktop (debug)",
+      "outFiles": ["${workspaceFolder}/electron/dist/**/*.cjs"],
+      "outputCapture": "std"
+    },
+    {
+      "name": "Electron: renderer",
+      "type": "chrome",
+      "request": "attach",
+      "port": 9223,
+      "timeout": 60000,
+      "sourceMapPathOverrides": { "*": "${workspaceFolder}/angular/*" }
+    },
+    {
+      "name": "Python: current file",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "python": "${workspaceFolder}/python/.venv/Scripts/python.exe",
+      "cwd": "${workspaceFolder}"
+    }
+  ],
+  "compounds": [{ "name": "Electron: main + renderer", "configurations": ["Electron: main", "Electron: renderer"], "stopAll": true }]
+}

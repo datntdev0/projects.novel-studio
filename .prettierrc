@@ -1,0 +1,1 @@
+{ "printWidth": 140, "objectWrap": "collapse", "singleQuote": true, "plugins": ["./tools/prettier/single-line-import.mjs"] }

@@ -1,0 +1,32 @@
+{
+  "name": "novel-studio",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.10.0",
+  "engines": {
+    "node": "^24.15.0 || >=26"
+  },
+  "scripts": {
+    "dev": "pnpm --filter ./angular build && pnpm --filter ./electron build && pnpm --filter ./electron exec electron .",
+    "bootstrap": "pnpm install --frozen-lockfile && simple-git-hooks && node tools/python.mjs setup",
+    "build": "pnpm -r build && node tools/python.mjs -m compileall -q python/app",
+    "lint": "eslint . && node tools/check-pins.mjs && node tools/python.mjs -m ruff check python",
+    "format": "prettier --write . && node tools/python.mjs -m ruff format python",
+    "format:check": "node tools/check-format.mjs && node tools/python.mjs -m ruff format --check python"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint && pnpm format:check"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/node": "24.19.1",
+    "angular-eslint": "22.5.0",
+    "eslint": "10.12.0",
+    "prettier": "3.9.9",
+    "simple-git-hooks": "2.14.0",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.0",
+    "yaml": "2.9.1"
+  }
+}
