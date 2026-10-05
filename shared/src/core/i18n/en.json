@@ -1,0 +1,16 @@
+{
+  "error": {
+    "INTERNAL": "Something went wrong. Please try again.",
+    "IPC_INVALID_REQUEST": "The request was not valid.",
+    "IPC_UNKNOWN_CHANNEL": "The request channel is not known.",
+    "APP_DIR_NOT_WRITABLE": "The app cannot write to its data folder. Check the folder permissions and start the app again.",
+    "LIBRARY_NOT_OPEN": "No library is open.",
+    "LIBRARY_PATH_OUTSIDE": "The path is outside the library folder.",
+    "LIBRARY_NEWER_VERSION": "This library was created by a newer version of the app. Update the app to open it.",
+    "LIBRARY_MIGRATION_FAILED": "The library could not be upgraded. Your files were not changed.",
+    "BACKEND_FAILED": "The background service failed to start.",
+    "BACKEND_UNAUTHORIZED": "The background service rejected the request.",
+    "FFMPEG_MISSING": "FFmpeg was not found. Install it or choose its location in the settings.",
+    "FFMPEG_BROKEN": "FFmpeg was found but does not work. Reinstall it or choose another copy."
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "error": {
+    "INTERNAL": "Đã xảy ra lỗi. Vui lòng thử lại.",
+    "IPC_INVALID_REQUEST": "Yêu cầu không hợp lệ.",
+    "IPC_UNKNOWN_CHANNEL": "Kênh yêu cầu không được hỗ trợ.",
+    "APP_DIR_NOT_WRITABLE": "Ứng dụng không thể ghi vào thư mục dữ liệu. Hãy kiểm tra quyền của thư mục rồi mở lại ứng dụng.",
+    "LIBRARY_NOT_OPEN": "Chưa mở thư viện nào.",
+    "LIBRARY_PATH_OUTSIDE": "Đường dẫn nằm ngoài thư mục thư viện.",
+    "LIBRARY_NEWER_VERSION": "Thư viện này được tạo bởi phiên bản ứng dụng mới hơn. Hãy cập nhật ứng dụng để mở.",
+    "LIBRARY_MIGRATION_FAILED": "Không thể nâng cấp thư viện. Các tệp của bạn không bị thay đổi.",
+    "BACKEND_FAILED": "Dịch vụ nền không khởi động được.",
+    "BACKEND_UNAUTHORIZED": "Dịch vụ nền đã từ chối yêu cầu.",
+    "FFMPEG_MISSING": "Không tìm thấy FFmpeg. Hãy cài đặt hoặc chọn vị trí của nó trong phần cài đặt.",
+    "FFMPEG_BROKEN": "Đã tìm thấy FFmpeg nhưng không chạy được. Hãy cài lại hoặc chọn bản khác."
+  }
+}
