@@ -48,6 +48,7 @@ export default defineConfig([
     },
   },
   { files: ['tools/**', 'verify/**', 'electron/**', 'eslint.config.js'], languageOptions: { globals: nodeGlobals } },
+  { files: ['verify/**'], rules: { 'no-empty-pattern': ['error', { allowObjectPatternsAsParameters: true }] } },
   {
     files: ['angular/**/*.ts'],
     extends: [angular.configs.tsRecommended],

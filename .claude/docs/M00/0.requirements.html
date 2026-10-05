@@ -20,7 +20,7 @@
     <span class="pill"><span lang="en">Status</span><span lang="vi">Trạng thái</span>: <b><span class="status approved">approved</span></b></span>
     <span class="pill"><span lang="en">Owner</span><span lang="vi">Phụ trách</span>: <b>analyst</b></span>
     <span class="pill"><span lang="en">Approver</span><span lang="vi">Người duyệt</span>: <b>product owner</b></span>
-    <span class="pill"><span lang="en">Updated</span><span lang="vi">Cập nhật</span>: <b>2026-10-04</b></span>
+    <span class="pill"><span lang="en">Updated</span><span lang="vi">Cập nhật</span>: <b>2026-10-05</b></span>
     <span class="pill"><span lang="en">Theme</span><span lang="vi">Chủ đề</span>: <a href="../0.high-level-requirements.html#themes"><code>TH-01</code></a></span>
     <span class="pill">Release: <b>R1.1</b></span>
     <span class="pill"><span lang="en">Next</span><span lang="vi">Tiếp theo</span>: <a href="0.solution.html"><span lang="en">Solution</span><span lang="vi">Giải pháp</span></a></span>
@@ -100,7 +100,7 @@
       <thead><tr><th>ID</th><th><span lang="en">Given</span><span lang="vi">Cho trước</span></th><th><span lang="en">When</span><span lang="vi">Khi</span></th><th><span lang="en">Then</span><span lang="vi">Thì</span></th></tr></thead>
       <tbody>
         <tr><td><code>AC-5</code></td><td><span lang="en">Clean build</span><span lang="vi">Build sạch</span></td><td><code>pnpm verify</code></td><td><span lang="en">Browser e2e and Electron smoke run; summary per scenario; non-zero exit on any failure</span><span lang="vi">e2e trình duyệt và smoke Electron chạy; tóm tắt theo kịch bản; mã thoát khác 0 khi có lỗi</span></td></tr>
-        <tr><td><code>AC-6</code></td><td><span lang="en">e2e build, no Python, network off</span><span lang="vi">Build e2e, không Python, tắt mạng</span></td><td><span lang="en"><code>playwright-cli</code> opens it by URL</span><span lang="vi"><code>playwright-cli</code> mở theo URL</span></td><td><span lang="en">Root view loads through <code>BrowserBridge</code>; selection by <code>data-testid</code> only</span><span lang="vi">Root view nạp qua <code>BrowserBridge</code>; chỉ chọn theo <code>data-testid</code></span></td></tr>
+        <tr><td><code>AC-6</code></td><td><span lang="en">e2e build, no Python, network off</span><span lang="vi">Build e2e, không Python, tắt mạng</span></td><td><span lang="en">the Playwright <code>renderer</code> project opens it by URL</span><span lang="vi">project <code>renderer</code> của Playwright mở theo URL</span></td><td><span lang="en">Root view loads through <code>BrowserBridge</code>; selection by <code>data-testid</code> only</span><span lang="vi">Root view nạp qua <code>BrowserBridge</code>; chỉ chọn theo <code>data-testid</code></span></td></tr>
         <tr><td><code>AC-7</code></td><td><span lang="en">Electron app built for testing</span><span lang="vi">Ứng dụng Electron build để kiểm thử</span></td><td><span lang="en">Smoke script runs</span><span lang="vi">Chạy script smoke</span></td><td><span lang="en">Window shows the root view; a temp library opens; backend answers <code>/health</code>; the ffmpeg check reports found and runnable</span><span lang="vi">Cửa sổ hiện root view; một thư viện tạm được mở; backend trả lời <code>/health</code>; kiểm tra ffmpeg báo tìm thấy và chạy được</span></td></tr>
       </tbody>
     </table>
@@ -388,6 +388,19 @@
     <li><strong><span lang="en">Conflict</span><span lang="vi">Xung đột</span>:</strong> <span lang="en">the approved HLR names only <code>M01</code>–<code>M22</code> (<code>TH-01</code> modules, Release 1 · Part 1 roadmap row, A12) and the HLA says “<code>M01</code>–<code>M22</code>”; updating them needs your approval. <span class="status approved">resolved</span> 2026-10-05: HLR updated (HLR <code>Q16</code>). <span class="status approved">resolved</span> 2026-10-05: HLA updated at <code>/solution</code> hand-off.</span><span lang="vi">HLR đã duyệt chỉ nêu <code>M01</code>–<code>M22</code> (module của <code>TH-01</code>, dòng roadmap Release 1 · Part 1, A12) và HLA ghi “<code>M01</code>–<code>M22</code>”; cập nhật cần bạn duyệt. <span class="status approved">resolved</span> 2026-10-05: đã cập nhật HLR (HLR <code>Q16</code>). <span class="status approved">resolved</span> 2026-10-05: đã cập nhật HLA khi bàn giao <code>/solution</code>.</span></li>
     <li><strong><span lang="en">Conflict</span><span lang="vi">Xung đột</span>:</strong> <span lang="en">the HLA still says Release 1 implements the <code>Service</code> interface and fakes, that AD-18 types are declared from TH-01, and that the Electron smoke runs a fake-CLI job; Q11–Q13 change this, so the architect updates the HLA at hand-off. <span class="status approved">resolved</span> 2026-10-05: HLA updated at <code>/solution</code> hand-off.</span><span lang="vi">HLA vẫn ghi Release 1 hiện thực giao diện <code>Service</code> và bản giả, kiểu AD-18 được khai báo từ TH-01, và smoke Electron chạy tác vụ CLI giả; Q11–Q13 thay đổi điều này, nên architect cập nhật HLA khi bàn giao. <span class="status approved">resolved</span> 2026-10-05: đã cập nhật HLA khi bàn giao <code>/solution</code>.</span></li>
   </ul>
+</details>
+
+<details class="fold" id="changelog">
+  <summary><span lang="en">Change log</span><span lang="vi">Nhật ký thay đổi</span> <span class="count">2</span></summary>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th><span lang="en">Date</span><span lang="vi">Ngày</span></th><th><span lang="en">Change</span><span lang="vi">Thay đổi</span></th><th><span lang="en">By</span><span lang="vi">Bởi</span></th></tr></thead>
+    <tbody>
+      <tr><td>2026-10-05</td><td><span lang="en"><code>AC-6</code> detail, When: "the Playwright <code>web</code> project opens it by URL" → "the Playwright <code>renderer</code> project opens it by URL" (project renamed by the product owner, HLA <code>AD-25</code>). Wording only; the meaning of the AC is unchanged.</span><span lang="vi">Chi tiết <code>AC-6</code>, cột Khi: "project <code>web</code> của Playwright mở theo URL" → "project <code>renderer</code> của Playwright mở theo URL" (product owner đổi tên project, HLA <code>AD-25</code>). Chỉ sửa câu chữ; ý nghĩa của AC giữ nguyên.</span></td><td>architect</td></tr>
+      <tr><td>2026-10-05</td><td><span lang="en"><code>AC-6</code> detail, When: "<code>playwright-cli</code> opens it by URL" → "the Playwright <code>web</code> project opens it by URL" (HLA <code>AD-25</code>). Wording only; the meaning of the AC is unchanged. Approved by the product owner.</span><span lang="vi">Chi tiết <code>AC-6</code>, cột Khi: "<code>playwright-cli</code> mở theo URL" → "project <code>web</code> của Playwright mở theo URL" (HLA <code>AD-25</code>). Chỉ sửa câu chữ; ý nghĩa của AC giữ nguyên. Product owner đã duyệt.</span></td><td>architect</td></tr>
+    </tbody>
+  </table>
+  </div>
 </details>
 
 <footer class="doc-footer">

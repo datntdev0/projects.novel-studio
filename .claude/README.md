@@ -58,7 +58,8 @@ Every artifact is a local file in this repository; nothing lives in Claude.ai ar
 - **IDs**: themes `TH-nn` · modules `Mxx` · Stories `Mxx-Fyy` · technical Tasks `Mxx-Tyy` · acceptance criteria `AC-n` (unique per module) · decisions `AD-nn` · tasks `T<n>` / `T<n>.<m>` · scenarios `S<n>` · defects `D<n>`. Never renumber after approval.
 - **Module vs flow**: `/solution` works on a module and decides its work items (Stories and Tasks); `/planning` turns one item into one flow, named after the item in lower case (`m01-f01`).
 - **Numbering of files** = phase: `0.*` discovery (project and module docs), `1.*` plan, `2.*` build, `3.*` verify (flow).
-- **Plan tasks**: level 1 = one sequential commit; level 2 = parallel subagents with disjoint file ownership; last task is always e2e automation with `playwright-cli`.
+- **Plan tasks**: level 1 = one sequential commit; level 2 = parallel subagents with disjoint file ownership; last task is always e2e automation: Playwright Test specs in `verify/specs/<flow>/`, run by `pnpm verify <flow>`.
+- **Playwright**: specs and test runs use Playwright Test (`@playwright/test`); `playwright-cli` is only for agents' manual work (mockup screenshots, exploring the UI before writing specs).
 - **Commits**: `<type>(<flow>): <title>` on branch `flow/<item>`.
 - **Documents**: HTML for anything the product owner reads and approves (styled by `templates/assets/claude.css`, light + dark); Markdown for files agents update continuously (`1.plan.md`, `2.review.md`).
 - **Bilingual (EN + VI)**: every HTML document holds both languages in one file. Each sentence is written twice as sibling elements `lang="en"` then `lang="vi"`; IDs, code, dates and status pills are written once without `lang`. The EN/VI switch in the document header (`templates/assets/claude.js`) hides the other language and remembers the choice.

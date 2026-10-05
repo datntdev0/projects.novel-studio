@@ -8,9 +8,10 @@
     "node": "^24.15.0 || >=26"
   },
   "scripts": {
-    "dev": "pnpm --filter ./angular build && pnpm --filter ./electron build && pnpm --filter ./electron exec electron .",
-    "bootstrap": "pnpm install --frozen-lockfile && simple-git-hooks && node tools/python.mjs setup",
+    "dev": "pnpm --filter ./angular build && pnpm --filter ./electron build && pnpm --dir electron exec electron ../dist/app",
+    "bootstrap": "pnpm install --frozen-lockfile && simple-git-hooks && pnpm --dir verify exec playwright install chromium && node tools/python.mjs setup",
     "build": "pnpm -r build && node tools/python.mjs -m compileall -q python/app",
+    "verify": "pnpm build && pnpm --dir verify exec playwright test",
     "lint": "eslint . && node tools/check-pins.mjs && node tools/python.mjs -m ruff check python",
     "format": "prettier --write . && node tools/python.mjs -m ruff format python",
     "format:check": "node tools/check-format.mjs && node tools/python.mjs -m ruff format --check python"

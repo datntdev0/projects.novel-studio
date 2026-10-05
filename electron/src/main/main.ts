@@ -9,7 +9,7 @@ function createWindow(): void {
     title: APP_NAME,
     webPreferences: { contextIsolation: true, sandbox: true, nodeIntegration: false },
   });
-  void window.loadFile(path.join(__dirname, '../../angular/dist/browser/index.html'));
+  void window.loadFile(path.join(__dirname, 'renderer/index.html'));
 }
 
 app.whenReady().then(createWindow);
