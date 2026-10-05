@@ -20,7 +20,10 @@
             "styles": ["src/styles.scss"]
           },
           "configurations": {
-            "production": { "outputHashing": "all" },
+            "production": {
+              "outputHashing": "all",
+              "optimization": { "scripts": true, "styles": { "minify": true, "inlineCritical": false }, "fonts": false }
+            },
             "development": { "optimization": false, "sourceMap": true, "extractLicenses": false },
             "e2e": { "optimization": false, "sourceMap": true, "extractLicenses": false }
           },

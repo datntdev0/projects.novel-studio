@@ -1,16 +1,26 @@
-import { app, BrowserWindow } from 'electron';
-import path from 'node:path';
-import { APP_NAME } from '@shared/core';
+import { app } from 'electron';
+import { applyAppPaths, resolveAppRoot } from './paths';
+import { initLog, log } from './log';
+import { applySessionGuards, createMainWindow, focusMainWindow } from './window';
 
-function createWindow(): void {
-  const window = new BrowserWindow({
-    width: 1440,
-    height: 900,
-    title: APP_NAME,
-    webPreferences: { contextIsolation: true, sandbox: true, nodeIntegration: false },
+function start(): void {
+  const appRoot = resolveAppRoot();
+  if (!applyAppPaths(appRoot)) return;
+  initLog(appRoot);
+  if (!app.requestSingleInstanceLock()) {
+    app.quit();
+    return;
+  }
+  app.on('second-instance', () => {
+    focusMainWindow();
+    log.info('second-instance focused');
   });
-  void window.loadFile(path.join(__dirname, 'renderer/index.html'));
+  app.on('window-all-closed', () => app.quit());
+  void app.whenReady().then(() => {
+    log.info(`app started ${app.getVersion()} appRoot=${appRoot}`);
+    applySessionGuards();
+    createMainWindow();
+  });
 }
 
-app.whenReady().then(createWindow);
-app.on('window-all-closed', () => app.quit());
+start();
