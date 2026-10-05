@@ -20,9 +20,23 @@ pnpm build
 - `pnpm run bootstrap`: install dependencies with the frozen lockfile, install the git pre-commit hook and build `python/.venv` with ruff
 - `pnpm build`: build all packages; the runnable app goes to `dist/app/`
 - `pnpm dev`: build Angular and Electron, then run Electron on `dist/app/` (first run downloads the Electron binary)
+- `pnpm verify`: build, then run the Playwright verification specs (see Verify)
 - `pnpm lint`: ESLint, pin check and ruff
 - `pnpm format`: format all files (Prettier and ruff)
 - `pnpm format:check`: check formatting without writing (Prettier and ruff)
+
+## Verify
+
+- `pnpm verify`: build, then run all specs; `pnpm verify <flow>` runs only that flow's specs
+- The flow name is a regex filter, so `tmp` also matches `tmp-t`; a trailing `/` (`pnpm verify m00-t02/`) matches the flow folder exactly
+- Other Playwright flags pass through: `pnpm verify --list`, `pnpm verify <flow> --headed`, `pnpm verify <flow> --debug`
+- Quick rerun without a build: `pnpm --dir verify exec playwright test <flow>`
+- Project `renderer`: browser on the e2e dev server; `ng serve` starts only when renderer specs run
+- Project `electron`: runs the bundle in `dist/app`; the Electron binary downloads on first use
+- Port 4310 must be free, and only one run per machine at a time
+- The output has two dev-server lines (start and stop); the summary counts them
+- Evidence goes to `.claude/flows/<flow>/evidence/`; failure traces and screenshots go to `verify/test-results/`
+- `pnpm run bootstrap` installs Chromium
 
 ## Commit checks
 

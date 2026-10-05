@@ -1,0 +1,27 @@
+import { mkdtemp, rm } from 'node:fs/promises';
+import { createRequire } from 'node:module';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { _electron, type ElectronApplication, type Page } from '@playwright/test';
+import { test as base } from './test.ts';
+import { appDir, electronDir } from './paths.ts';
+
+export { expect, saveEvidence } from './test.ts';
+
+const executablePath: string = createRequire(join(electronDir, 'package.json'))('electron');
+
+export const test = base.extend<{ appRoot: string; app: ElectronApplication; window: Page }>({
+  appRoot: async ({}, use) => {
+    const appRoot = await mkdtemp(join(tmpdir(), 'ns-app-'));
+    await use(appRoot);
+    await rm(appRoot, { recursive: true, force: true, maxRetries: 5 });
+  },
+  app: async ({ appRoot }, use) => {
+    const app = await _electron.launch({ executablePath, args: [appDir], env: { ...process.env, NS_APP_ROOT: appRoot } });
+    await use(app);
+    await app.close();
+  },
+  window: async ({ app }, use) => {
+    await use(await app.firstWindow());
+  },
+});
