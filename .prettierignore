@@ -1,0 +1,8 @@
+.claude/**
+.playwright-cli/
+pnpm-lock.yaml
+dist
+.angular
+python/.venv
+CLAUDE.md
+.mcp.json

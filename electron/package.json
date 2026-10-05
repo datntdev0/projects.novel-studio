@@ -1,0 +1,13 @@
+{
+  "name": "@novel-studio/electron",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node -e \"\""
+  },
+  "devDependencies": {
+    "@novel-studio/shared": "workspace:*",
+    "electron": "44.5.1",
+    "esbuild": "0.28.2"
+  }
+}

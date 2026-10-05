@@ -1,0 +1,13 @@
+packages:
+  - angular
+  - electron
+  - shared
+  - verify
+saveExact: true
+allowBuilds:
+  '@parcel/watcher': false
+  electron: false
+  esbuild: true
+  lmdb: false
+  msgpackr-extract: false
+  simple-git-hooks: false
