@@ -67,6 +67,18 @@ Every artifact is a local file in this repository; nothing lives in Claude.ai ar
 - **Question level**: kickoff asks product-level questions only (about 8 at most); feature-level detail is asked in `/solution` of the module that needs it.
 - **Jira**: space `PNS`. Epic = module `Mxx`, Story = function `Mxx-Fyy`, Task = technical work item `Mxx-Tyy`, Subtask = plan task `T<n>` under its Story / Task, Release = `R<release>.<part>`. Every Jira write needs the product owner's confirmation. See `skills/tool-atlassian`.
 
+## Estimation & timeline
+
+Decided by the product owner on 2026-10-05. Re-run whenever sizing, confidence or scope changes.
+
+- **Sizing** (Story / Task, Jira `customfield_10044`): `S` = 0.5 day · `M` = 1 day · `L` = 2 days. Baseline `S` = `M00-T02` (PNS-124) and `M00-T03` (PNS-125), about 4–5 level-1 tasks of one area; `M` ≈ 1.5–2× baseline or high integration / tech risk; `L` ≈ 3× or more, split before `/planning`. When unsure, choose `L`.
+- **Confident %** (Epic, Jira `customfield_10045`): how ready the epic is to plan, code and test. It is the average of the analyst's requirement-readiness score and the architect's technical-readiness score (0–100 each; 90+ approved requirements / solution with no open questions, 10–29 only intended functions with open LQs or an unchosen engine). Jira stores it as a fraction 0–1 (`0.9` shows as 90%).
+- **Epic days** (pessimistic) = sum of size days of its open items × (2 − Confident %), rounded up to whole days; optimistic = the plain sum. Done items are not counted.
+- **Timeline**: epics run one after another (no parallel work), in calendar days, starting from the first open epic. Order follows the releases; inside a release, an epic goes after the epics it depends on. Epic Start / Due date = its block on the timeline.
+- **Split epics**: when an epic's items sit in releases with another epic's work in between, its Start / Due date is cleared for manual review, but its days still take their place on the timeline.
+- **Releases**: a release's start / release date covers the epic work of its items; an epic spanning several releases is shared out by size days. Releases are back to back; a release without items keeps no dates. Items without a release are left out.
+- **Check**: after every Jira update, read the data back, compare it with the plan and export a flat CSV (release · epic · item with sizing and dates) for the product owner.
+
 ## Quick start
 
 ```
