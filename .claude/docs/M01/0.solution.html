@@ -611,8 +611,8 @@ User ─Enter──▶ Command "novel.open" ─▶ ShellStore.openNovel(id) ─�
 
 <details class="fold" id="verification">
   <summary><span lang="en">Verification per AC</span><span lang="vi">Kiểm chứng theo AC</span> <span class="count">63</span></summary>
-  <p lang="en">Same format as M00 (S4, S5): e2e = one Node script per scenario, <code>verify/specs/&lt;flow&gt;/S&lt;n&gt;-&lt;slug&gt;.mjs</code>, driving <code>playwright-cli</code> on the e2e build (BrowserBridge) at 1440×900 (and 1280×720 where stated), selecting by <code>data-testid</code> only, run by <code>pnpm verify &lt;flow&gt;</code> with screenshots in the flow's <code>evidence/</code>; smoke = the M00-T02 Electron smoke launcher. Every must AC has a scenario in its item's last task.</p>
-<p lang="vi">Cùng định dạng với M00 (S4, S5): e2e = mỗi kịch bản một script Node, <code>verify/specs/&lt;flow&gt;/S&lt;n&gt;-&lt;slug&gt;.mjs</code>, điều khiển <code>playwright-cli</code> trên bản build e2e (BrowserBridge) ở 1440×900 (và 1280×720 khi ghi rõ), chỉ chọn theo <code>data-testid</code>, chạy bằng <code>pnpm verify &lt;flow&gt;</code>, ảnh chụp lưu trong <code>evidence/</code> của flow; smoke = bộ khởi chạy Electron smoke của M00-T02. Mọi AC must có kịch bản trong task cuối của hạng mục.</p>
+  <p lang="en">Same format as M00 (S-4, S-5, S-17; <code>AD-25</code>): e2e = one Playwright Test spec per scenario, <code>verify/specs/&lt;flow&gt;/S&lt;n&gt;-&lt;slug&gt;.spec.ts</code>, project <code>renderer</code> on the e2e build (BrowserBridge) at 1440×900 (and 1280×720 where stated), selecting by <code>data-testid</code> only (<code>getByTestId</code>), run by <code>pnpm verify &lt;flow&gt;</code> with screenshots in the flow's <code>evidence/</code>; smoke = project <code>electron</code> on the built bundle <code>dist/app</code>, specs <code>S&lt;n&gt;-&lt;slug&gt;.electron.spec.ts</code> using the M00-T02 Electron fixture. Every must AC has a scenario in its item's last task.</p>
+<p lang="vi">Cùng định dạng với M00 (S-4, S-5, S-17; <code>AD-25</code>): e2e = mỗi kịch bản một spec Playwright Test, <code>verify/specs/&lt;flow&gt;/S&lt;n&gt;-&lt;slug&gt;.spec.ts</code>, project <code>renderer</code> trên bản build e2e (BrowserBridge) ở 1440×900 (và 1280×720 khi ghi rõ), chỉ chọn theo <code>data-testid</code> (<code>getByTestId</code>), chạy bằng <code>pnpm verify &lt;flow&gt;</code>, ảnh chụp lưu trong <code>evidence/</code> của flow; smoke = project <code>electron</code> trên gói build <code>dist/app</code>, spec <code>S&lt;n&gt;-&lt;slug&gt;.electron.spec.ts</code> dùng fixture Electron của M00-T02. Mọi AC must có kịch bản trong task cuối của hạng mục.</p>
   <div class="table-wrap">
   <table>
     <thead><tr><th>AC</th><th><span lang="en">Item</span><span lang="vi">Hạng mục</span></th><th><span lang="en">Level</span><span lang="vi">Mức</span></th><th><span lang="en">How to verify</span><span lang="vi">Cách kiểm chứng</span></th></tr></thead>
@@ -672,6 +672,19 @@ User ─Enter──▶ Command "novel.open" ─▶ ShellStore.openNovel(id) ─�
   </div>
   <p class="muted" lang="en"><span class="status draft">default</span> the architect's recommended default, accepted by the product owner at Gate 2 (2026-10-05) · <span class="status approved">designer</span> resolved by the designer before the gate.</p>
   <p class="muted" lang="vi"><span class="status draft">default</span> mặc định architect đề xuất, product owner chấp nhận tại Gate 2 (2026-10-05) · <span class="status approved">designer</span> designer giải quyết trước gate.</p>
+</details>
+
+<details class="fold" id="changelog">
+  <summary><span lang="en">Change log</span><span lang="vi">Nhật ký thay đổi</span> <span class="count">2</span></summary>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th><span lang="en">Date</span><span lang="vi">Ngày</span></th><th><span lang="en">Change</span><span lang="vi">Thay đổi</span></th><th><span lang="en">By</span><span lang="vi">Bởi</span></th></tr></thead>
+    <tbody>
+      <tr><td>2026-10-05</td><td><span lang="en">Product owner decisions in M00: the Playwright project <code>web</code> is renamed <code>renderer</code>, and the <code>electron</code> project runs the single build bundle <code>dist/app</code> (M00 S-18, <code>AD-26</code>). No AC, item or scope change.</span><span lang="vi">Quyết định của product owner ở M00: project Playwright <code>web</code> đổi tên thành <code>renderer</code>, và project <code>electron</code> chạy gói build duy nhất <code>dist/app</code> (S-18 của M00, <code>AD-26</code>). Không đổi AC, hạng mục hay phạm vi.</span></td><td>architect</td></tr>
+      <tr><td>2026-10-05</td><td><span lang="en">Verification format follows M00 <code>AD-25</code>: Playwright Test specs (<code>.spec.ts</code>, projects <code>web</code> and <code>electron</code>) instead of Node scripts driving <code>playwright-cli</code>. No AC, item or scope change.</span><span lang="vi">Định dạng kiểm chứng theo <code>AD-25</code> của M00: spec Playwright Test (<code>.spec.ts</code>, project <code>web</code> và <code>electron</code>) thay cho script Node điều khiển <code>playwright-cli</code>. Không đổi AC, hạng mục hay phạm vi.</span></td><td>architect</td></tr>
+    </tbody>
+  </table>
+  </div>
 </details>
 
 <footer class="doc-footer">
