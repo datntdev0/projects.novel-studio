@@ -1,6 +1,7 @@
 import { app } from 'electron';
 import { applyAppPaths, resolveAppRoot } from './paths';
 import { initLog, log } from './log';
+import { registerIpc } from './ipc';
 import { applySessionGuards, createMainWindow, focusMainWindow } from './window';
 
 function start(): void {
@@ -19,6 +20,7 @@ function start(): void {
   void app.whenReady().then(() => {
     log.info(`app started ${app.getVersion()} appRoot=${appRoot}`);
     applySessionGuards();
+    registerIpc();
     createMainWindow();
   });
 }

@@ -42,7 +42,7 @@ export function createMainWindow(): BrowserWindow {
     minWidth: 1280,
     minHeight: 720,
     title: APP_NAME,
-    webPreferences: { contextIsolation: true, sandbox: true, nodeIntegration: false },
+    webPreferences: { preload: path.join(__dirname, 'preload.cjs'), contextIsolation: true, sandbox: true, nodeIntegration: false },
   });
   applyWindowGuards(window);
   window.on('closed', () => (mainWindow = null));
