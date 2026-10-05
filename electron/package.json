@@ -2,8 +2,9 @@
   "name": "@novel-studio/electron",
   "version": "0.0.0",
   "private": true,
+  "main": "dist/main.cjs",
   "scripts": {
-    "build": "node -e \"\""
+    "build": "tsc -p . && node build.mjs"
   },
   "devDependencies": {
     "@novel-studio/shared": "workspace:*",

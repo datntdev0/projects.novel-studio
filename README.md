@@ -22,4 +22,5 @@ pnpm build
 - `pnpm run bootstrap`: install dependencies and build `python/.venv`
 - `pnpm build`: build all packages
 - `pnpm format`: format all files
+- `pnpm dev`: build Angular and Electron, then open the desktop app (first run downloads the Electron binary)
 - `pnpm format:check`: check formatting without writing

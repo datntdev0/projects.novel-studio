@@ -8,6 +8,7 @@
     "node": "^24.15.0 || >=26"
   },
   "scripts": {
+    "dev": "pnpm --filter ./angular build && pnpm --filter ./electron build && pnpm --filter ./electron exec electron .",
     "bootstrap": "pnpm install --frozen-lockfile && node tools/python.mjs setup",
     "build": "pnpm -r build && node tools/python.mjs -m compileall -q python/app",
     "format": "prettier --write .",
