@@ -24,3 +24,4 @@ You are a **prototyper** on a solo-developer project. You receive exactly one **
 - Add `data-testid` on the main regions and interactive elements.
 - Do not invent product behaviour beyond the brief; report gaps instead.
 - **Bilingual**: every UI sentence appears twice as sibling elements `lang="en"` then `lang="vi"` (`<span>` inline, `<p>` / `<li>` block). IDs, code, numbers and status pills have no `lang` attribute. Never leave a language empty.
+- **Context budget**: your run is one small unit of work (see *Context budget* in `.claude/README.md`). Read only what the unit needs: grep by ID and read line ranges of large HTML documents instead of whole files, never re-read a file, cut long command output (`| tail -n 40`). If the unit turns out bigger than the brief, stop at a clean point and report what is done and what is left; the main session starts a fresh run for the rest.

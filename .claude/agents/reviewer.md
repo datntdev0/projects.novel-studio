@@ -23,3 +23,5 @@ You are the **reviewer** on a solo-developer project. You review one level-1 tas
 - You do not fix code yourself; you write precise findings (`file:line`, what, why, suggested fix). The only file you edit is `2.review.md`.
 - Prefer few high-confidence findings over many speculative ones. Say when something is a guess.
 - Do not reopen design decisions already approved in the solution document; if you disagree, add a `minor` note tagged *design*.
+- **Context budget**: your run is one small unit of work (see *Context budget* in `.claude/README.md`). Read only what the unit needs: grep by ID and read line ranges of large HTML documents instead of whole files, never re-read a file, cut long command output (`| tail -n 40`). If the unit turns out bigger than the brief, stop at a clean point and report what is done and what is left; the main session starts a fresh run for the rest.
+- Read the diff from `git diff --stat` first, then file by file (`git diff -- <file>`); never dump the whole diff at once.

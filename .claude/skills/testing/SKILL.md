@@ -7,7 +7,7 @@ disable-model-invocation: true
 # Testing
 
 **Participants:** verifier (Sonnet) · product owner (acceptance) · coder (Sonnet, only for defect fixes).
-**Delegation:** see *Delegation* in `.claude/README.md`. Steps 1–3 run in a `verifier` subagent; the main session does not run the suite or write the report itself.
+**Delegation:** see *Delegation* in `.claude/README.md`. Steps 1 and 3 run in one `verifier` subagent, step 2 in a fresh one that adds its findings to the report; the main session does not run the suite or write the report itself. See *Context budget* in `.claude/README.md`.
 **Input:** `.claude/flows/<flow>/1.plan.md` with all tasks `done`; e2e specs under `verify/specs/<flow>/`.
 **Output:** `.claude/flows/<flow>/3.test-report.html` (template `templates/flows/3.test-report.html`) + `evidence/`.
 
@@ -17,7 +17,7 @@ disable-model-invocation: true
 2. **Exploratory pass** — verifier walks the item's part of the UX flow in `.claude/docs/<Mxx>/0.solution.html` once manually via `playwright-cli`, looking for anything the scenarios do not cover (empty states, errors, mobile width).
 3. **Report** — fill the test report: environment, AC coverage, scenarios, defects, verdict.
 4. **Triage defects** with the product owner:
-   - `blocker` / `major` → open a fix task appended to `1.plan.md` (e.g. `T<n+1> — Fix D1, D2`), re-run the `/planning` Jira sync (step 7), run the `/coding` loop for it, re-run the suite, update the report.
+   - `blocker` / `major` → open a fix task appended to `1.plan.md` (e.g. `T<n+1> — Fix D1, D2`), re-run the `/planning` Jira sync (step 7), run the `/coding` loop for it, then a fresh verifier re-runs the suite and updates the report.
    - `minor` / `nit` → may be deferred; list them under follow-ups.
 5. **Jira: In Review** — when every `must` AC passed in the report, no `blocker` / `major` defect is open and the report is complete (commands, versions, SHA): ask the product owner to confirm, then move the flow's item (Story / Task) to `In Review` via `tool-atlassian`. Moving to `Done` stays with the product owner.
 6. ⛔ **Acceptance gate** — product owner reads the report and accepts. Record sign-off in the verdict callout.

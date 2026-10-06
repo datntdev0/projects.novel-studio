@@ -38,7 +38,14 @@ Every artifact is a local file in this repository; nothing lives in Claude.ai ar
 | coder | sonnet | planning (feasibility check), coding, testing (fixes) | source code (only files its subtask owns) |
 | verifier | sonnet | kickoff + solution (mockup screenshots), planning, coding (test task), testing | e2e specs, test report |
 
-**Delegation.** The main session orchestrates: it talks to the product owner, runs gates, scaffolds, commits and passes work between agents. Thinking work (requirements, architecture, design, plan, review) goes to Opus agents; building work (screens, code, tests, screenshots) goes to Sonnet agents, in parallel when files are disjoint. The main session does not write documents, screens or code itself. Subagents cannot talk to the product owner: they return questions in their report, the main session asks them and sends the answers back.
+**Delegation.** The main session orchestrates: it talks to the product owner, runs gates, scaffolds, commits and passes work between agents. Thinking work (requirements, architecture, design, plan, review) goes to Opus agents; building work (screens, code, tests, screenshots) goes to Sonnet agents, in parallel when files are disjoint. The main session does not write documents, screens or code itself. Subagents cannot talk to the product owner: they return questions in their report, the main session asks them and passes the answers to a fresh run (see *Context budget*).
+
+**Context budget.** One subagent session stays under about 100k tokens and never goes above 150k (the result of every agent call shows its token count). The main session keeps it there:
+- **Small units.** One run = one unit of work: one subtask, one screen, one task review, one defect fix, one part of a document (e.g. the work items of `0.solution.html`, then its technical design in a second run). Split before launching when a unit needs more than about 8 files read in full, more than about 5 files written, or a whole large document rewritten.
+- **Fresh session per run.** Every round is a new agent call; never continue a finished subagent with `SendMessage`. This covers answers to questions, review rounds, fix rounds and the next part of a document. State passes through files (documents, `1.plan.md`, `2.review.md`, `3.test-report.html`) plus a short brief, not through chat history.
+- **Lean prompts.** Give the IDs, file paths and short excerpts the unit needs (the subtask row, its `AC-n`, the review findings), not whole documents. Ask for a short report.
+- **Over budget.** When a run goes over 150k or stops half-done, launch a fresh run for the rest from its report, and split that kind of unit smaller from then on.
+- **Main session.** All state lives in files, so the main session can be reset too: after a gate, or when its own context is large, suggest `/clear` and re-running the same command; `/implement` and `/coding` resume from `1.plan.md`.
 
 ## Directory
 

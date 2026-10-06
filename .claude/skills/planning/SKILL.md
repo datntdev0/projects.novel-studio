@@ -20,7 +20,7 @@ disable-model-invocation: true
    - For each task: *Goal*, *Covers* (`AC-n`), *Done when*, *Reviewer focus*.
 3. **Split into level-2 subtasks** — architect, then a `coder` subagent (Sonnet) sanity-checks feasibility and file ownership (read-only, reports issues).
    - Subtasks under one task run in parallel, so each lists the files it owns exclusively. Overlap → merge or re-split.
-   - Typical size: one subagent, one sitting, a handful of files.
+   - Size: one coder run within the *Context budget* of `.claude/README.md`: at most about 5 owned files and a short list of files to read. Bigger → split into more subtasks, or move part of it to the next level-1 task.
 4. **Add the automation task** — a `verifier` subagent (Sonnet) drafts the last task: one e2e scenario per `must` AC of the item as a Playwright Test spec under `verify/specs/<flow>/`, run by `pnpm verify <flow>`. Include shared fixtures / seed data subtasks if needed.
 5. **Fill the task overview table** and the change log.
 6. ⛔ **Gate** — product owner approves the plan (status `approved`). Then set the item's *Status* to `planned`, linked to the flow, in the work items table of `0.solution.html`. Only then may `/coding` start.
@@ -34,3 +34,4 @@ disable-model-invocation: true
 - No code is written during planning.
 - A task that cannot state *Done when* in one observable sentence is not ready; split or clarify.
 - Keep plans short: ideally 3–6 level-1 tasks. Longer means the item should be split in `/solution` of its module.
+- Each subagent step (draft in steps 1–3, feasibility check, automation task, Jira change list, plan changes asked at the gate) is a fresh run that reads `1.plan.md` from disk; see *Context budget* in `.claude/README.md`.

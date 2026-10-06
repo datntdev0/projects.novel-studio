@@ -22,3 +22,4 @@ You are a **coder** on a solo-developer project. You receive exactly one subtask
 - Simple, readable code over clever code. No speculative abstractions.
 - Reuse existing functions; after your change, look for duplication you introduced and remove it.
 - Do not change the plan or the solution documents; report mismatches instead.
+- **Context budget**: your run is one small unit of work (see *Context budget* in `.claude/README.md`). Read only what the unit needs: grep by ID and read line ranges of large HTML documents instead of whole files, never re-read a file, cut long command output (`| tail -n 40`). If the unit turns out bigger than the brief, stop at a clean point and report what is done and what is left; the main session starts a fresh run for the rest.

@@ -34,7 +34,7 @@ Both modes stop before the acceptance gate: the human accepts the report and mer
 3. **Code** — follow `.claude/skills/coding/SKILL.md`, with these overrides:
    - Replace coding step 0 by the Jira choice of step 1; on the first task move the item to `In Progress` if it is `To Do`.
    - Between coding step 5 (reviewer `approved`) and step 6 (commit):
-     - default: ⛔ show the human the task block, the reviewer verdict and `git diff --stat`; commit only after approval. Requested changes go back to the owning coder(s), then the reviewer, then this gate again.
+     - default: ⛔ show the human the task block, the reviewer verdict and `git diff --stat`; commit only after approval. Requested changes go to fresh coder run(s) for the owning subtasks, then a fresh reviewer, then this gate again.
      - `--auto`: commit directly.
 4. **Test** — follow `.claude/skills/testing/SKILL.md` steps 1–4, then:
    - default: ⛔ the human reviews `3.test-report.html` and triages defects (testing step 4).
@@ -62,4 +62,5 @@ A blocker is anything that would stop the flow: an open question from an agent, 
 - No Jira Subtasks: skip every Subtask sync and move of the phase skills (planning step 7, coding Subtask moves, the re-sync in testing step 4).
 - `--auto` covers only the Jira writes this skill defines (item → `In Progress`, → `In Review`), for that run. Never move the item to `Done`.
 - Never merge `flow/<item>` or set the item `done`; that stays with the human after acceptance.
-- All other rules of `/planning`, `/coding` and `/testing` still apply.
+- All other rules of `/planning`, `/coding` and `/testing` still apply, including the *Context budget* of `.claude/README.md`: fresh subagent per run, never `SendMessage` to a finished one.
+- The main session keeps its own context small: it reads agent reports and `git diff --stat`, not whole files or full diffs. When it grows large, finish the current commit, then tell the human to `/clear` and re-run `/implement <item> [--auto]`; step 1 resumes from `1.plan.md`.

@@ -22,7 +22,7 @@ disable-model-invocation: true
 3. **Collect.** Mark subtasks `done` as reports arrive. If a coder reports needing a file it does not own, resolve it yourself (small edit) or re-plan the subtask; note it in the plan change log.
 4. **Integrate check.** Run the project's build / lint / unit tests once over the combined changes.
 5. **Review.** Launch the *reviewer* for `T<n>`. Task status `review`.
-   - `changes-requested` → send blockers/majors back to the owning coder(s), then re-review. Max two rounds; after that, escalate to the product owner.
+   - `changes-requested` → launch a fresh coder per owning subtask with only the blockers/majors on its files, then a fresh reviewer that reads the previous section of `2.review.md` and checks only those findings and the new diff. Max two rounds; after that, escalate to the product owner.
    - `approved` → continue.
 6. **Commit.** One commit: `<type>(<flow>): <task title>`. Record the SHA in the task overview table, task status `done`. Jira sync on → move the `T<n>` Subtask to `Done`.
 7. Next task. After the last task set plan status `done` and suggest `/testing <flow>`.
@@ -32,3 +32,5 @@ disable-model-invocation: true
 - Coders do not commit; the main session commits after review.
 - If a task turns out wrong (not just hard), stop and go back to `/planning` rather than improvising; record the reason in the plan change log.
 - Keep `1.plan.md` as the single source of truth for progress; `/onboard` relies on it.
+- Every coder, verifier and reviewer run is a fresh subagent within the *Context budget* of `.claude/README.md`. A subtask too big for one run is split in the plan (change log) before it is launched.
+- The main session may `/clear` after any commit; `/coding <flow>` resumes at the first task not `done`.
