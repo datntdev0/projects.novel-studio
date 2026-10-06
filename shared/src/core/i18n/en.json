@@ -7,6 +7,8 @@
       "theme": "Theme",
       "useEnglish": "English",
       "useVietnamese": "Vietnamese",
+      "useDark": "Dark",
+      "useLight": "Light",
       "samples": "Formatting samples",
       "count": "Count",
       "chapters": { "one": "{count} chapter", "other": "{count} chapters" },

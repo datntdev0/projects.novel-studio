@@ -14,6 +14,8 @@
 </dl>
 <button type="button" data-testid="root-set-language-en" (click)="i18n.setLanguage('en')">{{ 'dev.root.useEnglish' | t }}</button>
 <button type="button" data-testid="root-set-language-vi" (click)="i18n.setLanguage('vi')">{{ 'dev.root.useVietnamese' | t }}</button>
+<button type="button" data-testid="root-set-theme-dark" (click)="theme.setTheme('dark')">{{ 'dev.root.useDark' | t }}</button>
+<button type="button" data-testid="root-set-theme-light" (click)="theme.setTheme('light')">{{ 'dev.root.useLight' | t }}</button>
 <h2 data-testid="root-label-samples">{{ 'dev.root.samples' | t }}</h2>
 <dl>
   <dt data-testid="root-label-count">{{ 'dev.root.count' | t }}</dt>

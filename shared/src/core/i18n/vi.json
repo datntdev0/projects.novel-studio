@@ -7,6 +7,8 @@
       "theme": "Giao diện",
       "useEnglish": "Tiếng Anh",
       "useVietnamese": "Tiếng Việt",
+      "useDark": "Tối",
+      "useLight": "Sáng",
       "samples": "Mẫu định dạng",
       "count": "Số lượng",
       "chapters": "{count} chương",

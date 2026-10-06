@@ -8,10 +8,13 @@ export class SettingsService {
   private readonly bridge = inject(BRIDGE);
   private readonly errors = inject(ErrorService);
   private readonly current = signal<AppSettings>(DEFAULT_SETTINGS);
+  private readonly isLoaded = signal(false);
   readonly settings = this.current.asReadonly();
+  readonly loaded = this.isLoaded.asReadonly();
 
-  load(): Promise<void> {
-    return this.apply(() => this.bridge.invoke('settings:get', null));
+  async load(): Promise<void> {
+    await this.apply(() => this.bridge.invoke('settings:get', null));
+    this.isLoaded.set(true);
   }
 
   update(patch: SettingsPatch): Promise<void> {

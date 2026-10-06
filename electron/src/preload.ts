@@ -1,14 +1,15 @@
 import { contextBridge, ipcRenderer } from 'electron';
-import { IPC_CHANNELS, IPC_EVENTS, SETTINGS_INITIAL_CHANNEL, nsError, type InitialSettings, type NovelStudioApi } from '@shared/core';
+import { IPC_CHANNELS, IPC_EVENTS, SETTINGS_INITIAL_CHANNEL, applyTheme, nsError, type InitialSettings, type NovelStudioApi } from '@shared/core';
 
 const initial: InitialSettings = ipcRenderer.sendSync(SETTINGS_INITIAL_CHANNEL);
 
-function applyLang(): void {
+function applyInitial(): void {
   document.documentElement.lang = initial.language;
+  applyTheme(document.documentElement, initial.theme);
 }
 
-if (document.documentElement) applyLang();
-else document.addEventListener('readystatechange', applyLang, { once: true });
+if (document.documentElement) applyInitial();
+else document.addEventListener('readystatechange', applyInitial, { once: true });
 
 const api: NovelStudioApi = {
   invoke: (channel, req) =>
