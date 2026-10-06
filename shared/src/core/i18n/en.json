@@ -1,4 +1,19 @@
 {
+  "dev": {
+    "root": {
+      "name": "Name",
+      "version": "Version",
+      "language": "Language",
+      "theme": "Theme",
+      "useEnglish": "English",
+      "useVietnamese": "Vietnamese",
+      "samples": "Formatting samples",
+      "count": "Count",
+      "chapters": { "one": "{count} chapter", "other": "{count} chapters" },
+      "date": "Date",
+      "number": "Number"
+    }
+  },
   "error": {
     "INTERNAL": "Something went wrong. Please try again.",
     "IPC_INVALID_REQUEST": "The request was not valid.",

@@ -1,20 +1,31 @@
 <h1 data-testid="app-hello-title">{{ title }}</h1>
-<p>
-  Name: <span data-testid="root-app-name">{{ info()?.name }}</span>
-</p>
-<p>
-  Version: <span data-testid="root-app-version">{{ info()?.version }}</span>
-</p>
-<p>
-  Language: <span data-testid="root-app-language">{{ info()?.language }}</span>
-</p>
-<p>
-  Theme: <span data-testid="root-app-theme">{{ info()?.theme }}</span>
-</p>
+<dl>
+  <dt data-testid="root-label-name">{{ 'dev.root.name' | t }}</dt>
+  <dd data-testid="root-app-name">{{ info()?.name }}</dd>
+  <dt data-testid="root-label-version">{{ 'dev.root.version' | t }}</dt>
+  <dd data-testid="root-app-version">{{ info()?.version }}</dd>
+  <dt data-testid="root-label-language">{{ 'dev.root.language' | t }}</dt>
+  <dd data-testid="root-app-language">{{ settings.settings().language }}</dd>
+  <dt data-testid="root-label-theme">{{ 'dev.root.theme' | t }}</dt>
+  <dd data-testid="root-app-theme">{{ settings.settings().theme }}</dd>
+</dl>
+<button type="button" data-testid="root-set-language-en" (click)="i18n.setLanguage('en')">{{ 'dev.root.useEnglish' | t }}</button>
+<button type="button" data-testid="root-set-language-vi" (click)="i18n.setLanguage('vi')">{{ 'dev.root.useVietnamese' | t }}</button>
+<h2 data-testid="root-label-samples">{{ 'dev.root.samples' | t }}</h2>
+<dl>
+  <dt data-testid="root-label-count">{{ 'dev.root.count' | t }}</dt>
+  <dd data-testid="root-sample-count-one">{{ 'dev.root.chapters' | t: { count: 1 } }}</dd>
+  <dd data-testid="root-sample-count-other">{{ 'dev.root.chapters' | t: { count: 5 } }}</dd>
+  <dt data-testid="root-label-date">{{ 'dev.root.date' | t }}</dt>
+  <dd data-testid="root-sample-date">{{ i18n.formatDate(sampleDate) }}</dd>
+  <dt data-testid="root-label-number">{{ 'dev.root.number' | t }}</dt>
+  <dd data-testid="root-sample-number">{{ i18n.formatNumber(1234567.89) }}</dd>
+</dl>
 @if (lastError(); as error) {
   <p role="alert">
     <span data-testid="root-error-code">{{ error.code }}</span>
     <span>{{ ': ' }}</span>
     <span data-testid="root-error-message">{{ error.message }}</span>
+    <span data-testid="root-error-text">{{ 'error.' + error.code | t }}</span>
   </p>
 }

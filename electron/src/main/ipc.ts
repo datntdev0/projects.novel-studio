@@ -1,8 +1,9 @@
-import { app, ipcMain, type IpcMainInvokeEvent } from 'electron';
+import { app, ipcMain, type IpcMainInvokeEvent, type WebFrameMain } from 'electron';
 import { pathToFileURL } from 'node:url';
 import path from 'node:path';
-import { APP_NAME, DEFAULT_LANGUAGE, DEFAULT_THEME, IPC_CHANNELS, isNsError, nsError, type IpcContract, type IpcResult, type LogEntry, type LogLevel, type NsError } from '@shared/core';
+import { APP_NAME, DEFAULT_SETTINGS, IPC_CHANNELS, SETTINGS_INITIAL_CHANNEL, isNsError, isSettingsPatch, nsError, type InitialSettings, type IpcContract, type IpcResult, type LogEntry, type LogLevel, type NsError } from '@shared/core';
 import { log } from './log';
+import { getSettings, updateSettings } from './settings-store';
 
 const MAX_MESSAGE_LENGTH = 2000;
 const MAX_DETAIL_LENGTH = 20000;
@@ -13,6 +14,8 @@ type Handlers = {
   [C in keyof IpcContract]: { validate(req: unknown): boolean; handle(req: IpcContract[C]['req']): IpcContract[C]['res'] };
 };
 type AnyHandler = { validate(req: unknown): boolean; handle(req: unknown): unknown };
+
+const isNull = (req: unknown): boolean => req === null;
 
 const isLogEntry = (req: unknown): req is LogEntry => {
   const entry = req as LogEntry | null;
@@ -27,8 +30,11 @@ const isLogEntry = (req: unknown): req is LogEntry => {
 
 const handlers: Handlers = {
   'app:getInfo': {
-    validate: (req) => req === null,
-    handle: () => ({ name: APP_NAME, version: app.getVersion(), language: DEFAULT_LANGUAGE, theme: DEFAULT_THEME }),
+    validate: isNull,
+    handle: () => {
+      const { language, theme } = getSettings();
+      return { name: APP_NAME, version: app.getVersion(), language, theme };
+    },
   },
   'log:write': {
     validate: isLogEntry,
@@ -38,6 +44,8 @@ const handlers: Handlers = {
       return null;
     },
   },
+  'settings:get': { validate: isNull, handle: getSettings },
+  'settings:set': { validate: isSettingsPatch, handle: updateSettings },
 };
 
 function logFailure(channel: string, error: unknown, failure: NsError): void {
@@ -46,9 +54,13 @@ function logFailure(channel: string, error: unknown, failure: NsError): void {
   else log.error(failure === error ? text : `${text}\n${error instanceof Error ? error.stack : String(error)}`);
 }
 
+function isTrustedSender(frame: WebFrameMain | null): boolean {
+  return frame?.url.startsWith(RENDERER_URL) ?? false;
+}
+
 function run(channel: string, handler: AnyHandler, event: IpcMainInvokeEvent, req: unknown): IpcResult<unknown> {
   try {
-    if (!event.senderFrame?.url.startsWith(RENDERER_URL)) throw nsError('IPC_INVALID_REQUEST', 'Untrusted sender');
+    if (!isTrustedSender(event.senderFrame)) throw nsError('IPC_INVALID_REQUEST', 'Untrusted sender');
     if (!handler.validate(req)) throw nsError('IPC_INVALID_REQUEST', 'Invalid request');
     return { ok: true, value: handler.handle(req) };
   } catch (error) {
@@ -62,4 +74,15 @@ export function registerIpc(): void {
   for (const channel of Object.keys(IPC_CHANNELS) as (keyof IpcContract)[]) {
     ipcMain.handle(channel, (event, req) => run(channel, handlers[channel] as AnyHandler, event, req));
   }
+  ipcMain.on(SETTINGS_INITIAL_CHANNEL, (event) => {
+    let initial: InitialSettings = { language: DEFAULT_SETTINGS.language, theme: DEFAULT_SETTINGS.theme };
+    try {
+      if (isTrustedSender(event.senderFrame)) {
+        const { language, theme } = getSettings();
+        initial = { language, theme };
+      } else logFailure(SETTINGS_INITIAL_CHANNEL, null, nsError('IPC_INVALID_REQUEST', 'Untrusted sender'));
+    } finally {
+      event.returnValue = initial;
+    }
+  });
 }

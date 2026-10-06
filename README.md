@@ -21,7 +21,7 @@ pnpm build
 - `pnpm build`: build all packages; the runnable app goes to `dist/app/`
 - `pnpm dev`: build Angular and Electron, then run Electron on `dist/app/` (first run downloads the Electron binary)
 - `pnpm verify`: build, then run the Playwright verification specs (see Verify)
-- `pnpm lint`: ESLint, pin check and ruff
+- `pnpm lint`: ESLint, pin check, i18n key check (English and Vietnamese keys match) and ruff
 - `pnpm format`: format all files (Prettier and ruff)
 - `pnpm format:check`: check formatting without writing (Prettier and ruff)
 

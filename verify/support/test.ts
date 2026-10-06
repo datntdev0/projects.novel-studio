@@ -2,7 +2,7 @@ import { basename, join, relative, sep } from 'node:path';
 import { test, type Page } from '@playwright/test';
 import { flowsDir, specsDir } from './paths.ts';
 
-export { test, expect } from '@playwright/test';
+export { test, expect, type Page } from '@playwright/test';
 
 export async function saveEvidence(page: Page, name: string): Promise<string> {
   const file = test.info().file;
