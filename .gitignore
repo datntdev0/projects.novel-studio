@@ -27,3 +27,9 @@ vendor/ffmpeg/
 
 # Playwright test output
 verify/test-results/
+
+# Generated mockup index (built by script)
+.claude/mockups/index.html
+
+# Module docs (kept locally, approved versions go to Jira epic attachments)
+.claude/docs/M*/
