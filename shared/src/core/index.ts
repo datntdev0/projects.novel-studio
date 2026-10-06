@@ -4,3 +4,4 @@ export * from './ipc-contract';
 export * from './errors';
 export * from './bridge';
 export * from './i18n/dictionaries';
+export * from './i18n/translate';
