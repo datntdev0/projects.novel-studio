@@ -1,7 +1,8 @@
 import { BrowserWindow, screen, session } from 'electron';
 import path from 'node:path';
-import { APP_NAME } from '@shared/core';
+import { APP_NAME, THEME_BACKGROUNDS } from '@shared/core';
 import { log } from './log';
+import { getSettings } from './settings-store';
 
 const REMOTE_URLS = ['http://*/*', 'https://*/*', 'ws://*/*', 'wss://*/*'];
 
@@ -42,6 +43,7 @@ export function createMainWindow(): BrowserWindow {
     minWidth: 1280,
     minHeight: 720,
     title: APP_NAME,
+    backgroundColor: THEME_BACKGROUNDS[getSettings().theme],
     icon: path.join(__dirname, 'icon.ico'),
     webPreferences: { preload: path.join(__dirname, 'preload.cjs'), contextIsolation: true, sandbox: true, nodeIntegration: false },
   });

@@ -11,7 +11,9 @@ export class I18nService {
 
   constructor() {
     effect(() => {
-      this.document.documentElement.lang = this.language();
+      if (this.settings.loaded()) {
+        this.document.documentElement.lang = this.language();
+      }
     });
   }
 

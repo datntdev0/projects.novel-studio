@@ -7,11 +7,15 @@
       "theme": "Theme",
       "useEnglish": "English",
       "useVietnamese": "Vietnamese",
+      "useDark": "Dark",
+      "useLight": "Light",
       "samples": "Formatting samples",
       "count": "Count",
       "chapters": { "one": "{count} chapter", "other": "{count} chapters" },
       "date": "Date",
-      "number": "Number"
+      "number": "Number",
+      "look": "Look",
+      "serifSample": "Reading font: ẳ ễ ở ự"
     }
   },
   "error": {
