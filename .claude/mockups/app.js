@@ -41,13 +41,13 @@
 
   // Novel context: crumbs, novel chip and the novel-scoped rail groups
   const novels = {
-    "凡人修仙传": { name: "Phàm Nhân Tu Tiên", chapters: 2446 },
-    "斗破苍穹": { name: "Đấu Phá Thương Khung", chapters: 1648 },
-    "全职高手": { name: "Toàn Chức Cao Thủ", chapters: 1728 },
-    "나 혼자만 레벨업": { name: "Solo Leveling", chapters: 270 },
-    "転生したらスライムだった件": { name: "Tensei Slime", chapters: 304 },
-    "庆余年": { name: "Khánh Dư Niên", chapters: 746 },
-    "Mother of Learning": { name: "Mother of Learning", chapters: 108 }
+    "凡人修仙传": { name: "Phàm Nhân Tu Tiên", chapters: 2446, id: "n-0001" },
+    "斗破苍穹": { name: "Đấu Phá Thương Khung", chapters: 1648, id: "n-0002" },
+    "全职高手": { name: "Toàn Chức Cao Thủ", chapters: 1728, id: "n-0003" },
+    "나 혼자만 레벨업": { name: "Solo Leveling", chapters: 270, id: "n-0004" },
+    "転生したらスライムだった件": { name: "Tensei Slime", chapters: 304, id: "n-0005" },
+    "庆余年": { name: "Khánh Dư Niên", chapters: 746, id: "n-0006" },
+    "Mother of Learning": { name: "Mother of Learning", chapters: 108, id: "n-0007" }
   };
   const defaultNovel = "凡人修仙传";
   const novelScreens = ["reader", "storyworld", "translation", "storychat", "audiobook", "film", "videoeditor"];
@@ -59,15 +59,19 @@
   function novelFrom(el) {
     const own = el.closest("[data-select-novel]");
     if (own) return own.dataset.selectNovel;
+    const tagged = el.closest("[data-novel]");
+    if (tagged) return tagged.dataset.novel;
     const inScreen = el.closest(".screen");
     const scope = el.closest(".novel-card, tr, .cmd") || (inScreen && inScreen.querySelector(".novel-card.selected, tr.selected"));
     const text = scope ? scope.textContent : "";
     return Object.keys(novels).find((key) => text.includes(key));
   }
   const local = (en, vi) => (state.lang === "vi" ? vi : en);
+  const numEn = (n) => n.toLocaleString("en-US"), numVi = (n) => n.toLocaleString("vi-VN");
+  const numIn = (el, n) => (el.closest('[lang="vi"]') ? numVi(n) : numEn(n));
   function novelChip(key) {
     const n = novels[key].chapters;
-    const count = bi(n.toLocaleString("en-US") + " chapters", n.toLocaleString("vi-VN") + " chương");
+    const count = bi(numEn(n) + " chapters", numVi(n) + " chương");
     return `<span class="novel-chip" data-testid="topbar-novel-chip"><button type="button" class="novel-chip-main" data-action="switch-novel" data-testid="topbar-novel-switch" title="${novelLabel(key)} · ${local("switch novel", "đổi truyện")}"><svg class="icon sm"><use href="#i-book"/></svg><b>${novelLabel(key)}</b><span class="count">${count}</span><svg class="icon sm caret"><use href="#i-chevron-down"/></svg></button><button type="button" class="novel-chip-clear" data-action="clear-novel" data-testid="topbar-novel-clear" title="${local("Close novel", "Đóng truyện")}" aria-label="${local("Close novel", "Đóng truyện")}"><svg class="icon sm"><use href="#i-x"/></svg></button></span>`;
   }
   function renderContext() {
@@ -82,6 +86,7 @@
   function show(id) {
     const section = document.getElementById(id);
     if (!section || !section.classList.contains("screen")) return show(defaultScreen);
+    if (state.screen === "import" && id !== "import" && state.importDirty) { askDiscardImport(id); return; }
     state.screen = id;
     if (id === "home") setNovel(null);
     else if (novelScreens.includes(id) && !novels[state.novel]) setNovel(defaultNovel);
@@ -92,7 +97,7 @@
     app.classList.remove("zen");
     document.title = `${section.dataset.title || id} · Novel Studio prototype`;
     if (location.hash !== `#${id}`) history.replaceState(null, "", `#${id}`);
-    renderNotes(section);
+    renderDrawer(section);
     renderContext();
     renderWaves(section);
     section.querySelectorAll("[data-thread]").forEach((thread) => { const box = thread.closest(".ws-body"); if (box) box.scrollTop = box.scrollHeight; });
@@ -152,8 +157,16 @@
     if (id === "palette") resetPalette(scope);
     if (id === "shortcuts") el.querySelectorAll("[data-sheet-scope]").forEach((g) => g.querySelector("[data-sheet-here]").classList.toggle("hidden", g.dataset.sheetScope !== state.screen));
   }
-  function closeOverlays() { overlays.length = 0; document.querySelectorAll(".scrim.open").forEach((el) => el.classList.remove("open")); }
-  function closeOverlay(el) { if (!el) return; el.classList.remove("open"); const i = overlays.indexOf(el); if (i >= 0) overlays.splice(i, 1); }
+  function closeOverlays() { document.querySelectorAll(".scrim.open").forEach(closeOverlay); overlays.length = 0; }
+  function closeOverlay(el) { if (!el) return; el.classList.remove("open"); const i = overlays.indexOf(el); if (i >= 0) overlays.splice(i, 1); if (el.id === "dlg-job-preflight") importSteps(false); }
+  const isImportPreflight = () => ["import", "import-more"].includes(state.preflight);
+  function importSteps(atImport) {
+    const step = (k) => document.querySelector(`#import .steps:has(> [data-step="source"].done) [data-step="${k}"]`);
+    const preview = step("preview"), importStep = step("import");
+    if (!preview || !importStep) return;
+    preview.classList.toggle("done", atImport); preview.classList.toggle("current", !atImport);
+    importStep.classList.toggle("current", atImport);
+  }
   function closeTopOverlay() { closeOverlay(overlays[overlays.length - 1] || document.querySelector(".scrim.open")); }
 
   // Command palette --------------------------------------------------
@@ -225,7 +238,7 @@
     "jobs-resume-all": () => { eachJob(["paused", "interrupted"], resumeJob); refreshAttention(); },
     "job-cancel-confirm": () => cancelJob(),
     "job-fail-demo": () => failLiveEarly(),
-    "job-start": () => { closeOverlays(); toast("Job queued — it appears in the Task Center as queued", "Đã xếp hàng job — job hiện trong Trung tâm tác vụ ở trạng thái chờ", "success"); },
+    "job-start": () => { if (isImportPreflight()) { importStart(); return; } closeOverlays(); toast("Job queued — it appears in the Task Center as queued", "Đã xếp hàng job — job hiện trong Trung tâm tác vụ ở trạng thái chờ", "success"); },
     "open-job": (btn) => openJob(btn.dataset.job),
     "tasks-view": (btn) => selectIn(document.querySelector(`#tasks [data-show="${btn.dataset.target}"]`)),
     "app-close": () => askCloseApp(),
@@ -234,9 +247,19 @@
     "retry-failed": () => toast("1 failed item re-queued", "Đã xếp lại 1 mục lỗi", "success"),
     "test-cli": (btn) => testCli(btn),
     "rescan": (btn) => { btn.classList.add("loading"); setTimeout(() => { btn.classList.remove("loading"); toast("Rescan finished — 3 CLIs found", "Quét lại xong — tìm thấy 3 CLI", "success"); }, 900); },
-    "import-start": () => { closeOverlays(); show("library"); toast("Import started in the background", "Đã bắt đầu nhập nền", "success"); },
-    "delete-novel": () => { closeOverlays(); toast("Novel deleted — 1,648 chapters, translations and Omniscient data removed", "Đã xoá truyện — gỡ 1.648 chương, bản dịch và dữ liệu Toàn tri", "danger"); },
-    "export-done": () => { closeOverlays(); toast("Exported 100 chapters to exports/vi/", "Đã xuất 100 chương vào exports/vi/", "success"); },
+    "import-choose": () => { applyMode("#import", "import", "loading"); setTimeout(() => applyMode("#import", "import", "new"), 1200); },
+    "import-cancel": () => show("library"),
+    "import-discard": () => { state.importDirty = false; closeOverlays(); if (pendingScreen.id === "app-close") askCloseApp(); else show(pendingScreen.id || "library"); },
+    "rerun-choose-package": () => { toast("File picker opens here: choose the ZIP package again", "Hộp thoại chọn tệp mở ở đây: chọn lại gói ZIP"); applyMode("#dlg-job-preflight", "", "ready"); },
+    "delete-novel": () => deleteNovel(),
+    "edit-start": (btn) => setEditing(btn.closest("[data-edit-scope]"), true),
+    "edit-cancel": (btn) => setEditing(btn.closest("[data-edit-scope]"), false),
+    "edit-save": (btn) => saveEdit(btn.closest("[data-edit-scope]")),
+    "tag-remove": (btn) => { markImportDirty(btn); btn.closest(".chip").remove(); },
+    "cover-change": () => toast("Image picker opens here: PNG, JPG or WebP up to 10 MB", "Hộp thoại chọn ảnh mở ở đây: PNG, JPG hoặc WebP tối đa 10 MB"),
+    "cover-remove": () => toast("Cover removed — a generated cover with the original title is shown", "Đã gỡ bìa — hiện bìa tự sinh với tên gốc", "success"),
+    "open-folder": (btn) => { const key = novelFrom(btn); toast(`Opening novels\\${novels[key] ? novels[key].id : "n-0006"}\\ in Windows Explorer`, `Đang mở novels\\${novels[key] ? novels[key].id : "n-0006"}\\ trong Windows Explorer`); },
+    "export-start": () => exportStart(),
     "toast-demo": () => toast("This is a toast", "Đây là một thông báo toast", "success"),
     "choose-folder": () => toast("Folder picker opens here (OS dialog)", "Hộp thoại chọn thư mục của hệ điều hành mở ở đây"),
     "pin-note": () => toast("Pinned", "Đã ghim"),
@@ -256,8 +279,8 @@
     if (note) toast(note.dataset.toast, note.dataset.toastVi || note.dataset.toast, note.dataset.toastKind, { sticky: note.hasAttribute("data-toast-sticky"), job: note.dataset.toastJob, details: note.dataset.toastDetails });
     const go = t.closest("[data-go]");
     if (t.closest("[data-select-novel]") || (go && novelScreens.includes(go.dataset.go))) { const key = novelFrom(t); if (novels[key]) { setNovel(key); renderContext(); } }
-    if (go) { e.preventDefault(); show(go.dataset.go); return; }
-    const open = t.closest("[data-open]"); if (open) { e.preventDefault(); openOverlay(open.dataset.open); return; }
+    if (go) { e.preventDefault(); if (go.disabled) return; show(go.dataset.go); if (go.dataset.goMode && state.screen === go.dataset.go) screenMode(go.dataset.go, go.dataset.goMode); return; }
+    const open = t.closest("[data-open]"); if (open) { e.preventDefault(); if (open.disabled) return; prepareOverlay(open); openOverlay(open.dataset.open); return; }
     if (t.closest("[data-close]") || (t.classList.contains("scrim") && t.classList.contains("open"))) { closeOverlay(t.closest(".scrim")); return; }
     const theme = t.closest("[data-set-theme]"); if (theme) { setTheme(theme.dataset.setTheme); return; }
     const lang = t.closest("[data-set-lang]"); if (lang) { setLang(lang.dataset.setLang); return; }
@@ -266,7 +289,7 @@
     const view = t.closest("[data-view]"); if (view) { setView(view); return; }
     const mode = t.closest("[data-mode]"); if (mode) { setMode(mode); return; }
     const toggleTarget = t.closest("[data-toggle-target]");
-    if (toggleTarget) { const target = document.querySelector(toggleTarget.dataset.toggleTarget); if (target) { target.classList.toggle("hidden"); toggleTarget.setAttribute("aria-expanded", String(!target.classList.contains("hidden"))); } return; }
+    if (toggleTarget) { const targets = document.querySelectorAll(toggleTarget.dataset.toggleTarget); targets.forEach((target) => target.classList.toggle("hidden")); if (targets[0]) toggleTarget.setAttribute("aria-expanded", String(!targets[0].classList.contains("hidden"))); return; }
     const pressed = t.closest("[data-toggle]"); if (pressed) { pressed.setAttribute("aria-pressed", String(pressed.getAttribute("aria-pressed") !== "true")); return; }
     const act = t.closest("[data-action]"); if (act) { const fn = actions[act.dataset.action]; if (fn) fn(act); return; }
     const tab = t.closest("[data-tab]"); if (tab) { switchTab(tab); return; }
@@ -288,6 +311,7 @@
     const screen = el.closest(".screen") || document;
     if (el.dataset.show) showDetail(screen.querySelector(`[data-detail="${el.dataset.show}"]`));
     if (el.dataset.jobId) showJob(el);
+    if (el.dataset.novel && el.closest("#library")) fillInspector(el.dataset.novel);
     if (el.dataset.show === "attention") refreshAttention();
     const filter = el.closest("[data-filter-target]");
     if (filter && el.dataset.filter) document.querySelectorAll(`${filter.dataset.filterTarget} [data-kind]`).forEach((row) => row.classList.toggle("filtered-out", el.dataset.filter !== "all" && !row.dataset.kind.split(" ").includes(el.dataset.filter)));
@@ -297,14 +321,36 @@
     const scope = target.closest("[data-detail-scope]") || target.parentElement;
     scope.querySelectorAll("[data-detail]").forEach((d) => d.classList.toggle("hidden", d !== target));
   }
+  // State previews: data-mode-for="<scope>" (+ optional data-mode-key) toggles [data-mode-only] with the same key inside the scope
+  const modes = {};
   function setMode(btn) {
     const group = btn.closest("[data-mode-for]");
-    group.querySelectorAll("[data-mode]").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
-    document.querySelectorAll(group.dataset.modeFor).forEach((scope) => scope.querySelectorAll("[data-mode-only]").forEach((el) => {
-      const on = el.dataset.modeOnly.split(" ").includes(btn.dataset.mode);
+    const scope = group.dataset.modeFor, key = group.dataset.modeKey || "";
+    applyMode(scope, key, btn.dataset.mode);
+    if (scope === "#library" && key === "import") previewImport(btn.dataset.mode);
+  }
+  function applyMode(scopeSel, key, mode) {
+    modes[scopeSel + "|" + key] = mode;
+    document.querySelectorAll(`[data-mode-for="${scopeSel}"]`).forEach((g) => { if ((g.dataset.modeKey || "") === key) g.querySelectorAll("[data-mode]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.mode === mode))); });
+    document.querySelectorAll(`${scopeSel}, [data-for-screen="${scopeSel.slice(1)}"]`).forEach((scope) => scope.querySelectorAll("[data-mode-only]").forEach((el) => {
+      if ((el.dataset.modeKey || "") !== key) return;
+      const on = modeOn(el, mode);
       el.classList.toggle("hidden", !on);
       if (on && el.querySelector("[data-detail]") && !el.querySelector("[data-detail]:not(.hidden)")) showDetail(el.querySelector("[data-detail-default]") || el.querySelector("[data-detail]"));
     }));
+    if (scopeSel === "#library" && key === "import") { state.importMode = mode; renderImport(); }
+    if (scopeSel === "#library" && key === "library") { state.libraryEmpty = mode === "empty"; renderJob(); }
+  }
+  // Only 庆余年 shows the import demo in the inspector; every other novel is fully imported
+  function modeOn(el, mode) {
+    const insp = el.dataset.modeKey === "import" && libInspector();
+    const settled = insp && insp.dataset.novel !== "庆余年" && insp.contains(el);
+    return el.dataset.modeOnly.split(" ").includes(settled ? "done" : mode);
+  }
+  function screenMode(screen, mode) {
+    const btn = document.querySelector(`[data-mode-for="#${screen}"] [data-mode="${mode}"]`);
+    if (btn) setMode(btn);
+    if (screen === "import") state.importDirty = false;
   }
   function setView(btn) {
     const group = btn.closest("[data-view-for]");
@@ -363,9 +409,12 @@
   function markSaved() { document.querySelectorAll("[data-dirty]").forEach((el) => el.classList.add("hidden")); }
   document.addEventListener("input", (e) => {
     if (e.target.closest("#reader .ms")) markDirty();
+    markImportDirty(e.target);
+    if (e.target.matches("[data-confirm-title]")) document.querySelectorAll("[data-confirm-target]").forEach((b) => { b.disabled = !titleConfirmed(e.target.value); });
     const out = e.target.dataset.output; if (out) { document.querySelectorAll(`[data-value="${out}"]`).forEach((el) => { const d = e.target.dataset; el.textContent = (d.decimals ? Number(e.target.value).toFixed(Number(d.decimals)) : e.target.value) + (d.unit || ""); }); }
     const cssVar = e.target.dataset.cssVar; if (cssVar) { const target = e.target.dataset.cssTarget ? document.querySelector(e.target.dataset.cssTarget) : root; target.style.setProperty(cssVar, e.target.value + (e.target.dataset.unit || "")); }
     if (e.target.dataset.asof) updateAsOf(Number(e.target.value));
+    if (e.target.closest("#dlg-export")) renderExport();
   });
 
   // Omniscient: spoiler boundary "as of chapter N" --------------------
@@ -391,6 +440,14 @@
     if (!jobs[id]) jobs[id] = { status: row.dataset.jobStatus, problem: row.hasAttribute("data-job-problem"), seen: row.hasAttribute("data-job-seen") };
   });
   if (!jobs[LIVE]) jobs[LIVE] = { status: "running", problem: false, seen: true };
+  // Import job (M04): no AI backend; paused at 312/746 in the sample, restarted from 0 by Start in the import preflight
+  const IMPORT = "j-2026-10-06-0019";
+  if (!jobs[IMPORT]) jobs[IMPORT] = { status: "paused", problem: false, seen: true };
+  const imp = { done: 312, total: 746, more: false };
+  // Export job (M04-F05): source ZIP in the import layout, one item per chapter; created by Start export in dlg-export
+  const EXPORT = "j-2026-10-06-0020";
+  const exp = { key: null, count: 0, from: 1, to: 0, done: 0, total: 0, file: "" };
+  const novelJobs = { "凡人修仙传": [LIVE, "j-2026-10-04-0018"], "나 혼자만 레벨업": ["j-2026-10-04-0015"], "庆余年": [IMPORT] };
   const historyJobs = { count: 38, target: null };
   const pending = { cancel: null };
   const shown = { id: null };
@@ -414,7 +471,18 @@
     const job = jobs[id];
     if (ACTIVE.includes(job.status) && ENDED.includes(status)) historyJobs.count += 1;
     job.status = status;
+    if (id === IMPORT) syncImportCard();
     renderJob(); refreshAttention();
+    if (status !== "running") startQueued();
+  }
+  // One job slot (M04 PO1): a job started or resumed while another runs waits as queued; the live and import jobs start when the slot frees
+  const statusOf = (id) => (jobs[id] ? jobs[id].status : null);
+  const otherRunning = (id) => Object.keys(jobs).some((other) => other !== id && jobs[other].status === "running");
+  const slotStatus = (id) => (otherRunning(id) ? "queued" : "running");
+  function startQueued() {
+    if (otherRunning(null)) return;
+    const next = [IMPORT, LIVE, EXPORT].find((id) => statusOf(id) === "queued");
+    if (next) setStatus(next, "running");
   }
   function renderJob() {
     const j = state.job, key = live().status, running = key === "running";
@@ -426,16 +494,28 @@
     document.querySelectorAll("[data-when-failed]").forEach((el) => el.classList.toggle("hidden", !j.failed));
     document.querySelectorAll("[data-job-state]").forEach((el) => { const job = jobs[jobOf(el)]; el.querySelectorAll("[data-state]").forEach((s) => s.classList.toggle("hidden", !job || s.dataset.state !== job.status)); });
     document.querySelectorAll("[data-when-state]").forEach((el) => { const job = jobs[jobOf(el)]; el.classList.toggle("hidden", !job || !el.dataset.whenState.split(" ").includes(job.status)); });
+    const importing = jobs[IMPORT].status === "running";
+    document.querySelectorAll("[data-when-import-queued]").forEach((el) => el.classList.toggle("hidden", jobs[IMPORT].status !== "queued"));
     document.querySelectorAll("[data-when-running]").forEach((el) => el.classList.toggle("hidden", !running));
-    document.querySelectorAll("[data-when-idle]").forEach((el) => el.classList.toggle("hidden", running));
+    document.querySelectorAll("[data-hide-importing]").forEach((el) => el.classList.toggle("hidden", importing));
+    document.querySelectorAll("[data-when-importing]").forEach((el) => el.classList.toggle("hidden", !importing));
+    const exporting = statusOf(EXPORT) === "running";
+    document.querySelectorAll("[data-when-exporting]").forEach((el) => el.classList.toggle("hidden", !exporting));
+    document.querySelectorAll("[data-when-export-queued]").forEach((el) => el.classList.toggle("hidden", statusOf(EXPORT) !== "queued"));
+    const expPct = Math.round((exp.done / (exp.total || 1)) * 100) + "%";
+    document.querySelectorAll("[data-export-done]").forEach((el) => { el.textContent = numIn(el, exp.done); }); document.querySelectorAll("[data-export-total]").forEach((el) => { el.textContent = numIn(el, exp.total); }); setText("[data-export-pct]", expPct);
+    document.querySelectorAll("[data-export-progress]").forEach((p) => p.style.setProperty("--p", expPct));
+    document.querySelectorAll("[data-when-idle]").forEach((el) => el.classList.toggle("hidden", running || importing || exporting));
+    renderImport();
     document.querySelectorAll("[data-when-paused]").forEach((el) => el.classList.toggle("hidden", key !== "paused" && key !== "interrupted"));
     document.querySelectorAll("[data-count-of]").forEach((el) => { el.textContent = countOf(el.dataset.countOf); });
     document.querySelectorAll("[data-zero-of]").forEach((el) => el.classList.toggle("hidden", countOf(el.dataset.zeroOf) > 0));
-    const attention = countOf("attention");
+    const attention = state.libraryEmpty ? 0 : countOf("attention");
+    document.querySelectorAll("[data-hide-library-empty]").forEach((el) => el.classList.toggle("hidden", Boolean(state.libraryEmpty)));
     setText("[data-job-attention]", attention);
     document.querySelectorAll("[data-attention-label]").forEach((el) => { el.innerHTML = bi(attention === 1 ? "needs attention" : "need attention", "cần xử lý"); });
     document.querySelectorAll("[data-when-attention]").forEach((el) => el.classList.toggle("hidden", !attention));
-    document.querySelectorAll("[data-job-dot]").forEach((el) => { el.className = "dot" + (attention ? " warn" : running ? " run" : ""); });
+    document.querySelectorAll("[data-job-dot]").forEach((el) => { el.className = "dot" + (attention ? " warn" : running || importing || exporting ? " run" : ""); });
     setText("[data-history-count]", historyJobs.count);
     document.querySelectorAll("[data-history-list]").forEach((el) => el.classList.toggle("hidden", !historyJobs.count));
     document.querySelectorAll("[data-history-empty]").forEach((el) => el.classList.toggle("hidden", Boolean(historyJobs.count)));
@@ -503,17 +583,18 @@
   }
   function resumeJob(id) {
     if (!["paused", "interrupted"].includes(jobs[id].status)) return;
-    const next = id === LIVE ? "running" : "queued";
+    const next = [LIVE, IMPORT, EXPORT].includes(id) ? slotStatus(id) : "queued";
     if (id === LIVE) logLive(`resume · same job id · ${state.job.done} completed · ${state.job.total - state.job.done - state.job.failed} pending`);
     setStatus(id, next);
   }
   function eachJob(statuses, fn) { [LIVE].concat(Object.keys(jobs).filter((id) => id !== LIVE)).forEach((id) => { if (statuses.includes(jobs[id].status)) fn(id); }); }
-  function rowName(id) { const name = Array.from(document.querySelectorAll(`[data-job-id="${id}"] [data-job-name]`)).find((el) => !el.closest("template")); return name ? name.innerHTML : id; }
+  function rowName(id) { const name = Array.from(document.querySelectorAll(`[data-job-id="${id}"] [data-job-name]`)).find((el) => !el.closest("template")); if (name) return name.innerHTML; if (id === IMPORT) return bi(`Import ${imp.total} chapters · 庆余年`, `Nhập ${imp.total} chương · 庆余年`); return id === EXPORT ? exportName() : id; }
   function askCancelJob(id) {
     if (!ACTIVE.includes(jobs[id].status)) return;
     pending.cancel = id;
     setText("[data-cancel-job-id]", id);
     document.querySelectorAll("[data-cancel-job-name]").forEach((el) => { el.innerHTML = rowName(id); });
+    document.querySelectorAll("[data-cancel-kind]").forEach((el) => el.classList.toggle("hidden", el.dataset.cancelKind !== (id === IMPORT ? "import" : "job")));
     openOverlay("dlg-cancel-job");
   }
   function cancelJob() {
@@ -521,9 +602,243 @@
     if (id === LIVE) logLive(`job <span class="wrn">cancelled by user</span> · item ${pad(j.item)} stopped → pending · ${j.done} completed · ${j.total - j.done - j.failed} pending`);
     setStatus(id, "cancelled");
     closeOverlays();
-    toast("Job cancelled — finished items are kept. Use Rerun in History to run it again", "Đã huỷ job — giữ các mục đã xong. Dùng Chạy lại trong Lịch sử để chạy lại", "", { job: id });
+    if (id === IMPORT) toast(`Import cancelled — ${imp.done} of ${imp.total} chapters kept. 庆余年 is marked “Import incomplete”; add the rest with Import more chapters`, `Đã huỷ nhập — giữ ${imp.done} / ${imp.total} chương. 庆余年 được đánh dấu “Nhập chưa xong”; nhập phần còn lại bằng Nhập thêm chương`, "", { job: id });
+    else toast("Job cancelled — finished items are kept. Use Rerun in History to run it again", "Đã huỷ job — giữ các mục đã xong. Dùng Chạy lại trong Lịch sử để chạy lại", "", { job: id });
+  }
+
+  // Import job: live progress on the Library card, inspector, Task Center row and status bar
+  function renderImport() {
+    const pct = Math.round((imp.done / imp.total) * 100);
+    const insp = libInspector(), other = insp && insp.dataset.novel !== "庆余年";
+    const targets = (sel) => Array.from(document.querySelectorAll(sel)).filter((el) => !(other && insp.contains(el)));
+    const put = (sel, value) => targets(sel).forEach((el) => { el.textContent = value; });
+    put("[data-import-done]", imp.done.toLocaleString("en-US")); put("[data-import-total]", imp.total.toLocaleString("en-US")); put("[data-import-pct]", pct + "%");
+    const paused = state.importMode === "paused";
+    targets("[data-import-progress]").forEach((p) => { p.style.setProperty("--p", pct + "%"); p.classList.toggle("paused", paused); });
+  }
+  function syncImportCard() {
+    const status = jobs[IMPORT].status;
+    const map = { running: "importing", queued: "queued", paused: "paused", interrupted: "paused", cancelled: "incomplete", completed: "done" };
+    const mode = imp.more && ACTIVE.includes(status) ? "more" : map[status];
+    if (mode) applyMode("#library", "import", mode);
+  }
+  // Drawer previews of the library import modes keep the one job slot (PO1) consistent and stay static
+  const IMPORT_PREVIEW = { importing: "running", more: "running", paused: "paused", queued: "queued", incomplete: "cancelled", done: "completed" };
+  function previewImport(mode) {
+    const status = IMPORT_PREVIEW[mode];
+    if (!status) return;
+    imp.preview = true;
+    imp.more = mode === "more"; imp.total = imp.more ? 11 : 746; imp.done = imp.more ? 3 : 312;
+    if (status === "running") { setStatus(IMPORT, "running"); setStatus(LIVE, "queued"); return; }
+    setStatus(LIVE, "running");
+    setStatus(IMPORT, status);
+  }
+  function importStart() {
+    imp.preview = false;
+    imp.more = state.preflight === "import-more";
+    closeOverlays();
+    state.importDirty = false;
+    imp.done = 0; imp.total = imp.more ? 11 : 746;
+    if (ENDED.includes(jobs[IMPORT].status)) historyJobs.count -= 1;
+    setStatus(IMPORT, slotStatus(IMPORT));
+    show("library");
+    const card = document.querySelector('#library .novel-card[data-novel="庆余年"]');
+    if (card) selectIn(card);
+    toast(`Job queued — Import ${imp.total} chapters · 庆余年 appears in the Task Center`, `Đã xếp hàng job — Nhập ${imp.total} chương · 庆余年 hiện trong Trung tâm tác vụ`, "success", { job: IMPORT });
+  }
+  function tickJob(id, progress, step, onDone) {
+    if (statusOf(id) !== "running") return;
+    progress.done = Math.min(progress.total, progress.done + step);
+    if (progress.done < progress.total) { renderJob(); return; }
+    setStatus(id, "completed");
+    onDone();
+  }
+  setInterval(() => {
+    if (!imp.preview) tickJob(IMPORT, imp, imp.total > 100 ? 9 : 1, () => toast(`Import ${imp.total} chapters · 庆余年 completed — ${imp.total} done`, `Nhập ${imp.total} chương · 庆余年 hoàn tất — ${imp.total} xong`, "success", { job: IMPORT }));
+    tickJob(EXPORT, exp, Math.ceil(exp.total / 40), () => toast(`Export ${numEn(exp.total)} chapters · ${exp.key} completed — ${exp.file} saved`, `Xuất ${numVi(exp.total)} chương · ${exp.key} hoàn tất — đã lưu ${exp.file}`, "success", { job: EXPORT }));
+  }, 400);
+
+  // Export dialog (M04-F05): follows the novel of the trigger; blocked during the first import; an incomplete novel exports its imported chapters
+  const exportedFiles = ["凡人修仙传.zip"];
+  const expEl = (sel) => document.querySelector(`#dlg-export ${sel}`);
+  const exportName = () => bi(`Export ${numEn(exp.total)} chapters · ${exp.key}`, `Xuất ${numVi(exp.total)} chương · ${exp.key}`);
+  function prepareExport(key, preview) {
+    const n = novels[key], partial = key === "庆余年" && state.importMode === "incomplete", invalid = preview === "invalid";
+    exp.key = key; exp.count = partial ? imp.done : n.chapters;
+    setText("[data-exp-title]", key); setText("[data-exp-count]", exp.count.toLocaleString("en-US"));
+    expEl(`[data-exp-scope][value="${invalid ? "range" : "all"}"]`).checked = true;
+    expEl("[data-exp-from]").value = invalid ? exp.count - 99 : 1;
+    expEl("[data-exp-to]").value = invalid ? exp.count + 100 : exp.count;
+    expEl("[data-exp-folder]").value = `D:\\NovelStudio\\Library\\novels\\${n.id}\\exports\\`;
+    expEl("[data-exp-file]").value = `${key}.zip`;
+    expEl('[data-exp-conflict][value="keep"]').checked = true;
+    expEl("[data-exp-partial]").classList.toggle("hidden", !partial);
+    expEl("[data-exp-blocked]").classList.toggle("hidden", !(key === "庆余年" && FIRST_IMPORT_MODES.includes(state.importMode)));
+    renderExport();
+  }
+  function renderExport() {
+    const all = expEl('[data-exp-scope][value="all"]').checked, from = expEl("[data-exp-from]"), to = expEl("[data-exp-to]");
+    exp.from = all ? 1 : Number(from.value); exp.to = all ? exp.count : Number(to.value);
+    const valid = Number.isInteger(exp.from) && Number.isInteger(exp.to) && exp.from >= 1 && exp.from <= exp.to && exp.to <= exp.count;
+    from.disabled = all; to.disabled = all;
+    expEl("[data-exp-range-field]").classList.toggle("error", !valid);
+    setText("[data-exp-n]", valid ? (exp.to - exp.from + 1).toLocaleString("en-US") : "—");
+    const file = expEl("[data-exp-file]").value.trim();
+    expEl("[data-exp-exists]").classList.toggle("hidden", !exportedFiles.includes(file));
+    setText("[data-exp-file-name]", file); setText("[data-exp-file-alt]", file.replace(/\.zip$/i, "") + "-2.zip");
+    expEl("[data-exp-start]").disabled = !valid || !file || !expEl("[data-exp-blocked]").classList.contains("hidden");
+  }
+  function exportStart() {
+    const file = expEl("[data-exp-file]").value.trim(), keepBoth = exportedFiles.includes(file) && expEl('[data-exp-conflict][value="keep"]').checked;
+    exp.file = keepBoth ? expEl("[data-exp-file-alt]").textContent : file;
+    if (!exportedFiles.includes(exp.file)) exportedFiles.push(exp.file);
+    exp.done = 0; exp.total = exp.to - exp.from + 1;
+    const exportHooks = (sel) => [document, ...Array.from(document.querySelectorAll(`template[data-for="${EXPORT}"]`), (t) => t.content)].flatMap((root) => Array.from(root.querySelectorAll(sel)));
+    const putExport = (sel, value) => exportHooks(sel).forEach((el) => { el.textContent = value; });
+    putExport("[data-export-novel]", exp.key); putExport("[data-export-alias]", novels[exp.key].name); putExport("[data-export-file]", `novels\\${novels[exp.key].id}\\exports\\${exp.file}`);
+    putExport("[data-export-range]", `${pad(exp.from)}–${pad(exp.to)}`); exportHooks("[data-export-total]").forEach((el) => { el.textContent = numIn(el, exp.total); });
+    closeOverlays();
+    if (ENDED.includes(statusOf(EXPORT))) historyJobs.count -= 1;
+    if (!jobs[EXPORT]) jobs[EXPORT] = { status: "queued", problem: false, seen: true };
+    Object.keys(novelJobs).forEach((k) => { novelJobs[k] = novelJobs[k].filter((id) => id !== EXPORT); });
+    novelJobs[exp.key] = (novelJobs[exp.key] || []).concat(EXPORT);
+    setStatus(EXPORT, slotStatus(EXPORT));
+    toast(`Job queued — Export ${numEn(exp.total)} chapters · ${exp.key} appears in the Task Center`, `Đã xếp hàng job — Xuất ${numVi(exp.total)} chương · ${exp.key} hiện trong Trung tâm tác vụ`, "success", { job: EXPORT });
+  }
+
+  // Library: open, delete, metadata edit -------------------------------
+  // Library import modes: the first import blocks Open; "more" (Import more chapters) keeps the novel openable. Delete is refused in all of them.
+  const FIRST_IMPORT_MODES = ["importing", "paused", "queued"];
+  function activeJobFor(key) {
+    return (novelJobs[key] || []).find((id) => (id === IMPORT ? FIRST_IMPORT_MODES.concat("more").includes(state.importMode) : jobs[id] && ACTIVE.includes(jobs[id].status)));
+  }
+  function openNovel(el) {
+    const key = novelFrom(el);
+    if (!novels[key]) return;
+    if (key === "庆余年" && FIRST_IMPORT_MODES.includes(state.importMode)) { toast("庆余年 is still importing — it opens when the import is done", "庆余年 vẫn đang nhập — truyện mở được khi nhập xong"); return; }
+    setNovel(key); show("reader");
+  }
+  const pendingDelete = { key: null };
+  function prepareOverlay(trigger) {
+    const id = trigger.dataset.open;
+    if (id === "dlg-job-preflight") { state.preflight = trigger.dataset.preflight || "translate"; applyMode("#dlg-job-preflight", "type", state.preflight); applyMode("#dlg-job-preflight", "", "ready"); importSteps(isImportPreflight()); }
+    if (id === "dlg-delete") prepareDelete(novelFrom(trigger) || "斗破苍穹");
+    if (trigger.closest(".proto-drawer") && novels[trigger.dataset.novel]) fillInspector(trigger.dataset.novel);
+    if (id === "dlg-export") prepareExport(novelFrom(trigger) || state.novel || defaultNovel, trigger.dataset.preview);
+    if (trigger.dataset.rerun) fillRerun(trigger.dataset.rerun);
+    if (trigger.dataset.preview) applyMode(`#${id}`, "", trigger.dataset.preview);
+  }
+  function prepareDelete(key) {
+    const n = novels[key], job = activeJobFor(key);
+    pendingDelete.key = key;
+    setText("[data-del-title]", key); setText("[data-del-folder]", `novels\\${n.id}\\`); setText("[data-del-chapters]", n.chapters.toLocaleString("en-US"));
+    document.querySelectorAll("[data-del-names]").forEach((el) => { el.textContent = n.name === key ? key : `${key} · ${n.name}`; });
+    document.querySelectorAll("[data-confirm-title]").forEach((input) => { input.value = ""; input.placeholder = key; });
+    document.querySelectorAll("[data-confirm-target]").forEach((b) => { b.disabled = true; });
+    if (job) { document.querySelectorAll("[data-del-job]").forEach((el) => { el.innerHTML = rowName(job); }); setText("[data-del-job-id]", job); document.querySelectorAll("[data-del-open-job]").forEach((b) => { b.dataset.job = job; }); }
+    applyMode("#dlg-delete", "", job ? "refused" : "confirm");
+  }
+  function titleConfirmed(value) {
+    const n = novels[pendingDelete.key], v = value.trim().toLowerCase();
+    return Boolean(n && v && (v === pendingDelete.key.toLowerCase() || v === n.name.toLowerCase()));
+  }
+  function deleteNovel() {
+    const key = pendingDelete.key;
+    closeOverlays();
+    if (!key) return;
+    document.querySelectorAll(`#library [data-novel="${key}"]`).forEach((el) => { if (el.matches(".novel-card, tr")) el.classList.add("hidden"); });
+    toast(`Deleted ${key} for good — exports\\ kept, finished jobs stay in History as (deleted)`, `Đã xoá hẳn ${key} — giữ exports\\, job đã xong vẫn ở Lịch sử với nhãn (đã xoá)`, "success");
+  }
+  function setEditing(scope, on) {
+    if (!scope) return;
+    scope.querySelectorAll("[data-edit-view]").forEach((el) => el.classList.toggle("hidden", on));
+    scope.querySelectorAll("[data-edit-form]").forEach((el) => el.classList.toggle("hidden", !on));
+    scope.querySelectorAll(".field.error").forEach((f) => f.classList.remove("error"));
+    if (!on) scope.querySelectorAll("input, textarea").forEach((i) => { i.value = i.defaultValue; });
+  }
+  function saveEdit(scope) {
+    if (!scope) return;
+    const empty = Array.from(scope.querySelectorAll("[data-required]")).filter((i) => !i.value.trim());
+    scope.querySelectorAll("[data-required]").forEach((i) => i.closest(".field").classList.toggle("error", !i.value.trim()));
+    if (empty.length) { empty[0].focus(); return; }
+    scope.querySelectorAll("input, textarea").forEach((i) => { i.defaultValue = i.value; });
+    setEditing(scope, false);
+    toast("Saved — the card, the list and the inspector show the new values", "Đã lưu — thẻ, danh sách và inspector hiện giá trị mới", "success");
+  }
+
+  // Library inspector: shows the novel selected in the grid or the list
+  let libNovels = null;
+  function libInspector() { return document.querySelector("#library .panel.right"); }
+  function plainText(value, lang) {
+    if (Array.isArray(value)) return value.map((v) => plainText(v, lang)).join(", ");
+    return value && typeof value === "object" ? value[lang] || value.en : String(value);
+  }
+  function fillBilingual(el, value) {
+    if (value && typeof value === "object" && el.lang && !el.querySelector("[lang]")) { el.textContent = value[el.lang] || value.en; return; }
+    if (value && typeof value === "object") { ["en", "vi"].forEach((lang) => { el.querySelectorAll(`[lang="${lang}"]`).forEach((c) => { c.textContent = value[lang]; }); }); return; }
+    el.textContent = value;
+  }
+  function makeChip(item, removable) {
+    const chip = Object.assign(document.createElement("span"), { className: "chip" });
+    if (typeof item === "object") chip.innerHTML = bi(item.en, item.vi); else chip.textContent = item;
+    if (removable) chip.insertAdjacentHTML("beforeend", '<button type="button" class="btn ghost sm icon" data-action="tag-remove" aria-label="Remove"><svg class="icon sm"><use href="#i-x"/></svg></button>');
+    return chip;
+  }
+  function fillChips(el, items) {
+    const entry = el.querySelector("[data-tag-entry]"), empty = el.querySelector(":scope > .meta");
+    Array.from(el.childNodes).filter((n) => (n.nodeType === 3 && !n.textContent.trim()) || (n.classList && n.classList.contains("chip"))).forEach((n) => n.remove());
+    const chips = items.flatMap((item) => [makeChip(item, Boolean(entry)), " "]);
+    if (entry) entry.before(...chips); else el.append(...chips);
+    if (empty) empty.classList.toggle("hidden", items.length > 0);
+  }
+  function fillSelect(el, value) {
+    const text = plainText(value, "en");
+    const opt = Array.from(el.options).find((o) => (o.dataset.optEn || o.text) === text || o.text.endsWith(` · ${text.toLowerCase()}`));
+    Array.from(el.options).forEach((o) => { o.defaultSelected = o === opt; o.selected = o === opt; });
+  }
+  function fillField(el, value, key) {
+    const field = el.dataset.novelField;
+    if (el.matches("select")) { fillSelect(el, value); return; }
+    if (el.matches("input, textarea")) { el.value = plainText(value, state.lang); el.defaultValue = el.value; return; }
+    if (field === "cover") { const src = document.querySelector(`#library tr[data-novel="${key}"] .cover`); if (src) { el.className = src.className; el.style.cssText = src.style.cssText; } return; }
+    if (Array.isArray(value)) { fillChips(el, value); return; }
+    fillBilingual(el, value);
+  }
+  function fillInspector(key) {
+    const insp = libInspector();
+    if (!libNovels) { const src = document.getElementById("lib-novels"); libNovels = src ? JSON.parse(src.textContent) : {}; }
+    const data = libNovels[key];
+    if (!insp || !data) return;
+    document.querySelectorAll("#library [data-select][data-novel]").forEach((s) => s.classList.toggle("selected", s.dataset.novel === key));
+    insp.querySelectorAll("[data-edit-scope]").forEach((scope) => setEditing(scope, false));
+    insp.dataset.novel = key;
+    insp.querySelectorAll("[data-novel-field]").forEach((el) => { const field = el.dataset.novelField; if (field === "cover" || field in data) fillField(el, data[field], key); });
+    const pill = data.latestJobPill || "";
+    if (pill) insp.querySelectorAll("[data-novel-field=latestJob]").forEach((el) => { el.className = /\bpill\b/.test(pill) ? pill : `pill ${pill}`; });
+    insp.querySelectorAll("[data-novel-only]").forEach((el) => el.classList.toggle("hidden", el.dataset.novelOnly !== key));
+    insp.querySelectorAll("[data-novel-generic]").forEach((el) => el.classList.toggle("hidden", key === "庆余年"));
+    insp.querySelectorAll('[data-mode-key="import"][data-mode-only]').forEach((el) => el.classList.toggle("hidden", !modeOn(el, state.importMode)));
+    if (key === "庆余年") renderImport();
+  }
+
+  // Import screen: leaving a preview with edits asks first (dlg-discard-import)
+  const pendingScreen = { id: null };
+  function markImportDirty(el) { if (el.closest("#import [data-import-edit]")) state.importDirty = true; }
+  function askDiscardImport(id) {
+    pendingScreen.id = id;
+    document.querySelectorAll("[data-discard-for]").forEach((el) => el.classList.toggle("hidden", (el.dataset.discardFor === "app-close") !== (id === "app-close")));
+    history.replaceState(null, "", "#import");
+    openOverlay("dlg-discard-import");
+  }
+  function addTag(input) {
+    const value = input.value.trim();
+    if (!value) return;
+    input.before(makeChip(value, true));
+    input.value = "";
+    markImportDirty(input);
   }
   function askCloseApp() {
+    if (state.screen === "import" && state.importDirty) { askDiscardImport("app-close"); return; }
     const n = countOf("running");
     if (!n) { toast("No job is running, so the app closes without asking", "Không có job đang chạy nên ứng dụng đóng mà không hỏi"); return; }
     document.querySelectorAll("[data-close-message]").forEach((el) => { el.innerHTML = n === 1 ? bi("1 job is running. It will pause and can be resumed next time.", "1 job đang chạy. Job sẽ tạm dừng và có thể chạy tiếp lần sau.") : bi(`${n} jobs are running. They will pause and can be resumed next time.`, `${n} job đang chạy. Các job sẽ tạm dừng và có thể chạy tiếp lần sau.`); });
@@ -580,8 +895,26 @@
     const id = btn.closest("[data-job-id]") ? btn.closest("[data-job-id]").dataset.jobId : shown.id || LIVE;
     toast(`Opening ${logPath(id)} in the default editor`, `Đang mở ${logPath(id)} bằng trình soạn thảo mặc định`);
   }
+  // Rerun of an import job (M04 PO6): the novel still exists, so it becomes an Import more into it; duplicates are unticked
+  const importConfigs = {
+    "j-2026-10-06-0019": { novel: "庆余年", package: "庆余年.zip · 5.4 MB", range: "0001–0746", count: 746 },
+    "j-2026-10-04-0016": { novel: "全职高手", package: "quanzhi.zip · 21.4 MB", range: "0001–1728", count: 1728 },
+    "j-2026-09-30-0003": { novel: "凡人修仙传", package: "fanren.zip", range: "0001–2446", count: 2446 }
+  };
+  function fillRerun(id) {
+    const c = importConfigs[id], n = novels[c.novel];
+    state.preflight = "import-rerun";
+    setText("[data-rerun-id]", id); setText("[data-rerun-novel]", novelLabel(c.novel)); setText("[data-rerun-now]", n.chapters.toLocaleString("en-US"));
+    setText("[data-rerun-package]", c.package); setText("[data-rerun-range]", `${c.range} · ${c.count.toLocaleString("en-US")}`); setText("[data-rerun-target]", `novels\\${n.id}\\`);
+    applyMode("#dlg-job-preflight", "type", "import-rerun"); applyMode("#dlg-job-preflight", "", "ready");
+  }
+  function openRerunImport(id) {
+    fillRerun(id);
+    openOverlay("dlg-job-preflight");
+  }
   function rerunJob(btn) {
     const id = jobOf(btn);
+    if (importConfigs[id]) { openRerunImport(id); return; }
     toast(`Rerun queued as a new job — same type, novel, range and backend as ${id}`, `Đã xếp hàng Chạy lại thành job mới — cùng loại, truyện, phạm vi và backend với ${id}`, "success");
   }
 
@@ -638,11 +971,16 @@
     if (kind !== "danger" && !o.sticky) setTimeout(() => el.remove(), 5000);
   }
 
-  // Prototype drawer notes -------------------------------------------
-  function renderNotes(section) {
+  // Prototype drawer: screen states (moved out of each screen), notes ----
+  const protoStates = document.querySelector("[data-proto-states]");
+  screens.forEach((s) => { const block = s.querySelector(":scope > .proto-states"); if (block) { block.dataset.forScreen = s.id; protoStates.append(block); } });
+  function renderDrawer(section) {
     const notes = document.querySelector(".proto-drawer .notes");
     const src = section.querySelector(".annotations");
     notes.innerHTML = src ? src.innerHTML : "";
+    const blocks = protoStates.querySelectorAll(".proto-states");
+    blocks.forEach((b) => { b.hidden = b.dataset.forScreen !== section.id; });
+    protoStates.querySelector("[data-proto-empty]").hidden = Array.from(blocks).some((b) => !b.hidden);
     document.querySelectorAll(".proto-drawer .screens a").forEach((a) => a.classList.toggle("active", a.dataset.screen === section.id));
   }
 
@@ -657,6 +995,9 @@
     const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName) || e.target.isContentEditable;
     const mod = e.ctrlKey || e.metaKey;
     if (mod && e.key === "Enter" && e.target.closest("[data-chat]")) { e.preventDefault(); sendChat(e.target); return; }
+    if (e.key === "Enter" && e.target.matches("[data-tag-entry]")) { e.preventDefault(); addTag(e.target); return; }
+    if (!typing && !mod && e.key === "/") { const field = document.querySelector(".screen.active [data-search-slash]"); if (field) { e.preventDefault(); field.focus(); return; } }
+    if (!typing && !mod && e.key === "Enter" && state.screen === "library" && !document.querySelector(".scrim.open")) { const sel = document.querySelector("#library .novel-card.selected:not(.hidden), #library tbody tr.selected:not(.hidden)"); if (sel) { e.preventDefault(); openNovel(sel); return; } }
     if (e.key === "Escape") { const drawer = document.querySelector(".proto-drawer.open"); const overlay = document.querySelector(".scrim.open"); if (overlay) closeTopOverlay(); else if (drawer) drawer.classList.remove("open"); else app.classList.remove("zen"); return; }
     if (mod && e.key.toLowerCase() === "k") { e.preventDefault(); openOverlay("palette"); return; }
     if (mod && e.key === "/") { e.preventDefault(); openOverlay("shortcuts"); return; }
@@ -668,7 +1009,7 @@
     if (mod && e.shiftKey && e.key.toLowerCase() === "u") { e.preventDefault(); actions["toggle-lang"](); return; }
     if (mod && e.shiftKey && e.key.toLowerCase() === "t") { e.preventDefault(); show("tasks"); return; }
     if (mod && e.shiftKey && e.key.toLowerCase() === "f") { e.preventDefault(); if (needsNovel("reader")) return; show("reader"); togglePanel("right", false); switchTab(document.querySelector("#reader [data-tab='search']")); return; }
-    if (mod && e.key.toLowerCase() === "o") { e.preventDefault(); show("import"); return; }
+    if (mod && e.key.toLowerCase() === "o") { e.preventDefault(); show("import"); if (state.screen === "import") screenMode("import", "start"); return; }
     if (mod && e.key.toLowerCase() === "s") { e.preventDefault(); actions.save(); return; }
     if (mod && e.key.toLowerCase() === "e" && state.screen === "reader") { e.preventDefault(); toggleEdit(); return; }
     if (mod && moduleKeys[e.key]) { e.preventDefault(); if (!needsNovel(moduleKeys[e.key])) show(moduleKeys[e.key]); return; }
@@ -678,9 +1019,10 @@
     if (!typing && !mod && e.key.toLowerCase() === "f" && e.shiftKey) { e.preventDefault(); actions.zen(); }
   });
 
+  document.addEventListener("dblclick", (e) => { const item = e.target.closest("#library .novel-card, #library tbody tr"); if (item) openNovel(item); });
   window.addEventListener("hashchange", () => show(location.hash.slice(1)));
   window.addEventListener("resize", () => { const active = document.querySelector(".screen.active"); if (active) renderWaves(active); });
   document.querySelectorAll("[data-indeterminate]").forEach((box) => { box.indeterminate = true; });
-  applyTheme(); applyLang(); applyLayout(); renderJob(); toggleEdit(false);
+  applyTheme(); applyLang(); applyLayout(); renderJob(); syncImportCard(); toggleEdit(false);
   show(location.hash.slice(1) || defaultScreen);
 })();

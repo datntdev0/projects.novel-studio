@@ -1,128 +1,439 @@
-  <!-- ================= screen: library (TH-02 · M04) ================= -->
+  <!-- ================= screen: library (TH-02) ================= -->
   <section class="screen" id="library" data-title="Library" data-layout="no-bottom">
+    <div class="proto-states" hidden>
+      <h4><span lang="en">Library</span><span lang="vi">Thư viện</span></h4>
+      <div class="segmented proto" data-mode-for="#library" data-mode-key="library" data-testid="lib-state-preview"><button data-mode="filled" aria-pressed="true" data-testid="lib-state-filled"><span lang="en">Filled</span><span lang="vi">Có truyện</span></button><button data-mode="empty" aria-pressed="false" data-testid="lib-state-empty"><span lang="en">Empty</span><span lang="vi">Trống</span></button></div>
+      <h4><span lang="en">庆余年 import</span><span lang="vi">Nhập 庆余年</span></h4>
+      <div class="segmented proto" data-mode-for="#library" data-mode-key="import" data-testid="lib-import-preview"><button data-mode="importing" aria-pressed="false" data-testid="lib-import-importing"><span lang="en">Importing</span><span lang="vi">Đang nhập</span></button><button data-mode="paused" aria-pressed="true" data-testid="lib-import-paused"><span lang="en">Paused</span><span lang="vi">Tạm dừng</span></button><button data-mode="queued" aria-pressed="false" data-testid="lib-import-queued"><span lang="en">Queued</span><span lang="vi">Đang chờ</span></button><button data-mode="more" aria-pressed="false" data-testid="lib-import-more"><span lang="en">Importing more</span><span lang="vi">Đang nhập thêm</span></button><button data-mode="incomplete" aria-pressed="false" data-testid="lib-import-incomplete"><span lang="en">Incomplete</span><span lang="vi">Chưa xong</span></button><button data-mode="done" aria-pressed="false" data-testid="lib-import-done"><span lang="en">Imported</span><span lang="vi">Đã nhập</span></button></div>
+    </div>
     <aside class="panel left" data-testid="library-left">
-      <div class="panel-head"><h3><span lang="en">Library</span><span lang="vi">Thư viện</span></h3><button class="btn ghost icon" data-toggle-panel="left" title="Collapse (Ctrl+B)"><svg class="icon"><use href="#i-panel-left"/></svg></button></div>
+      <div class="panel-head"><h3><span lang="en">Library</span><span lang="vi">Thư viện</span></h3><button class="btn ghost icon" data-toggle-panel="left" title="Collapse (Ctrl+B)" data-testid="lib-left-collapse"><svg class="icon"><use href="#i-panel-left"/></svg></button></div>
       <div class="panel-body">
-        <div class="panel-section">
-          <div class="list" data-select-group>
-            <a class="list-item selected" data-select data-testid="lib-filter-all"><svg class="icon"><use href="#i-library"/></svg><span class="text"><span lang="en">All novels</span><span lang="vi">Tất cả truyện</span></span><span class="badge neutral">7</span></a>
-            <a class="list-item" data-select><svg class="icon"><use href="#i-clock"/></svg><span class="text"><span lang="en">Recently opened</span><span lang="vi">Mở gần đây</span></span><span class="badge neutral">4</span></a>
-            <a class="list-item" data-select><svg class="icon"><use href="#i-zap"/></svg><span class="text"><span lang="en">With running jobs</span><span lang="vi">Đang có job</span></span><span class="badge neutral">1</span></a>
+        <div data-mode-key="library" data-mode-only="filled">
+          <div class="panel-section">
+            <div class="list" data-select-group>
+              <a class="list-item selected" data-select data-testid="lib-filter-all"><svg class="icon"><use href="#i-library"/></svg><span class="text"><span lang="en">All novels</span><span lang="vi">Tất cả truyện</span></span><span class="badge neutral">7</span></a>
+              <a class="list-item" data-select data-testid="lib-filter-recent"><svg class="icon"><use href="#i-clock"/></svg><span class="text"><span lang="en">Recently opened</span><span lang="vi">Mở gần đây</span></span><span class="badge neutral">4</span></a>
+            </div>
+          </div>
+          <div class="panel-section">
+            <h4><span lang="en">Source language</span><span lang="vi">Ngôn ngữ nguồn</span></h4>
+            <div class="list" data-select-group>
+              <a class="list-item compact" data-select data-testid="lib-lang-zh"><span class="text">中文 · Chinese</span><span class="badge neutral">4</span></a>
+              <a class="list-item compact" data-select data-testid="lib-lang-ko"><span class="text">한국어 · Korean</span><span class="badge neutral">1</span></a>
+              <a class="list-item compact" data-select data-testid="lib-lang-ja"><span class="text">日本語 · Japanese</span><span class="badge neutral">1</span></a>
+              <a class="list-item compact" data-select data-testid="lib-lang-en"><span class="text">English</span><span class="badge neutral">1</span></a>
+            </div>
+          </div>
+          <div class="panel-section">
+            <div class="filter-menu panel" data-testid="lib-filters">
+              <div class="filter-group"><h4><span lang="en">Publication</span><span lang="vi">Tình trạng phát hành</span></h4><label class="check"><input type="checkbox" data-testid="lib-pub-ongoing"><span lang="en">Ongoing</span><span lang="vi">Đang ra</span><span class="n">1</span></label><label class="check"><input type="checkbox" data-testid="lib-pub-completed"><span lang="en">Completed</span><span lang="vi">Đã hoàn thành</span><span class="n">6</span></label></div>
+              <div class="filter-group"><h4><span lang="en">Latest job</span><span lang="vi">Job gần nhất</span></h4><label class="check"><input type="checkbox" data-testid="lib-job-running"><span class="pill running"><span lang="en">Running</span><span lang="vi">Đang chạy</span></span><span class="n">1</span></label><label class="check"><input type="checkbox" data-testid="lib-job-paused"><span class="pill warning"><span lang="en">Paused</span><span lang="vi">Tạm dừng</span></span><span class="n">2</span></label><label class="check"><input type="checkbox" data-testid="lib-job-completed"><span class="pill success"><span lang="en">Completed</span><span lang="vi">Hoàn tất</span></span><span class="n">2</span></label><label class="check"><input type="checkbox" data-testid="lib-job-completed-early"><span class="pill warning"><span lang="en">Completed early</span><span lang="vi">Hoàn tất sớm</span></span><span class="n">1</span></label><label class="check"><input type="checkbox" data-testid="lib-job-none"><span lang="en">No jobs</span><span lang="vi">Chưa có job</span><span class="n">1</span></label></div>
+              <div class="filter-group"><h4><span lang="en">Tags (set by the app)</span><span lang="vi">Nhãn (do ứng dụng gắn)</span></h4><div class="chips"><button type="button" class="chip" aria-pressed="false" data-testid="lib-tag-analysed"><svg class="icon sm"><use href="#i-sparkles"/></svg><span lang="en">Analysed</span><span lang="vi">Đã phân tích</span><span class="n">2</span></button><button type="button" class="chip" aria-pressed="false" data-testid="lib-tag-translated"><svg class="icon sm"><use href="#i-languages"/></svg><span lang="en">Translated</span><span lang="vi">Đã dịch</span><span class="n">1</span></button></div></div>
+            </div>
+          </div>
+          <div class="panel-section">
+            <h4><span lang="en">Genre</span><span lang="vi">Thể loại</span></h4>
+            <div class="list" data-select-group>
+              <a class="list-item compact" data-select data-testid="lib-genre-xianxia"><span class="text">仙侠 · Tiên hiệp</span><span class="badge neutral">1</span></a>
+              <a class="list-item compact" data-select data-testid="lib-genre-xuanhuan"><span class="text">玄幻 · Huyền huyễn</span><span class="badge neutral">1</span></a>
+              <a class="list-item compact" data-select data-testid="lib-genre-esports"><span class="text">竞技 · Thi đấu</span><span class="badge neutral">1</span></a>
+              <a class="list-item compact" data-select data-testid="lib-genre-history"><span class="text">历史 · Lịch sử</span><span class="badge neutral">1</span></a>
+              <a class="list-item compact" data-select data-testid="lib-genre-intrigue"><span class="text">权谋 · Quyền mưu</span><span class="badge neutral">1</span></a>
+              <a class="list-item compact" data-select data-testid="lib-genre-fantasy"><span class="text">Fantasy</span><span class="badge neutral">2</span></a>
+              <a class="list-item compact" data-select data-testid="lib-genre-isekai"><span class="text">Isekai</span><span class="badge neutral">1</span></a>
+            </div>
           </div>
         </div>
-        <div class="panel-section">
-          <h4><span lang="en">Source language</span><span lang="vi">Ngôn ngữ nguồn</span></h4>
-          <div class="list">
-            <a class="list-item compact"><span class="text">中文 · Chinese</span><span class="badge neutral">4</span></a>
-            <a class="list-item compact"><span class="text">한국어 · Korean</span><span class="badge neutral">1</span></a>
-            <a class="list-item compact"><span class="text">日本語 · Japanese</span><span class="badge neutral">1</span></a>
-            <a class="list-item compact"><span class="text">English</span><span class="badge neutral">1</span></a>
+        <div class="hidden" data-mode-key="library" data-mode-only="empty">
+          <div class="panel-section">
+            <div class="list" data-select-group>
+              <a class="list-item selected" data-select data-testid="lib-filter-all-empty"><svg class="icon"><use href="#i-library"/></svg><span class="text"><span lang="en">All novels</span><span lang="vi">Tất cả truyện</span></span><span class="badge neutral">0</span></a>
+              <a class="list-item" data-select data-testid="lib-filter-recent-empty"><svg class="icon"><use href="#i-clock"/></svg><span class="text"><span lang="en">Recently opened</span><span lang="vi">Mở gần đây</span></span><span class="badge neutral">0</span></a>
+            </div>
           </div>
-        </div>
-        <div class="panel-section">
-          <h4><span lang="en">Status</span><span lang="vi">Trạng thái</span></h4>
-          <div class="list">
-            <a class="list-item compact"><span class="flag a"></span><span class="text"><span lang="en">Analysed</span><span lang="vi">Đã phân tích</span></span><span class="badge neutral">3</span></a>
-            <a class="list-item compact"><span class="flag t"></span><span class="text"><span lang="en">Translated</span><span lang="vi">Đã dịch</span></span><span class="badge neutral">2</span></a>
-            <a class="list-item compact"><span class="flag"></span><span class="text"><span lang="en">Not started</span><span lang="vi">Chưa bắt đầu</span></span><span class="badge neutral">3</span></a>
-          </div>
-        </div>
-        <div class="panel-section">
-          <h4><span lang="en">Genre</span><span lang="vi">Thể loại</span></h4>
-          <div class="row" style="gap:4px;padding:0 var(--sp-sm)"><span class="pill plain">仙侠 · Tiên hiệp</span><span class="pill plain">武侠 · Võ hiệp</span><span class="pill plain">Isekai</span><span class="pill plain"><span lang="en">Slice of life</span><span lang="vi">Đời thường</span></span></div>
+          <div class="meta" style="padding:0 var(--sp-sm)"><span lang="en">Filters appear when the library has novels.</span><span lang="vi">Bộ lọc hiện khi thư viện có truyện.</span></div>
         </div>
       </div>
     </aside>
 
     <main class="workspace" data-testid="library-workspace" data-tab-scope>
       <div class="ws-toolbar">
-        <h2><span lang="en">All novels</span><span lang="vi">Tất cả truyện</span> <span class="meta">· 7</span></h2>
+        <h2><span lang="en">All novels</span><span lang="vi">Tất cả truyện</span> <span class="meta" data-mode-key="library" data-mode-only="filled">· 7</span><span class="meta hidden" data-mode-key="library" data-mode-only="empty">· 0</span></h2>
         <span class="spacer"></span>
-        <div class="search" style="width:260px;max-width:100%"><svg class="icon"><use href="#i-search"/></svg><input class="input" placeholder="Search title, author, language…" data-ph-en="Search title, author, language…" data-ph-vi="Tìm tiêu đề, tác giả, ngôn ngữ…" data-testid="lib-search"><kbd>/</kbd></div>
+        <div class="search"><svg class="icon"><use href="#i-search"/></svg><input class="input" placeholder="Search novels" title="Search title, author, language" data-search-slash data-ph-en="Search novels" data-ph-vi="Tìm truyện" data-testid="lib-search"><kbd>/</kbd></div>
         <select class="select" style="width:auto" data-testid="lib-sort"><option data-opt-en="Last updated" data-opt-vi="Cập nhật gần nhất">Last updated</option><option data-opt-en="Title" data-opt-vi="Tiêu đề">Title</option><option data-opt-en="Chapters" data-opt-vi="Số chương">Chapters</option><option data-opt-en="Translation progress" data-opt-vi="Tiến độ dịch">Translation progress</option></select>
         <div class="btn-group" data-tabs role="tablist"><button class="btn icon" data-tab="grid" aria-selected="true" title="Grid" data-testid="lib-view-grid"><svg class="icon"><use href="#i-grid"/></svg></button><button class="btn icon" data-tab="list" aria-selected="false" title="List" data-testid="lib-view-list"><svg class="icon"><use href="#i-list"/></svg></button></div>
         <span class="sep"></span>
-        <button class="btn primary sm" data-go="import" data-testid="lib-import"><svg class="icon sm"><use href="#i-plus"/></svg><span lang="en">Import novel</span><span lang="vi">Nhập truyện</span></button>
+        <button class="btn primary sm" data-go="import" data-go-mode="start" data-testid="lib-import"><svg class="icon sm"><use href="#i-plus"/></svg><span lang="en">Import novel</span><span lang="vi">Nhập truyện</span></button>
       </div>
       <div class="ws-body">
-        <div data-pane="grid" class="active">
-          <div class="novel-grid" data-select-group data-testid="lib-grid">
-            <div class="novel-card selected" data-select data-testid="lib-card-1"><div class="cover" style="--c:#3ecf8e"><span class="lang">ZH</span><span class="cjk">凡人修仙传</span></div><div class="title">Phàm Nhân Tu Tiên</div><div class="sub">忘语 · <span lang="en">2,446 ch</span><span lang="vi">2.446 chương</span></div><div class="bars"><span class="progress a" title="Analysed 1,203"><i style="--p:49%"></i></span><span class="progress t" title="Translated 100"><i data-job-progress style="--p:37%"></i></span></div></div>
-            <div class="novel-card" data-select><div class="cover" style="--c:#f2bd5b"><span class="lang">ZH</span><span class="cjk">斗破苍穹</span></div><div class="title">Đấu Phá Thương Khung</div><div class="sub">天蚕土豆 · <span lang="en">1,648 ch</span><span lang="vi">1.648 chương</span></div><div class="bars"><span class="progress a"><i style="--p:100%"></i></span><span class="progress t"><i style="--p:100%"></i></span></div></div>
-            <div class="novel-card" data-select><div class="cover" style="--c:#8e9792"><span class="lang">ZH</span><span class="cjk">全职高手</span></div><div class="title">Toàn Chức Cao Thủ</div><div class="sub">蝴蝶蓝 · <span lang="en">1,728 ch</span><span lang="vi">1.728 chương</span></div><div class="bars"><span class="progress a"><i style="--p:0%"></i></span><span class="progress t"><i style="--p:0%"></i></span></div></div>
-            <div class="novel-card" data-select><div class="cover" style="--c:#6addaa"><span class="lang">KO</span><span class="cjk">나 혼자만 레벨업</span></div><div class="title">Solo Leveling</div><div class="sub">추공 · <span lang="en">270 ch</span><span lang="vi">270 chương</span></div><div class="bars"><span class="progress a"><i style="--p:100%"></i></span><span class="progress t"><i style="--p:62%"></i></span></div></div>
-            <div class="novel-card" data-select><div class="cover" style="--c:#ff8a91"><span class="lang">JA</span><span class="cjk">転生したらスライムだった件</span></div><div class="title">Tensei Slime</div><div class="sub">伏瀬 · <span lang="en">304 ch</span><span lang="vi">304 chương</span></div><div class="bars"><span class="progress a"><i style="--p:12%"></i></span><span class="progress t"><i style="--p:0%"></i></span></div></div>
-            <div class="novel-card" data-select><div class="cover" style="--c:#b5bcb8"><span class="lang">ZH</span><span class="cjk">庆余年</span></div><div class="title">Khánh Dư Niên</div><div class="sub">猫腻 · <span lang="en">746 ch</span><span lang="vi">746 chương</span></div><div class="bars"><span class="progress a"><i style="--p:0%"></i></span><span class="progress t"><i style="--p:0%"></i></span></div></div>
-            <div class="novel-card" data-select><div class="cover" style="--c:#4a534e"><span class="lang">EN</span><span class="cjk">Mother of Learning</span></div><div class="title">Mother of Learning</div><div class="sub">nobody103 · <span lang="en">108 ch</span><span lang="vi">108 chương</span></div><div class="bars"><span class="progress a"><i style="--p:0%"></i></span><span class="progress t"><i style="--p:0%"></i></span></div></div>
+        <div data-mode-key="library" data-mode-only="filled">
+          <div data-pane="grid" class="active">
+            <div class="novel-grid" data-select-group data-testid="lib-grid">
+              <div class="novel-card selected" data-select data-novel="庆余年" data-testid="lib-card-qyn"><div class="cover image art-1"><span class="lang">ZH</span></div><div class="title">Khánh Dư Niên</div><div class="sub">猫腻 · <span data-mode-key="import" data-mode-only="importing paused queued"><span data-import-done>312</span> / <span data-import-total>746</span> <span lang="en">ch</span><span lang="vi">chương</span></span><span class="hidden" data-mode-key="import" data-mode-only="incomplete"><span data-import-done>312</span> <span lang="en">ch</span><span lang="vi">chương</span></span><span class="hidden" data-mode-key="import" data-mode-only="more done"><span lang="en">746 ch</span><span lang="vi">746 chương</span></span></div><div class="bars"><span class="progress a"><i style="--p:0%"></i></span><span class="progress t"><i style="--p:0%"></i></span><span class="progress hidden" data-import-progress data-mode-key="import" data-mode-only="importing"><i></i></span><span class="progress" data-import-progress data-mode-key="import" data-mode-only="paused"><i></i></span><span class="progress hidden" data-mode-key="import" data-mode-only="more"><i style="--p:27%"></i></span></div>
+                <div class="importing-state hidden" data-mode-key="import" data-mode-only="importing"><div class="card-state"><svg class="icon sm"><use href="#i-download"/></svg><span lang="en">Importing… <span data-import-done>312</span>/<span data-import-total>746</span></span><span lang="vi">Đang nhập… <span data-import-done>312</span>/<span data-import-total>746</span></span></div></div>
+                <div class="importing-state" data-mode-key="import" data-mode-only="paused"><div class="card-state warn"><svg class="icon sm"><use href="#i-pause"/></svg><span lang="en">Import paused · <span data-import-done>312</span>/<span data-import-total>746</span></span><span lang="vi">Tạm dừng nhập · <span data-import-done>312</span>/<span data-import-total>746</span></span></div></div>
+                <div class="importing-state hidden" data-mode-key="import" data-mode-only="queued"><div class="card-state"><svg class="icon sm"><use href="#i-clock"/></svg><span lang="en">Import queued · waits for a free slot</span><span lang="vi">Chờ nhập · đợi chỗ trống</span></div></div>
+                <div class="hidden" data-mode-key="import" data-mode-only="more"><div class="card-state run"><svg class="icon sm"><use href="#i-download"/></svg><span lang="en">Importing 11 more · 3/11</span><span lang="vi">Đang nhập thêm 11 · 3/11</span></div></div>
+                <div class="hidden" data-mode-key="import" data-mode-only="incomplete"><div class="card-state warn"><svg class="icon sm"><use href="#i-alert-triangle"/></svg><span lang="en">Import incomplete · <span data-import-done>312</span> of <span data-import-total>746</span></span><span lang="vi">Nhập chưa xong · <span data-import-done>312</span> / <span data-import-total>746</span></span></div></div>
+              </div>
+              <div class="novel-card" data-select data-novel="凡人修仙传" data-testid="lib-card-fanren"><div class="cover" style="--c:#3ecf8e"><span class="lang">ZH</span><span class="cjk">凡人修仙传</span></div><div class="title">Phàm Nhân Tu Tiên</div><div class="sub">忘语 · <span lang="en">2,446 ch</span><span lang="vi">2.446 chương</span></div><div class="bars"><span class="progress a"><i style="--p:49%"></i></span><span class="progress t"><i style="--p:2%"></i></span></div><div class="card-state run" data-mode-key="import" data-mode-only="paused queued incomplete done"><svg class="icon sm"><use href="#i-languages"/></svg><span lang="en">Translating · 37/100</span><span lang="vi">Đang dịch · 37/100</span></div><div class="card-state hidden" data-mode-key="import" data-mode-only="importing more"><svg class="icon sm"><use href="#i-clock"/></svg><span lang="en">Translation queued · 37/100</span><span lang="vi">Dịch đang chờ · 37/100</span></div></div>
+              <div class="novel-card" data-select data-novel="斗破苍穹" data-testid="lib-card-doupo"><div class="cover" style="--c:#f2bd5b"><span class="lang">ZH</span><span class="cjk">斗破苍穹</span></div><div class="title">Đấu Phá Thương Khung</div><div class="sub">天蚕土豆 · <span lang="en">1,648 ch</span><span lang="vi">1.648 chương</span></div><div class="bars"><span class="progress a"><i style="--p:100%"></i></span><span class="progress t"><i style="--p:100%"></i></span></div></div>
+              <div class="novel-card" data-select data-novel="나 혼자만 레벨업" data-testid="lib-card-solo"><div class="cover" style="--c:#6addaa"><span class="lang">KO</span><span class="cjk">나 혼자만 레벨업</span></div><div class="title">Solo Leveling</div><div class="sub">추공 · <span lang="en">270 ch</span><span lang="vi">270 chương</span></div><div class="bars"><span class="progress a"><i style="--p:100%"></i></span><span class="progress t"><i style="--p:62%"></i></span></div><div class="card-state warn"><svg class="icon sm"><use href="#i-pause"/></svg><span lang="en">Translation paused · 168/270</span><span lang="vi">Tạm dừng dịch · 168/270</span></div></div>
+              <div class="novel-card" data-select data-novel="全职高手" data-testid="lib-card-quanzhi"><div class="cover" style="--c:#8e9792"><span class="lang">ZH</span><span class="cjk">全职高手</span></div><div class="title">Toàn Chức Cao Thủ</div><div class="sub">蝴蝶蓝 · <span lang="en">1,728 ch</span><span lang="vi">1.728 chương</span></div><div class="bars"><span class="progress a"><i style="--p:0%"></i></span><span class="progress t"><i style="--p:0%"></i></span></div></div>
+              <div class="novel-card" data-select data-novel="転生したらスライムだった件" data-testid="lib-card-slime"><div class="cover" style="--c:#ff8a91"><span class="lang">JA</span><span class="cjk">転生したらスライムだった件</span></div><div class="title">Tensei Slime</div><div class="sub">伏瀬 · <span lang="en">304 ch</span><span lang="vi">304 chương</span></div><div class="bars"><span class="progress a"><i style="--p:12%"></i></span><span class="progress t"><i style="--p:0%"></i></span></div></div>
+              <div class="novel-card" data-select data-novel="Mother of Learning" data-testid="lib-card-mol"><div class="cover" style="--c:#4a534e"><span class="lang">EN</span><span class="cjk">Mother of Learning</span></div><div class="title">Mother of Learning</div><div class="sub">nobody103 · <span lang="en">108 ch</span><span lang="vi">108 chương</span></div><div class="bars"><span class="progress a"><i style="--p:0%"></i></span><span class="progress t"><i style="--p:0%"></i></span></div></div>
+            </div>
+          </div>
+          <div data-pane="list" class="novel-list">
+            <div class="table-wrap">
+              <table class="table" data-testid="lib-table">
+                <thead><tr><th></th><th><span lang="en">Title</span><span lang="vi">Tiêu đề</span></th><th><span lang="en">Author</span><span lang="vi">Tác giả</span></th><th class="num"><span lang="en">Chapters</span><span lang="vi">Chương</span></th><th><span lang="en">Status</span><span lang="vi">Tình trạng</span></th><th><span lang="en">Progress</span><span lang="vi">Tiến độ</span></th><th><span lang="en">Updated</span><span lang="vi">Cập nhật</span></th><th></th></tr></thead>
+                <tbody data-select-group>
+                  <tr class="selected" data-select data-novel="庆余年" data-testid="lib-row-qyn"><td><span class="cover sm image art-1"></span></td><td><b>庆余年</b><br><span class="badge neutral">ZH</span> <span class="meta">Khánh Dư Niên</span></td><td>猫腻</td><td class="num"><span data-mode-key="import" data-mode-only="importing paused queued"><span data-import-done>312</span> / <span data-import-total>746</span></span><span class="hidden" data-mode-key="import" data-mode-only="incomplete"><span data-import-done>312</span></span><span class="hidden" data-mode-key="import" data-mode-only="more done">746</span></td><td><span lang="en">Completed</span><span lang="vi">Đã hoàn thành</span><div class="chips" style="display:flex;flex-wrap:wrap;gap:4px;margin-top:2px"><span class="pill running hidden" data-mode-key="import" data-mode-only="importing"><span lang="en">Importing</span><span lang="vi">Đang nhập</span></span><span class="pill warning" data-mode-key="import" data-mode-only="paused"><span lang="en">Import paused</span><span lang="vi">Tạm dừng nhập</span></span><span class="pill hidden" data-mode-key="import" data-mode-only="queued"><span lang="en">Queued</span><span lang="vi">Đang chờ</span></span><span class="pill running hidden" data-mode-key="import" data-mode-only="more"><span lang="en">Importing more</span><span lang="vi">Đang nhập thêm</span></span><span class="pill warning hidden" data-mode-key="import" data-mode-only="incomplete"><span lang="en">Import incomplete</span><span lang="vi">Nhập chưa xong</span></span></div></td><td><span class="meta">—</span></td><td class="meta num" title="2026-10-06">10-06</td><td><div class="actions"><button class="btn ghost sm icon hidden" data-go="reader" title="Open" data-mode-key="import" data-mode-only="incomplete done more" data-testid="lib-row-qyn-open"><svg class="icon sm"><use href="#i-book"/></svg></button><button class="btn ghost sm icon" disabled title="Opens when the import is done" data-mode-key="import" data-mode-only="importing paused queued" data-testid="lib-row-qyn-open-disabled"><svg class="icon sm"><use href="#i-book"/></svg></button><button class="btn ghost sm icon danger" data-open="dlg-delete" title="Delete novel…" data-testid="lib-row-qyn-delete"><svg class="icon sm"><use href="#i-trash"/></svg></button></div></td></tr>
+                  <tr data-select data-novel="凡人修仙传" data-testid="lib-row-fanren"><td><span class="cover sm" style="--c:#3ecf8e"></span></td><td><b>凡人修仙传</b><br><span class="badge neutral">ZH</span> <span class="meta">Phàm Nhân Tu Tiên</span></td><td>忘语</td><td class="num">2,446</td><td><span lang="en">Completed</span><span lang="vi">Đã hoàn thành</span><div class="chips" style="display:flex;flex-wrap:wrap;gap:4px;margin-top:2px"><span class="pill running" data-mode-key="import" data-mode-only="paused queued incomplete done"><span lang="en">Translating</span><span lang="vi">Đang dịch</span></span><span class="pill hidden" data-mode-key="import" data-mode-only="importing more"><span lang="en">Translation queued</span><span lang="vi">Dịch đang chờ</span></span></div></td><td><div style="display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center"><span title="1,203 chapters analysed" style="display:inline-flex;align-items:center;gap:2px"><svg class="icon sm"><use href="#i-sparkles"/></svg><span class="num">1,203</span></span><span class="meta">·</span><span title="37 chapters translated" style="display:inline-flex;align-items:center;gap:2px"><svg class="icon sm"><use href="#i-languages"/></svg><span class="num">37</span></span></div></td><td class="meta num" title="2026-10-04">10-04</td><td><div class="actions"><button class="btn ghost sm icon" data-go="reader" title="Open" data-testid="lib-row-fanren-open"><svg class="icon sm"><use href="#i-book"/></svg></button><button class="btn ghost sm icon danger" data-open="dlg-delete" title="Delete novel…" data-testid="lib-row-fanren-delete"><svg class="icon sm"><use href="#i-trash"/></svg></button></div></td></tr>
+                  <tr data-select data-novel="斗破苍穹" data-testid="lib-row-doupo"><td><span class="cover sm" style="--c:#f2bd5b"></span></td><td><b>斗破苍穹</b><br><span class="badge neutral">ZH</span> <span class="meta">Đấu Phá Thương Khung</span></td><td>天蚕土豆</td><td class="num">1,648</td><td><span lang="en">Completed</span><span lang="vi">Đã hoàn thành</span><div class="chips" style="display:flex;flex-wrap:wrap;gap:4px;margin-top:2px"><span class="pill warning"><span lang="en">Completed early</span><span lang="vi">Hoàn tất sớm</span></span><span class="chip"><span lang="en">Analysed</span><span lang="vi">Đã phân tích</span></span><span class="chip"><span lang="en">Translated</span><span lang="vi">Đã dịch</span></span></div></td><td><div style="display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center"><span title="1,648 chapters analysed" style="display:inline-flex;align-items:center;gap:2px"><svg class="icon sm"><use href="#i-sparkles"/></svg><span class="num">1,648</span></span><span class="meta">·</span><span title="1,648 chapters translated" style="display:inline-flex;align-items:center;gap:2px"><svg class="icon sm"><use href="#i-languages"/></svg><span class="num">1,648</span></span></div></td><td class="meta num" title="2026-10-03">10-03</td><td><div class="actions"><button class="btn ghost sm icon" data-go="reader" title="Open" data-testid="lib-row-doupo-open"><svg class="icon sm"><use href="#i-book"/></svg></button><button class="btn ghost sm icon danger" data-open="dlg-delete" title="Delete novel…" data-testid="lib-row-doupo-delete"><svg class="icon sm"><use href="#i-trash"/></svg></button></div></td></tr>
+                  <tr data-select data-novel="나 혼자만 레벨업" data-testid="lib-row-solo"><td><span class="cover sm" style="--c:#6addaa"></span></td><td><b>나 혼자만 레벨업</b><br><span class="badge neutral">KO</span> <span class="meta">Solo Leveling</span></td><td>추공</td><td class="num">270</td><td><span lang="en">Completed</span><span lang="vi">Đã hoàn thành</span><div class="chips" style="display:flex;flex-wrap:wrap;gap:4px;margin-top:2px"><span class="pill warning"><span lang="en">Paused</span><span lang="vi">Tạm dừng</span></span><span class="chip"><span lang="en">Analysed</span><span lang="vi">Đã phân tích</span></span></div></td><td><div style="display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center"><span title="270 chapters analysed" style="display:inline-flex;align-items:center;gap:2px"><svg class="icon sm"><use href="#i-sparkles"/></svg><span class="num">270</span></span><span class="meta">·</span><span title="168 chapters translated" style="display:inline-flex;align-items:center;gap:2px"><svg class="icon sm"><use href="#i-languages"/></svg><span class="num">168</span></span></div></td><td class="meta num" title="2026-10-01">10-01</td><td><div class="actions"><button class="btn ghost sm icon" data-go="reader" title="Open" data-testid="lib-row-solo-open"><svg class="icon sm"><use href="#i-book"/></svg></button><button class="btn ghost sm icon danger" data-open="dlg-delete" title="Delete novel…" data-testid="lib-row-solo-delete"><svg class="icon sm"><use href="#i-trash"/></svg></button></div></td></tr>
+                  <tr data-select data-novel="全职高手" data-testid="lib-row-quanzhi"><td><span class="cover sm" style="--c:#8e9792"></span></td><td><b>全职高手</b><br><span class="badge neutral">ZH</span> <span class="meta">Toàn Chức Cao Thủ</span></td><td>蝴蝶蓝</td><td class="num">1,728</td><td><span lang="en">Completed</span><span lang="vi">Đã hoàn thành</span></td><td><span class="meta">—</span></td><td class="meta num" title="2026-09-28">09-28</td><td><div class="actions"><button class="btn ghost sm icon" data-go="reader" title="Open" data-testid="lib-row-quanzhi-open"><svg class="icon sm"><use href="#i-book"/></svg></button><button class="btn ghost sm icon danger" data-open="dlg-delete" title="Delete novel…" data-testid="lib-row-quanzhi-delete"><svg class="icon sm"><use href="#i-trash"/></svg></button></div></td></tr>
+                  <tr data-select data-novel="転生したらスライムだった件" data-testid="lib-row-slime"><td><span class="cover sm" style="--c:#ff8a91"></span></td><td><b>転生したらスライムだった件</b><br><span class="badge neutral">JA</span> <span class="meta">Tensei Slime</span></td><td>伏瀬</td><td class="num">304</td><td><span lang="en">Ongoing</span><span lang="vi">Đang ra</span></td><td><div style="display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center"><span title="36 chapters analysed" style="display:inline-flex;align-items:center;gap:2px"><svg class="icon sm"><use href="#i-sparkles"/></svg><span class="num">36</span></span></div></td><td class="meta num" title="2026-09-20">09-20</td><td><div class="actions"><button class="btn ghost sm icon" data-go="reader" title="Open" data-testid="lib-row-slime-open"><svg class="icon sm"><use href="#i-book"/></svg></button><button class="btn ghost sm icon danger" data-open="dlg-delete" title="Delete novel…" data-testid="lib-row-slime-delete"><svg class="icon sm"><use href="#i-trash"/></svg></button></div></td></tr>
+                  <tr data-select data-novel="Mother of Learning" data-testid="lib-row-mol"><td><span class="cover sm" style="--c:#4a534e"></span></td><td><b>Mother of Learning</b><br><span class="badge neutral">EN</span> <span class="meta">Mother of Learning</span></td><td>nobody103</td><td class="num">108</td><td><span lang="en">Completed</span><span lang="vi">Đã hoàn thành</span></td><td><span class="meta">—</span></td><td class="meta num" title="2026-09-12">09-12</td><td><div class="actions"><button class="btn ghost sm icon" data-go="reader" title="Open" data-testid="lib-row-mol-open"><svg class="icon sm"><use href="#i-book"/></svg></button><button class="btn ghost sm icon danger" data-open="dlg-delete" title="Delete novel…" data-testid="lib-row-mol-delete"><svg class="icon sm"><use href="#i-trash"/></svg></button></div></td></tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-        <div data-pane="list" class="novel-list">
-          <div class="table-wrap">
-            <table class="table" data-testid="lib-table">
-              <thead><tr><th></th><th><span lang="en">Title</span><span lang="vi">Tiêu đề</span></th><th><span lang="en">Author</span><span lang="vi">Tác giả</span></th><th><span lang="en">Lang</span><span lang="vi">Ngôn ngữ</span></th><th class="num"><span lang="en">Chapters</span><span lang="vi">Chương</span></th><th><span lang="en">Analysis</span><span lang="vi">Phân tích</span></th><th><span lang="en">Translation</span><span lang="vi">Dịch</span></th><th><span lang="en">Updated</span><span lang="vi">Cập nhật</span></th><th></th></tr></thead>
-              <tbody>
-                <tr class="selected"><td><span class="cover sm" style="--c:#3ecf8e"></span></td><td><b>凡人修仙传</b><br><span class="meta">Phàm Nhân Tu Tiên</span></td><td>忘语</td><td>ZH</td><td class="num">2,446</td><td><span class="pill info">1,203</span></td><td><span class="pill running"><span data-job-done>37</span>/100</span></td><td class="meta">2026-10-04</td><td><div class="actions"><button class="btn ghost sm icon" data-go="reader"><svg class="icon sm"><use href="#i-book"/></svg></button><button class="btn ghost sm icon"><svg class="icon sm"><use href="#i-more"/></svg></button></div></td></tr>
-                <tr><td><span class="cover sm" style="--c:#f2bd5b"></span></td><td><b>斗破苍穹</b><br><span class="meta">Đấu Phá Thương Khung</span></td><td>天蚕土豆</td><td>ZH</td><td class="num">1,648</td><td><span class="pill success">1,648</span></td><td><span class="pill success">1,648</span></td><td class="meta">2026-10-03</td><td><div class="actions"><button class="btn ghost sm icon"><svg class="icon sm"><use href="#i-book"/></svg></button><button class="btn ghost sm icon"><svg class="icon sm"><use href="#i-more"/></svg></button></div></td></tr>
-                <tr><td><span class="cover sm" style="--c:#8e9792"></span></td><td><b>全职高手</b><br><span class="meta">Toàn Chức Cao Thủ</span></td><td>蝴蝶蓝</td><td>ZH</td><td class="num">1,728</td><td><span class="pill">—</span></td><td><span class="pill">—</span></td><td class="meta">2026-09-28</td><td><div class="actions"><button class="btn ghost sm icon"><svg class="icon sm"><use href="#i-book"/></svg></button><button class="btn ghost sm icon"><svg class="icon sm"><use href="#i-more"/></svg></button></div></td></tr>
-                <tr><td><span class="cover sm" style="--c:#6addaa"></span></td><td><b>나 혼자만 레벨업</b><br><span class="meta">Solo Leveling</span></td><td>추공</td><td>KO</td><td class="num">270</td><td><span class="pill success">270</span></td><td><span class="pill info">168</span></td><td class="meta">2026-10-01</td><td><div class="actions"><button class="btn ghost sm icon"><svg class="icon sm"><use href="#i-book"/></svg></button><button class="btn ghost sm icon"><svg class="icon sm"><use href="#i-more"/></svg></button></div></td></tr>
-                <tr><td><span class="cover sm" style="--c:#ff8a91"></span></td><td><b>転生したらスライムだった件</b><br><span class="meta">Tensei Slime</span></td><td>伏瀬</td><td>JA</td><td class="num">304</td><td><span class="pill info">36</span></td><td><span class="pill">—</span></td><td class="meta">2026-09-20</td><td><div class="actions"><button class="btn ghost sm icon"><svg class="icon sm"><use href="#i-book"/></svg></button><button class="btn ghost sm icon"><svg class="icon sm"><use href="#i-more"/></svg></button></div></td></tr>
-              </tbody>
-            </table>
-          </div>
+        <div class="hidden" data-mode-key="library" data-mode-only="empty">
+          <div class="empty" style="margin:0 auto" data-testid="lib-empty"><svg class="icon xl"><use href="#i-library"/></svg><h2><span lang="en">No novels yet</span><span lang="vi">Chưa có truyện</span></h2><p lang="en">Import a novel from a ZIP package to get started.</p><p lang="vi">Nhập một truyện từ gói ZIP để bắt đầu.</p><div class="row"><button class="btn primary" data-go="import" data-go-mode="start" data-testid="lib-empty-import"><svg class="icon sm"><use href="#i-plus"/></svg><span lang="en">Import novel</span><span lang="vi">Nhập truyện</span></button></div></div>
         </div>
       </div>
     </main>
 
-    <aside class="panel right" data-testid="library-inspector">
-      <div class="panel-head"><h3><span lang="en">Novel</span><span lang="vi">Truyện</span></h3><button class="btn ghost icon" data-toggle-panel="right" title="Collapse (Ctrl+Alt+B)"><svg class="icon"><use href="#i-panel-right"/></svg></button></div>
+    <aside class="panel right" data-testid="library-inspector" data-novel="庆余年">
+      <div class="panel-head"><h3><span lang="en">Novel</span><span lang="vi">Truyện</span></h3><button class="btn ghost icon" data-toggle-panel="right" title="Collapse (Ctrl+Alt+B)" data-testid="insp-collapse"><svg class="icon"><use href="#i-panel-right"/></svg></button></div>
       <div class="panel-body">
-        <div class="row" style="align-items:flex-start;gap:var(--sp-md);padding:var(--sp-xs)">
-          <span class="cover sm" style="--c:#3ecf8e"><span class="cjk">凡人</span></span>
-          <div class="grow"><div style="font-family:var(--font-serif);font-size:16px;font-weight:600;line-height:1.2">凡人修仙传</div><div style="font-weight:500">Phàm Nhân Tu Tiên</div><div class="meta">忘语 (Vong Ngữ) · 中文 → Tiếng Việt · 仙侠</div></div>
-        </div>
-        <div class="row" style="padding:var(--sp-xs)"><button class="btn primary sm grow" data-go="reader" data-testid="insp-open"><svg class="icon sm"><use href="#i-book"/></svg><span lang="en">Open</span><span lang="vi">Mở</span></button><button class="btn sm icon" title="Change cover"><svg class="icon sm"><use href="#i-pencil"/></svg></button><button class="btn sm icon" title="Open data folder"><svg class="icon sm"><use href="#i-folder"/></svg></button><button class="btn sm icon" title="More"><svg class="icon sm"><use href="#i-more"/></svg></button></div>
-        <div class="panel-section">
-          <div class="stats" style="grid-template-columns:1fr 1fr">
-            <div class="stat"><div class="v num">2,446</div><div class="k"><span lang="en">chapters</span><span lang="vi">chương</span></div></div>
-            <div class="stat"><div class="v num">7.4M</div><div class="k"><span lang="en">characters</span><span lang="vi">ký tự</span></div></div>
-            <div class="stat"><div class="v num">1,203</div><div class="k"><span lang="en">analysed</span><span lang="vi">đã phân tích</span></div></div>
-            <div class="stat"><div class="v num" data-job-done>37</div><div class="k"><span lang="en">translated</span><span lang="vi">đã dịch</span></div></div>
+        <div class="empty compact hidden" data-mode-key="library" data-mode-only="empty" data-testid="insp-empty"><p lang="en">No novel selected</p><p lang="vi">Chưa chọn truyện</p></div>
+        <div data-mode-key="library" data-mode-only="filled">
+          <div class="row" style="align-items:flex-start;gap:var(--sp-md);padding:var(--sp-xs)">
+            <span class="cover sm image art-1" data-novel-field="cover"></span>
+            <div class="grow"><div style="font-family:var(--font-serif);font-size:16px;font-weight:600;line-height:1.2" data-novel-field="original">庆余年</div><div style="font-weight:500" data-novel-field="title">Khánh Dư Niên</div><div class="meta"><span data-novel-field="author">猫腻</span> · <span data-novel-field="lang">ZH</span> · <span data-novel-field="publication"><span lang="en">Completed</span><span lang="vi">Đã hoàn thành</span></span></div></div>
           </div>
-        </div>
-        <div class="panel-section">
-          <h4><span lang="en">Latest task</span><span lang="vi">Tác vụ gần nhất</span></h4>
-          <div class="progress-row" style="padding:0 var(--sp-sm)"><span><span lang="en">Translate 0001–0100</span><span lang="vi">Dịch 0001–0100</span></span><span class="num" data-job-pct>37%</span><span class="progress" data-job-progress><i></i><i class="fail"></i></span></div>
-          <div class="meta" style="padding:6px var(--sp-sm) 0"><span lang="en">Codex CLI · started 14:02 · chapter </span><span lang="vi">Codex CLI · bắt đầu 14:02 · chương </span><span data-job-current>0038</span></div>
-        </div>
-        <div class="panel-section">
-          <h4><span lang="en">Metadata</span><span lang="vi">Thông tin</span></h4>
-          <dl class="kv" style="padding:0 var(--sp-sm)">
-            <dt><span lang="en">Display title</span><span lang="vi">Tên hiển thị</span></dt><dd>Phàm Nhân Tu Tiên</dd>
-            <dt><span lang="en">Original</span><span lang="vi">Tên gốc</span></dt><dd>凡人修仙传</dd>
-            <dt><span lang="en">Author</span><span lang="vi">Tác giả</span></dt><dd>忘语 · Vong Ngữ</dd>
-            <dt><span lang="en">Source</span><span lang="vi">Nguồn</span></dt><dd>fanren.txt · 38.2 MB</dd>
-            <dt><span lang="en">Imported</span><span lang="vi">Nhập lúc</span></dt><dd>2026-09-12</dd>
-            <dt><span lang="en">Folder</span><span lang="vi">Thư mục</span></dt><dd><code>novels\n-0001\</code></dd>
-          </dl>
-        </div>
-        <div class="panel-section">
-          <div class="col" style="padding:0 var(--sp-xs)">
-            <button class="btn sm" data-go="import"><svg class="icon sm"><use href="#i-download"/></svg><span lang="en">Import more chapters…</span><span lang="vi">Nhập thêm chương…</span></button>
-            <button class="btn sm" data-open="dlg-export" data-testid="insp-export"><svg class="icon sm"><use href="#i-upload"/></svg><span lang="en">Export translation…</span><span lang="vi">Xuất bản dịch…</span></button>
-            <button class="btn ghost sm danger" data-open="dlg-delete" data-testid="insp-delete"><svg class="icon sm"><use href="#i-trash"/></svg><span lang="en">Delete novel…</span><span lang="vi">Xoá truyện…</span></button>
+          <div class="row" style="padding:var(--sp-xs)">
+            <button class="btn primary sm grow hidden" data-go="reader" data-mode-key="import" data-mode-only="incomplete done more" data-testid="insp-open"><svg class="icon sm"><use href="#i-book"/></svg><span lang="en">Open</span><span lang="vi">Mở</span></button>
+            <button class="btn primary sm grow" data-novel-only="庆余年" disabled title="Opens when the import is done" data-mode-key="import" data-mode-only="importing paused queued" data-testid="insp-open-disabled"><svg class="icon sm"><use href="#i-book"/></svg><span lang="en">Open</span><span lang="vi">Mở</span></button>
+            <button class="btn sm icon" data-action="cover-change" title="Change cover…" data-testid="insp-cover-change"><svg class="icon sm"><use href="#i-image"/></svg></button>
+            <button class="btn sm icon" data-action="cover-remove" title="Remove cover" data-testid="insp-cover-remove"><svg class="icon sm"><use href="#i-image-off"/></svg></button>
+            <button class="btn sm icon" data-action="open-folder" title="Open data folder" data-testid="insp-open-folder"><svg class="icon sm"><use href="#i-folder"/></svg></button>
+            <button class="btn sm icon danger" data-open="dlg-delete" title="Delete novel…" data-testid="insp-delete"><svg class="icon sm"><use href="#i-trash"/></svg></button>
+          </div>
+          <div class="panel-section">
+            <div class="stats" style="grid-template-columns:1fr 1fr">
+              <div class="stat"><div class="v num"><span data-novel-generic class="hidden" data-novel-field="chapters">746</span><span data-novel-only="庆余年"><span data-mode-key="import" data-mode-only="importing paused queued"><span data-import-done>312</span> / <span data-import-total>746</span></span><span class="hidden" data-mode-key="import" data-mode-only="incomplete"><span data-import-done>312</span></span><span class="hidden" data-mode-key="import" data-mode-only="more done">746</span></span></div><div class="k"><span lang="en">chapters</span><span lang="vi">chương</span></div></div>
+              <div class="stat"><div class="v num" data-novel-field="chars">2.3M</div><div class="k"><span lang="en">characters</span><span lang="vi">ký tự</span></div></div>
+              <div class="stat"><div class="v num" data-novel-field="analysed">0</div><div class="k"><span lang="en">analysed</span><span lang="vi">đã phân tích</span></div></div>
+              <div class="stat"><div class="v num" data-novel-field="translated">0</div><div class="k"><span lang="en">translated</span><span lang="vi">đã dịch</span></div></div>
+            </div>
+          </div>
+          <div class="panel-section">
+            <h4><span lang="en">Latest task</span><span lang="vi">Tác vụ gần nhất</span></h4>
+            <div data-novel-only="庆余年"><div data-mode-key="import" data-mode-only="importing paused">
+              <button type="button" class="progress-row" style="width:100%;border:0;background:none;padding:0 var(--sp-sm);color:inherit;text-align:left;cursor:pointer" data-action="open-job" data-job="j-2026-10-06-0019" data-testid="insp-latest-task"><span lang="en">Import <span data-import-total>746</span> chapters</span><span lang="vi">Nhập <span data-import-total>746</span> chương</span><span class="num" data-import-pct>42%</span><span class="progress" data-import-progress><i></i></span></button>
+              <div class="meta hidden" style="padding:6px var(--sp-sm) 0" data-mode-key="import" data-mode-only="importing"><span lang="en">started 14:05 · <span data-import-done>312</span>/<span data-import-total>746</span></span><span lang="vi">bắt đầu 14:05 · <span data-import-done>312</span>/<span data-import-total>746</span></span></div>
+              <div class="meta" style="padding:6px var(--sp-sm) 0" data-mode-key="import" data-mode-only="paused"><span lang="en">paused · <span data-import-done>312</span>/<span data-import-total>746</span></span><span lang="vi">tạm dừng · <span data-import-done>312</span>/<span data-import-total>746</span></span></div>
+            </div>
+            <div class="hidden" data-mode-key="import" data-mode-only="queued">
+              <button type="button" class="progress-row" style="width:100%;border:0;background:none;padding:0 var(--sp-sm);color:inherit;text-align:left;cursor:pointer" data-action="open-job" data-job="j-2026-10-06-0019" data-testid="insp-latest-task-queued"><span lang="en">Import 746 chapters</span><span lang="vi">Nhập 746 chương</span><span class="pill"><span lang="en">Queued</span><span lang="vi">Đang chờ</span></span></button>
+              <div class="meta" style="padding:6px var(--sp-sm) 0"><span lang="en">queued · starts when a slot is free</span><span lang="vi">đang chờ · bắt đầu khi có chỗ trống</span></div>
+            </div>
+            <div class="hidden" data-mode-key="import" data-mode-only="more">
+              <button type="button" class="progress-row" style="width:100%;border:0;background:none;padding:0 var(--sp-sm);color:inherit;text-align:left;cursor:pointer" data-action="open-job" data-job="j-2026-10-06-0019" data-testid="insp-latest-task-more"><span lang="en">Import 11 chapters</span><span lang="vi">Nhập 11 chương</span><span class="num">27%</span><span class="progress"><i style="--p:27%"></i></span></button>
+              <div class="meta" style="padding:6px var(--sp-sm) 0"><span lang="en">started 14:30 · 3/11</span><span lang="vi">bắt đầu 14:30 · 3/11</span></div>
+            </div>
+            <div class="hidden" data-mode-key="import" data-mode-only="incomplete">
+              <button type="button" class="progress-row" style="width:100%;border:0;background:none;padding:0 var(--sp-sm);color:inherit;text-align:left;cursor:pointer" data-action="open-job" data-job="j-2026-10-06-0019" data-testid="insp-latest-task-incomplete"><span lang="en">Import 746 chapters · Cancelled</span><span lang="vi">Nhập 746 chương · Đã huỷ</span></button>
+              <div class="meta" style="padding:6px var(--sp-sm) 0"><span lang="en"><span data-import-done>312</span> of <span data-import-total>746</span> chapters imported · add the rest with Import more chapters</span><span lang="vi">Đã nhập <span data-import-done>312</span> / <span data-import-total>746</span> chương · nhập phần còn lại bằng Nhập thêm chương</span></div>
+            </div>
+            <div class="hidden" data-mode-key="import" data-mode-only="done">
+              <button type="button" class="progress-row" style="width:100%;border:0;background:none;padding:0 var(--sp-sm);color:inherit;text-align:left;cursor:pointer" data-action="open-job" data-job="j-2026-10-06-0019" data-testid="insp-latest-task-done"><span lang="en">Import 746 chapters · Completed</span><span lang="vi">Nhập 746 chương · Hoàn tất</span></button>
+              <div class="meta" style="padding:6px var(--sp-sm) 0">2026-10-06 14:22 · 1 min 12 s</div>
+            </div>
+            </div>
+            <div class="hidden" data-novel-generic data-testid="insp-latest-job"><div class="row" style="padding:0 var(--sp-sm)"><span class="pill warning" data-novel-field="latestJob"><span lang="en">Import paused · 312/746</span><span lang="vi">Tạm dừng nhập · 312/746</span></span></div></div>
+          </div>
+          <div class="panel-section" data-edit-scope data-testid="insp-metadata">
+            <div class="row" style="justify-content:space-between;align-items:center"><h4><span lang="en">Metadata</span><span lang="vi">Thông tin</span></h4><button class="btn ghost sm" data-action="edit-start" data-edit-view data-testid="insp-edit"><svg class="icon sm"><use href="#i-pencil"/></svg><span lang="en">Edit</span><span lang="vi">Sửa</span></button></div>
+            <dl class="kv" data-edit-view style="padding:0 var(--sp-sm)"><dt><span lang="en">Display title</span><span lang="vi">Tên hiển thị</span></dt><dd data-novel-field="title">Khánh Dư Niên</dd><dt><span lang="en">Original title</span><span lang="vi">Tên gốc</span></dt><dd data-novel-field="original">庆余年</dd><dt><span lang="en">Author</span><span lang="vi">Tác giả</span></dt><dd data-novel-field="author">猫腻</dd><dt><span lang="en">Source language</span><span lang="vi">Ngôn ngữ nguồn</span></dt><dd data-novel-field="lang">ZH</dd><dt><span lang="en">Genres</span><span lang="vi">Thể loại</span></dt><dd data-novel-field="genres"><span class="chip">历史 · Lịch sử</span> <span class="chip">权谋 · Quyền mưu</span></dd><dt><span lang="en">Status</span><span lang="vi">Tình trạng</span></dt><dd data-novel-field="publication"><span lang="en">Completed</span><span lang="vi">Đã hoàn thành</span></dd><dt><span lang="en">Tags</span><span lang="vi">Nhãn</span></dt><dd data-novel-field="tags"><span class="meta"><span lang="en">None yet</span><span lang="vi">Chưa có</span></span></dd><dt><span lang="en">Synopsis</span><span lang="vi">Tóm tắt</span></dt><dd data-novel-field="synopsis"><span lang="en">范闲身世成谜，自澹州入京都，卷入庆国朝堂与江湖的风云。</span><span lang="vi">范闲身世成谜，自澹州入京都，卷入庆国朝堂与江湖的风云。</span></dd><dt><span lang="en">Source</span><span lang="vi">Nguồn</span></dt><dd><code data-novel-field="source">庆余年.zip</code></dd><dt><span lang="en">Imported</span><span lang="vi">Nhập lúc</span></dt><dd data-novel-field="imported">2026-10-06 14:05</dd><dt><span lang="en">Last updated</span><span lang="vi">Cập nhật gần nhất</span></dt><dd data-novel-field="updated">2026-10-06 14:22</dd><dt><span lang="en">Folder</span><span lang="vi">Thư mục</span></dt><dd><code data-novel-field="folder">novels\n-0006\</code></dd></dl>
+            <div class="col hidden" data-edit-form style="gap:var(--sp-md)"><div class="field"><label><span lang="en">Display title</span><span lang="vi">Tên hiển thị</span><span class="req" aria-hidden="true">*</span></label><input class="input" value="Khánh Dư Niên" data-novel-field="title" data-required data-testid="insp-edit-display"><small class="error-text"><span lang="en">Required</span><span lang="vi">Bắt buộc</span></small></div><div class="field"><label><span lang="en">Original title</span><span lang="vi">Tên gốc</span><span class="req" aria-hidden="true">*</span></label><input class="input" value="庆余年" data-novel-field="original" data-required data-testid="insp-edit-original"><small class="error-text"><span lang="en">Required</span><span lang="vi">Bắt buộc</span></small></div><div class="field"><label><span lang="en">Author</span><span lang="vi">Tác giả</span></label><input class="input" value="猫腻" data-novel-field="author" data-testid="insp-edit-author"></div><div class="field"><label><span lang="en">Source language</span><span lang="vi">Ngôn ngữ nguồn</span><span class="req" aria-hidden="true">*</span></label><select class="select" data-novel-field="lang" data-testid="insp-edit-language"><option selected>中文 · zh</option><option>日本語 · ja</option><option>한국어 · ko</option><option>English · en</option><option>Tiếng Việt · vi</option></select></div><div class="field"><label><span lang="en">Genres</span><span lang="vi">Thể loại</span></label><div class="tag-input" data-novel-field="genres"><span class="chip">历史 · Lịch sử<button type="button" class="btn ghost sm icon" data-action="tag-remove" aria-label="Remove"><svg class="icon sm"><use href="#i-x"/></svg></button></span><span class="chip">权谋 · Quyền mưu<button type="button" class="btn ghost sm icon" data-action="tag-remove" aria-label="Remove"><svg class="icon sm"><use href="#i-x"/></svg></button></span><input data-tag-entry placeholder="Add genre…" data-ph-en="Add genre…" data-ph-vi="Thêm thể loại…" data-testid="insp-edit-genres"></div></div><div class="field"><label><span lang="en">Novel status</span><span lang="vi">Tình trạng</span></label><select class="select" data-novel-field="publication" data-testid="insp-edit-status"><option selected data-opt-en="Completed" data-opt-vi="Đã hoàn thành">Completed</option><option data-opt-en="Ongoing" data-opt-vi="Đang ra">Ongoing</option></select></div><div class="field"><label><span lang="en">Synopsis</span><span lang="vi">Tóm tắt</span></label><textarea class="textarea" rows="3" data-novel-field="synopsis" data-testid="insp-edit-synopsis">范闲身世成谜，自澹州入京都，卷入庆国朝堂与江湖的风云。</textarea></div><div class="meta"><span lang="en">Tags, source, dates, counts and folder are read-only.</span><span lang="vi">Nhãn, nguồn, ngày, số liệu và thư mục chỉ để xem.</span></div><div class="row"><button class="btn primary sm" data-action="edit-save" data-testid="insp-edit-save"><span lang="en">Save</span><span lang="vi">Lưu</span></button><button class="btn sm" data-action="edit-cancel" data-testid="insp-edit-cancel"><span lang="en">Cancel</span><span lang="vi">Huỷ</span></button></div></div>
+          </div>
+          <div class="panel-section">
+            <div class="col" style="padding:0 var(--sp-xs)">
+              <button class="btn sm hidden" data-go="import" data-go-mode="more" data-mode-key="import" data-mode-only="more incomplete done" data-testid="insp-import-more"><svg class="icon sm"><use href="#i-download"/></svg><span lang="en">Import more chapters…</span><span lang="vi">Nhập thêm chương…</span></button><button class="btn sm" data-novel-only="庆余年" disabled title="Finish the first import first / Hoàn tất lần nhập đầu trước" data-mode-key="import" data-mode-only="importing paused queued" data-testid="insp-import-more-disabled"><svg class="icon sm"><use href="#i-download"/></svg><span lang="en">Import more chapters…</span><span lang="vi">Nhập thêm chương…</span></button>
+              <button class="btn sm hidden" data-open="dlg-export" data-mode-key="import" data-mode-only="more incomplete done" data-testid="insp-export"><svg class="icon sm"><use href="#i-upload"/></svg><span lang="en">Export…</span><span lang="vi">Xuất…</span></button><button class="btn sm" data-novel-only="庆余年" disabled title="Finish the first import first / Hoàn tất lần nhập đầu trước" data-mode-key="import" data-mode-only="importing paused queued" data-testid="insp-export-disabled"><svg class="icon sm"><use href="#i-upload"/></svg><span lang="en">Export…</span><span lang="vi">Xuất…</span></button>
+            </div>
           </div>
         </div>
       </div>
     </aside>
+    <script type="application/json" id="lib-novels">
+{
+  "庆余年": {
+    "title": "Khánh Dư Niên",
+    "original": "庆余年",
+    "author": "猫腻",
+    "lang": "ZH",
+    "publication": {
+      "en": "Completed",
+      "vi": "Đã hoàn thành"
+    },
+    "chapters": "746",
+    "chars": "2.3M",
+    "analysed": "0",
+    "translated": "0",
+    "latestJob": {
+      "en": "Import paused · 312/746",
+      "vi": "Tạm dừng nhập · 312/746"
+    },
+    "latestJobPill": "warning",
+    "tags": [],
+    "genres": [
+      "历史 · Lịch sử",
+      "权谋 · Quyền mưu"
+    ],
+    "synopsis": {
+      "en": "范闲身世成谜，自澹州入京都，卷入庆国朝堂与江湖的风云。",
+      "vi": "范闲身世成谜，自澹州入京都，卷入庆国朝堂与江湖的风云。"
+    },
+    "source": "庆余年.zip",
+    "imported": "2026-10-06 14:05",
+    "updated": "2026-10-06 14:22",
+    "folder": "novels\\n-0006\\"
+  },
+  "凡人修仙传": {
+    "title": "Phàm Nhân Tu Tiên",
+    "original": "凡人修仙传",
+    "author": "忘语",
+    "lang": "ZH",
+    "publication": {
+      "en": "Completed",
+      "vi": "Đã hoàn thành"
+    },
+    "chapters": "2,446",
+    "chars": "6.9M",
+    "analysed": "1,203 / 2,446",
+    "translated": "37 / 2,446",
+    "latestJob": {
+      "en": "Translating · 37/100",
+      "vi": "Đang dịch · 37/100"
+    },
+    "latestJobPill": "running",
+    "tags": [],
+    "genres": [
+      "仙侠 · Tiên hiệp",
+      "修真 · Tu chân"
+    ],
+    "synopsis": {
+      "en": "A poor village boy enters a minor sect and climbs the path of cultivation with caution and a mysterious bottle.",
+      "vi": "Cậu bé nghèo vào một tông môn nhỏ, thận trọng bước trên con đường tu tiên cùng một chiếc bình bí ẩn."
+    },
+    "source": "凡人修仙传.zip",
+    "imported": "2026-10-02 09:30",
+    "updated": "2026-10-04 11:12",
+    "folder": "novels\\n-0001\\"
+  },
+  "斗破苍穹": {
+    "title": "Đấu Phá Thương Khung",
+    "original": "斗破苍穹",
+    "author": "天蚕土豆",
+    "lang": "ZH",
+    "publication": {
+      "en": "Completed",
+      "vi": "Đã hoàn thành"
+    },
+    "chapters": "1,648",
+    "chars": "4.8M",
+    "analysed": "1,648 / 1,648",
+    "translated": "1,648 / 1,648",
+    "latestJob": {
+      "en": "Completed early · 1,648/1,648",
+      "vi": "Hoàn tất sớm · 1,648/1,648"
+    },
+    "latestJobPill": "warning",
+    "tags": [
+      {
+        "en": "Analysed",
+        "vi": "Đã phân tích"
+      },
+      {
+        "en": "Translated",
+        "vi": "Đã dịch"
+      }
+    ],
+    "genres": [
+      "玄幻 · Huyền huyễn",
+      "热血 · Nhiệt huyết"
+    ],
+    "synopsis": {
+      "en": "A fallen genius regains his power and fights his way to the top of the Dou Qi continent.",
+      "vi": "Một thiên tài sa sút lấy lại sức mạnh và chiến đấu lên đỉnh đại lục Đấu Khí."
+    },
+    "source": "斗破苍穹.zip",
+    "imported": "2026-09-30 20:15",
+    "updated": "2026-10-03 18:40",
+    "folder": "novels\\n-0002\\"
+  },
+  "나 혼자만 레벨업": {
+    "title": "Solo Leveling",
+    "original": "나 혼자만 레벨업",
+    "author": "추공",
+    "lang": "KO",
+    "publication": {
+      "en": "Completed",
+      "vi": "Đã hoàn thành"
+    },
+    "chapters": "270",
+    "chars": "0.9M",
+    "analysed": "270 / 270",
+    "translated": "168 / 270",
+    "latestJob": {
+      "en": "Translation paused · 168/270",
+      "vi": "Tạm dừng dịch · 168/270"
+    },
+    "latestJobPill": "warning",
+    "tags": [
+      {
+        "en": "Analysed",
+        "vi": "Đã phân tích"
+      }
+    ],
+    "genres": [
+      "动作 · Hành động",
+      "奇幻 · Giả tưởng"
+    ],
+    "synopsis": {
+      "en": "The weakest hunter gains a system that lets him level up alone.",
+      "vi": "Thợ săn yếu nhất nhận được một hệ thống cho phép anh tự mình thăng cấp."
+    },
+    "source": "solo-leveling.zip",
+    "imported": "2026-09-28 21:00",
+    "updated": "2026-10-01 16:25",
+    "folder": "novels\\n-0004\\"
+  },
+  "全职高手": {
+    "title": "Toàn Chức Cao Thủ",
+    "original": "全职高手",
+    "author": "蝴蝶蓝",
+    "lang": "ZH",
+    "publication": {
+      "en": "Completed",
+      "vi": "Đã hoàn thành"
+    },
+    "chapters": "1,728",
+    "chars": "5.1M",
+    "analysed": "0",
+    "translated": "0",
+    "latestJob": {
+      "en": "No jobs",
+      "vi": "Chưa có job"
+    },
+    "latestJobPill": "plain",
+    "tags": [],
+    "genres": [
+      "电竞 · Esports",
+      "都市 · Đô thị"
+    ],
+    "synopsis": {
+      "en": "A pro player dismissed from his team returns to the game and builds a new one from scratch.",
+      "vi": "Một tuyển thủ bị loại khỏi đội trở lại game và dựng một đội mới từ con số không."
+    },
+    "source": "全职高手.zip",
+    "imported": "2026-09-27 19:45",
+    "updated": "2026-09-28 10:05",
+    "folder": "novels\\n-0003\\"
+  },
+  "転生したらスライムだった件": {
+    "title": "Tensei Slime",
+    "original": "転生したらスライムだった件",
+    "author": "伏瀬",
+    "lang": "JA",
+    "publication": {
+      "en": "Ongoing",
+      "vi": "Đang ra"
+    },
+    "chapters": "304",
+    "chars": "1.2M",
+    "analysed": "36 / 304",
+    "translated": "0",
+    "latestJob": {
+      "en": "Completed early · 36/304",
+      "vi": "Hoàn tất sớm · 36/304"
+    },
+    "latestJobPill": "warning",
+    "tags": [],
+    "genres": [
+      "奇幻 · Giả tưởng",
+      "冒险 · Phiêu lưu"
+    ],
+    "synopsis": {
+      "en": "A man reincarnated as a slime builds a nation of monsters.",
+      "vi": "Một người đàn ông chuyển sinh thành slime và xây dựng quốc gia của loài quái vật."
+    },
+    "source": "tensei-slime.zip",
+    "imported": "2026-09-18 08:50",
+    "updated": "2026-09-20 13:30",
+    "folder": "novels\\n-0005\\"
+  },
+  "Mother of Learning": {
+    "title": "Mother of Learning",
+    "original": "Mother of Learning",
+    "author": "nobody103",
+    "lang": "EN",
+    "publication": {
+      "en": "Completed",
+      "vi": "Đã hoàn thành"
+    },
+    "chapters": "108",
+    "chars": "1.6M",
+    "analysed": "0",
+    "translated": "0",
+    "latestJob": {
+      "en": "No jobs",
+      "vi": "Chưa có job"
+    },
+    "latestJobPill": "plain",
+    "tags": [],
+    "genres": [
+      "奇幻 · Giả tưởng",
+      "时间循环 · Vòng lặp thời gian"
+    ],
+    "synopsis": {
+      "en": "A young mage relives the same month over and over to stop an invasion.",
+      "vi": "Một pháp sư trẻ sống lại cùng một tháng để ngăn chặn cuộc xâm lăng."
+    },
+    "source": "mother-of-learning.zip",
+    "imported": "2026-09-10 22:10",
+    "updated": "2026-09-12 07:55",
+    "folder": "novels\\n-0007\\"
+  }
+}
+    </script>
+
 
     <aside class="annotations"><ol>
-      <li lang="en"><span class="ac">M04-F01</span> Library grid/list with cover, title, author, chapter count, source language and two thin bars: analysis (link colour) and translation (success colour). Search, sort and the grid/list toggle live in the workspace toolbar.</li>
-      <li lang="vi"><span class="ac">M04-F01</span> Thư viện dạng lưới/danh sách với bìa, tiêu đề, tác giả, số chương, ngôn ngữ nguồn và hai thanh mỏng: phân tích (màu liên kết) và dịch (màu thành công). Tìm kiếm, sắp xếp và nút lưới/danh sách nằm trên thanh công cụ vùng làm việc.</li>
-      <li lang="en">Left panel = collections and filters (language, status, genre). Selecting a card updates the right inspector.</li>
-      <li lang="vi">Panel trái = bộ sưu tập và bộ lọc (ngôn ngữ, trạng thái, thể loại). Chọn một thẻ sẽ cập nhật inspector bên phải.</li>
-      <li lang="en"><span class="ac">M04-F03 · M04-F04</span> Inspector: overview numbers, latest task with live progress, editable metadata, open data folder, import more chapters, export, delete with explicit scope (dialog).</li>
-      <li lang="vi"><span class="ac">M04-F03 · M04-F04</span> Inspector: số liệu tổng quan, tác vụ gần nhất với tiến độ trực tiếp, thông tin có thể sửa, mở thư mục dữ liệu, nhập thêm chương, xuất, xoá với phạm vi rõ ràng (hộp thoại).</li>
-      <li lang="en">Panels: drag the 4px gutters to resize, double-click to reset, <kbd>Ctrl</kbd><kbd>B</kbd> / <kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>B</kbd> to collapse. Sizes are remembered.</li>
-      <li lang="vi">Panel: kéo rãnh 4px để đổi kích thước, nhấp đúp để đặt lại, <kbd>Ctrl</kbd><kbd>B</kbd> / <kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>B</kbd> để thu gọn. Kích thước được ghi nhớ.</li>
+      <li lang="en"><span class="ac">M04-F01</span> Grid or list of the open library (a library is always open; M06 handles the first run). Cards show the cover (image or generated with the original title), language tag, display title, author · chapters, and the analysis and translation bars. Search (<kbd>/</kbd>), sort and the grid/list choice are remembered.</li>
+      <li lang="vi"><span class="ac">M04-F01</span> Lưới hoặc danh sách của thư viện đang mở (luôn có một thư viện mở; M06 lo lần chạy đầu). Thẻ có bìa (ảnh hoặc tự sinh với tên gốc), nhãn ngôn ngữ, tên hiển thị, tác giả · số chương, và thanh phân tích, dịch. Tìm kiếm (<kbd>/</kbd>), sắp xếp và lựa chọn lưới/danh sách được ghi nhớ.</li>
+      <li lang="en"><span class="ac">M04-F01</span> Left panel filters combine with search and show counts: Publication (Ongoing / Completed, set on the novel), Latest job (Running, Paused, Completed, Completed early, No jobs) and Tags (Analysed, Translated; set by the app, combinable). Cards show the latest job line for running, queued, paused or failed jobs; the list shows publication status and tag chips in the Status column.</li>
+      <li lang="vi"><span class="ac">M04-F01</span> Bộ lọc panel trái kết hợp với tìm kiếm và hiện số lượng: Tình trạng phát hành (Đang ra / Đã hoàn thành, đặt trên truyện), Job gần nhất (Đang chạy, Tạm dừng, Hoàn tất, Hoàn tất sớm, Chưa có job) và Nhãn (Đã phân tích, Đã dịch; do ứng dụng gắn, chọn kết hợp được). Thẻ hiện dòng job gần nhất khi đang chạy, đang chờ, tạm dừng hoặc thất bại; danh sách hiện tình trạng và nhãn ở cột Tình trạng.</li>
+      <li lang="en"><span class="ac">M04-F06</span> A novel being imported shows “Importing… n/N”, “Import paused” or “Import queued” and cannot be opened yet; while more chapters are imported it stays openable; a cancelled import leaves “Import incomplete · n of N”, which opens normally and is finished with Import more chapters.</li>
+      <li lang="vi"><span class="ac">M04-F06</span> Truyện đang nhập hiện “Đang nhập… n/N”, “Tạm dừng nhập” hoặc “Chờ nhập” và chưa mở được; khi nhập thêm chương vẫn mở được; nhập bị huỷ để lại “Nhập chưa xong · n / N”, mở bình thường và hoàn tất bằng Nhập thêm chương.</li>
+      <li lang="en"><span class="ac">M04-F03</span> Inspector: overview, latest task with live progress (click opens it in the Task Center), metadata with Edit (titles, author, language, genres, synopsis; the rest read-only). Required fields are checked on Save.</li>
+      <li lang="vi"><span class="ac">M04-F03</span> Inspector: tổng quan, tác vụ gần nhất với tiến độ trực tiếp (bấm để mở trong Trung tâm tác vụ), thông tin với Sửa (tên, tác giả, ngôn ngữ, thể loại, tóm tắt; phần còn lại chỉ để xem). Trường bắt buộc được kiểm tra khi Lưu.</li>
+      <li lang="en"><span class="ac">M04-F04</span> Open, Change cover, Remove cover, Open data folder, Delete. Delete is permanent, keeps <code>exports\</code>, needs the title typed, and is refused while the novel has an active job. List rows end with Open and Delete; there is no More menu.</li>
+      <li lang="vi"><span class="ac">M04-F04</span> Mở, Đổi bìa, Gỡ bìa, Mở thư mục dữ liệu, Xoá. Xoá là vĩnh viễn, giữ <code>exports\</code>, cần gõ lại tên truyện và bị từ chối khi truyện có job đang hoạt động. Dòng danh sách kết thúc bằng Mở và Xoá; không có menu Thêm.</li>
+      <li lang="en"><span class="ac">M04-F05</span> Export writes a ZIP package (novel.json, cover, chapters) of the chosen chapter range, as an Export job in the Task Center.</li>
+      <li lang="vi"><span class="ac">M04-F05</span> Xuất tạo gói ZIP (novel.json, bìa, các chương) của khoảng chương đã chọn, dưới dạng tác vụ Xuất trong Trung tâm tác vụ.</li>
+      <li lang="en">Prototype: the Interact tab of the prototype drawer previews the empty library and the 庆余年 import states; they are not built.</li>
+      <li lang="vi">Bản mẫu: thẻ Interact của ngăn bản mẫu xem trước thư viện trống và các trạng thái nhập 庆余年; không có trong sản phẩm.</li>
+      <li lang="en">Prototype: the inspector follows the selected card or row (庆余年 is selected by default and also shows the import states).</li>
+      <li lang="vi">Bản mẫu: bảng thông tin hiển thị theo thẻ hoặc dòng đang chọn (mặc định chọn 庆余年 và có thêm các trạng thái nhập).</li>
     </ol></aside>
   </section>

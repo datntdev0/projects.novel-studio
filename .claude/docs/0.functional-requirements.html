@@ -107,7 +107,7 @@
     <span class="pill"><span lang="en">Analysed</span><span lang="vi">Ngày phân tích</span>: <b>2026-10-04</b></span>
     <span class="pill"><span lang="en">Input</span><span lang="vi">Đầu vào</span>: <b><a href="0.high-level-requirements.html">High-level Requirements</a></b></span>
     <span class="pill"><span lang="en">Scope</span><span lang="vi">Phạm vi</span>: <b><span lang="en">Whole product lifecycle</span><span lang="vi">Toàn bộ vòng đời sản phẩm</span></b></span>
-    <span class="pill"><span lang="en">Plan</span><span lang="vi">Kế hoạch</span>: <b><span lang="en">23 modules · 98 function groups</span><span lang="vi">23 module · 98 nhóm chức năng</span></b></span>
+    <span class="pill"><span lang="en">Plan</span><span lang="vi">Kế hoạch</span>: <b><span lang="en">23 modules · 100 function groups</span><span lang="vi">23 module · 100 nhóm chức năng</span></b></span>
   </div>
 </header>
 
@@ -207,12 +207,12 @@
     <tr><td class="module-id">M01</td><td>App Shell &amp; Workspace</td><td><span lang="en">Provide a stable desktop frame for every tool.</span><span lang="vi">Cung cấp khung desktop ổn định cho mọi công cụ.</span></td><td><span class="status approved">Release 1 · Part 1</span></td><td><code>TH-01</code>, <code>G8</code>, <code>A4–A5</code>, <code>Q5</code></td><td>Studio shell, command palette, task tray <span lang="en">(the status-bar job item plus the Task Center screen, design decision D9; the top bar has no progress button, M01 Q12)</span><span lang="vi">(mục job trên thanh trạng thái cộng màn hình Task Center, quyết định thiết kế D9; thanh trên không có nút tiến độ, M01 Q12)</span></td></tr>
     <tr><td class="module-id">M02</td><td>Settings &amp; AI Backends</td><td><span lang="en">Manage app settings and choose the CLI for each task type.</span><span lang="vi">Quản lý cấu hình ứng dụng và chọn CLI cho từng loại tác vụ.</span></td><td><span class="status approved">Release 1 · Part 3</span></td><td><code>TH-03</code>, <code>G6</code>, <code>A3</code>, <code>A8</code></td><td>General, AI tools, shortcuts</td></tr>
     <tr><td class="module-id">M03</td><td>Task Center</td><td><span lang="en">Run, track and resume long AI tasks without blocking the UI.</span><span lang="vi">Chạy, theo dõi và tiếp tục các tác vụ AI dài mà không khóa UI.</span></td><td><span class="status approved">Release 1 · Part 1</span></td><td><code>TH-01</code>, <code>A11</code>, <code>M1</code></td><td>Task tray <span lang="en">(the status-bar job item plus the Task Center screen, design decision D9; the top bar has no progress button, M01 Q12)</span><span lang="vi">(mục job trên thanh trạng thái cộng màn hình Task Center, quyết định thiết kế D9; thanh trên không có nút tiến độ, M01 Q12)</span>, task detail, history</td></tr>
-    <tr><td class="module-id">M04</td><td>Novel Library</td><td><span lang="en">Manage the personal library, import novels from local files and export translated chapters to usable files.</span><span lang="vi">Quản lý thư viện cá nhân, nhập truyện từ tệp cục bộ và xuất chương dịch ra tệp dùng được.</span></td><td><span class="status approved">Release 1 · Part 2 · Release 2 · Part 2</span></td><td><code>TH-02</code>, <code>TH-05</code>, <code>G1</code>, <code>A2</code>, <code>Q8–Q9</code>, <code>Q12</code></td><td>Library grid/list, import wizard, novel overview, export dialog</td></tr>
+    <tr><td class="module-id">M04</td><td>Novel Library</td><td><span lang="en">Manage the personal library, import novels from ZIP packages and export a novel's source data back as a package.</span><span lang="vi">Quản lý thư viện cá nhân, nhập truyện từ gói ZIP và xuất dữ liệu nguồn của truyện ra lại thành gói.</span></td><td><span class="status approved">Release 1 · Part 2</span></td><td><code>TH-02</code>, <code>G1</code>, <code>A2</code> <span lang="en">(<code>Q8–Q9</code> answered in the M04 solution)</span><span lang="vi">(<code>Q8–Q9</code> đã trả lời trong giải pháp M04)</span></td><td>Library grid/list, import (ZIP), novel inspector, export dialog</td></tr>
     <tr><td class="module-id">M05</td><td>Chapter Reader &amp; Editor</td><td><span lang="en">Browse, read, search and edit source content by chapter.</span><span lang="vi">Duyệt, đọc, tìm và sửa nội dung nguồn theo chương.</span></td><td><span class="status approved">Release 1 · Part 2</span></td><td><code>TH-02</code>, <code>G1</code>, <code>A7</code>, <code>Q7</code></td><td>Chapter workspace</td></tr>
-    <tr><td class="module-id">M06</td><td>Local Data</td><td><span lang="en">Keep data transparent and safe on the machine: every file write is atomic (M00 <code>AC-40</code>), no telemetry is sent and no CLI credentials are stored.</span><span lang="vi">Giữ dữ liệu minh bạch và an toàn trên máy: mọi lần ghi tệp đều nguyên tử (M00 <code>AC-40</code>), không gửi telemetry và không lưu credential của CLI.</span></td><td><span class="status approved">Release 1 · Part 1</span></td><td><code>TH-01</code>, <code>NG1</code>, <code>NG4</code>, <code>A6–A10</code></td><td>Library location, library check</td></tr>
+    <tr><td class="module-id">M06</td><td>Local Data</td><td><span lang="en">Keep data transparent and safe on the machine: every file write is atomic (M00 <code>AC-40</code>), no telemetry is sent and no CLI credentials are stored.</span><span lang="vi">Giữ dữ liệu minh bạch và an toàn trên máy: mọi lần ghi tệp đều nguyên tử (M00 <code>AC-40</code>), không gửi telemetry và không lưu credential của CLI.</span></td><td><span class="status approved"><span lang="en">Release 1 · Part 2, after M04</span><span lang="vi">Release 1 · Part 2, sau M04</span></span> <span lang="en">(PO: M04 first so M06 is tested on real data)</span><span lang="vi">(PO: làm M04 trước để M06 được kiểm thử trên dữ liệu thật)</span></td><td><code>TH-01</code>, <code>NG1</code>, <code>NG4</code>, <code>A6–A10</code></td><td>Library location, library check</td></tr>
     <tr><td class="module-id">M07</td><td>Story World Catalog</td><td><span lang="en">Build and maintain a shared source of truth for entities and terms.</span><span lang="vi">Xây dựng và duy trì nguồn sự thật chung về thực thể và thuật ngữ.</span></td><td><span class="status approved"><span lang="en">Release 2 · Part 1 (advanced: Part 3)</span><span lang="vi">Release 2 · Part 1 (nâng cao: Part 3)</span></span></td><td><code>TH-04</code>, <code>G2–G3</code>, <code>M2</code></td><td>Entity catalog, review queue, entity detail</td></tr>
     <tr><td class="module-id">M08</td><td>Relationship Map &amp; Timeline</td><td><span lang="en">Look up relationships at a chapter point without revealing unread parts.</span><span lang="vi">Tra cứu quan hệ theo mốc chương mà không lộ phần chưa đọc.</span></td><td><span class="status approved"><span lang="en">Release 2 · Part 1 (advanced: Part 3)</span><span lang="vi">Release 2 · Part 1 (nâng cao: Part 3)</span></span></td><td><code>TH-04</code>, <code>G4</code>, <code>Q6</code></td><td>Relationship graph, chapter timeline</td></tr>
-    <tr><td class="module-id">M09</td><td>Translation Workspace &amp; Quality</td><td><span lang="en">Translate in batches, keep names consistent, edit and check for errors.</span><span lang="vi">Dịch hàng loạt, giữ tên nhất quán, biên tập và kiểm tra lỗi.</span></td><td><span class="status approved">Release 2 · Part 2</span></td><td><code>TH-05</code>, <code>G5</code>, <code>M1–M3</code>, <code>Q10–Q12</code></td><td>Batch setup, side-by-side review, QA summary</td></tr>
+    <tr><td class="module-id">M09</td><td>Translation Workspace &amp; Quality</td><td><span lang="en">Translate in batches, keep names consistent, edit and check for errors.</span><span lang="vi">Dịch hàng loạt, giữ tên nhất quán, biên tập và kiểm tra lỗi.</span></td><td><span class="status approved">Release 2 · Part 2</span></td><td><code>TH-05</code>, <code>G5</code>, <code>M1–M3</code>, <code>Q10–Q12</code></td><td>Batch setup, side-by-side review, QA summary, export dialog</td></tr>
     <tr><td class="module-id">M10</td><td>Media Asset Library</td><td><span lang="en">Manage consistent images and voices per story entity.</span><span lang="vi">Quản lý hình ảnh và giọng nhất quán theo thực thể truyện.</span></td><td><span class="status todo">Release 4 · Part 1–2</span></td><td><code>TH-06</code>, <code>G7</code>, <code>Q13</code></td><td>Asset catalog, asset generator, entity asset detail</td></tr>
     <tr><td class="module-id">M11</td><td>Audiobook Studio</td><td><span lang="en">Turn translated chapters into audio with consistent character voices.</span><span lang="vi">Biến chương dịch thành audio với giọng nhân vật nhất quán.</span></td><td><span class="status todo">Release 3 · Part 2, 4</span></td><td><code>TH-07</code>, <code>G7</code>, <code>Q13</code></td><td>Cast mapping, script segments, audio timeline</td></tr>
     <tr><td class="module-id">M12</td><td>Series Film Studio</td><td><span lang="en">Turn a novel into scripts and short episodes.</span><span lang="vi">Chuyển truyện thành kịch bản và tập phim ngắn.</span></td><td><span class="status todo">Release 7 · Part 1–3 · Release 8 · Part 1–3</span></td><td><code>TH-08</code>, <code>G7</code>, <code>Q13</code></td><td>Episode project, storyboard, timeline, render library</td></tr>
@@ -377,45 +377,61 @@
   <tr><td>M04-F01 · <span lang="en">Novel catalog</span><span lang="vi">Danh mục truyện</span></td><td><ul class="function-list">
     <li lang="en">View the library as a grid or a list.</li>
     <li lang="vi">Xem thư viện dạng lưới hoặc danh sách.</li>
-    <li lang="en">Search by title, author or language; filter and sort by status, last updated or progress.</li>
-    <li lang="vi">Tìm theo tên, tác giả hoặc ngôn ngữ; lọc và sắp xếp theo trạng thái, cập nhật gần nhất hoặc tiến độ.</li>
-    <li lang="en">Cards show the cover, title, chapter count, source language, and analysis and translation status.</li>
-    <li lang="vi">Card hiển thị bìa, tiêu đề, số chương, ngôn ngữ nguồn, trạng thái phân tích và dịch.</li>
-  </ul></td><td><span class="status review"><span lang="en">Proposed</span><span lang="vi">Đề xuất</span></span> <code>Q9</code> <span lang="en">decides metadata</span><span lang="vi">quyết định metadata</span></td></tr>
-  <tr><td>M04-F02 · <span lang="en">Import novel</span><span lang="vi">Nhập truyện</span></td><td><ul class="function-list">
-    <li lang="en">Choose a local file or folder.</li>
-    <li lang="vi">Chọn tệp hoặc thư mục cục bộ.</li>
-    <li lang="en">Preview how chapters are split and fix titles or numbers before importing.</li>
-    <li lang="vi">Xem trước cách tách chương và sửa tiêu đề hoặc số thứ tự trước khi nhập.</li>
-    <li lang="en">Detect duplicate, missing-number or unreadable chapters.</li>
-    <li lang="vi">Phát hiện chương trùng, thiếu số hoặc không đọc được.</li>
-    <li lang="en">Import in the background with progress when the data is large.</li>
-    <li lang="vi">Nhập nền với tiến độ khi dữ liệu lớn.</li>
-  </ul></td><td><span class="status approved"><span lang="en">Local import confirmed</span><span lang="vi">Nhập local đã xác nhận</span></span> <code>Q8</code> <span lang="en">formats and splitting rules still open</span><span lang="vi">còn mở định dạng và quy tắc tách</span></td></tr>
+    <li lang="en">Search by title, author or language; filter by source language, publication status, latest job, tags and genre; sort by last updated, title, chapter count or translation progress.</li>
+    <li lang="vi">Tìm theo tên, tác giả hoặc ngôn ngữ; lọc theo ngôn ngữ nguồn, tình trạng phát hành, job gần nhất, nhãn và thể loại; sắp xếp theo cập nhật gần nhất, tiêu đề, số chương hoặc tiến độ dịch.</li>
+    <li lang="en">Cards show the cover, source language, title, author, chapter count, analysis and translation bars, and the latest job while it is not finished.</li>
+    <li lang="vi">Card hiển thị bìa, ngôn ngữ nguồn, tiêu đề, tác giả, số chương, thanh phân tích và dịch, và job gần nhất khi job đó chưa kết thúc.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span> <span lang="en">M04 solution, 2026-10-06</span><span lang="vi">giải pháp M04, 2026-10-06</span></td></tr>
+  <tr><td>M04-F02 · <span lang="en">Import preview</span><span lang="vi">Xem trước khi nhập</span></td><td><ul class="function-list">
+    <li lang="en">Choose or drop a ZIP package; it is the only import source in Release 1 · Part 2.</li>
+    <li lang="vi">Chọn hoặc thả một gói ZIP; đây là nguồn nhập duy nhất trong Release 1 · Part 2.</li>
+    <li lang="en">Preview one row per chapter file and fix chapter titles and numbers, or untick rows, before anything is saved.</li>
+    <li lang="vi">Xem trước mỗi tệp chương một dòng và sửa tiêu đề, số chương hoặc bỏ chọn dòng trước khi có gì được lưu.</li>
+    <li lang="en">Fill in and fix the novel's metadata on the same preview screen.</li>
+    <li lang="vi">Điền và sửa thông tin truyện trên cùng màn hình xem trước.</li>
+    <li lang="en">Check the package: refuse unsafe or unreadable packages and flag duplicate, missing-number, non-UTF-8 or empty chapters.</li>
+    <li lang="vi">Kiểm tra gói: từ chối gói không an toàn hoặc không đọc được và đánh dấu chương trùng, thiếu số, không phải UTF-8 hoặc rỗng.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span> <span lang="en">M04 solution, 2026-10-06</span><span lang="vi">giải pháp M04, 2026-10-06</span></td></tr>
   <tr><td>M04-F03 · <span lang="en">Novel information</span><span lang="vi">Thông tin truyện</span></td><td><ul class="function-list">
-    <li lang="en">View and edit the allowed metadata.</li>
-    <li lang="vi">Xem và sửa metadata được cho phép.</li>
-    <li lang="en">View an overview: total chapters, word count, analyzed chapters, translated chapters and the latest task.</li>
-    <li lang="vi">Xem tổng quan: tổng chương, số từ, chương đã phân tích, chương đã dịch và tác vụ gần nhất.</li>
+    <li lang="en">View and edit the allowed metadata, including the display title.</li>
+    <li lang="vi">Xem và sửa metadata được cho phép, gồm cả tên hiển thị.</li>
+    <li lang="en">View an overview: total chapters, character count, analyzed chapters, translated chapters and the latest task.</li>
+    <li lang="vi">Xem tổng quan: tổng chương, số ký tự, chương đã phân tích, chương đã dịch và tác vụ gần nhất.</li>
     <li lang="en">Open the novel's data folder.</li>
     <li lang="vi">Mở thư mục dữ liệu của truyện.</li>
-  </ul></td><td><span class="status review"><span lang="en">Proposed</span><span lang="vi">Đề xuất</span></span> <code>Q9</code></td></tr>
+  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span> <span lang="en">M04 solution, 2026-10-06</span><span lang="vi">giải pháp M04, 2026-10-06</span></td></tr>
   <tr><td>M04-F04 · <span lang="en">Novel lifecycle</span><span lang="vi">Vòng đời truyện</span></td><td><ul class="function-list">
-    <li lang="en">Open, rename the display title, change the cover or update metadata.</li>
-    <li lang="vi">Mở, đổi tên hiển thị, thay bìa hoặc cập nhật metadata.</li>
-    <li lang="en">Import more chapters into an existing novel.</li>
-    <li lang="vi">Nhập thêm chương vào truyện hiện có.</li>
-    <li lang="en">Delete a novel with a confirmation that states clearly which data will be deleted.</li>
-    <li lang="vi">Xóa truyện bằng xác nhận rõ phạm vi dữ liệu bị xóa.</li>
-  </ul></td><td><span class="status review"><span lang="en">Proposed</span><span lang="vi">Đề xuất</span></span></td></tr>
-  <tr><td>M04-F05 · <span lang="en">Export</span><span lang="vi">Xuất</span></td><td><ul class="function-list">
-    <li lang="en">Export translated chapters as plain text files.</li>
-    <li lang="vi">Xuất chương dịch thành tệp văn bản thuần.</li>
-    <li lang="en">Choose the chapter range, target language and output folder.</li>
-    <li lang="vi">Chọn phạm vi chương, ngôn ngữ đích và thư mục đầu ra.</li>
-    <li lang="en">Report duplicate files and the export result.</li>
-    <li lang="vi">Báo tệp trùng và kết quả xuất.</li>
-  </ul></td><td><span class="status approved"><span lang="en">Plain-file export confirmed</span><span lang="vi">Xuất plain files xác nhận</span></span> <code>Q12</code> <span lang="en">format still open</span><span lang="vi">còn mở định dạng</span> · Release 2 · Part 2</td></tr>
+    <li lang="en">Open a novel, or change or remove its cover.</li>
+    <li lang="vi">Mở truyện, hoặc thay hoặc gỡ bìa.</li>
+    <li lang="en">Delete a novel permanently after a confirmation that lists what is removed and kept; the <code>exports\</code> folder is kept.</li>
+    <li lang="vi">Xóa vĩnh viễn truyện sau xác nhận liệt kê những gì bị xóa và được giữ; thư mục <code>exports\</code> được giữ lại.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span> <span lang="en">M04 solution, 2026-10-06</span><span lang="vi">giải pháp M04, 2026-10-06</span></td></tr>
+  <tr><td>M04-F05 · <span lang="en">Export source package</span><span lang="vi">Xuất gói nguồn</span></td><td><ul class="function-list">
+    <li lang="en">Export the novel's source data as a ZIP package with the import layout, so it can be imported again.</li>
+    <li lang="vi">Xuất dữ liệu nguồn của truyện thành gói ZIP cùng cấu trúc với gói nhập, để có thể nhập lại.</li>
+    <li lang="en">Choose the chapter range (all chapters by default) and the output folder.</li>
+    <li lang="vi">Chọn phạm vi chương (mặc định mọi chương) và thư mục đầu ra.</li>
+    <li lang="en">Run as an Export job in the Task Center; cancel leaves no partial package.</li>
+    <li lang="vi">Chạy như một job Xuất trong Task Center; huỷ không để lại gói dở.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span> <span lang="en">M04 solution, 2026-10-06</span><span lang="vi">giải pháp M04, 2026-10-06</span> · Release 1 · Part 2</td></tr>
+  <tr><td>M04-F06 · <span lang="en">Import run</span><span lang="vi">Chạy nhập</span> <span class="status open">new</span></td><td><ul class="function-list">
+    <li lang="en">Run every import, including Import more, as a background Import job in the Task Center with progress on the novel and the status bar.</li>
+    <li lang="vi">Chạy mọi lần nhập, kể cả Nhập thêm chương, như một job Nhập nền trong Task Center, có tiến độ trên truyện và thanh trạng thái.</li>
+    <li lang="en">Cancel keeps the chapters already imported and marks the novel as incomplete.</li>
+    <li lang="vi">Huỷ giữ các chương đã nhập và đánh dấu truyện là nhập chưa xong.</li>
+    <li lang="en">Resume after a pause, app close or crash without importing a chapter twice.</li>
+    <li lang="vi">Chạy tiếp sau khi tạm dừng, đóng ứng dụng hoặc bị sập mà không nhập chương nào hai lần.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span> <span lang="en">M04 solution, 2026-10-06</span><span lang="vi">giải pháp M04, 2026-10-06</span></td></tr>
+  <tr><td>M04-F08 · <span lang="en">Import more chapters</span><span lang="vi">Nhập thêm chương</span> <span class="status open">new</span></td><td><ul class="function-list">
+    <li lang="en">Import more chapters into an existing novel from another ZIP package, using the same import screen with chapter numbers taken from the file names.</li>
+    <li lang="vi">Nhập thêm chương vào truyện hiện có từ một gói ZIP khác, dùng cùng màn hình nhập với số chương lấy từ tên tệp.</li>
+    <li lang="en">Compare current and new metadata field by field; the current value is kept unless the new one is chosen.</li>
+    <li lang="vi">So sánh thông tin hiện tại và mới theo từng trường; giữ giá trị hiện tại trừ khi chọn giá trị mới.</li>
+    <li lang="en">Flag files already in the novel or duplicating an existing chapter; they start unticked.</li>
+    <li lang="vi">Đánh dấu tệp đã có trong truyện hoặc trùng với chương đã có; các tệp này bắt đầu ở trạng thái bỏ chọn.</li>
+    <li lang="en">Rerun an Import job as Import more for the same novel.</li>
+    <li lang="vi">Chạy lại một job Nhập dưới dạng Nhập thêm chương cho đúng truyện đó.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span> <span lang="en">M04 solution, 2026-10-06 (split from M04-F04, M04-F06)</span><span lang="vi">giải pháp M04, 2026-10-06 (tách từ M04-F04, M04-F06)</span></td></tr>
 </tbody></table>
 
 <h3>M05 · Chapter Reader &amp; Editor</h3>
@@ -611,13 +627,15 @@
     <li lang="vi">Lọc danh sách chương theo trạng thái để xử lý hàng loạt.</li>
   </ul></td><td><span class="status review"><span lang="en">Proposed for running 100-chapter batches</span><span lang="vi">Đề xuất để vận hành 100 chương</span></span></td></tr>
   <tr><td>M09-F07 · <span lang="en">Translation export</span><span lang="vi">Xuất bản dịch</span></td><td><ul class="function-list">
-    <li lang="en">Export only chapters that meet the conditions the user selects.</li>
-    <li lang="vi">Chỉ xuất chương đạt điều kiện người dùng chọn.</li>
+    <li lang="en">Export translated chapters as plain text files.</li>
+    <li lang="vi">Xuất chương dịch thành tệp văn bản thuần.</li>
+    <li lang="en">Choose the chapter range, target language and output folder; only chapters that meet the conditions the user selects are exported.</li>
+    <li lang="vi">Chọn phạm vi chương, ngôn ngữ đích và thư mục đầu ra; chỉ xuất chương đạt điều kiện người dùng chọn.</li>
     <li lang="en">Keep chapter numbers and titles.</li>
     <li lang="vi">Giữ số thứ tự và tiêu đề chương.</li>
-    <li lang="en">Create a short report of skipped or failed chapters.</li>
-    <li lang="vi">Tạo báo cáo ngắn về chương bị bỏ qua hoặc có lỗi.</li>
-  </ul></td><td><span class="status approved"><span lang="en">Export confirmed</span><span lang="vi">Xuất xác nhận</span></span> <code>Q12</code> <span lang="en">format still open</span><span lang="vi">còn mở định dạng</span></td></tr>
+    <li lang="en">Report duplicate files and the export result, with a short list of skipped or failed chapters.</li>
+    <li lang="vi">Báo tệp trùng và kết quả xuất, kèm danh sách ngắn chương bị bỏ qua hoặc có lỗi.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Plain-file export confirmed</span><span lang="vi">Xuất tệp văn bản thuần xác nhận</span></span> <code>Q12</code> <span lang="en">format still open</span><span lang="vi">còn mở định dạng</span> · Release 2 · Part 2 <span lang="en">(merged from former M04-F05, M04 solution 2026-10-06)</span><span lang="vi">(gộp từ M04-F05 cũ, giải pháp M04 2026-10-06)</span></td></tr>
 </tbody></table>
 <h3>M10 · Media Asset Library <span class="status todo">Release 4 · Part 1–2</span></h3>
 <table class="compact"><thead><tr><th><span lang="en">Function group</span><span lang="vi">Nhóm chức năng</span></th><th><span lang="en">Intended functions</span><span lang="vi">Chức năng định hướng</span></th></tr></thead><tbody>
@@ -738,13 +756,13 @@
   <thead><tr><th>Journey</th><th><span lang="en">Function sequence</span><span lang="vi">Chuỗi chức năng</span></th><th><span lang="en">Expected outcome</span><span lang="vi">Kết quả mong đợi</span></th></tr></thead>
   <tbody>
     <tr><td><span lang="en">J1 · First-time setup</span><span lang="vi">J1 · Thiết lập lần đầu</span></td><td><span lang="en">M01 → M06 choose library → M02 detect CLI → choose backend</span><span lang="vi">M01 → M06 chọn thư viện → M02 phát hiện CLI → chọn backend</span></td><td><span lang="en">The app is ready to import novels and run AI.</span><span lang="vi">Ứng dụng sẵn sàng nhập truyện và chạy AI.</span></td></tr>
-    <tr><td><span lang="en">J2 · Import and read a novel</span><span lang="vi">J2 · Nhập và đọc truyện</span></td><td><span lang="en">M04 choose source → preview chapter split → import → M05 read/edit</span><span lang="vi">M04 chọn nguồn → preview tách chương → import → M05 đọc/sửa</span></td><td><span lang="en">Large novels are stored locally and open quickly.</span><span lang="vi">Truyện lớn được lưu cục bộ và truy cập nhanh.</span></td></tr>
+    <tr><td><span lang="en">J2 · Import and read a novel</span><span lang="vi">J2 · Nhập và đọc truyện</span></td><td><span lang="en">M04 choose ZIP package → preview chapters and metadata → import job → M05 read/edit</span><span lang="vi">M04 chọn gói ZIP → xem trước chương và thông tin → job nhập → M05 đọc/sửa</span></td><td><span lang="en">Large novels are stored locally and open quickly.</span><span lang="vi">Truyện lớn được lưu cục bộ và truy cập nhanh.</span></td></tr>
     <tr><td><span lang="en">J3 · Build the story world</span><span lang="vi">J3 · Dựng thế giới truyện</span></td><td><span lang="en">M07 choose chapters → M03 run job → M07 review/merge/rename → M08 view relationships</span><span lang="vi">M07 chọn chương → M03 chạy job → M07 review/gộp/đổi tên → M08 xem quan hệ</span></td><td><span lang="en">A clean enough knowledge source exists for lookup and for use in translation.</span><span lang="vi">Có nguồn tri thức đủ sạch để tra cứu và dùng khi dịch.</span></td></tr>
-    <tr><td><span lang="en">J4 · Batch translation</span><span lang="vi">J4 · Dịch hàng loạt</span></td><td><span lang="en">M09 preflight → M03 run job → M09 QA → side-by-side edit → M04 export</span><span lang="vi">M09 preflight → M03 chạy job → M09 QA → sửa song song → M04 xuất</span></td><td><span lang="en">Multi-chapter translations have consistent names and few paragraph errors.</span><span lang="vi">Bản dịch nhiều chương có tên nhất quán và ít lỗi đoạn.</span></td></tr>
+    <tr><td><span lang="en">J4 · Batch translation</span><span lang="vi">J4 · Dịch hàng loạt</span></td><td><span lang="en">M09 preflight → M03 run job → M09 QA → side-by-side edit → M09 export</span><span lang="vi">M09 preflight → M03 chạy job → M09 QA → sửa song song → M09 xuất</span></td><td><span lang="en">Multi-chapter translations have consistent names and few paragraph errors.</span><span lang="vi">Bản dịch nhiều chương có tên nhất quán và ít lỗi đoạn.</span></td></tr>
     <tr><td><span lang="en">J5 · Spoiler-free lookup</span><span lang="vi">J5 · Tra cứu không spoiler</span></td><td><span lang="en">M05 choose current reading point → M07 look up entity → M08 view relationships up to that point</span><span lang="vi">M05 chọn mốc đang đọc → M07 tra entity → M08 xem quan hệ tính đến mốc</span></td><td><span lang="en">Readers understand characters and relationships without seeing future information.</span><span lang="vi">Người đọc hiểu nhân vật và quan hệ mà không thấy thông tin tương lai.</span></td></tr>
     <tr><td><span lang="en">J6 · Recover an interrupted job</span><span lang="vi">J6 · Phục hồi job gián đoạn</span></td><td><span lang="en">M03 open a paused or interrupted job → resume; or open a completed job with failed items or an early stop → view CLI error → fix configuration in M02 if needed → rerun</span><span lang="vi">M03 mở job tạm dừng hoặc bị gián đoạn → chạy tiếp; hoặc mở job hoàn tất có mục lỗi hay dừng sớm → xem lỗi CLI → sửa cấu hình ở M02 nếu cần → chạy lại</span></td><td><span lang="en">Completed results are not lost; resume processes only the remaining part, rerun starts a new job with the same parameters (M03 Q25, Q33).</span><span lang="vi">Không mất kết quả đã hoàn tất; chạy tiếp chỉ xử lý phần còn lại, chạy lại tạo job mới với cùng tham số (M03 Q25, Q33).</span></td></tr>
     <tr><td><span lang="en">J7 · Prepare character voices</span><span lang="vi">J7 · Chuẩn bị giọng nhân vật</span></td><td><span lang="en">M07 choose character → M14 design/clone voice → M15 normalise pronunciation → save to M10</span><span lang="vi">M07 chọn nhân vật → M14 thiết kế/clone voice → M15 chuẩn hóa phát âm → lưu M10</span></td><td><span lang="en">Each character has a standard, reusable voice that pronounces names and terms correctly.</span><span lang="vi">Mỗi nhân vật có giọng chuẩn, tái sử dụng được và phát âm đúng tên/thuật ngữ.</span></td></tr>
-    <tr><td><span lang="en">J8 · Produce an audiobook</span><span lang="vi">J8 · Sản xuất audiobook</span></td><td><span lang="en">M11 split dialogue → M14 assign cast → generate speech → M16 add BGM/SFX → M17 mix/master → M04 export</span><span lang="vi">M11 tách thoại → M14 gán cast → tạo speech → M16 thêm BGM/SFX → M17 mix/master → M04 export</span></td><td><span lang="en">A chapter becomes complete audio with no missing passages and consistent voices.</span><span lang="vi">Chương trở thành audio hoàn chỉnh, không thiếu đoạn và nhất quán giọng.</span></td></tr>
+    <tr><td><span lang="en">J8 · Produce an audiobook</span><span lang="vi">J8 · Sản xuất audiobook</span></td><td><span lang="en">M11 split dialogue → M14 assign cast → generate speech → M16 add BGM/SFX → M17 mix/master → M11 export</span><span lang="vi">M11 tách thoại → M14 gán cast → tạo speech → M16 thêm BGM/SFX → M17 mix/master → M11 export</span></td><td><span lang="en">A chapter becomes complete audio with no missing passages and consistent voices.</span><span lang="vi">Chương trở thành audio hoàn chỉnh, không thiếu đoạn và nhất quán giọng.</span></td></tr>
     <tr><td><span lang="en">J9 · Produce an episode</span><span lang="vi">J9 · Sản xuất tập phim</span></td><td><span lang="en">M12 script/storyboard → M10/M16/M19 gather assets → M18 build timeline → render → M20 package/distribute</span><span lang="vi">M12 script/storyboard → M10/M16/M19 gom asset → M18 dựng timeline → render → M20 đóng gói/phân phối</span></td><td><span lang="en">Episodes share characters, settings, voices and sound palette.</span><span lang="vi">Tập phim dùng chung nhân vật, bối cảnh, giọng và sound palette.</span></td></tr>
     <tr><td><span lang="en">J10 · Extend capabilities</span><span lang="vi">J10 · Mở rộng năng lực</span></td><td><span lang="en">M21 install provider/model/module → M02 assign backend → M22 self-check → use in M03</span><span lang="vi">M21 cài provider/model/module → M02 gán backend → M22 self-check → sử dụng trong M03</span></td><td><span lang="en">New capabilities are added in a controlled way without breaking existing workflows.</span><span lang="vi">Năng lực mới được thêm có kiểm soát mà không phá vỡ workflow hiện có.</span></td></tr>
   </tbody>
@@ -756,11 +774,11 @@
 <table class="compact">
   <thead><tr><th>ID</th><th><span lang="en">Decision to make</span><span lang="vi">Quyết định cần chốt</span></th><th><span lang="en">Affected modules</span><span lang="vi">Module bị ảnh hưởng</span></th><th><span lang="en">Suitable time</span><span lang="vi">Thời điểm phù hợp</span></th></tr></thead>
   <tbody>
-    <tr><td><code>Q8</code></td><td><span lang="en">Import formats and chapter-splitting rules.</span><span lang="vi">Định dạng nhập và quy tắc tách chương.</span></td><td>M04</td><td>Flow 02</td></tr>
-    <tr><td><code>Q9</code></td><td><span lang="en">Novel metadata to store and display.</span><span lang="vi">Metadata truyện cần lưu và hiển thị.</span></td><td>M04</td><td>Flow 02</td></tr>
+    <tr><td><code>Q8</code></td><td><span lang="en">Import formats and chapter-splitting rules.</span><span lang="vi">Định dạng nhập và quy tắc tách chương.</span></td><td>M04</td><td><span class="status approved"><span lang="en">Answered</span><span lang="vi">Đã trả lời</span></span> <span lang="en">M04 solution, 2026-10-06: ZIP package only, one file per chapter, no text splitting</span><span lang="vi">giải pháp M04, 2026-10-06: chỉ gói ZIP, mỗi tệp một chương, không tách văn bản</span></td></tr>
+    <tr><td><code>Q9</code></td><td><span lang="en">Novel metadata to store and display.</span><span lang="vi">Metadata truyện cần lưu và hiển thị.</span></td><td>M04</td><td><span class="status approved"><span lang="en">Answered</span><span lang="vi">Đã trả lời</span></span> <span lang="en">M04 solution, 2026-10-06 (M04 Q8, Q18)</span><span lang="vi">giải pháp M04, 2026-10-06 (M04 Q8, Q18)</span></td></tr>
     <tr><td><code>Q10</code></td><td><span lang="en">Name/term translation policy and how to override it.</span><span lang="vi">Chính sách dịch tên/thuật ngữ và cách override.</span></td><td>M07, M09</td><td>Flow 05A</td></tr>
     <tr><td><code>Q11</code></td><td><span lang="en">Whether unanalysed chapters can be translated, and the level of consistency promised.</span><span lang="vi">Có cho dịch chương chưa phân tích và mức cam kết nhất quán.</span></td><td>M09</td><td>Flow 05A</td></tr>
-    <tr><td><code>Q12</code></td><td><span lang="en">Translation export formats.</span><span lang="vi">Định dạng xuất bản dịch.</span></td><td>M04, M09</td><td>Flow 05B</td></tr>
+    <tr><td><code>Q12</code></td><td><span lang="en">Translation export formats.</span><span lang="vi">Định dạng xuất bản dịch.</span></td><td>M09</td><td>Flow 05B</td></tr>
     <tr><td><code>Q13</code></td><td><span lang="en">Speech/image/video backends.</span><span lang="vi">Backend speech/image/video.</span></td><td>M10–M12, M14, M16, M18</td><td><span lang="en">When planning TH-06, TH-07, TH-08, TH-10, TH-14</span><span lang="vi">Khi lập kế hoạch TH-06, TH-07, TH-08, TH-10, TH-14</span></td></tr>
     <tr><td><code>Q14</code></td><td><span lang="en">Chatbot scope and anti-spoiler rules.</span><span lang="vi">Phạm vi chatbot và quy tắc chống spoiler.</span></td><td>M13</td><td><span lang="en">When planning TH-09</span><span lang="vi">Khi lập kế hoạch TH-09</span></td></tr>
     <tr><td><code>LQ15</code></td><td><span lang="en">Which voice engine, whether voice cloning is allowed, and how consent/provenance is stored.</span><span lang="vi">Voice engine nào, có cho clone giọng không, consent/provenance được lưu ra sao.</span></td><td>M14</td><td><span lang="en">Decide in Release 3 · Part 1</span><span lang="vi">Chốt trong Release 3 · Part 1</span></td></tr>

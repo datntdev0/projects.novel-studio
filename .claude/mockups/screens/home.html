@@ -1,16 +1,19 @@
   <!-- ================= screen: home (TH-01) ================= -->
   <section class="screen" id="home" data-title="Home" data-layout="no-left no-right no-bottom">
+    <div class="proto-states" hidden>
+      <h4><span lang="en">Home</span><span lang="vi">Trang chủ</span></h4>
+      <div class="segmented proto" data-mode-for="#home" data-testid="home-state-preview">
+        <button data-mode="filled" aria-pressed="true" data-testid="home-state-filled"><span lang="en">Filled</span><span lang="vi">Có dữ liệu</span></button>
+        <button data-mode="empty" aria-pressed="false" data-testid="home-state-empty"><span lang="en">Empty</span><span lang="vi">Trống</span></button>
+        <button data-mode="loading" aria-pressed="false" data-testid="home-state-loading"><span lang="en">Loading</span><span lang="vi">Đang tải</span></button>
+        <button data-mode="error" aria-pressed="false" data-testid="home-state-error"><span lang="en">Error</span><span lang="vi">Lỗi</span></button>
+        <button data-mode="first" aria-pressed="false" data-testid="home-state-first"><span lang="en">First launch</span><span lang="vi">Lần đầu</span></button>
+      </div>
+    </div>
     <main class="workspace" data-testid="home-workspace">
       <div class="ws-toolbar">
         <h2><span lang="en">Home</span><span lang="vi">Trang chủ</span></h2>
         <span class="spacer"></span>
-        <div class="segmented proto" data-mode-for="#home" data-testid="home-state-preview">
-          <button data-mode="filled" aria-pressed="true" data-testid="home-state-filled"><span lang="en">Filled</span><span lang="vi">Có dữ liệu</span></button>
-          <button data-mode="empty" aria-pressed="false" data-testid="home-state-empty"><span lang="en">Empty</span><span lang="vi">Trống</span></button>
-          <button data-mode="loading" aria-pressed="false" data-testid="home-state-loading"><span lang="en">Loading</span><span lang="vi">Đang tải</span></button>
-          <button data-mode="error" aria-pressed="false" data-testid="home-state-error"><span lang="en">Error</span><span lang="vi">Lỗi</span></button>
-          <button data-mode="first" aria-pressed="false" data-testid="home-state-first"><span lang="en">First launch</span><span lang="vi">Lần đầu</span></button>
-        </div>
         <button class="btn sm" data-mode-only="filled empty loading error" data-go="import" data-testid="home-import"><svg class="icon sm"><use href="#i-download"/></svg><span lang="en">Import novel</span><span lang="vi">Nhập truyện</span><kbd>Ctrl</kbd><kbd>O</kbd></button>
         <button class="btn primary sm" data-mode-only="filled empty loading error" data-go="library" data-testid="home-open-library"><svg class="icon sm"><use href="#i-library"/></svg><span lang="en">Open library</span><span lang="vi">Mở thư viện</span></button>
       </div>
@@ -133,8 +136,8 @@
       <li lang="vi"><span class="ac">AC-56</span> Lần đầu khởi động thay thế toàn bộ trang; các hành động của nó thuộc M06.</li>
       <li lang="en">Job progress and CLI status appear in the status bar only, not in the top bar (D21).</li>
       <li lang="vi">Tiến độ job và trạng thái CLI chỉ hiển thị ở thanh trạng thái, không ở thanh trên (D21).</li>
-      <li lang="en">The dashed state preview is prototype only.</li>
-      <li lang="vi">Bộ xem trước trạng thái nét đứt chỉ dùng cho prototype.</li>
+      <li lang="en">State previews live in the prototype drawer (Interact tab, "States of this screen"); they are not part of the product UI.</li>
+      <li lang="vi">Bộ xem trước trạng thái nằm trong ngăn prototype (tab Interact, "States of this screen"); không thuộc giao diện sản phẩm.</li>
       <li lang="en"><span class="ac">AC-9 · AC-7</span> The app always starts on Home, and Home closes the open novel.</li>
       <li lang="vi"><span class="ac">AC-9 · AC-7</span> Ứng dụng luôn mở ở Trang chủ, và Trang chủ đóng truyện đang mở.</li>
       <li lang="en">Try: <kbd>Ctrl</kbd><kbd>K</kbd> palette · <kbd>Ctrl</kbd><kbd>/</kbd> shortcuts · <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>L</kbd> theme · <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>U</kbd> language.</li>
