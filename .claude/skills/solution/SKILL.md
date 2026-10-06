@@ -22,27 +22,29 @@ The solution is about one module and its **work items**: Stories `Mxx-Fyy` (func
 | `.claude/mockups/` shared parts (shell, styles, app.js, components) | — | designer |
 | `.claude/mockups/screens/<id>.html` (new/changed screens) | — | prototyper (one per screen) |
 | Jira Stories / Tasks under the module Epic | — | main session, after confirmation |
+| Epic attachments `<Mxx>-0.requirements.html`, `<Mxx>-0.solution.html` | — | main session, at the gates |
 
-Scaffold with: `python .claude/scripts/scaffold.py module <Mxx>` (creates `.claude/docs/<Mxx>/` with both templates).
+Scaffold with: `python .claude/scripts/scaffold.py module <Mxx>` (creates `.claude/docs/<Mxx>/` with both templates). Module docs are local only (gitignored); see *Module docs* in `tool-atlassian`.
 
 ## Steps
 
-1. **Scaffold** the module folder if it does not exist.
+1. **Scaffold** the module folder if it does not exist: first `python .claude/scripts/jira.py pull-docs <Mxx>` (the Epic may already hold approved docs), then scaffold only what is still missing.
 2. **Clarify & analyze** — launch the `analyst` subagent (Opus).
    - Read the module's Epic and Stories in Jira and the functional requirements; map the module to its theme (`TH-nn`). If the request fits no theme, say so and ask whether to extend the high-level requirements.
    - Analyst returns grouped clarifying questions with defaults; the main session asks them and launches a fresh analyst run with the answers to write the document. Record Q&A in the clarification log.
    - Write one user story per Story `Mxx-Fyy` with `AC-n` criteria: one sentence per AC, at most ~12 per Story, Given / When / Then only in the collapsed detail. A missing function is proposed as a new Story marked `new`. Status `draft`. More than about 4 Stories → one fresh analyst run per batch of Stories.
-   - ⛔ **Gate 1** — product owner approves the requirements.
+   - ⛔ **Gate 1** — product owner approves the requirements. Then upload them: `python .claude/scripts/jira.py push-docs <Mxx> 0.requirements.html`.
 3. **Propose solution** — launch the `architect` and `designer` subagents (Opus) in parallel once Gate 1 passes.
    - Architect: **work items** — compare the Stories with what the module really needs; list existing, missing, changed, split and dropped items; add technical Tasks `Mxx-Tyy` for foundation or shared work (each with its own `AC-n`, continuing the module sequence); for every item: the work it delivers, components and expected files, acceptance, dependencies, release. Then the shared technical design, alternatives, impact on architecture, verification strategy per AC and the build order.
    - Designer: UX flow table (returned in its report, the architect writes it into `0.solution.html`), screen inventory update in the design-system doc, any new shared parts (shell markers, components, `app.js` hooks), and one **screen brief** per new or changed screen.
    - Build the screens with kickoff step 4.2–4.5 (build → assemble → screenshot → design review): one `prototyper` (Sonnet) per screen in parallel, `mockups.py`, `verifier` (Sonnet) screenshots, designer review.
    - Architect writes `0.solution.html` linking to the mockup screens, in fresh runs per part: (a) work items, (b) shared technical design, alternatives and verification strategy, (c) UX flow from the designer's report, mockup links and build order.
-   - A new or split Story found here goes back to the `analyst`, who adds its user story and `AC-n` to `0.requirements.html`; the product owner re-approves that change before Gate 2.
+   - A new or split Story found here goes back to the `analyst`, who adds its user story and `AC-n` to `0.requirements.html`; the product owner re-approves that change before Gate 2, then upload the requirements again.
    - ⛔ **Gate 2** — product owner approves the solution. Alternatives rejected stay in the document.
 4. **Jira sync** — see `tool-atlassian`.
    - The `architect` (read-only) compares the approved work items with Jira and returns a change list: **create** (missing Story / Task), **update** (summary, description, parent, fixVersion, Theme that differ), **extra** (in Jira, not in the solution — report only).
    - The main session shows the change list to the product owner and asks to confirm. Yes → apply it, then write the keys into the *Jira* column of the work items table. No → skip; the solution stays approved.
+   - Either way, upload the solution: `python .claude/scripts/jira.py push-docs <Mxx> 0.solution.html`.
 5. **Hand-off.** If the solution changed the stack or added a component, update `.claude/docs/0.high-level-architecture.html` now. Suggest `/planning <item>` for the first item of the build order.
 
 ## Rules

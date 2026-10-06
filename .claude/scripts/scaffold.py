@@ -92,7 +92,7 @@ def scaffold_flow(name: str, values: dict[str, str], force: bool) -> None:
     folder = CLAUDE_DIR / "flows" / name
     item_id = name.upper()
     if not (CLAUDE_DIR / "docs" / item_id[:3] / "0.solution.html").exists():
-        sys.exit(f"module {item_id[:3]} has no solution yet: run /solution {item_id[:3]} first")
+        sys.exit(f"module {item_id[:3]} has no local solution: run python .claude/scripts/jira.py pull-docs {item_id[:3]}, or /solution {item_id[:3]} first")
     print(f"Flow '{name}':")
     scaffold_folder("flows", folder, {**values, "FLOW_NAME": name, "ITEM_ID": item_id, "MODULE_ID": item_id[:3]}, force)
     (folder / "evidence").mkdir(exist_ok=True)

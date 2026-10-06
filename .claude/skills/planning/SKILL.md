@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 **Participants:** product owner (human) · architect (Opus) · coder (Sonnet) · verifier (Sonnet)
 **Delegation:** see *Delegation* in `.claude/README.md`. The main session does not write the plan itself.
-**Input:** one work item ID from the *Work items* table of `.claude/docs/<Mxx>/0.solution.html`; that document and `0.requirements.html` are approved.
+**Input:** one work item ID from the *Work items* table of `.claude/docs/<Mxx>/0.solution.html`; that document and `0.requirements.html` are approved. Missing locally → `python .claude/scripts/jira.py pull-docs <Mxx>`.
 **Output:** flow `.claude/flows/<item>/` (item ID in lower case, e.g. `m01-f01`) with `1.plan.md` (template `templates/flows/1.plan.md`) · Jira Subtasks per `tool-atlassian` (after confirmation).
 
 ## Steps

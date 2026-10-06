@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-import argparse, base64, json, os, sys, urllib.error, urllib.request
+import argparse, base64, json, os, sys, urllib.error, urllib.request, uuid
 
 SITE = "https://datntdev.atlassian.net"
 PROJECT = "PNS"
 API = f"{SITE}/rest/api/3"
 ISSUE_FIELDS = ["summary", "status", "issuetype", "parent", "fixVersions"]
+DOCS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "docs")
+MODULE_DOCS = ["0.requirements.html", "0.solution.html"]
 
 
 def fail(message):
@@ -19,19 +21,24 @@ def auth_header():
     return "Basic " + base64.b64encode(f"{email}:{token}".encode()).decode()
 
 
-def request(method, path, body=None):
-    data = json.dumps(body).encode() if body is not None else None
-    req = urllib.request.Request(API + path, data=data, method=method)
+def send(method, url, data=None, headers=None):
+    req = urllib.request.Request(url, data=data, method=method)
     req.add_header("Authorization", auth_header())
-    req.add_header("Accept", "application/json")
-    req.add_header("Content-Type", "application/json")
+    for name, value in (headers or {}).items():
+        req.add_header(name, value)
     try:
         with urllib.request.urlopen(req) as response:
-            raw = response.read()
+            return response.read()
     except urllib.error.HTTPError as error:
-        fail(f"{method} {path} failed: {error.code} {error.read().decode('utf-8', 'replace')}")
+        fail(f"{method} {url} failed: {error.code} {error.read().decode('utf-8', 'replace')}")
     except urllib.error.URLError as error:
-        fail(f"{method} {path} failed: {error.reason}")
+        fail(f"{method} {url} failed: {error.reason}")
+
+
+def request(method, path, body=None, data=None, headers=None):
+    if body is not None:
+        data = json.dumps(body).encode()
+    raw = send(method, API + path, data, {"Accept": "application/json", **(headers or {"Content-Type": "application/json"})})
     return json.loads(raw) if raw else {}
 
 
@@ -138,6 +145,61 @@ def cmd_fix_version(args):
         print(f"{key}: {version['name']}")
 
 
+def upload_attachment(key, path, name):
+    boundary = uuid.uuid4().hex
+    with open(path, "rb") as file:
+        content = file.read()
+    head = f'--{boundary}\r\nContent-Disposition: form-data; name="file"; filename="{name}"\r\nContent-Type: application/octet-stream\r\n\r\n'
+    data = head.encode() + content + f"\r\n--{boundary}--\r\n".encode()
+    headers = {"Content-Type": f"multipart/form-data; boundary={boundary}", "X-Atlassian-Token": "no-check"}
+    request("POST", f"/issue/{key}/attachments", data=data, headers=headers)
+
+
+def epic_key(module):
+    jql = f'project = {PROJECT} AND issuetype = Epic AND summary ~ "\\"{module}\\""'
+    issues = request("POST", "/search/jql", {"jql": jql, "fields": ["summary"]}).get("issues", [])
+    key = next((i["key"] for i in issues if i["fields"]["summary"].startswith(module + " ")), None)
+    if not key:
+        fail(f"Epic of module {module} not found.")
+    return key
+
+
+def attachments(key):
+    return request("GET", f"/issue/{key}?fields=attachment")["fields"]["attachment"]
+
+
+def attach_files(key, paths, prefix=""):
+    existing = attachments(key)
+    for path in paths:
+        name = prefix + os.path.basename(path)
+        for old in (a for a in existing if a["filename"] == name):
+            request("DELETE", f"/attachment/{old['id']}")
+        upload_attachment(key, path, name)
+        print(f"{key}: {name}")
+
+
+def cmd_attach(args):
+    attach_files(args.key, args.files, args.prefix)
+
+
+def cmd_push_docs(args):
+    folder = os.path.join(DOCS, args.module)
+    attach_files(epic_key(args.module), [os.path.join(folder, name) for name in args.files or MODULE_DOCS], f"{args.module}-")
+
+
+def cmd_pull_docs(args):
+    key, prefix, folder = epic_key(args.module), f"{args.module}-", os.path.join(DOCS, args.module)
+    os.makedirs(folder, exist_ok=True)
+    for attachment in (a for a in attachments(key) if a["filename"].startswith(prefix)):
+        path = os.path.join(folder, attachment["filename"][len(prefix):])
+        if os.path.exists(path) and not args.force:
+            print(f"skip {path}: exists, use --force to overwrite")
+            continue
+        with open(path, "wb") as file:
+            file.write(send("GET", attachment["content"]))
+        print(f"{key}: {attachment['filename']} -> {path}")
+
+
 def build_parser():
     parser = argparse.ArgumentParser(description="Jira Cloud helper for project " + PROJECT)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -162,6 +224,19 @@ def build_parser():
     fix_version.add_argument("name")
     fix_version.add_argument("keys", nargs="+")
     fix_version.set_defaults(func=cmd_fix_version)
+    attach = sub.add_parser("attach", help="upload files to an issue, replacing attachments with the same name")
+    attach.add_argument("key")
+    attach.add_argument("files", nargs="+")
+    attach.add_argument("--prefix", default="")
+    attach.set_defaults(func=cmd_attach)
+    push_docs = sub.add_parser("push-docs", help="upload module docs to the module Epic as <Mxx>-<file>")
+    push_docs.add_argument("module")
+    push_docs.add_argument("files", nargs="*", choices=MODULE_DOCS)
+    push_docs.set_defaults(func=cmd_push_docs)
+    pull_docs = sub.add_parser("pull-docs", help="download module docs from the module Epic into .claude/docs/<Mxx>/")
+    pull_docs.add_argument("module")
+    pull_docs.add_argument("--force", action="store_true")
+    pull_docs.set_defaults(func=cmd_pull_docs)
     return parser
 
 

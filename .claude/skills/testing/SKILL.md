@@ -21,7 +21,7 @@ disable-model-invocation: true
    - `minor` / `nit` → may be deferred; list them under follow-ups.
 5. **Jira: In Review** — when every `must` AC passed in the report, no `blocker` / `major` defect is open and the report is complete (commands, versions, SHA): ask the product owner to confirm, then move the flow's item (Story / Task) to `In Review` via `tool-atlassian`. Moving to `Done` stays with the product owner.
 6. ⛔ **Acceptance gate** — product owner reads the report and accepts. Record sign-off in the verdict callout.
-7. **Close the flow** — merge `flow/<flow>` into the main branch (fast-forward or squash per the architecture conventions), set the item's *Status* to `done` in the work items table of `.claude/docs/<Mxx>/0.solution.html`. When every item of the module is `done`, set the module's requirements and solution documents to `done`.
+7. **Close the flow** — merge `flow/<flow>` into the main branch (fast-forward or squash per the architecture conventions), set the item's *Status* to `done` in the work items table of `.claude/docs/<Mxx>/0.solution.html`. When every item of the module is `done`, set the module's requirements and solution documents to `done`. Finally upload the module docs in every case: `python .claude/scripts/jira.py push-docs <Mxx>` (covered by the acceptance gate).
 
 ## Rules
 - The report must be reproducible: commands, versions and commit SHA are mandatory.

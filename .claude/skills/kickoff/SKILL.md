@@ -46,7 +46,7 @@ Scaffold them with: `python .claude/scripts/scaffold.py docs`
 
 ## Rules
 - Steps 2–4 run in order: each starts only after the previous gate is approved; the architecture depends on requirements, the design on both. Inside step 4, prototypers run in parallel because each owns one screen file.
-- Never edit `.claude/mockups/index.html` by hand; it is rebuilt by `mockups.py`.
+- Never edit `.claude/mockups/index.html` by hand; it is rebuilt by `mockups.py` and is gitignored, so run `mockups.py` before viewing it in a fresh checkout.
 - Every document starts from its template and keeps the `claude.css` / `claude.js` links. No Claude.ai artifacts: everything lives in the repo.
 - **Bilingual documents.** Every HTML document is written in English and Vietnamese in the same file: each sentence appears twice as sibling elements `lang="en"` then `lang="vi"` (`<span>` inline, `<p>` / `<li>` block). IDs, code, dates, numbers and status pills carry no `lang` attribute. The EN/VI switch in the header toggles the visible language. Write EN first, then translate; never leave one language empty.
 - Keep the kickoff to the level of themes. Feature-level detail belongs to `/solution` of each module.

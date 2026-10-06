@@ -6,7 +6,7 @@ user-invocable: false
 
 # Tool — Atlassian (Jira)
 
-**Purpose:** one place for the Jira facts and conventions used by `/solution`, `/planning`, `/coding`, `/testing` and `/implement`. Module solutions in `.claude/docs/<Mxx>/` and plans in `.claude/flows/` stay the source of truth for work; Jira mirrors them for tracking.
+**Purpose:** one place for the Jira facts and conventions used by `/solution`, `/planning`, `/coding`, `/testing` and `/implement`. Module docs in `.claude/docs/<Mxx>/` and plans in `.claude/flows/` stay the source of truth for work; Jira mirrors them for tracking. Module docs are local only (gitignored); their approved copies live as attachments on the module Epic (see *Module docs*).
 
 ## Space
 
@@ -47,7 +47,7 @@ Seeded from `.claude/docs/0.functional-requirements.html`.
 
 - **Release** names: `R<release>.<part>`, e.g. `R1.1` … `R10.4` — one per roadmap Part.
 - **Epic dependencies:** link type `Blocks`.
-- **Story / Task** are created or updated by `/solution` (step 4) from the work items of `.claude/docs/<Mxx>/0.solution.html`. Story description: *Functions* (EN + VI, as seeded) + *Acceptance* (`AC-n` list) + path `.claude/docs/<Mxx>/0.requirements.html`. Task description: *Work*, *Acceptance* (`AC-n`), *Depends on* + path `.claude/docs/<Mxx>/0.solution.html`.
+- **Story / Task** are created or updated by `/solution` (step 4) from the work items of `.claude/docs/<Mxx>/0.solution.html`. Story description: *Functions* (EN + VI, as seeded) + *Acceptance* (`AC-n` list) + Epic attachment `<Mxx>-0.requirements.html`. Task description: *Work*, *Acceptance* (`AC-n`), *Depends on* + Epic attachment `<Mxx>-0.solution.html`.
 - **Subtasks** are created by `/planning` (step 7). Description: *Goal*, *Covers*, *Done when* from the plan + path `.claude/flows/<flow>/1.plan.md`.
 - Level-2 subtasks `T<n>.<m>` are not tracked in Jira.
 - Keys are written back: Story / Task keys into the *Jira* column of the work items table in `0.solution.html`; Subtask keys into `1.plan.md` (header `Jira` row, `Jira` column of the task overview).
@@ -58,7 +58,7 @@ Seeded from `.claude/docs/0.functional-requirements.html`.
 | Way | Use for |
 |---|---|
 | Atlassian MCP `mcp__atlassian__*` (OAuth via `.mcp.json`) | day-to-day: `searchJiraIssuesUsingJql`, `getJiraIssue`, `createJiraIssue`, `editJiraIssue`, `getTransitionsForJiraIssue`, `transitionJiraIssue`, `addCommentToJiraIssue`, `createIssueLink` |
-| `python .claude/scripts/jira.py` (REST) | releases / versions, fixVersion, bulk transitions |
+| `python .claude/scripts/jira.py` (REST) | releases / versions, fixVersion, bulk transitions, attachments (module docs) |
 
 Both are allowed. Pass `cloudId` to every MCP call.
 
@@ -69,10 +69,27 @@ python .claude/scripts/jira.py transition "<Status>" <KEY>...  # bulk status cha
 python .claude/scripts/jira.py versions                        # list releases
 python .claude/scripts/jira.py version <NAME> [--start D] [--release D] [--description T]   # create or update a release
 python .claude/scripts/jira.py fix-version <NAME> <KEY>...     # add a release to issues
+python .claude/scripts/jira.py attach <KEY> <FILE>... [--prefix P]   # upload files, replacing attachments with the same name
+python .claude/scripts/jira.py push-docs <Mxx> [<file>...]     # upload module docs to the module Epic (default: both)
+python .claude/scripts/jira.py pull-docs <Mxx> [--force]       # download module docs from the module Epic (skips existing files)
 ```
 
 - `jira.py` needs env vars `JIRA_EMAIL`, `JIRA_API_TOKEN`, set in `.claude/settings.local.json` → `env` (gitignored).
 - **Gotcha:** REST `POST /issueLink` with type `Blocks`: `inwardIssue` = the blocker, `outwardIssue` = the blocked issue. With MCP `createIssueLink`, read the link back on the issue to confirm the direction.
+
+## Module docs
+
+`.claude/docs/<Mxx>/0.requirements.html` and `0.solution.html` are gitignored. Each worktree or machine has its own local copy; the module Epic holds the approved copy as attachments `<Mxx>-0.requirements.html` and `<Mxx>-0.solution.html`.
+
+| When | Upload |
+|---|---|
+| `/solution` Gate 1 approved (and every re-approval of the requirements) | `push-docs <Mxx> 0.requirements.html` |
+| `/solution` step 4 finished (Jira keys written back, or sync skipped) | `push-docs <Mxx> 0.solution.html` |
+| `/testing` step 7 (item *Status* set to `done`) | `push-docs <Mxx>` |
+
+- The approval of that gate, step or flow close covers the upload; no separate confirmation.
+- `/coding` and `/planning` status changes are not uploaded on their own; the next upload carries them.
+- Before any skill reads a module doc that is missing locally, run `pull-docs <Mxx>`. Never `--force` over a local file without the product owner's yes: it may hold edits not uploaded yet.
 
 ## JQL recipes
 
@@ -90,7 +107,7 @@ python .claude/scripts/jira.py fix-version <NAME> <KEY>...     # add a release t
 
 ## Rules
 - Reading is free for the main session and subagents.
-- Every write (create, edit, transition, link, comment, version, fixVersion) is done only by the main session, and only after the product owner confirms the concrete list of changes in the chat.
+- Every write (create, edit, transition, link, comment, version, fixVersion, attachment) is done only by the main session, and only after the product owner confirms the concrete list of changes in the chat. Module doc uploads at the points of *Module docs* are confirmed by that approval.
 - Status moves in `/coding` are confirmed once per run (its step 0); the yes covers only the moves `/coding` defines, for that run.
 - `/implement` confirms once per run (its step 1); with `--auto` the flag itself is the confirmation. Either covers only the moves `/implement` defines, for that run.
 - Subagents never write to Jira; they return proposed changes in their report.

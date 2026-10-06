@@ -25,7 +25,7 @@ Both modes stop before the acceptance gate: the human accepts the report and mer
 1. **Resolve the item.**
    - Jira key → read the issue (see `tool-atlassian`); the item ID is the prefix of its summary (`M01-F01 · Navigation` → `M01-F01`). It must be a Story or a Task.
    - Item ID → find its Jira key with the *One Story / Task by exact id* JQL recipe.
-   - Check that the item is in the work items table of `.claude/docs/<Mxx>/0.solution.html`. Flow name = item ID in lower case.
+   - Check that the item is in the work items table of `.claude/docs/<Mxx>/0.solution.html` (missing locally → `python .claude/scripts/jira.py pull-docs <Mxx>`). Flow name = item ID in lower case.
    - If `.claude/flows/<flow>/1.plan.md` already exists, resume at the phase its status points to (`draft` → step 2, `approved` / `in-progress` → step 3, `done` → step 4).
    - Default mode: ask once whether to sync Jira status for this run (item → `In Progress` in step 3, → `In Review` in step 5).
 2. **Plan** — follow `.claude/skills/planning/SKILL.md` steps 0–6, then:

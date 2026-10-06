@@ -17,7 +17,7 @@ disable-model-invocation: true
    - `.claude/docs/0.high-level-requirements.html` (themes, non-goals)
    - `.claude/docs/0.high-level-architecture.html` (stack, conventions, decisions)
    - `.claude/docs/0.design-system.html` (only if the next work touches UI)
-3. For the module the product owner wants to continue: the work items table of `.claude/docs/<Mxx>/0.solution.html`. For the flow the product owner wants to continue (or the most recent `in-progress` one): read its `1.plan.md`, then the last section of `2.review.md`.
+3. For the module the product owner wants to continue: the work items table of `.claude/docs/<Mxx>/0.solution.html` (local only; if missing, say so and suggest `python .claude/scripts/jira.py pull-docs <Mxx>`). For the flow the product owner wants to continue (or the most recent `in-progress` one): read its `1.plan.md`, then the last section of `2.review.md`.
 4. Check `git status` and `git log --oneline -10` for uncommitted or recent work.
 5. Reply with a short brief (≤ 15 lines):
    - project in one sentence · stack in one line
