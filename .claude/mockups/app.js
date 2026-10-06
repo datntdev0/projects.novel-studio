@@ -10,7 +10,7 @@
     get(key, fallback) { try { const v = localStorage.getItem("ns." + key); return v === null ? fallback : JSON.parse(v); } catch (e) { return fallback; } },
     set(key, value) { try { localStorage.setItem("ns." + key, JSON.stringify(value)); } catch (e) { /* storage may be blocked */ } }
   };
-  const state = { theme: store.get("theme", "dark"), lang: store.get("lang", "en"), layout: store.get("layout", {}), novel: store.get("novel", null), screen: defaultScreen, job: { done: 37, failed: 1, total: 100, running: true, attention: 1 } };
+  const state = { theme: store.get("theme", "dark"), lang: store.get("lang", "en"), layout: store.get("layout", {}), novel: store.get("novel", null), screen: defaultScreen, job: { done: 37, failed: 0, total: 100, item: 38, attempt: 2 } };
   window.proto = { state, go: show, toast };
 
   // Theme ------------------------------------------------------------
@@ -219,10 +219,19 @@
     "edit-mode": () => toggleEdit(),
     "prev-chapter": () => toast("Opening chapter 11 …", "Đang mở chương 11 …"),
     "next-chapter": () => toast("Opening chapter 13 …", "Đang mở chương 13 …"),
-    "job-pause": () => setJob(false),
-    "job-resume": () => setJob(true),
-    "job-cancel": () => { setJob(false); state.job.cancelled = true; renderJob(); toast("Job cancelled — 37 items kept, resume continues the same job", "Đã huỷ job — giữ 37 mục, chạy tiếp sẽ dùng cùng job", "warning"); },
-    "retry-failed": () => { state.job.failed = 0; state.job.attention = 0; state.job.running = true; renderJob(); toast("1 failed item re-queued", "Đã xếp lại 1 mục lỗi", "success"); },
+    "job-pause": (btn) => pauseJob(jobOf(btn)),
+    "job-resume": (btn) => resumeJob(jobOf(btn)),
+    "jobs-pause-all": () => eachJob(["running", "queued"], pauseJob),
+    "jobs-resume-all": () => { eachJob(["paused", "interrupted"], resumeJob); refreshAttention(); },
+    "job-cancel-confirm": () => cancelJob(),
+    "job-fail-demo": () => failLiveEarly(),
+    "job-start": () => { closeOverlays(); toast("Job queued — it appears in the Task Center as queued", "Đã xếp hàng job — job hiện trong Trung tâm tác vụ ở trạng thái chờ", "success"); },
+    "open-job": (btn) => openJob(btn.dataset.job),
+    "tasks-view": (btn) => selectIn(document.querySelector(`#tasks [data-show="${btn.dataset.target}"]`)),
+    "app-close": () => askCloseApp(),
+    "app-close-confirm": () => closeApp(),
+    "job-cancel": (btn) => askCancelJob(jobOf(btn)),
+    "retry-failed": () => toast("1 failed item re-queued", "Đã xếp lại 1 mục lỗi", "success"),
     "test-cli": (btn) => testCli(btn),
     "rescan": (btn) => { btn.classList.add("loading"); setTimeout(() => { btn.classList.remove("loading"); toast("Rescan finished — 3 CLIs found", "Quét lại xong — tìm thấy 3 CLI", "success"); }, 900); },
     "import-start": () => { closeOverlays(); show("library"); toast("Import started in the background", "Đã bắt đầu nhập nền", "success"); },
@@ -232,13 +241,19 @@
     "choose-folder": () => toast("Folder picker opens here (OS dialog)", "Hộp thoại chọn thư mục của hệ điều hành mở ở đây"),
     "pin-note": () => toast("Pinned", "Đã ghim"),
     "run-analysis": () => toast("Analysis job added to the Task Center", "Đã thêm job phân tích vào Trung tâm tác vụ", "success"),
-    "chat-send": (btn) => sendChat(btn)
+    "chat-send": (btn) => sendChat(btn),
+    "job-open-log": (btn) => openJobLog(btn),
+    "history-rerun": (btn) => rerunJob(btn),
+    "history-delete": (btn) => askDeleteJobs(btn.closest("[data-job-id]")),
+    "history-delete-all": () => askDeleteJobs(null),
+    "history-delete-confirm": () => deleteJobs()
   };
   document.addEventListener("click", (e) => {
     const t = e.target;
     if (t.closest("#palette .cmd")) closeOverlay(document.getElementById("palette"));
+    if (t.closest(".proto-drawer [data-action], .proto-drawer [data-open]")) document.querySelector(".proto-drawer").classList.remove("open");
     const note = t.closest("[data-toast]");
-    if (note) toast(note.dataset.toast, note.dataset.toastVi || note.dataset.toast, note.dataset.toastKind);
+    if (note) toast(note.dataset.toast, note.dataset.toastVi || note.dataset.toast, note.dataset.toastKind, { sticky: note.hasAttribute("data-toast-sticky"), job: note.dataset.toastJob, details: note.dataset.toastDetails });
     const go = t.closest("[data-go]");
     if (t.closest("[data-select-novel]") || (go && novelScreens.includes(go.dataset.go))) { const key = novelFrom(t); if (novels[key]) { setNovel(key); renderContext(); } }
     if (go) { e.preventDefault(); show(go.dataset.go); return; }
@@ -272,8 +287,10 @@
     group.querySelectorAll("[data-select]").forEach((s) => { s.classList.toggle("selected", s === el); if (s.hasAttribute("aria-pressed")) s.setAttribute("aria-pressed", String(s === el)); });
     const screen = el.closest(".screen") || document;
     if (el.dataset.show) showDetail(screen.querySelector(`[data-detail="${el.dataset.show}"]`));
+    if (el.dataset.jobId) showJob(el);
+    if (el.dataset.show === "attention") refreshAttention();
     const filter = el.closest("[data-filter-target]");
-    if (filter && el.dataset.filter) document.querySelectorAll(`${filter.dataset.filterTarget} [data-kind]`).forEach((row) => row.classList.toggle("hidden", el.dataset.filter !== "all" && !row.dataset.kind.split(" ").includes(el.dataset.filter)));
+    if (filter && el.dataset.filter) document.querySelectorAll(`${filter.dataset.filterTarget} [data-kind]`).forEach((row) => row.classList.toggle("filtered-out", el.dataset.filter !== "all" && !row.dataset.kind.split(" ").includes(el.dataset.filter)));
   }
   function showDetail(target) {
     if (!target) return;
@@ -360,36 +377,240 @@
     });
   }
 
-  // Fake background job ----------------------------------------------
-  function setJob(running) { state.job.running = running; state.job.cancelled = false; renderJob(); }
+  // Jobs (M03) -------------------------------------------------------
+  // Model states: queued · running · paused · completed · cancelled. Display keys add "interrupted"
+  // (paused because the app closed) and "early" (completed early by a fast-complete error such as quota exhausted).
+  // Rows declare their job with data-job-id + data-job-status; data-job-problem marks failed items or an early stop,
+  // data-job-seen marks a finished job already opened. Only the live job (LIVE) animates in the prototype.
+  const LIVE = "j-2026-10-04-0017";
+  const ACTIVE = ["queued", "running", "paused", "interrupted"];
+  const ENDED = ["completed", "early", "cancelled"];
+  const jobs = {};
+  document.querySelectorAll("[data-job-status]").forEach((row) => {
+    const id = row.dataset.jobId;
+    if (!jobs[id]) jobs[id] = { status: row.dataset.jobStatus, problem: row.hasAttribute("data-job-problem"), seen: row.hasAttribute("data-job-seen") };
+  });
+  if (!jobs[LIVE]) jobs[LIVE] = { status: "running", problem: false, seen: true };
+  const historyJobs = { count: 38, target: null };
+  const pending = { cancel: null };
+  const shown = { id: null };
+  const pad = (n) => String(n).padStart(4, "0");
+  const live = () => jobs[LIVE];
+  const isAttention = (j) => j.status === "interrupted" || (["completed", "early"].includes(j.status) && j.problem && !j.seen);
+  const countGroups = { active: ACTIVE, running: ["running"], queued: ["queued"], paused: ["paused"], interrupted: ["interrupted"], pausable: ["running", "queued"], resumable: ["paused", "interrupted"] };
+  function countOf(key) {
+    const list = Object.values(jobs);
+    if (key === "attention") return list.filter(isAttention).length;
+    if (key === "problem") return list.filter((j) => isAttention(j) && j.status !== "interrupted").length;
+    return list.filter((j) => (countGroups[key] || []).includes(j.status)).length;
+  }
+  function jobOf(el) {
+    const row = el.closest("[data-job-id]");
+    if (row) return row.dataset.jobId;
+    return el.closest("[data-job-view]") && shown.id ? shown.id : LIVE;
+  }
+  function setText(selector, value) { document.querySelectorAll(selector).forEach((el) => { el.textContent = value; }); }
+  function setStatus(id, status) {
+    const job = jobs[id];
+    if (ACTIVE.includes(job.status) && ENDED.includes(status)) historyJobs.count += 1;
+    job.status = status;
+    renderJob(); refreshAttention();
+  }
   function renderJob() {
-    const j = state.job, pct = Math.round((j.done / j.total) * 100), fpct = Math.round((j.failed / j.total) * 100);
-    document.querySelectorAll("[data-job-progress]").forEach((p) => { p.style.setProperty("--p", pct + "%"); p.style.setProperty("--f", fpct + "%"); });
-    document.querySelectorAll("[data-job-done]").forEach((el) => { el.textContent = j.done; });
-    document.querySelectorAll("[data-job-failed]").forEach((el) => { el.textContent = j.failed; });
-    document.querySelectorAll("[data-job-pct]").forEach((el) => { el.textContent = pct + "%"; });
-    document.querySelectorAll("[data-job-current]").forEach((el) => { el.textContent = String(j.done + 1).padStart(4, "0"); });
-    document.querySelectorAll("[data-job-state]").forEach((el) => {
-      const key = j.cancelled ? "cancelled" : j.done >= j.total ? (j.failed ? "errors" : "completed") : j.running ? "running" : "paused";
-      el.querySelectorAll("[data-state]").forEach((s) => s.classList.toggle("hidden", s.dataset.state !== key));
-    });
-    const active = !j.cancelled && j.done < j.total;
-    const running = active && j.running;
-    const attention = j.attention + (active && !j.running ? 1 : 0);
+    const j = state.job, key = live().status, running = key === "running";
+    const pct = Math.round((j.done / j.total) * 100), fpct = Math.round((j.failed / j.total) * 100);
+    document.querySelectorAll("[data-job-id] .progress").forEach((p) => { const job = jobs[jobOf(p)]; if (job) p.classList.toggle("paused", job.status === "paused" || job.status === "interrupted"); });
+    document.querySelectorAll("[data-job-progress]").forEach((p) => { p.style.setProperty("--p", pct + "%"); p.style.setProperty("--f", fpct + "%"); p.classList.toggle("paused", key === "paused" || key === "interrupted"); });
+    setText("[data-job-done]", j.done); setText("[data-job-failed]", j.failed); setText("[data-job-pct]", pct + "%");
+    setText("[data-job-current]", pad(j.item)); setText("[data-job-attempt]", j.attempt); setText("[data-job-pending]", j.total - j.done - j.failed);
+    document.querySelectorAll("[data-when-failed]").forEach((el) => el.classList.toggle("hidden", !j.failed));
+    document.querySelectorAll("[data-job-state]").forEach((el) => { const job = jobs[jobOf(el)]; el.querySelectorAll("[data-state]").forEach((s) => s.classList.toggle("hidden", !job || s.dataset.state !== job.status)); });
+    document.querySelectorAll("[data-when-state]").forEach((el) => { const job = jobs[jobOf(el)]; el.classList.toggle("hidden", !job || !el.dataset.whenState.split(" ").includes(job.status)); });
     document.querySelectorAll("[data-when-running]").forEach((el) => el.classList.toggle("hidden", !running));
     document.querySelectorAll("[data-when-idle]").forEach((el) => el.classList.toggle("hidden", running));
-    document.querySelectorAll("[data-when-paused]").forEach((el) => el.classList.toggle("hidden", j.running || j.done >= j.total));
-    document.querySelectorAll("[data-job-attention]").forEach((el) => { el.textContent = attention; });
+    document.querySelectorAll("[data-when-paused]").forEach((el) => el.classList.toggle("hidden", key !== "paused" && key !== "interrupted"));
+    document.querySelectorAll("[data-count-of]").forEach((el) => { el.textContent = countOf(el.dataset.countOf); });
+    document.querySelectorAll("[data-zero-of]").forEach((el) => el.classList.toggle("hidden", countOf(el.dataset.zeroOf) > 0));
+    const attention = countOf("attention");
+    setText("[data-job-attention]", attention);
+    document.querySelectorAll("[data-attention-label]").forEach((el) => { el.innerHTML = bi(attention === 1 ? "needs attention" : "need attention", "cần xử lý"); });
     document.querySelectorAll("[data-when-attention]").forEach((el) => el.classList.toggle("hidden", !attention));
     document.querySelectorAll("[data-job-dot]").forEach((el) => { el.className = "dot" + (attention ? " warn" : running ? " run" : ""); });
+    setText("[data-history-count]", historyJobs.count);
+    document.querySelectorAll("[data-history-list]").forEach((el) => el.classList.toggle("hidden", !historyJobs.count));
+    document.querySelectorAll("[data-history-empty]").forEach((el) => el.classList.toggle("hidden", Boolean(historyJobs.count)));
+    document.querySelectorAll("[data-history-note]").forEach((el) => el.classList.toggle("hidden", !historyJobs.count));
+    document.querySelectorAll("[data-action='history-delete-all']").forEach((b) => { b.disabled = !historyJobs.count; });
+    document.querySelectorAll("[data-action='jobs-pause-all']").forEach((b) => { b.disabled = !countOf("pausable"); });
+    document.querySelectorAll("[data-action='jobs-resume-all']").forEach((b) => { b.disabled = !countOf("resumable"); });
+    renderLiveBadge();
   }
+  function refreshAttention() { document.querySelectorAll("[data-attention-row]").forEach((row) => row.classList.toggle("hidden", !jobs[row.dataset.jobId] || !isAttention(jobs[row.dataset.jobId]))); }
+
+  // Live job: one item at a time, up to 3 attempts per item; item 0045 fails once, item 0052 fails 3 times and the job moves on
+  const liveErrors = { 38: ["timeout after 300 s"], 45: ["exit 1 · stream closed before final message"], 52: ["QA: paragraph count 27 → 25", "QA: paragraph count 27 → 25", "QA: paragraph count 27 → 25"] };
+  const liveName = ["Translate 0001–0100 · 凡人修仙传", "Dịch 0001–0100 · 凡人修仙传"];
   setInterval(() => {
-    if (!state.job.running || state.job.done >= state.job.total) return;
-    state.job.done += 1;
-    if (state.job.done === 64 && state.job.failed === 1) state.job.failed = 2;
+    const j = state.job;
+    if (live().status !== "running") return;
+    const errors = liveErrors[j.item] || [];
+    if (j.attempt <= errors.length) {
+      const last = j.attempt === 3;
+      logLive(`item ${pad(j.item)} attempt ${j.attempt}/3 <span class="err">failed</span> · ${errors[j.attempt - 1]}${last ? " · item failed · job moves on" : " · retrying"}`);
+      if (last) { j.failed += 1; nextItem(); } else { j.attempt += 1; logLive(`item ${pad(j.item)} → running · attempt ${j.attempt}/3`); }
+    } else {
+      j.done += 1;
+      logLive(`item ${pad(j.item)} → <span class="ok">completed</span> · exit 0 · attempt ${j.attempt}/3`);
+      nextItem();
+    }
     renderJob();
-    if (state.job.done === state.job.total) toast("Translation finished — 100 chapters, 2 with errors", "Dịch xong — 100 chương, 2 chương lỗi", "warning");
   }, 2600);
+  function nextItem() {
+    const j = state.job;
+    if (j.done + j.failed >= j.total) { endLive("completed"); return; }
+    j.item += 1; j.attempt = 1;
+    logLive(`item ${pad(j.item)} → running · attempt 1/3 (codex exec --json --output-schema translation.schema.json)`);
+  }
+  function endLive(status, reason) {
+    const j = state.job, rest = j.total - j.done - j.failed;
+    live().problem = status === "early" || j.failed > 0;
+    live().seen = false;
+    setStatus(LIVE, status);
+    const [en, vi] = liveName;
+    if (status === "early") {
+      logLive(`job <span class="wrn">completed early</span> · ${reason[0]} · ${j.done} completed · ${j.failed} failed · ${rest} pending`);
+      toast(`${en} completed early — ${reason[0]} · ${rest} pending`, `${vi} hoàn tất sớm — ${reason[1]} · ${rest} chờ`, "danger", { job: LIVE, details: reason[2] });
+    } else if (j.failed) {
+      logLive(`job <span class="ok">completed</span> · ${j.done} completed · <span class="err">${j.failed} failed</span>`);
+      toast(`${en} completed — ${j.done} done · ${j.failed} failed`, `${vi} hoàn tất — ${j.done} xong · ${j.failed} lỗi`, "warning", { job: LIVE, sticky: true });
+    } else {
+      logLive(`job <span class="ok">completed</span> · ${j.done} completed`);
+      toast(`${en} completed — ${j.done} done`, `${vi} hoàn tất — ${j.done} xong`, "success", { job: LIVE });
+    }
+  }
+  function failLiveEarly() {
+    const j = state.job, error = "codex: 429 rate limit — retry after 00:41:12";
+    if (live().status !== "running") { toast("Resume the translation job first", "Hãy chạy tiếp job dịch trước"); return; }
+    for (let a = j.attempt; a <= 3; a += 1) logLive(`item ${pad(j.item)} attempt ${a}/3 <span class="err">failed</span> · E_QUOTA · ${error}${a < 3 ? " · retrying" : ""}`);
+    j.attempt = 3; j.failed += 1;
+    endLive("early", ["quota exhausted", "hết hạn mức", error]);
+    renderJob();
+  }
+  function pauseJob(id) {
+    if (!["running", "queued"].includes(jobs[id].status)) return;
+    if (id === LIVE && live().status === "running") logLive(`pause · item ${pad(state.job.item)} finished first · job <span class="wrn">paused</span> · ${state.job.done} completed · ${state.job.total - state.job.done - state.job.failed} pending`);
+    setStatus(id, "paused");
+  }
+  function resumeJob(id) {
+    if (!["paused", "interrupted"].includes(jobs[id].status)) return;
+    const next = id === LIVE ? "running" : "queued";
+    if (id === LIVE) logLive(`resume · same job id · ${state.job.done} completed · ${state.job.total - state.job.done - state.job.failed} pending`);
+    setStatus(id, next);
+  }
+  function eachJob(statuses, fn) { [LIVE].concat(Object.keys(jobs).filter((id) => id !== LIVE)).forEach((id) => { if (statuses.includes(jobs[id].status)) fn(id); }); }
+  function rowName(id) { const name = Array.from(document.querySelectorAll(`[data-job-id="${id}"] [data-job-name]`)).find((el) => !el.closest("template")); return name ? name.innerHTML : id; }
+  function askCancelJob(id) {
+    if (!ACTIVE.includes(jobs[id].status)) return;
+    pending.cancel = id;
+    setText("[data-cancel-job-id]", id);
+    document.querySelectorAll("[data-cancel-job-name]").forEach((el) => { el.innerHTML = rowName(id); });
+    openOverlay("dlg-cancel-job");
+  }
+  function cancelJob() {
+    const id = pending.cancel || LIVE, j = state.job;
+    if (id === LIVE) logLive(`job <span class="wrn">cancelled by user</span> · item ${pad(j.item)} stopped → pending · ${j.done} completed · ${j.total - j.done - j.failed} pending`);
+    setStatus(id, "cancelled");
+    closeOverlays();
+    toast("Job cancelled — finished items are kept. Use Rerun in History to run it again", "Đã huỷ job — giữ các mục đã xong. Dùng Chạy lại trong Lịch sử để chạy lại", "", { job: id });
+  }
+  function askCloseApp() {
+    const n = countOf("running");
+    if (!n) { toast("No job is running, so the app closes without asking", "Không có job đang chạy nên ứng dụng đóng mà không hỏi"); return; }
+    document.querySelectorAll("[data-close-message]").forEach((el) => { el.innerHTML = n === 1 ? bi("1 job is running. It will pause and can be resumed next time.", "1 job đang chạy. Job sẽ tạm dừng và có thể chạy tiếp lần sau.") : bi(`${n} jobs are running. They will pause and can be resumed next time.`, `${n} job đang chạy. Các job sẽ tạm dừng và có thể chạy tiếp lần sau.`); });
+    openOverlay("dlg-close-app");
+  }
+  function closeApp() {
+    let n = 0;
+    if (["running", "queued"].includes(live().status)) logLive(`<span class="wrn">app closed</span> · item ${pad(state.job.item)} running → pending · job paused · interrupted · waits for Resume`);
+    eachJob(["running", "queued"], (id) => { jobs[id].status = "interrupted"; n += 1; });
+    closeOverlays();
+    renderJob(); refreshAttention();
+    toast(`Prototype: the app closed and opened again — ${n} jobs are paused · interrupted and wait for Resume`, `Bản mẫu: ứng dụng đã đóng rồi mở lại — ${n} job tạm dừng · bị gián đoạn và chờ Chạy tiếp`);
+  }
+  function openJob(id) {
+    show("tasks");
+    const rows = Array.from(document.querySelectorAll(`#tasks [data-job-id="${id}"]:not(.hidden)`));
+    const row = rows.find((r) => r.offsetParent) || rows[0];
+    if (!row) return;
+    const view = row.closest("[data-detail]");
+    if (view && view.classList.contains("hidden")) selectIn(document.querySelector(`#tasks [data-show="${view.dataset.detail}"]`));
+    selectIn(row);
+  }
+
+  // Task Center: the selected job fills the Items, Config and Log views from <template data-job-template data-for>
+  const logClock = { t: 14 * 3600 + 47 * 60 + 31 };
+  const logPath = (id) => `logs\\${id}\\`;
+  const jobTemplate = (kind, id) => document.querySelector(`template[data-job-template="${kind}"][data-for="${id}"]`);
+  function showJob(row) {
+    const id = row.dataset.jobId;
+    document.querySelectorAll("[data-job-view]").forEach((view) => {
+      const kind = view.dataset.jobView, from = shown.id && jobTemplate(kind, shown.id), to = jobTemplate(kind, id);
+      if (from) from.innerHTML = view.innerHTML;
+      view.innerHTML = to ? to.innerHTML : "";
+      if (kind === "log") view.scrollTop = view.scrollHeight;
+    });
+    shown.id = id;
+    if (jobs[id]) jobs[id].seen = true;
+    const name = row.querySelector("[data-job-name]");
+    document.querySelectorAll("[data-log-title]").forEach((el) => { el.innerHTML = `${id} · ${name ? name.innerHTML : ""} · ${logPath(id)}`; });
+    renderJob();
+  }
+  function isLive() { return shown.id === LIVE && live().status === "running"; }
+  function renderLiveBadge() { document.querySelectorAll("[data-log-live]").forEach((el) => el.classList.toggle("hidden", !isLive())); }
+  function logLive(line) {
+    logClock.t += 6 + Math.floor(Math.random() * 30);
+    const html = `\n<span class="t">${new Date(logClock.t * 1000).toISOString().slice(11, 19)}</span> ${line}`;
+    const pre = shown.id === LIVE && document.querySelector('[data-job-view="log"]');
+    if (!pre) { const tpl = jobTemplate("log", LIVE); if (tpl) tpl.innerHTML += html; return; }
+    const atEnd = pre.scrollTop + pre.clientHeight >= pre.scrollHeight - 4;
+    pre.insertAdjacentHTML("beforeend", html);
+    if (atEnd) pre.scrollTop = pre.scrollHeight;
+  }
+  function openJobLog(btn) {
+    const id = btn.closest("[data-job-id]") ? btn.closest("[data-job-id]").dataset.jobId : shown.id || LIVE;
+    toast(`Opening ${logPath(id)} in the default editor`, `Đang mở ${logPath(id)} bằng trình soạn thảo mặc định`);
+  }
+  function rerunJob(btn) {
+    const id = jobOf(btn);
+    toast(`Rerun queued as a new job — same type, novel, range and backend as ${id}`, `Đã xếp hàng Chạy lại thành job mới — cùng loại, truyện, phạm vi và backend với ${id}`, "success");
+  }
+
+  // Task Center: delete one finished job or the whole history (records and logs only, never results or active jobs)
+  function askDeleteJobs(row) {
+    historyJobs.target = row;
+    const dialog = document.getElementById("dlg-delete-jobs");
+    dialog.querySelectorAll("[data-delete-one]").forEach((el) => el.classList.toggle("hidden", !row));
+    dialog.querySelectorAll("[data-delete-all]").forEach((el) => el.classList.toggle("hidden", Boolean(row)));
+    if (row) dialog.querySelectorAll("[data-delete-job]").forEach((el) => { el.textContent = row.dataset.jobId; });
+    openOverlay("dlg-delete-jobs");
+  }
+  function deleteJobs() {
+    const target = historyJobs.target;
+    const ids = target ? [target.dataset.jobId] : Object.keys(jobs).filter((id) => ENDED.includes(jobs[id].status));
+    const rows = Array.from(document.querySelectorAll("#tasks [data-history-row]")).filter((r) => (target ? ids.includes(r.dataset.jobId) : !ACTIVE.includes((jobs[r.dataset.jobId] || {}).status)));
+    if (rows.some((r) => r.classList.contains("selected"))) { const first = document.querySelector('#tasks [data-detail="active"] .job:not(.hidden)'); if (first) selectIn(first); }
+    rows.forEach((r) => r.remove());
+    ids.forEach((id) => { if (jobs[id]) jobs[id].status = "deleted"; });
+    const deleted = target ? 1 : historyJobs.count;
+    historyJobs.count -= deleted;
+    renderJob(); refreshAttention();
+    closeOverlays();
+    if (target) toast(`Job ${ids[0]} deleted — its results are kept`, `Đã xoá job ${ids[0]} — kết quả vẫn được giữ`, "success");
+    else toast(`${deleted} jobs deleted from history — results and active jobs are kept`, `Đã xoá ${deleted} job khỏi lịch sử — kết quả và job đang hoạt động vẫn được giữ`, "success");
+  }
+  const firstJob = document.querySelector("#tasks [data-job-id].selected");
+  if (firstJob) showJob(firstJob);
+  refreshAttention();
 
   function testCli(btn) {
     btn.classList.add("loading");
@@ -402,16 +623,19 @@
   }
 
   // Toasts -----------------------------------------------------------
-  function toast(en, vi, kind) {
+  function toast(en, vi, kind, opts) {
+    const o = opts || {};
     const host = document.querySelector(".toasts");
     const el = document.createElement("div");
     el.className = "toast " + (kind || "");
     const icon = kind === "success" ? "#i-check" : kind === "danger" ? "#i-alert-circle" : kind === "warning" ? "#i-alert-triangle" : "#i-info";
-    el.innerHTML = `<svg class="icon"><use href="${icon}"/></svg><div class="body"><span lang="en">${en}</span><span lang="vi">${vi}</span></div><button class="btn ghost icon" data-dismiss aria-label="Dismiss"><svg class="icon sm"><use href="#i-x"/></svg></button>`;
+    const details = o.details ? `<details class="error-details"><summary>${bi("Details", "Chi tiết")}</summary><pre class="log">${o.details}</pre></details>` : "";
+    const action = o.job ? `<div class="toast-actions"><button class="btn ghost sm" data-action="open-job" data-job="${o.job}">${bi("Open job", "Mở job")}</button></div>` : "";
+    el.innerHTML = `<svg class="icon"><use href="${icon}"/></svg><div class="body"><span lang="en">${en}</span><span lang="vi">${vi}</span>${details}${action}</div><button class="btn ghost icon" data-dismiss aria-label="Dismiss"><svg class="icon sm"><use href="#i-x"/></svg></button>`;
     el.querySelector("[data-dismiss]").addEventListener("click", () => el.remove());
     host.prepend(el);
     while (host.children.length > 3) host.lastElementChild.remove();
-    if (kind !== "danger") setTimeout(() => el.remove(), 5000);
+    if (kind !== "danger" && !o.sticky) setTimeout(() => el.remove(), 5000);
   }
 
   // Prototype drawer notes -------------------------------------------

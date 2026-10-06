@@ -176,7 +176,7 @@
     <div class="rail-group" data-testid="rail-group-system">
       <span class="sep"></span>
       <span class="rail-title"><span lang="en">System</span><span lang="vi">Hệ thống</span></span>
-      <a href="#tasks" data-screen="tasks" data-go="tasks" data-keys="Ctrl+6" title="Task Center · Ctrl+6" data-testid="rail-tasks"><svg class="icon"><use href="#i-tasks"/></svg><span class="label"><span lang="en">Task Center</span><span lang="vi">Trung tâm tác vụ</span></span><span class="badge danger" data-when-attention data-job-attention>1</span></a>
+      <a href="#tasks" data-screen="tasks" data-go="tasks" data-keys="Ctrl+6" title="Task Center · Ctrl+6" data-testid="rail-tasks"><svg class="icon"><use href="#i-tasks"/></svg><span class="label"><span lang="en">Task Center</span><span lang="vi">Trung tâm tác vụ</span></span><span class="badge danger" data-when-attention data-job-attention>2</span></a>
       <a href="#settings" data-screen="settings" data-go="settings" data-keys="Ctrl+7" title="Settings · Ctrl+7" data-testid="rail-settings"><svg class="icon"><use href="#i-settings"/></svg><span class="label"><span lang="en">Settings</span><span lang="vi">Cài đặt</span></span></a>
     </div>
   </nav>
@@ -228,7 +228,7 @@
     <span class="item" data-testid="statusbar-library"><svg class="icon"><use href="#i-folder"/></svg>D:\NovelStudio\Library</span>
     <button type="button" class="item link" data-go="settings" data-testid="statusbar-cli-claude" title="Claude CLI · Settings"><span class="dot ok"></span>claude 2.1.288</button>
     <button type="button" class="item link" data-go="settings" data-testid="statusbar-cli-codex" title="Codex CLI · Settings"><span class="dot warn"></span>codex <span lang="en">not logged in</span><span lang="vi">chưa đăng nhập</span></button>
-    <button type="button" class="item link" data-go="tasks" data-testid="statusbar-job" title="Task Center · Ctrl+Shift+T"><span class="dot run" data-job-dot></span><span data-when-running><span lang="en">Translating</span><span lang="vi">Đang dịch</span> <span class="num" data-job-done>37</span>/100 · <span data-job-pct>37%</span></span><span class="hidden" data-when-idle><span lang="en">No running tasks</span><span lang="vi">Không có tác vụ đang chạy</span></span><span data-when-attention> · <span class="num" data-job-attention>1</span> <span lang="en">needs attention</span><span lang="vi">cần xử lý</span></span></button>
+    <button type="button" class="item link" data-go="tasks" data-testid="statusbar-job" title="Task Center · Ctrl+Shift+T"><span class="dot run" data-job-dot></span><span data-when-running><span lang="en">Translating</span><span lang="vi">Đang dịch</span> <span class="num" data-job-done>37</span>/100 · <span data-job-pct>37%</span></span><span class="hidden" data-when-idle><span lang="en">No running tasks</span><span lang="vi">Không có tác vụ đang chạy</span></span><span data-when-attention> · <span class="num" data-job-attention>2</span> <span data-attention-label><span lang="en">need attention</span><span lang="vi">cần xử lý</span></span></span></button>
     <span class="spacer"></span>
     <span class="item" data-when-novel data-testid="statusbar-chapter"><span lang="en">Ch. 0012 · 3,208 chars</span><span lang="vi">Ch. 0012 · 3.208 ký tự</span></span>
     <span class="item hint" data-testid="statusbar-hint-palette"><kbd>Ctrl</kbd><kbd>K</kbd> <span lang="en">commands</span><span lang="vi">lệnh</span></span>
@@ -335,7 +335,6 @@
         </div>
         <div data-sheet-scope="tasks"><h4><span lang="en">Tasks & lists</span><span lang="vi">Tác vụ & danh sách</span> <span class="pill info hidden" data-sheet-here><span lang="en">this screen</span><span lang="vi">màn hình này</span></span></h4>
           <div class="sc"><span><span lang="en">Pause / resume selected job</span><span lang="vi">Tạm dừng / chạy tiếp job đã chọn</span></span><span class="keys"><kbd>Space</kbd></span></div>
-          <div class="sc"><span><span lang="en">Retry failed items</span><span lang="vi">Thử lại mục lỗi</span></span><span class="keys"><kbd>R</kbd></span></div>
           <div class="sc"><span><span lang="en">Move in lists</span><span lang="vi">Di chuyển trong danh sách</span></span><span class="keys"><kbd>↑</kbd><kbd>↓</kbd> <kbd>Home</kbd><kbd>End</kbd></span></div>
           <div class="sc"><span><span lang="en">Open selected</span><span lang="vi">Mở mục đã chọn</span></span><span class="keys"><kbd>Enter</kbd></span></div>
           <div class="sc"><span><span lang="en">Grid / list view</span><span lang="vi">Lưới / danh sách</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>1</kbd> <kbd>2</kbd></span></div>
@@ -384,6 +383,62 @@
       <div class="field" style="margin-top:var(--sp-md)"><label><span lang="en">Type the title to confirm</span><span lang="vi">Gõ tên truyện để xác nhận</span></label><input class="input" placeholder="斗破苍穹" data-testid="dlg-delete-confirm-input"></div>
     </div>
     <div class="dialog-foot"><button class="btn" data-close><span lang="en">Cancel</span><span lang="vi">Huỷ</span></button><button class="btn danger solid" data-action="delete-novel" data-testid="dlg-delete-confirm"><svg class="icon sm"><use href="#i-trash"/></svg><span lang="en">Delete novel</span><span lang="vi">Xoá truyện</span></button></div>
+  </div>
+</div>
+
+<div class="scrim" id="dlg-delete-jobs" data-testid="dlg-delete-jobs">
+  <div class="dialog" role="alertdialog" aria-label="Delete jobs">
+    <div class="dialog-head"><svg class="icon lg danger"><use href="#i-alert-triangle"/></svg><h2><span data-delete-one><span lang="en">Delete job </span><span lang="vi">Xoá job </span><code data-delete-job>j-2026-10-04-0016</code>?</span><span data-delete-all><span lang="en">Delete </span><span lang="vi">Xoá </span><span data-history-count>38</span><span lang="en"> jobs from history?</span><span lang="vi"> job khỏi lịch sử?</span></span></h2><button class="btn ghost icon" data-close aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button></div>
+    <div class="dialog-body">
+      <p lang="en">This removes the job record and its log file. Results the job produced — translations, analysis, imported chapters and exported files — are kept.</p>
+      <p lang="vi">Thao tác này xoá bản ghi job và tệp log của nó. Kết quả job đã tạo — bản dịch, phân tích, chương đã nhập và tệp đã xuất — vẫn được giữ.</p>
+      <div class="callout" data-delete-all><svg class="icon"><use href="#i-info"/></svg><div><span lang="en">Every history job is deleted, whatever the filters. Running, queued and paused jobs are not touched.</span><span lang="vi">Mọi job trong lịch sử đều bị xoá, bất kể bộ lọc. Job đang chạy, đang chờ và tạm dừng không bị ảnh hưởng.</span></div></div>
+    </div>
+    <div class="dialog-foot"><button class="btn" data-close autofocus data-testid="dlg-delete-jobs-cancel"><span lang="en">Cancel</span><span lang="vi">Huỷ</span></button><button class="btn danger solid" data-action="history-delete-confirm" data-testid="dlg-delete-jobs-confirm"><svg class="icon sm"><use href="#i-trash"/></svg><span data-delete-one><span lang="en">Delete job</span><span lang="vi">Xoá job</span></span><span data-delete-all><span lang="en">Delete </span><span lang="vi">Xoá </span><span data-history-count>38</span><span lang="en"> jobs</span><span lang="vi"> job</span></span></button></div>
+  </div>
+</div>
+
+<div class="scrim" id="dlg-cancel-job" data-testid="dlg-cancel-job">
+  <div class="dialog" role="alertdialog" aria-label="Cancel job">
+    <div class="dialog-head"><svg class="icon lg danger"><use href="#i-alert-triangle"/></svg><h2><span lang="en">Cancel this job?</span><span lang="vi">Huỷ job này?</span></h2><button class="btn ghost icon" data-close aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button></div>
+    <div class="dialog-body">
+      <p><b data-cancel-job-name><span lang="en">Translate 0001–0100 · 凡人修仙传 → Tiếng Việt</span><span lang="vi">Dịch 0001–0100 · 凡人修仙传 → Tiếng Việt</span></b> · <code data-cancel-job-id>j-2026-10-04-0017</code></p>
+      <p lang="en">The item in progress stops now and the job ends for good. Finished items are kept; the remaining items are not run.</p>
+      <p lang="vi">Mục đang chạy dừng ngay và job kết thúc hẳn. Các mục đã xong được giữ; các mục còn lại không được chạy.</p>
+      <div class="callout"><svg class="icon"><use href="#i-info"/></svg><div><span lang="en">A cancelled job cannot be resumed. To run it again, use Rerun on its row in History.</span><span lang="vi">Job đã huỷ không thể chạy tiếp. Để chạy lại, dùng Chạy lại trên dòng của nó trong Lịch sử.</span></div></div>
+    </div>
+    <div class="dialog-foot"><button class="btn" data-close autofocus data-testid="dlg-cancel-job-keep"><span lang="en">Keep job</span><span lang="vi">Giữ job</span></button><button class="btn danger solid" data-action="job-cancel-confirm" data-testid="dlg-cancel-job-confirm"><svg class="icon sm"><use href="#i-stop"/></svg><span lang="en">Cancel job</span><span lang="vi">Huỷ job</span></button></div>
+  </div>
+</div>
+
+<div class="scrim" id="dlg-close-app" data-testid="dlg-close-app">
+  <div class="dialog" role="alertdialog" aria-label="Close Novel Studio">
+    <div class="dialog-head"><svg class="icon lg"><use href="#i-pause"/></svg><h2><span lang="en">Close Novel Studio?</span><span lang="vi">Đóng Novel Studio?</span></h2><button class="btn ghost icon" data-close aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button></div>
+    <div class="dialog-body">
+      <p data-close-message><span lang="en">1 job is running. It will pause and can be resumed next time.</span><span lang="vi">1 job đang chạy. Job sẽ tạm dừng và có thể chạy tiếp lần sau.</span></p>
+      <p class="meta" lang="en">Finished items are kept. The item in progress runs again when you resume.</p>
+      <p class="meta" lang="vi">Các mục đã xong được giữ. Mục đang chạy sẽ chạy lại khi bạn chạy tiếp.</p>
+    </div>
+    <div class="dialog-foot"><button class="btn" data-close autofocus data-testid="dlg-close-app-cancel"><span lang="en">Cancel</span><span lang="vi">Huỷ</span></button><button class="btn primary" data-action="app-close-confirm" data-testid="dlg-close-app-confirm"><span lang="en">Close</span><span lang="vi">Đóng</span></button></div>
+  </div>
+</div>
+
+<div class="scrim" id="dlg-job-preflight" data-testid="dlg-job-preflight">
+  <div class="dialog" role="dialog" aria-label="Start job">
+    <div class="dialog-head"><svg class="icon lg"><use href="#i-globe"/></svg><h2><span lang="en">Start translation?</span><span lang="vi">Bắt đầu dịch?</span></h2><div class="segmented proto" data-mode-for="#dlg-job-preflight" title="Prototype only: preview the dialog states"><button type="button" data-mode="ready" aria-pressed="true"><span lang="en">Ready</span><span lang="vi">Sẵn sàng</span></button><button type="button" data-mode="invalid" aria-pressed="false"><span lang="en">Invalid</span><span lang="vi">Không hợp lệ</span></button><button type="button" data-mode="overlap" aria-pressed="false"><span lang="en">Overlap</span><span lang="vi">Trùng</span></button></div><button class="btn ghost icon" data-close aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button></div>
+    <div class="dialog-body">
+      <dl class="kv" style="grid-template-columns:120px 1fr" data-testid="dlg-job-preflight-summary">
+        <dt><span lang="en">Type</span><span lang="vi">Loại</span></dt><dd><span lang="en">Translation</span><span lang="vi">Dịch</span> · zh → vi</dd>
+        <dt><span lang="en">Novel</span><span lang="vi">Truyện</span></dt><dd>凡人修仙传 · Phàm Nhân Tu Tiên</dd>
+        <dt><span lang="en">Chapters</span><span lang="vi">Chương</span></dt><dd><span data-mode-only="ready overlap">0001–0100 · 100 <span lang="en">chapters</span><span lang="vi">chương</span></span><span class="fail-text hidden" data-mode-only="invalid">2401–2500</span></dd>
+        <dt><span lang="en">Backend</span><span lang="vi">Backend</span></dt><dd>Codex CLI 0.160.0 <span class="pill plain"><svg class="icon sm"><use href="#i-lock"/></svg><span lang="en">locked at start</span><span lang="vi">khoá khi bắt đầu</span></span></dd>
+        <dt><span lang="en">Items</span><span lang="vi">Mục</span></dt><dd><span data-mode-only="ready overlap">100 · <span lang="en">one per chapter</span><span lang="vi">mỗi chương một mục</span></span><span class="hidden" data-mode-only="invalid">—</span></dd>
+      </dl>
+      <div class="callout info" style="margin-top:var(--sp-md)" data-mode-only="ready"><svg class="icon"><use href="#i-info"/></svg><div><span lang="en">The job runs in the background. Progress shows in the status bar and the Task Center.</span><span lang="vi">Job chạy nền. Tiến độ hiện trên thanh trạng thái và trong Trung tâm tác vụ.</span></div></div>
+      <div class="callout danger hidden" style="margin-top:var(--sp-md)" data-mode-only="invalid" data-testid="dlg-job-preflight-invalid"><svg class="icon"><use href="#i-alert-circle"/></svg><div><span lang="en">Chapters 2401–2500 are outside this novel, which has 2,446 chapters. Nothing was saved.</span><span lang="vi">Chương 2401–2500 nằm ngoài truyện này, truyện có 2.446 chương. Chưa lưu gì.</span></div></div>
+      <div class="callout danger hidden" style="margin-top:var(--sp-md)" data-mode-only="overlap" data-testid="dlg-job-preflight-overlap"><svg class="icon"><use href="#i-alert-circle"/></svg><div><span lang="en">These chapters overlap a translation job of this novel that is still active: </span><span lang="vi">Các chương này trùng với một job dịch của truyện vẫn đang hoạt động: </span><b><span lang="en">Translate 0001–0100</span><span lang="vi">Dịch 0001–0100</span></b> · <code>j-2026-10-04-0017</code></div></div>
+    </div>
+    <div class="dialog-foot"><button class="btn" data-close data-testid="dlg-job-preflight-cancel"><span lang="en">Cancel</span><span lang="vi">Huỷ</span></button><button class="btn primary" data-mode-only="ready" data-action="job-start" data-testid="dlg-job-preflight-start"><svg class="icon sm"><use href="#i-play"/></svg><span lang="en">Start</span><span lang="vi">Bắt đầu</span></button><button class="btn primary hidden" disabled data-mode-only="invalid overlap"><svg class="icon sm"><use href="#i-play"/></svg><span lang="en">Start</span><span lang="vi">Bắt đầu</span></button></div>
   </div>
 </div>
 
@@ -487,6 +542,13 @@ https://novel-reader.example/book/fanren/chapter-12</textarea></div>
     <div class="divider"></div>
     <h4><span lang="en">Notes for this screen</span><span lang="vi">Ghi chú cho màn hình này</span></h4>
     <div class="notes"></div>
+    <div class="divider"></div>
+    <h4><span lang="en">Simulate (Task Center)</span><span lang="vi">Mô phỏng (Trung tâm tác vụ)</span></h4>
+    <div class="col" style="align-items:flex-start" data-testid="proto-simulate">
+      <button class="btn sm" data-action="app-close" data-testid="proto-sim-close-app"><svg class="icon sm"><use href="#i-x"/></svg><span lang="en">Close the app window</span><span lang="vi">Đóng cửa sổ ứng dụng</span></button>
+      <button class="btn sm" data-action="job-fail-demo" data-testid="proto-sim-quota"><svg class="icon sm"><use href="#i-alert-triangle"/></svg><span lang="en">Running item hits “quota exhausted” 3 times</span><span lang="vi">Mục đang chạy gặp “hết hạn mức” 3 lần</span></button>
+      <button class="btn sm" data-open="dlg-job-preflight" data-testid="proto-sim-preflight"><svg class="icon sm"><use href="#i-play"/></svg><span lang="en">Start a job from a feature screen</span><span lang="vi">Bắt đầu job từ màn hình tính năng</span></button>
+    </div>
     <div class="divider"></div>
     <p class="meta"><span lang="en">Design system:</span><span lang="vi">Hệ thống thiết kế:</span> <a href="../docs/0.design-system.html">0.design-system.html</a> · <span lang="en">Requirements:</span><span lang="vi">Yêu cầu:</span> <a href="../docs/0.high-level-requirements.html">HLR</a></p>
   </div>

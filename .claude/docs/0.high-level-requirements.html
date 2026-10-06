@@ -494,7 +494,7 @@
     <tr>
       <td>M7 — <span lang="en">No lost work on interruption</span><span lang="vi">Không mất việc đã làm khi bị gián đoạn</span></td>
       <td><span lang="en">none (new product)</span><span lang="vi">chưa có (sản phẩm mới)</span></td>
-      <td><span lang="en">An interrupted job (cancel, crash, quota, app closed) loses at most the item in flight and resumes as the same job.</span><span lang="vi">Một job bị gián đoạn (huỷ, sập, hết hạn mức, đóng ứng dụng) mất nhiều nhất mục đang xử lý dở và chạy tiếp như cùng một job.</span></td>
+      <td><span lang="en">A paused job, or one interrupted by closing the app, loses at most the item in flight and resumes as the same job. A job that ends (cancelled, or completed, including completed early on an error such as quota exhausted, or with failed items) keeps its finished results and continues only through Rerun as a new job (Q17, Q18).</span><span lang="vi">Một job tạm dừng, hoặc bị gián đoạn do đóng ứng dụng, mất nhiều nhất mục đang xử lý dở và chạy tiếp như cùng một job. Một job đã kết thúc (đã huỷ, hoặc hoàn tất, kể cả hoàn tất sớm do lỗi như hết hạn mức, hoặc có mục lỗi) giữ các kết quả đã xong và chỉ đi tiếp bằng Chạy lại thành một job mới (Q17, Q18).</span></td>
       <td><span lang="en">Fault-injection runs in the Electron smoke test plus manual tests.</span><span lang="vi">Các lần chạy tiêm lỗi trong bài smoke test Electron kèm kiểm thử tay.</span></td>
     </tr>
     <tr>
@@ -565,6 +565,16 @@
       <td>Q16</td><td>2026-10-05</td><td>analyst</td>
       <td><span lang="en">Should the codebase foundation be its own module, and where does it sit in the roadmap?</span><span lang="vi">Nền tảng codebase có nên là một module riêng không, và nằm ở đâu trong roadmap?</span></td>
       <td><span lang="en">Answered 2026-10-05: M00 · Foundation added after M01 /solution; approved by the product owner. M00 is a technical module with no Stories (Tasks only), belongs to TH-01, is built in Release 1 · Part 1 before M01, and is tracked as Jira Epic <code>PNS-122</code>; criteria in <a href="M00/0.requirements.html"><code>M00/0.requirements.html</code></a>. Affects: theme table (TH-01 modules, module count), roadmap Release 1 · Part 1, A12.</span><span lang="vi">Trả lời 2026-10-05: thêm M00 · Foundation sau bước /solution của M01; product owner đã duyệt. M00 là module kỹ thuật không có Story (chỉ có Task), thuộc TH-01, làm trong Release 1 · Part 1 trước M01, và được theo dõi bằng Jira Epic <code>PNS-122</code>; tiêu chí trong <a href="M00/0.requirements.html"><code>M00/0.requirements.html</code></a>. Ảnh hưởng: bảng chủ đề (module của TH-01, số module), roadmap Release 1 · Part 1, A12.</span></td>
+    </tr>
+    <tr>
+      <td>Q17</td><td>2026-10-05</td><td>analyst</td>
+      <td><span lang="en">Which interrupted jobs resume as the same job (metric M7)?</span><span lang="vi">Những job bị gián đoạn nào chạy tiếp như cùng một job (chỉ số M7)?</span></td>
+      <td><span lang="en">Answered 2026-10-05 in M03 /solution, approved by the product owner in chat: only a paused job or one interrupted by closing the app resumes as the same job. Cancel, quota exhausted and failure end the job; it keeps its finished results and continues only through Rerun as a new job. How a crash is handled is deferred until a real case appears (M03 Q26). The document stays approved. Affects: M7, <a href="M03/0.requirements.html"><code>M03/0.requirements.html</code></a> (Q25, Q29).</span><span lang="vi">Trả lời 2026-10-05 trong /solution của M03, product owner duyệt trong chat: chỉ job tạm dừng hoặc bị gián đoạn do đóng ứng dụng mới chạy tiếp như cùng một job. Huỷ, hết hạn mức và lỗi làm job kết thúc; job giữ các kết quả đã xong và chỉ đi tiếp bằng Chạy lại thành một job mới. Cách xử lý sự cố sập được hoãn tới khi có trường hợp thật (M03 Q26). Tài liệu vẫn ở trạng thái đã duyệt. Ảnh hưởng: M7, <a href="M03/0.requirements.html"><code>M03/0.requirements.html</code></a> (Q25, Q29).</span></td>
+    </tr>
+    <tr>
+      <td>Q18</td><td>2026-10-05</td><td>analyst</td>
+      <td><span lang="en">Does the new M03 failure model change the wording of metric M7?</span><span lang="vi">Mô hình lỗi mới của M03 có làm đổi câu chữ của chỉ số M7 không?</span></td>
+      <td><span lang="en">Changed by the product owner on 2026-10-05 (M03 Q33): there is no failed job state any more. A job ends either cancelled or completed; a completed job may have failed items or may have stopped early on a fast-complete error such as quota exhausted. M7 now names those endings instead of “failure”; the resume rule is unchanged. The document stays approved. Affects: M7.</span><span lang="vi">Product owner thay đổi ngày 2026-10-05 (M03 Q33): không còn trạng thái job lỗi. Một job kết thúc ở trạng thái đã huỷ hoặc hoàn tất; job hoàn tất có thể có mục lỗi hoặc dừng sớm do lỗi hoàn tất sớm như hết hạn mức. M7 nay nêu các cách kết thúc đó thay cho “lỗi”; quy tắc chạy tiếp không đổi. Tài liệu vẫn ở trạng thái đã duyệt. Ảnh hưởng: M7.</span></td>
     </tr>
   </tbody>
 </table>
