@@ -1,7 +1,6 @@
-body {
-  margin: 0;
-  font-family: sans-serif;
-}
+@import 'styles/tokens';
+@import 'styles/bootstrap';
+@import 'styles/base';
 
 .root-header {
   display: flex;
