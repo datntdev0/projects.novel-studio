@@ -13,6 +13,15 @@ export const executablePath: string = createRequire(join(electronDir, 'package.j
 export const launchApp = (appRoot: string): Promise<ElectronApplication> =>
   _electron.launch({ executablePath, args: [appDir], env: { ...process.env, NS_APP_ROOT: appRoot } });
 
+export async function withApp(appRoot: string, body: (app: ElectronApplication) => Promise<void>): Promise<void> {
+  const app = await launchApp(appRoot);
+  try {
+    await body(app);
+  } finally {
+    await app.close().catch(() => undefined);
+  }
+}
+
 export const test = base.extend<{ appRoot: string; app: ElectronApplication; window: Page }>({
   appRoot: async ({}, use) => {
     const appRoot = await mkdtemp(join(tmpdir(), 'ns-app-'));
