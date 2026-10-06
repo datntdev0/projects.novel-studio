@@ -20,9 +20,19 @@
             "styles": ["src/styles.scss"]
           },
           "configurations": {
-            "production": { "outputHashing": "all" },
+            "production": {
+              "outputHashing": "all",
+              "optimization": { "scripts": true, "styles": { "minify": true, "inlineCritical": false }, "fonts": false }
+            },
             "development": { "optimization": false, "sourceMap": true, "extractLicenses": false },
-            "e2e": { "optimization": false, "sourceMap": true, "extractLicenses": false }
+            "e2e": {
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "fileReplacements": [
+                { "replace": "src/app/core/bridge/bridge.provider.ts", "with": "src/app/core/bridge/bridge.provider.e2e.ts" }
+              ]
+            }
           },
           "defaultConfiguration": "production"
         },

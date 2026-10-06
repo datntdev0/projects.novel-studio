@@ -10,6 +10,7 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
     "isolatedModules": true,
+    "resolveJsonModule": true,
     "skipLibCheck": true,
     "paths": { "@shared/core": ["./shared/src/core/index.ts"], "@shared/data": ["./shared/src/data/index.ts"] }
   }

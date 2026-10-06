@@ -8,7 +8,10 @@ import { appDir, electronDir } from './paths.ts';
 
 export { expect, saveEvidence } from './test.ts';
 
-const executablePath: string = createRequire(join(electronDir, 'package.json'))('electron');
+export const executablePath: string = createRequire(join(electronDir, 'package.json'))('electron');
+
+export const launchApp = (appRoot: string): Promise<ElectronApplication> =>
+  _electron.launch({ executablePath, args: [appDir], env: { ...process.env, NS_APP_ROOT: appRoot } });
 
 export const test = base.extend<{ appRoot: string; app: ElectronApplication; window: Page }>({
   appRoot: async ({}, use) => {
@@ -17,7 +20,7 @@ export const test = base.extend<{ appRoot: string; app: ElectronApplication; win
     await rm(appRoot, { recursive: true, force: true, maxRetries: 5 });
   },
   app: async ({ appRoot }, use) => {
-    const app = await _electron.launch({ executablePath, args: [appDir], env: { ...process.env, NS_APP_ROOT: appRoot } });
+    const app = await launchApp(appRoot);
     await use(app);
     await app.close();
   },
