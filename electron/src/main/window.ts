@@ -42,6 +42,7 @@ export function createMainWindow(): BrowserWindow {
     minWidth: 1280,
     minHeight: 720,
     title: APP_NAME,
+    icon: path.join(__dirname, 'icon.ico'),
     webPreferences: { preload: path.join(__dirname, 'preload.cjs'), contextIsolation: true, sandbox: true, nodeIntegration: false },
   });
   applyWindowGuards(window);

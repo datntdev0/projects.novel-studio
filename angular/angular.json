@@ -17,7 +17,8 @@
             "index": "src/index.html",
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
-            "styles": ["src/styles.scss"]
+            "styles": ["src/styles.scss"],
+            "assets": [{ "glob": "**/*", "input": "public" }]
           },
           "configurations": {
             "production": {

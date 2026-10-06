@@ -1,4 +1,7 @@
-<h1 data-testid="app-hello-title">{{ title }}</h1>
+<header class="root-header">
+  <img data-testid="root-app-logo" src="icon.svg" alt="" width="40" height="40" />
+  <h1 data-testid="app-hello-title">{{ title }}</h1>
+</header>
 <dl>
   <dt data-testid="root-label-name">{{ 'dev.root.name' | t }}</dt>
   <dd data-testid="root-app-name">{{ info()?.name }}</dd>
