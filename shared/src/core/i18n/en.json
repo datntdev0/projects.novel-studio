@@ -11,7 +11,9 @@
       "count": "Count",
       "chapters": { "one": "{count} chapter", "other": "{count} chapters" },
       "date": "Date",
-      "number": "Number"
+      "number": "Number",
+      "look": "Look",
+      "serifSample": "Reading font: ẳ ễ ở ự"
     }
   },
   "error": {

@@ -19,7 +19,12 @@
             "tsConfig": "tsconfig.app.json",
             "styles": ["src/styles.scss"],
             "stylePreprocessorOptions": { "sass": { "silenceDeprecations": ["import"] } },
-            "assets": [{ "glob": "**/*", "input": "public" }]
+            "loader": { ".svg": "text" },
+            "assets": [
+              { "glob": "**/*", "input": "public" },
+              { "glob": "OFL-*.txt", "input": "src/assets/fonts", "output": "licenses" },
+              { "glob": "LICENSE", "input": "node_modules/bootstrap", "output": "licenses/bootstrap" }
+            ]
           },
           "configurations": {
             "production": {

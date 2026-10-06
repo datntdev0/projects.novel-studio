@@ -11,7 +11,9 @@
       "count": "Số lượng",
       "chapters": "{count} chương",
       "date": "Ngày",
-      "number": "Số"
+      "number": "Số",
+      "look": "Giao diện mẫu",
+      "serifSample": "Phông chữ đọc: ẳ ễ ở ự"
     }
   },
   "error": {

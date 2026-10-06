@@ -24,6 +24,12 @@
   <dt data-testid="root-label-number">{{ 'dev.root.number' | t }}</dt>
   <dd data-testid="root-sample-number">{{ i18n.formatNumber(1234567.89) }}</dd>
 </dl>
+<h2 data-testid="root-label-look">{{ 'dev.root.look' | t }}</h2>
+<ns-icon name="search" size="sm" data-testid="root-icon-sm" />
+<ns-icon name="search" size="md" data-testid="root-icon-md" />
+<ns-icon name="search" size="lg" data-testid="root-icon-lg" />
+<ns-icon name="search" size="xl" data-testid="root-icon-xl" />
+<p class="serif" data-testid="root-sample-serif">{{ 'dev.root.serifSample' | t }}</p>
 @if (lastError(); as error) {
   <p role="alert">
     <span data-testid="root-error-code">{{ error.code }}</span>

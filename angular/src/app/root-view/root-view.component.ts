@@ -5,8 +5,9 @@ import { ErrorService } from '../core/errors/error.service';
 import { I18nService } from '../core/i18n/i18n.service';
 import { TranslatePipe } from '../core/i18n/t.pipe';
 import { SettingsService } from '../core/settings/settings.service';
+import { IconComponent } from '../ui/icon/icon.component';
 
-@Component({ selector: 'app-root-view', imports: [TranslatePipe], templateUrl: './root-view.component.html' })
+@Component({ selector: 'app-root-view', imports: [TranslatePipe, IconComponent], templateUrl: './root-view.component.html' })
 export class RootViewComponent implements OnInit {
   private readonly bridge = inject(BRIDGE);
   private readonly errors = inject(ErrorService);
