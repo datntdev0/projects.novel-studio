@@ -1,4 +1,19 @@
 {
+  "dev": {
+    "root": {
+      "name": "Tên",
+      "version": "Phiên bản",
+      "language": "Ngôn ngữ",
+      "theme": "Giao diện",
+      "useEnglish": "Tiếng Anh",
+      "useVietnamese": "Tiếng Việt",
+      "samples": "Mẫu định dạng",
+      "count": "Số lượng",
+      "chapters": "{count} chương",
+      "date": "Ngày",
+      "number": "Số"
+    }
+  },
   "error": {
     "INTERNAL": "Đã xảy ra lỗi. Vui lòng thử lại.",
     "IPC_INVALID_REQUEST": "Yêu cầu không hợp lệ.",
