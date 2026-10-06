@@ -1,8 +1,9 @@
 import { app, ipcMain, type IpcMainInvokeEvent } from 'electron';
 import { pathToFileURL } from 'node:url';
 import path from 'node:path';
-import { APP_NAME, DEFAULT_LANGUAGE, DEFAULT_THEME, IPC_CHANNELS, isNsError, nsError, type IpcContract, type IpcResult, type LogEntry, type LogLevel, type NsError } from '@shared/core';
+import { APP_NAME, IPC_CHANNELS, isNsError, isSettingsPatch, nsError, type IpcContract, type IpcResult, type LogEntry, type LogLevel, type NsError } from '@shared/core';
 import { log } from './log';
+import { getSettings, updateSettings } from './settings-store';
 
 const MAX_MESSAGE_LENGTH = 2000;
 const MAX_DETAIL_LENGTH = 20000;
@@ -13,6 +14,8 @@ type Handlers = {
   [C in keyof IpcContract]: { validate(req: unknown): boolean; handle(req: IpcContract[C]['req']): IpcContract[C]['res'] };
 };
 type AnyHandler = { validate(req: unknown): boolean; handle(req: unknown): unknown };
+
+const isNull = (req: unknown): boolean => req === null;
 
 const isLogEntry = (req: unknown): req is LogEntry => {
   const entry = req as LogEntry | null;
@@ -27,8 +30,11 @@ const isLogEntry = (req: unknown): req is LogEntry => {
 
 const handlers: Handlers = {
   'app:getInfo': {
-    validate: (req) => req === null,
-    handle: () => ({ name: APP_NAME, version: app.getVersion(), language: DEFAULT_LANGUAGE, theme: DEFAULT_THEME }),
+    validate: isNull,
+    handle: () => {
+      const { language, theme } = getSettings();
+      return { name: APP_NAME, version: app.getVersion(), language, theme };
+    },
   },
   'log:write': {
     validate: isLogEntry,
@@ -38,6 +44,8 @@ const handlers: Handlers = {
       return null;
     },
   },
+  'settings:get': { validate: isNull, handle: getSettings },
+  'settings:set': { validate: isSettingsPatch, handle: updateSettings },
 };
 
 function logFailure(channel: string, error: unknown, failure: NsError): void {
