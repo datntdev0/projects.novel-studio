@@ -22,6 +22,7 @@ const COLOR_TOKENS = [
 
 @Component({
   selector: 'app-kit-base',
+  styleUrls: ['../kit-section.css'],
   imports: [IconComponent],
   template: `
     <h2>Base</h2>

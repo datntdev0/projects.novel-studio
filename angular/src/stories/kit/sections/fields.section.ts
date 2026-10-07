@@ -4,6 +4,7 @@ import { InputDirective } from '../../../app/components/form/input.directive';
 
 @Component({
   selector: 'app-kit-fields',
+  styleUrls: ['../kit-section.css'],
   imports: [FieldComponent, InputDirective],
   template: `
     <h2>Fields</h2>

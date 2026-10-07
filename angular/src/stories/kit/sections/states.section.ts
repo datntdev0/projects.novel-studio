@@ -6,6 +6,7 @@ import { LoadingStateComponent } from '../../../app/components/state/loading-sta
 
 @Component({
   selector: 'app-kit-states',
+  styleUrls: ['../kit-section.css'],
   imports: [EmptyStateComponent, LoadingStateComponent, ErrorStateComponent, ButtonDirective],
   template: `
     <h2>States</h2>

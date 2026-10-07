@@ -3,6 +3,7 @@ import { SegmentedComponent, SegmentedOption } from '../../../app/components/for
 
 @Component({
   selector: 'app-kit-choices',
+  styleUrls: ['../kit-section.css'],
   imports: [SegmentedComponent],
   template: `
     <h2>Choices</h2>

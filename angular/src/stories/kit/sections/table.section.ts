@@ -5,6 +5,7 @@ import { PillComponent } from '../../../app/components/status/pill.component';
 
 @Component({
   selector: 'app-kit-table',
+  styleUrls: ['../kit-section.css'],
   imports: [ButtonDirective, IconComponent, PillComponent],
   template: `
     <h2>Table</h2>

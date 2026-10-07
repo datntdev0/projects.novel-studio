@@ -6,6 +6,7 @@ import { DialogComponent } from '../../../app/components/overlay/dialog.componen
 
 @Component({
   selector: 'app-kit-overlays',
+  styleUrls: ['../kit-section.css'],
   imports: [ButtonDirective, InputDirective, DialogComponent, ConfirmDialogComponent],
   template: `
     <h2>Overlays</h2>

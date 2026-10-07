@@ -4,6 +4,7 @@ import { ToastItem, ToastsComponent } from '../../../app/components/overlay/toas
 
 @Component({
   selector: 'app-kit-toasts',
+  styleUrls: ['../kit-section.css'],
   imports: [ButtonDirective, ToastsComponent],
   template: `
     <h2>Toasts</h2>

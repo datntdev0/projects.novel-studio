@@ -4,6 +4,7 @@ import { IconComponent } from '../../../app/components/icon/icon.component';
 
 @Component({
   selector: 'app-kit-buttons',
+  styleUrls: ['../kit-section.css'],
   imports: [ButtonDirective, IconComponent],
   template: `
     <h2>Buttons</h2>

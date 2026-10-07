@@ -5,6 +5,7 @@ import { PillComponent } from '../../../app/components/status/pill.component';
 
 @Component({
   selector: 'app-kit-status',
+  styleUrls: ['../kit-section.css'],
   imports: [PillComponent, BadgeComponent, DotComponent],
   template: `
     <h2>Status</h2>

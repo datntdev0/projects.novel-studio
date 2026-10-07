@@ -55,35 +55,6 @@ import { KitStatesSection } from './sections/states.section';
       grid-template-columns: minmax(0, 1fr);
       gap: var(--sp-xxl);
     }
-    .ref > :not(header) {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      gap: var(--sp-md);
-      min-width: 0;
-    }
-    .ref > :not(header) > ::ng-deep h2 {
-      font-size: 15px;
-      padding-bottom: var(--sp-sm);
-      border-bottom: 1px solid var(--color-border);
-    }
-    .ref > :not(header) > ::ng-deep h3 {
-      font-size: 13px;
-      color: var(--color-text-secondary);
-    }
-    .ref > :not(header) > ::ng-deep .demo {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--sp-md);
-      align-items: center;
-    }
-    .ref > :not(header) > ::ng-deep .demo.col {
-      flex-direction: column;
-      align-items: stretch;
-      max-width: 360px;
-    }
-    .ref > :not(header) > ::ng-deep .demo.col > * {
-      max-width: 100%;
-    }
   `,
 })
 export class KitPageComponent {}

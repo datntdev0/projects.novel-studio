@@ -4,6 +4,7 @@ import { ProgressComponent } from '../../../app/components/status/progress.compo
 
 @Component({
   selector: 'app-kit-feedback',
+  styleUrls: ['../kit-section.css'],
   imports: [CalloutComponent, ProgressComponent],
   template: `
     <h2>Feedback</h2>

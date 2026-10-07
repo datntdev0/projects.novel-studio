@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'app-kit-layout',
+  styleUrls: ['../kit-section.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { 'data-testid': 'kit-section-layout' },
   template: `
