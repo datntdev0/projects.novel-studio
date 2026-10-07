@@ -1,3 +1,14 @@
+.log {
+  background: var(--color-code-background);
+  color: var(--color-code-text);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.55;
+  padding: var(--sp-sm) var(--sp-md);
+  border-radius: var(--radius-sm);
+  overflow: auto;
+  white-space: pre;
+}
 .error-details {
   width: 100%;
   text-align: left;

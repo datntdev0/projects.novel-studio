@@ -9,6 +9,9 @@ import { KitFieldsSection } from './sections/fields.section';
 import { KitChoicesSection } from './sections/choices.section';
 import { KitOverlaysSection } from './sections/overlays.section';
 import { KitToastsSection } from './sections/toasts.section';
+import { KitLayoutSection } from './sections/layout.section';
+import { KitTableSection } from './sections/table.section';
+import { KitStatesSection } from './sections/states.section';
 
 @Component({
   selector: 'app-kit-page',
@@ -22,6 +25,9 @@ import { KitToastsSection } from './sections/toasts.section';
     KitChoicesSection,
     KitOverlaysSection,
     KitToastsSection,
+    KitLayoutSection,
+    KitTableSection,
+    KitStatesSection,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { 'data-testid': 'kit-page' },
@@ -42,6 +48,9 @@ import { KitToastsSection } from './sections/toasts.section';
       <app-kit-choices />
       <app-kit-overlays />
       <app-kit-toasts />
+      <app-kit-layout />
+      <app-kit-table />
+      <app-kit-states />
     </main>
   `,
   styles: `
@@ -73,6 +82,14 @@ import { KitToastsSection } from './sections/toasts.section';
       flex-wrap: wrap;
       gap: var(--sp-md);
       align-items: center;
+    }
+    .ref > :not(header) > ::ng-deep .demo.col {
+      flex-direction: column;
+      align-items: stretch;
+      max-width: 360px;
+    }
+    .ref > :not(header) > ::ng-deep .demo.col > * {
+      max-width: 100%;
     }
   `,
 })

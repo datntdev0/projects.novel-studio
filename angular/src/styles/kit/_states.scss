@@ -1,0 +1,44 @@
+.empty {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: var(--sp-sm);
+  max-width: 420px;
+  padding: var(--sp-xxl);
+  color: var(--color-text-secondary);
+}
+.empty .icon.xl {
+  color: var(--color-text-tertiary);
+  width: 40px;
+  height: 40px;
+}
+.empty h2 {
+  color: var(--color-text);
+  font-size: 18px;
+}
+.empty .row {
+  justify-content: center;
+  margin-top: var(--sp-sm);
+}
+.empty h3 {
+  color: var(--color-text);
+}
+.empty.compact {
+  max-width: none;
+  padding: var(--sp-lg) var(--sp-md);
+  gap: var(--sp-xs);
+  font-size: 12px;
+}
+.empty.compact .icon.xl {
+  width: 28px;
+  height: 28px;
+}
+.empty.compact .row {
+  margin-top: var(--sp-xs);
+}
+.empty .progress {
+  width: 160px;
+}
+.empty.error .icon.xl {
+  color: var(--color-danger);
+}

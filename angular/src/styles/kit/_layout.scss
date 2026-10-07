@@ -1,0 +1,78 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-sm);
+  flex-wrap: wrap;
+}
+.row.between {
+  justify-content: space-between;
+}
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-sm);
+}
+.divider {
+  height: 1px;
+  background: var(--color-border);
+  margin: var(--sp-md) 0;
+}
+.sep {
+  width: 1px;
+  height: 18px;
+  background: var(--color-border);
+  flex: none;
+}
+.panel {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  background: var(--color-surface);
+  overflow: hidden;
+}
+.panel-head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-xs);
+  height: 40px;
+  padding: 0 var(--sp-xs) 0 var(--sp-md);
+  border-bottom: 1px solid var(--color-border);
+  flex: none;
+}
+.panel-head h3 {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.panel-body {
+  --scroll-bg: var(--color-surface);
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: var(--sp-sm);
+  background:
+    linear-gradient(var(--scroll-bg) 30%, transparent) top / 100% 28px no-repeat local,
+    linear-gradient(transparent, var(--scroll-bg) 70%) bottom / 100% 28px no-repeat local,
+    linear-gradient(color-mix(in srgb, var(--color-border-strong) 70%, transparent), transparent) top / 100% 8px no-repeat scroll,
+    linear-gradient(transparent, color-mix(in srgb, var(--color-border-strong) 70%, transparent)) bottom / 100% 8px no-repeat scroll,
+    var(--scroll-bg);
+}
+.panel-foot {
+  flex: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-xs) var(--sp-sm);
+  padding: var(--sp-sm) var(--sp-md);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+.panel-body.flush {
+  padding: 0;
+}
