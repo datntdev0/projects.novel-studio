@@ -42,7 +42,7 @@ const wrap = (db: DatabaseSync): Database => {
         db.exec('COMMIT');
         return result;
       } catch (error) {
-        db.exec('ROLLBACK');
+        if (db.isTransaction) db.exec('ROLLBACK');
         throw error;
       }
     },
@@ -55,7 +55,12 @@ const wrap = (db: DatabaseSync): Database => {
 export const openDatabase = (file: string, options: { readOnly: boolean }): Database => {
   const sqlite = process.getBuiltinModule('node:sqlite');
   const db = new sqlite.DatabaseSync(file, { readOnly: options.readOnly });
-  if (!options.readOnly) db.exec('PRAGMA journal_mode = WAL; PRAGMA foreign_keys = ON; PRAGMA busy_timeout = 5000;');
+  try {
+    if (!options.readOnly) db.exec('PRAGMA busy_timeout = 5000; PRAGMA journal_mode = WAL; PRAGMA foreign_keys = ON;');
+  } catch (error) {
+    db.close();
+    throw error;
+  }
   return wrap(db);
 };
 

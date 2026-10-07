@@ -1,5 +1,5 @@
 import { build } from 'esbuild';
-import { copyFile, readFile, writeFile } from 'node:fs/promises';
+import { copyFile, mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 
 const appDir = fileURLToPath(new URL('../dist/app/', import.meta.url));
@@ -19,4 +19,9 @@ await build({ ...common, entryPoints: ['src/main/main.ts'], outfile: `${appDir}m
 await build({ ...common, entryPoints: ['src/preload.ts'], outfile: `${appDir}preload.cjs` });
 
 await copyFile('assets/icon.ico', `${appDir}icon.ico`);
+const migrationsSrc = new URL('../shared/src/data/migrations/', import.meta.url);
+await mkdir(`${appDir}migrations/`, { recursive: true });
+for (const file of (await readdir(migrationsSrc)).filter((f) => f.endsWith('.sql'))) {
+  await copyFile(new URL(file, migrationsSrc), `${appDir}migrations/${file}`);
+}
 await writeFile(`${appDir}package.json`, `${JSON.stringify({ name, version, private: true, main: 'main.cjs' }, null, 2)}\n`);
