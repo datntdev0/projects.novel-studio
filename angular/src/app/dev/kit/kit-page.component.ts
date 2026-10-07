@@ -5,10 +5,12 @@ import { KitBaseSection } from './sections/base.section';
 import { KitButtonsSection } from './sections/buttons.section';
 import { KitStatusSection } from './sections/status.section';
 import { KitFeedbackSection } from './sections/feedback.section';
+import { KitFieldsSection } from './sections/fields.section';
+import { KitChoicesSection } from './sections/choices.section';
 
 @Component({
   selector: 'app-kit-page',
-  imports: [ButtonDirective, KitBaseSection, KitButtonsSection, KitStatusSection, KitFeedbackSection],
+  imports: [ButtonDirective, KitBaseSection, KitButtonsSection, KitStatusSection, KitFeedbackSection, KitFieldsSection, KitChoicesSection],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { 'data-testid': 'kit-page' },
   template: `
@@ -24,6 +26,8 @@ import { KitFeedbackSection } from './sections/feedback.section';
       <app-kit-buttons />
       <app-kit-status />
       <app-kit-feedback />
+      <app-kit-fields />
+      <app-kit-choices />
     </main>
   `,
   styles: `
