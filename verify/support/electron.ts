@@ -10,11 +10,24 @@ export { expect, saveEvidence } from './test.ts';
 
 export const executablePath: string = createRequire(join(electronDir, 'package.json'))('electron');
 
-export const launchApp = (appRoot: string): Promise<ElectronApplication> =>
-  _electron.launch({ executablePath, args: [appDir], env: { ...process.env, NS_APP_ROOT: appRoot } });
+export interface LaunchOptions {
+  args?: string[];
+  env?: Record<string, string>;
+}
 
-export async function withApp(appRoot: string, body: (app: ElectronApplication) => Promise<void>): Promise<void> {
-  const app = await launchApp(appRoot);
+export const launchApp = (appRoot: string, options: LaunchOptions = {}): Promise<ElectronApplication> =>
+  _electron.launch({
+    executablePath,
+    args: [appDir, ...(options.args ?? [])],
+    env: { ...process.env, ...options.env, NS_APP_ROOT: appRoot },
+  });
+
+export async function withApp(
+  appRoot: string,
+  body: (app: ElectronApplication) => Promise<void>,
+  options: LaunchOptions = {},
+): Promise<void> {
+  const app = await launchApp(appRoot, options);
   try {
     await body(app);
   } finally {

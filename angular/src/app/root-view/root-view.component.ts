@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { APP_NAME, type AppInfo } from '@shared/core';
+import { APP_NAME, type AppInfo, type LibraryStatus } from '@shared/core';
 import { BRIDGE } from '../core/bridge/bridge.token';
 import { ErrorService } from '../core/errors/error.service';
 import { I18nService } from '../core/i18n/i18n.service';
@@ -18,11 +18,13 @@ export class RootViewComponent implements OnInit {
   readonly title = APP_NAME;
   readonly sampleDate = new Date(2026, 2, 5);
   readonly info = signal<AppInfo | null>(null);
+  readonly library = signal<LibraryStatus | null>(null);
   readonly lastError = this.errors.lastError;
 
   async ngOnInit(): Promise<void> {
     try {
       this.info.set(await this.bridge.invoke('app:getInfo', null));
+      this.library.set(await this.bridge.invoke('library:status', null));
     } catch (error) {
       this.errors.report(error);
     }

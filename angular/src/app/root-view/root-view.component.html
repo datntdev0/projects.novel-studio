@@ -16,6 +16,22 @@
 <button type="button" data-testid="root-set-language-vi" (click)="i18n.setLanguage('vi')">{{ 'dev.root.useVietnamese' | t }}</button>
 <button type="button" data-testid="root-set-theme-dark" (click)="theme.setTheme('dark')">{{ 'dev.root.useDark' | t }}</button>
 <button type="button" data-testid="root-set-theme-light" (click)="theme.setTheme('light')">{{ 'dev.root.useLight' | t }}</button>
+<h2 data-testid="root-label-library">{{ 'dev.root.library' | t }}</h2>
+<dl>
+  <dt data-testid="root-label-library-state">{{ 'dev.root.libraryState' | t }}</dt>
+  <dd data-testid="root-library-state">{{ library()?.state }}</dd>
+  <dt data-testid="root-label-library-root">{{ 'dev.root.libraryRoot' | t }}</dt>
+  <dd data-testid="root-library-root">{{ library()?.root }}</dd>
+  <dt data-testid="root-label-library-version">{{ 'dev.root.libraryVersion' | t }}</dt>
+  <dd data-testid="root-library-version">{{ library()?.version }}</dd>
+</dl>
+@if (library()?.error; as error) {
+  <p role="alert" data-testid="root-library-error">
+    <span data-testid="root-library-error-code">{{ error.code }}</span>
+    <span data-testid="root-library-error-separator">{{ ': ' }}</span>
+    <span data-testid="root-library-error-text">{{ 'error.' + error.code | t }}</span>
+  </p>
+}
 <h2 data-testid="root-label-samples">{{ 'dev.root.samples' | t }}</h2>
 <dl>
   <dt data-testid="root-label-count">{{ 'dev.root.count' | t }}</dt>
@@ -33,9 +49,9 @@
 <ns-icon name="search" size="xl" data-testid="root-icon-xl" />
 <p class="serif" data-testid="root-sample-serif">{{ 'dev.root.serifSample' | t }}</p>
 @if (lastError(); as error) {
-  <p role="alert">
+  <p role="alert" data-testid="root-error">
     <span data-testid="root-error-code">{{ error.code }}</span>
-    <span>{{ ': ' }}</span>
+    <span data-testid="root-error-separator">{{ ': ' }}</span>
     <span data-testid="root-error-message">{{ error.message }}</span>
     <span data-testid="root-error-text">{{ 'error.' + error.code | t }}</span>
   </p>
