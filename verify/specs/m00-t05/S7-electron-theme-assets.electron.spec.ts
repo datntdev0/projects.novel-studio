@@ -48,8 +48,7 @@ test('S7 fonts, icons and theme work in Electron (AC-14, AC-15)', async ({ appRo
       expect(new Set(faces[family])).toEqual(new Set(['loaded']));
     }
 
-    const { count, ids } = await spriteState(window);
-    expect(count).toBe(92);
+    const { ids } = await spriteState(window);
     expect(ids).toEqual(await spriteIds());
     await expectIconBoxes(window);
     await saveEvidence(window, 'dark');

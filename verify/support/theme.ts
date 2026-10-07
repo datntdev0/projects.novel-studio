@@ -140,17 +140,13 @@ type MarkGlobals = { __marker?: string; __node?: MarkNode; document: { querySele
 
 const NAME_NODE = '[data-testid="root-app-name"]';
 
-export const spriteState = (page: Page): Promise<{ count: number; ids: string[]; copies: number }> =>
+export const spriteState = (page: Page): Promise<{ ids: string[]; copies: number }> =>
   page.evaluate(() => {
     const { document } = globalThis as unknown as SpriteGlobals;
     const symbols = [...document.querySelector('[data-testid="icon-sprite"]').children].filter(
       (child) => child.tagName.toLowerCase() === 'symbol',
     );
-    return {
-      count: symbols.length,
-      ids: symbols.map((symbol) => symbol.id),
-      copies: document.querySelectorAll('[data-testid="icon-sprite"]').length,
-    };
+    return { ids: symbols.map((symbol) => symbol.id), copies: document.querySelectorAll('[data-testid="icon-sprite"]').length };
   });
 
 export const expectIconBoxes = async (page: Page): Promise<void> => {
