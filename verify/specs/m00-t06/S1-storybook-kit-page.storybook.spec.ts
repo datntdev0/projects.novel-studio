@@ -29,7 +29,7 @@ const expectSectionsInOrder = async (page: Page): Promise<void> => {
 };
 
 for (const theme of THEMES) {
-  test(`S1 renderer kit page shows every section and demo in ${theme} (AC-16)`, async ({ page }) => {
+  test(`S1 storybook kit page shows every section and demo in ${theme} (AC-16)`, async ({ page }) => {
     await openKit(page, theme);
     await expectSectionsInOrder(page);
     await expectNoHorizontalScroll(page);

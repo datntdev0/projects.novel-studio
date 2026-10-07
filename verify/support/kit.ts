@@ -1,5 +1,6 @@
 import { expect, type Page } from '@playwright/test';
 import { expectHtml, type Theme } from './theme.ts';
+import { storybookUrl } from './storybook-server.ts';
 
 type FocusStyle = { outlineStyle: string; outlineColor: string; boxShadow: string; token: string };
 type FocusGlobals = {
@@ -14,7 +15,8 @@ type FocusGlobals = {
 
 export const FOCUS_RGB: Record<Theme, string> = { dark: 'rgb(114, 231, 180)', light: 'rgb(21, 122, 82)' };
 
-export const KIT_URL = '/#/dev/kit';
+export const kitUrl = (theme: Theme): string =>
+  `${storybookUrl}/iframe.html?id=reference-kit--full-list&viewMode=story&globals=theme:${theme}`;
 
 export const KIT_SECTIONS = [
   'base',
@@ -126,8 +128,6 @@ export const KIT_DEMOS: Record<KitSection, string[]> = {
 };
 
 export const TAB_ORDER = [
-  'kit-theme-dark',
-  'kit-theme-light',
   'kit-btn-default',
   'kit-btn-primary',
   'kit-btn-ghost',
@@ -205,9 +205,8 @@ export const toastIds = (id: string): { toast: string; close: string; action: st
 export const sectionId = (name: KitSection): string => `kit-section-${name}`;
 
 export const openKit = async (page: Page, theme: Theme): Promise<void> => {
-  await page.goto(KIT_URL);
+  await page.goto(kitUrl(theme));
   await expect(page.getByTestId('kit-page')).toBeVisible();
-  await page.getByTestId(`kit-theme-${theme}`).click();
   await expectHtml(page, 'en', theme);
 };
 

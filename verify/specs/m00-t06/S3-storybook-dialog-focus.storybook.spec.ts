@@ -16,7 +16,7 @@ const close = async (page: Page, name: (typeof names)[number], how: (typeof clos
 };
 
 for (const name of names) {
-  test.describe(`S3 renderer ${name} dialog focus (AC-17)`, () => {
+  test.describe(`S3 storybook ${name} dialog focus (AC-17)`, () => {
     test.beforeEach(async ({ page }) => {
       await openKit(page, 'light');
       await open(page, name);

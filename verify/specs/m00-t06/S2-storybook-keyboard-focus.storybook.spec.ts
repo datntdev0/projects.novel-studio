@@ -26,7 +26,7 @@ const walkTabs = async (page: Page, theme: Theme): Promise<string[]> => {
 };
 
 for (const theme of THEMES) {
-  test(`S2 renderer keyboard Tab order and focus ring in ${theme} (AC-17)`, async ({ page }) => {
+  test(`S2 storybook keyboard Tab order and focus ring in ${theme} (AC-17)`, async ({ page }) => {
     await openKit(page, theme);
     expect(await walkTabs(page, theme)).toEqual(TAB_ORDER);
     const next = await focusedId(page);
