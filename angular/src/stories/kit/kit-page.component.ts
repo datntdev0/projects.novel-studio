@@ -1,6 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { ThemeService } from '../../app/core/theme/theme.service';
-import { ButtonDirective } from '../../app/components/button/button.directive';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { KitBaseSection } from './sections/base.section';
 import { KitButtonsSection } from './sections/buttons.section';
 import { KitStatusSection } from './sections/status.section';
@@ -16,7 +14,6 @@ import { KitStatesSection } from './sections/states.section';
 @Component({
   selector: 'app-kit-page',
   imports: [
-    ButtonDirective,
     KitBaseSection,
     KitButtonsSection,
     KitStatusSection,
@@ -35,10 +32,6 @@ import { KitStatesSection } from './sections/states.section';
     <main class="ref">
       <header class="row between">
         <h1>UI kit reference</h1>
-        <div class="row">
-          <button nsBtn type="button" data-testid="kit-theme-dark" (click)="theme.setTheme('dark')">Dark</button>
-          <button nsBtn type="button" data-testid="kit-theme-light" (click)="theme.setTheme('light')">Light</button>
-        </div>
       </header>
       <app-kit-base />
       <app-kit-buttons />
@@ -93,6 +86,4 @@ import { KitStatesSection } from './sections/states.section';
     }
   `,
 })
-export class KitPageComponent {
-  protected readonly theme = inject(ThemeService);
-}
+export class KitPageComponent {}

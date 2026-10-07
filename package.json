@@ -14,7 +14,9 @@
     "verify": "pnpm build && pnpm --dir verify exec playwright test",
     "lint": "eslint . && node tools/check-pins.mjs && node tools/check-i18n-keys.mjs && node tools/python.mjs -m ruff check python",
     "format": "prettier --write . && node tools/python.mjs -m ruff format python",
-    "format:check": "node tools/check-format.mjs && node tools/python.mjs -m ruff format --check python"
+    "format:check": "node tools/check-format.mjs && node tools/python.mjs -m ruff format --check python",
+    "storybook": "pnpm --filter ./angular storybook",
+    "build-storybook": "pnpm --filter ./angular build-storybook"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint && pnpm format:check"
