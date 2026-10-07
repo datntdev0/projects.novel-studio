@@ -1,8 +1,10 @@
 import { app, ipcMain, type IpcMainInvokeEvent, type WebFrameMain } from 'electron';
 import { pathToFileURL } from 'node:url';
 import path from 'node:path';
-import { APP_NAME, DEFAULT_SETTINGS, IPC_CHANNELS, SETTINGS_INITIAL_CHANNEL, isNsError, isSettingsPatch, nsError, type InitialSettings, type IpcContract, type IpcResult, type LogEntry, type LogLevel, type NsError } from '@shared/core';
+import { APP_NAME, DEFAULT_SETTINGS, IPC_CHANNELS, SETTINGS_INITIAL_CHANNEL, isLibraryOpenRequest, isLibraryReadRequest, isLibraryWriteRequest, isNsError, isSettingsPatch, nsError, type InitialSettings, type IpcContract, type IpcResult, type LogEntry, type LogLevel, type NsError } from '@shared/core';
+import type { Migration } from '@shared/data';
 import { log } from './log';
+import { closeLibrary, getLibraryStatus, openLibrary, readLibraryText, writeLibraryText } from './library/library-service';
 import { getSettings, updateSettings } from './settings-store';
 
 const MAX_MESSAGE_LENGTH = 2000;
@@ -28,7 +30,7 @@ const isLogEntry = (req: unknown): req is LogEntry => {
   );
 };
 
-const handlers: Handlers = {
+const createHandlers = (loadMigrations: () => Migration[]): Handlers => ({
   'app:getInfo': {
     validate: isNull,
     handle: () => {
@@ -46,7 +48,18 @@ const handlers: Handlers = {
   },
   'settings:get': { validate: isNull, handle: getSettings },
   'settings:set': { validate: isSettingsPatch, handle: updateSettings },
-};
+  'library:open': { validate: isLibraryOpenRequest, handle: ({ root }) => openLibrary(root, loadMigrations) },
+  'library:close': { validate: isNull, handle: closeLibrary },
+  'library:status': { validate: isNull, handle: getLibraryStatus },
+  'library:readText': { validate: isLibraryReadRequest, handle: ({ path: file }) => readLibraryText(file) },
+  'library:writeText': {
+    validate: isLibraryWriteRequest,
+    handle: ({ path: file, text }) => {
+      writeLibraryText(file, text);
+      return null;
+    },
+  },
+});
 
 function logFailure(channel: string, error: unknown, failure: NsError): void {
   const text = `ipc ${channel} ${failure.code} ${failure.message}`;
@@ -70,7 +83,8 @@ function run(channel: string, handler: AnyHandler, event: IpcMainInvokeEvent, re
   }
 }
 
-export function registerIpc(): void {
+export function registerIpc(loadMigrations: () => Migration[]): void {
+  const handlers = createHandlers(loadMigrations);
   for (const channel of Object.keys(IPC_CHANNELS) as (keyof IpcContract)[]) {
     ipcMain.handle(channel, (event, req) => run(channel, handlers[channel] as AnyHandler, event, req));
   }

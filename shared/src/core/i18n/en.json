@@ -2,6 +2,10 @@
   "ui": { "close": "Close", "cancel": "Cancel", "details": "Details" },
   "dev": {
     "root": {
+      "library": "Library",
+      "libraryState": "State",
+      "libraryRoot": "Root",
+      "libraryVersion": "Library version",
       "name": "Name",
       "version": "Version",
       "language": "Language",

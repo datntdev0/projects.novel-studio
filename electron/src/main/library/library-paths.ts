@@ -10,16 +10,17 @@ const nearestExisting = (target: string): string => {
 
 const isInside = (root: string, target: string): boolean => {
   const relative = path.relative(root, target);
-  return relative === '' || (!relative.startsWith('..') && !path.isAbsolute(relative));
+  return relative === '' || (relative.split(path.sep)[0] !== '..' && !path.isAbsolute(relative));
 };
+
+const outsideError = () => nsError('LIBRARY_PATH_OUTSIDE', 'Path is outside the library');
 
 export function resolveInLibrary(root: string, input: unknown): string {
   const relative = toLibraryPath(input);
-  if (relative === null) throw nsError('LIBRARY_PATH_OUTSIDE', 'Path is outside the library');
+  if (relative === null) throw outsideError();
   const resolved = path.join(root, ...relative.split('/'));
   const realRoot = fs.realpathSync.native(root);
-  if (!isInside(realRoot, fs.realpathSync.native(nearestExisting(resolved))))
-    throw nsError('LIBRARY_PATH_OUTSIDE', 'Path is outside the library');
+  if (!isInside(realRoot, fs.realpathSync.native(nearestExisting(resolved)))) throw outsideError();
   return resolved;
 }
 

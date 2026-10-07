@@ -2,6 +2,10 @@
   "ui": { "close": "Đóng", "cancel": "Huỷ", "details": "Chi tiết" },
   "dev": {
     "root": {
+      "library": "Thư viện",
+      "libraryState": "Trạng thái",
+      "libraryRoot": "Thư mục gốc",
+      "libraryVersion": "Phiên bản thư viện",
       "name": "Tên",
       "version": "Phiên bản",
       "language": "Ngôn ngữ",

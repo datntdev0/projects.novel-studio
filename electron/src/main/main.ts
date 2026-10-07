@@ -20,7 +20,7 @@ function openLaunchLibrary(): void {
   const libraryRoot = readLibraryArg(process.argv);
   if (!libraryRoot) return;
   try {
-    openLibrary(libraryRoot, loadMigrations());
+    openLibrary(libraryRoot, loadMigrations);
   } catch {
     return;
   }
@@ -45,7 +45,7 @@ function start(): void {
     log.info(`app started ${app.getVersion()} appRoot=${appRoot}`);
     loadSettings(appRoot);
     applySessionGuards();
-    registerIpc();
+    registerIpc(loadMigrations);
     openLaunchLibrary();
     createMainWindow();
   });

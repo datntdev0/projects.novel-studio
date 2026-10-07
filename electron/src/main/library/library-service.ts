@@ -59,11 +59,12 @@ const failOpen = (libraryRoot: string, error: unknown): never => {
   throw nsErr;
 };
 
-export const openLibrary = (libraryRoot: string, migrations: Migration[]): LibraryStatus => {
+export const openLibrary = (libraryArg: string, loadMigrations: () => Migration[]): LibraryStatus => {
   closeLibrary();
+  const libraryRoot = path.resolve(libraryArg);
   try {
     mkdirSync(libraryRoot, { recursive: true });
-    database = prepareDatabase(path.join(libraryRoot, LIBRARY_DB_FILE), migrations);
+    database = prepareDatabase(path.join(libraryRoot, LIBRARY_DB_FILE), loadMigrations());
   } catch (error) {
     return failOpen(libraryRoot, error);
   }

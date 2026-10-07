@@ -1,3 +1,4 @@
+import type { LibraryOpenRequest, LibraryReadRequest, LibraryStatus, LibraryWriteRequest } from './library';
 import type { AppSettings, SettingsPatch } from './settings';
 
 export const LANGUAGES = ['en', 'vi'] as const;
@@ -25,6 +26,11 @@ export interface IpcContract {
   'log:write': { req: LogEntry; res: null };
   'settings:get': { req: null; res: AppSettings };
   'settings:set': { req: SettingsPatch; res: AppSettings };
+  'library:open': { req: LibraryOpenRequest; res: LibraryStatus };
+  'library:close': { req: null; res: LibraryStatus };
+  'library:status': { req: null; res: LibraryStatus };
+  'library:readText': { req: LibraryReadRequest; res: string | null };
+  'library:writeText': { req: LibraryWriteRequest; res: null };
 }
 
 export type IpcEvents = Record<never, never>;
@@ -34,5 +40,10 @@ export const IPC_CHANNELS: { [C in keyof IpcContract]: true } = {
   'log:write': true,
   'settings:get': true,
   'settings:set': true,
+  'library:open': true,
+  'library:close': true,
+  'library:status': true,
+  'library:readText': true,
+  'library:writeText': true,
 };
 export const IPC_EVENTS: { [E in keyof IpcEvents]: true } = {};
