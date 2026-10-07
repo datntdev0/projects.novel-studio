@@ -16,6 +16,7 @@ const preview: Preview = {
     },
   },
   initialGlobals: { theme: 'dark' },
+  parameters: { options: { storySort: { order: ['Reference', 'Foundations', 'CSS', 'Components'] } } },
   decorators: [
     applicationConfig({
       providers: [provideZonelessChangeDetection(), provideBridge(), provideSettings(), provideI18n(), provideIconSprite()],
