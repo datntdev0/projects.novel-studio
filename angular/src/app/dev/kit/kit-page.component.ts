@@ -1,10 +1,14 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ThemeService } from '../../core/theme/theme.service';
+import { ButtonDirective } from '../../ui/button/button.directive';
 import { KitBaseSection } from './sections/base.section';
+import { KitButtonsSection } from './sections/buttons.section';
+import { KitStatusSection } from './sections/status.section';
+import { KitFeedbackSection } from './sections/feedback.section';
 
 @Component({
   selector: 'app-kit-page',
-  imports: [KitBaseSection],
+  imports: [ButtonDirective, KitBaseSection, KitButtonsSection, KitStatusSection, KitFeedbackSection],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { 'data-testid': 'kit-page' },
   template: `
@@ -12,11 +16,14 @@ import { KitBaseSection } from './sections/base.section';
       <header class="row between">
         <h1>UI kit reference</h1>
         <div class="row">
-          <button type="button" class="btn" data-testid="kit-theme-dark" (click)="theme.setTheme('dark')">Dark</button>
-          <button type="button" class="btn" data-testid="kit-theme-light" (click)="theme.setTheme('light')">Light</button>
+          <button nsBtn type="button" data-testid="kit-theme-dark" (click)="theme.setTheme('dark')">Dark</button>
+          <button nsBtn type="button" data-testid="kit-theme-light" (click)="theme.setTheme('light')">Light</button>
         </div>
       </header>
       <app-kit-base />
+      <app-kit-buttons />
+      <app-kit-status />
+      <app-kit-feedback />
     </main>
   `,
   styles: `
