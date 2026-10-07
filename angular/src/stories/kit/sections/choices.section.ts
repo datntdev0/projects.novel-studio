@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { SegmentedComponent, SegmentedOption } from '../../../ui/form/segmented.component';
+import { SegmentedComponent, SegmentedOption } from '../../../app/components/form/segmented.component';
 
 @Component({
   selector: 'app-kit-choices',

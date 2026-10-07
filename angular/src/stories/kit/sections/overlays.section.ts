@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { ButtonDirective } from '../../../ui/button/button.directive';
-import { InputDirective } from '../../../ui/form/input.directive';
-import { ConfirmDialogComponent } from '../../../ui/overlay/confirm-dialog.component';
-import { DialogComponent } from '../../../ui/overlay/dialog.component';
+import { ButtonDirective } from '../../../app/components/button/button.directive';
+import { InputDirective } from '../../../app/components/form/input.directive';
+import { ConfirmDialogComponent } from '../../../app/components/overlay/confirm-dialog.component';
+import { DialogComponent } from '../../../app/components/overlay/dialog.component';
 
 @Component({
   selector: 'app-kit-overlays',

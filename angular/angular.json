@@ -13,7 +13,7 @@
           "builder": "@angular/build:application",
           "options": {
             "outputPath": { "base": "../dist/app/renderer", "browser": "" },
-            "baseHref": "",
+            "baseHref": "./",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
@@ -31,19 +31,13 @@
               "outputHashing": "all",
               "optimization": { "scripts": true, "styles": { "minify": true, "inlineCritical": false }, "fonts": false }
             },
-            "development": {
-              "optimization": false,
-              "sourceMap": true,
-              "extractLicenses": false,
-              "fileReplacements": [{ "replace": "src/app/dev/dev.routes.ts", "with": "src/app/dev/dev.routes.dev.ts" }]
-            },
+            "development": { "optimization": false, "sourceMap": true, "extractLicenses": false },
             "e2e": {
               "optimization": false,
               "sourceMap": true,
               "extractLicenses": false,
               "fileReplacements": [
-                { "replace": "src/app/core/bridge/bridge.provider.ts", "with": "src/app/core/bridge/bridge.provider.e2e.ts" },
-                { "replace": "src/app/dev/dev.routes.ts", "with": "src/app/dev/dev.routes.dev.ts" }
+                { "replace": "src/app/core/bridge/bridge.provider.ts", "with": "src/app/core/bridge/bridge.provider.e2e.ts" }
               ]
             }
           },
@@ -51,11 +45,7 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
-          "configurations": {
-            "development": { "buildTarget": "angular:build:development" },
-            "e2e": { "buildTarget": "angular:build:e2e", "watch": false, "liveReload": false, "hmr": false }
-          },
-          "defaultConfiguration": "development"
+          "configurations": { "e2e": { "buildTarget": "angular:build:e2e", "watch": false, "liveReload": false, "hmr": false } }
         }
       }
     }

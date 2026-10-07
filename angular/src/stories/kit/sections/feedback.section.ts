@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CalloutComponent } from '../../../ui/status/callout.component';
-import { ProgressComponent } from '../../../ui/status/progress.component';
+import { CalloutComponent } from '../../../app/components/status/callout.component';
+import { ProgressComponent } from '../../../app/components/status/progress.component';
 
 @Component({
   selector: 'app-kit-feedback',

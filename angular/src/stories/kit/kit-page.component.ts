@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { ThemeService } from '../../core/theme/theme.service';
-import { ButtonDirective } from '../../ui/button/button.directive';
+import { ThemeService } from '../../app/core/theme/theme.service';
+import { ButtonDirective } from '../../app/components/button/button.directive';
 import { KitBaseSection } from './sections/base.section';
 import { KitButtonsSection } from './sections/buttons.section';
 import { KitStatusSection } from './sections/status.section';

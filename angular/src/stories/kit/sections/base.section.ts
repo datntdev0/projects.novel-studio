@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, DOCUMENT, inject } from '@angular/core';
-import { IconComponent } from '../../../ui/icon/icon.component';
+import { IconComponent } from '../../../app/components/icon/icon.component';
 
 const COLOR_TOKENS = [
   'primary',

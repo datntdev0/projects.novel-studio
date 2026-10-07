@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ButtonDirective } from '../../../ui/button/button.directive';
-import { IconComponent } from '../../../ui/icon/icon.component';
-import { PillComponent } from '../../../ui/status/pill.component';
+import { ButtonDirective } from '../../../app/components/button/button.directive';
+import { IconComponent } from '../../../app/components/icon/icon.component';
+import { PillComponent } from '../../../app/components/status/pill.component';
 
 @Component({
   selector: 'app-kit-table',

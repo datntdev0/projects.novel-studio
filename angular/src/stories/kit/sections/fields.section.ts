@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FieldComponent } from '../../../ui/form/field.component';
-import { InputDirective } from '../../../ui/form/input.directive';
+import { FieldComponent } from '../../../app/components/form/field.component';
+import { InputDirective } from '../../../app/components/form/input.directive';
 
 @Component({
   selector: 'app-kit-fields',

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ButtonDirective } from '../../../ui/button/button.directive';
-import { IconComponent } from '../../../ui/icon/icon.component';
+import { ButtonDirective } from '../../../app/components/button/button.directive';
+import { IconComponent } from '../../../app/components/icon/icon.component';
 
 @Component({
   selector: 'app-kit-buttons',

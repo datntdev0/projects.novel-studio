@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { ButtonDirective } from '../../../ui/button/button.directive';
-import { ToastItem, ToastsComponent } from '../../../ui/overlay/toasts.component';
+import { ButtonDirective } from '../../../app/components/button/button.directive';
+import { ToastItem, ToastsComponent } from '../../../app/components/overlay/toasts.component';
 
 @Component({
   selector: 'app-kit-toasts',

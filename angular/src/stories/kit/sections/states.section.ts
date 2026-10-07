@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ButtonDirective } from '../../../ui/button/button.directive';
-import { EmptyStateComponent } from '../../../ui/state/empty-state.component';
-import { ErrorStateComponent } from '../../../ui/state/error-state.component';
-import { LoadingStateComponent } from '../../../ui/state/loading-state.component';
+import { ButtonDirective } from '../../../app/components/button/button.directive';
+import { EmptyStateComponent } from '../../../app/components/state/empty-state.component';
+import { ErrorStateComponent } from '../../../app/components/state/error-state.component';
+import { LoadingStateComponent } from '../../../app/components/state/loading-state.component';
 
 @Component({
   selector: 'app-kit-states',

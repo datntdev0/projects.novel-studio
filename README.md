@@ -21,7 +21,6 @@ pnpm build
 - `pnpm build`: build all packages; the runnable app goes to `dist/app/`
 - `pnpm dev`: build Angular and Electron, then run Electron on `dist/app/` (first run downloads the Electron binary)
 - `pnpm verify`: build, then run the Playwright verification specs (see Verify)
-- `pnpm --filter ./angular exec ng serve`: development server; the UI kit reference page is at `http://localhost:4200/#/dev/kit` (dev and e2e builds only)
 - `pnpm lint`: ESLint, pin check, i18n key check (English and Vietnamese keys match) and ruff
 - `node tools/check-tokens.mjs`: design token check; `--print` lists the mockup tokens, `<actual.json>` compares computed values per theme (not part of `pnpm lint`)
 - `pnpm format`: format all files (Prettier and ruff)

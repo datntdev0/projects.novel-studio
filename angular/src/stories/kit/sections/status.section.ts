@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { BadgeComponent } from '../../../ui/status/badge.component';
-import { DotComponent } from '../../../ui/status/dot.component';
-import { PillComponent } from '../../../ui/status/pill.component';
+import { BadgeComponent } from '../../../app/components/status/badge.component';
+import { DotComponent } from '../../../app/components/status/dot.component';
+import { PillComponent } from '../../../app/components/status/pill.component';
 
 @Component({
   selector: 'app-kit-status',
