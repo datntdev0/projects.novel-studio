@@ -7,10 +7,22 @@ import { KitStatusSection } from './sections/status.section';
 import { KitFeedbackSection } from './sections/feedback.section';
 import { KitFieldsSection } from './sections/fields.section';
 import { KitChoicesSection } from './sections/choices.section';
+import { KitOverlaysSection } from './sections/overlays.section';
+import { KitToastsSection } from './sections/toasts.section';
 
 @Component({
   selector: 'app-kit-page',
-  imports: [ButtonDirective, KitBaseSection, KitButtonsSection, KitStatusSection, KitFeedbackSection, KitFieldsSection, KitChoicesSection],
+  imports: [
+    ButtonDirective,
+    KitBaseSection,
+    KitButtonsSection,
+    KitStatusSection,
+    KitFeedbackSection,
+    KitFieldsSection,
+    KitChoicesSection,
+    KitOverlaysSection,
+    KitToastsSection,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { 'data-testid': 'kit-page' },
   template: `
@@ -28,6 +40,8 @@ import { KitChoicesSection } from './sections/choices.section';
       <app-kit-feedback />
       <app-kit-fields />
       <app-kit-choices />
+      <app-kit-overlays />
+      <app-kit-toasts />
     </main>
   `,
   styles: `
@@ -45,16 +59,16 @@ import { KitChoicesSection } from './sections/choices.section';
       gap: var(--sp-md);
       min-width: 0;
     }
-    .ref ::ng-deep h2 {
+    .ref > :not(header) > ::ng-deep h2 {
       font-size: 15px;
       padding-bottom: var(--sp-sm);
       border-bottom: 1px solid var(--color-border);
     }
-    .ref ::ng-deep h3 {
+    .ref > :not(header) > ::ng-deep h3 {
       font-size: 13px;
       color: var(--color-text-secondary);
     }
-    .ref ::ng-deep .demo {
+    .ref > :not(header) > ::ng-deep .demo {
       display: flex;
       flex-wrap: wrap;
       gap: var(--sp-md);
