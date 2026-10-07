@@ -4,7 +4,7 @@ import { provideErrorHandling } from './core/errors/error-handling.provider';
 import { provideI18n } from './core/i18n/i18n.provider';
 import { provideSettings } from './core/settings/settings.provider';
 import { provideTheme } from './core/theme/theme.provider';
-import { provideIconSprite } from './ui/icon/icon-sprite.provider';
+import { provideIconSprite } from './components/icon/icon-sprite.provider';
 
 export const appConfig: ApplicationConfig = {
   providers: [

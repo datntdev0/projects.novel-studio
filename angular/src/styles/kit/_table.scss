@@ -1,0 +1,76 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.table th:first-child,
+.table td:first-child {
+  padding-left: var(--sp-md);
+}
+.table th:last-child,
+.table td:last-child {
+  padding-right: var(--sp-md);
+}
+.table th,
+.table td {
+  text-align: left;
+  padding: 6px var(--sp-sm);
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+}
+.table th {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-tertiary);
+  position: sticky;
+  top: 0;
+  background: var(--color-surface);
+  z-index: 1;
+}
+.table tr:hover td {
+  background: var(--color-surface-muted);
+}
+.table tr.selected td {
+  background: var(--color-surface-muted);
+}
+.table td.num,
+.table th.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.table td.nowrap,
+.table th.nowrap {
+  white-space: nowrap;
+}
+.table-wrap {
+  overflow: auto;
+  min-width: 0;
+  min-height: 0;
+  max-width: 100%;
+}
+.table .actions {
+  display: flex;
+  gap: 2px;
+  justify-content: flex-end;
+  opacity: 0;
+}
+.table tr:hover .actions,
+.table tr:focus-within .actions,
+.table tr.selected .actions {
+  opacity: 1;
+}
+.kv {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 6px var(--sp-sm);
+  font-size: 12px;
+}
+.kv dt {
+  color: var(--color-text-tertiary);
+}
+.kv dd {
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}

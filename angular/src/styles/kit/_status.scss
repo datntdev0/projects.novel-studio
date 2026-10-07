@@ -1,0 +1,105 @@
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-full);
+  background: var(--color-text-tertiary);
+  flex: none;
+}
+.dot.ok {
+  background: var(--color-success);
+}
+.dot.warn {
+  background: var(--color-warning);
+}
+.dot.bad {
+  background: var(--color-danger);
+}
+.dot.run {
+  background: var(--color-primary);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 20px;
+  padding: 0 8px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 500;
+  background: var(--color-surface-muted);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+.pill::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.pill.plain::before {
+  display: none;
+}
+.pill.success {
+  color: var(--color-success);
+  background: color-mix(in srgb, var(--color-success) 14%, transparent);
+}
+.pill.warning {
+  color: var(--color-warning);
+  background: color-mix(in srgb, var(--color-warning) 16%, transparent);
+}
+.pill.danger {
+  color: var(--color-danger);
+  background: color-mix(in srgb, var(--color-danger) 14%, transparent);
+}
+.pill.info {
+  color: var(--color-link);
+  background: color-mix(in srgb, var(--color-link) 14%, transparent);
+}
+.pill.running {
+  color: var(--color-link);
+  background: color-mix(in srgb, var(--color-primary) 14%, transparent);
+}
+.pill.running::before {
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+.badge {
+  display: inline-grid;
+  place-items: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.badge.neutral {
+  background: var(--color-surface-muted);
+  color: var(--color-text-secondary);
+}
+.badge.danger {
+  background: var(--color-danger);
+  color: var(--color-background);
+}
+.badge.dot-only {
+  min-width: 8px;
+  height: 8px;
+  padding: 0;
+}

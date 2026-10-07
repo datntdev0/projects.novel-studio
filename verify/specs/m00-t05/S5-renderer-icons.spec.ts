@@ -14,12 +14,11 @@ const iconAttributes = (page: Page, testId: string): Promise<{ hidden: string | 
     return { hidden: host.getAttribute('aria-hidden'), href: use.getAttribute('href') ?? use.getAttribute('xlink:href') };
   }, testId);
 
-test('S5 renderer shows the 92-symbol sprite and the four icon sizes (AC-14)', async ({ page }) => {
+test('S5 renderer shows the full mockup sprite and the four icon sizes (AC-14)', async ({ page }) => {
   await page.goto('/');
   await expectHtml(page, 'en', 'dark');
   const found = await spriteState(page);
   expect(found.copies).toBe(1);
-  expect(found.count).toBe(92);
   expect(found.ids).toEqual(await spriteIds());
   await expectIconBoxes(page);
   for (const testId of Object.keys(ICON_SIZES)) {

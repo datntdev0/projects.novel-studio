@@ -22,6 +22,8 @@ pnpm build
 - `pnpm dev`: build Angular and Electron, then run Electron on `dist/app/` (first run downloads the Electron binary)
 - `pnpm verify`: build, then run the Playwright verification specs (see Verify)
 - `pnpm lint`: ESLint, pin check, i18n key check (English and Vietnamese keys match) and ruff
+- `pnpm storybook`: run Storybook in dev mode on port 6006
+- `pnpm build-storybook`: build static Storybook to `dist/storybook`
 - `node tools/check-tokens.mjs`: design token check; `--print` lists the mockup tokens, `<actual.json>` compares computed values per theme (not part of `pnpm lint`)
 - `pnpm format`: format all files (Prettier and ruff)
 - `pnpm format:check`: check formatting without writing (Prettier and ruff)

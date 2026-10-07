@@ -1,0 +1,58 @@
+.scrim {
+  position: fixed;
+  inset: 0;
+  background: var(--scrim);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: var(--sp-lg);
+}
+.scrim.open {
+  display: flex;
+}
+.dialog {
+  width: min(520px, 100%);
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-3);
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+}
+.dialog.wide {
+  width: min(760px, 100%);
+}
+.dialog-head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-sm);
+  padding: var(--sp-lg) var(--sp-lg) 0;
+}
+.dialog-head h2 {
+  flex: 1;
+  font-size: 16px;
+}
+.dialog-head .icon.danger {
+  color: var(--color-danger);
+}
+.dialog-body {
+  padding: var(--sp-md) var(--sp-lg);
+  overflow: auto;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+.dialog-body .input,
+.dialog-body .select {
+  height: 32px;
+}
+.dialog-foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--sp-sm);
+  padding: 0 var(--sp-lg) var(--sp-lg);
+}
+.dialog-foot .left {
+  margin-right: auto;
+}
