@@ -1,4 +1,5 @@
 import { test, expect, saveEvidence, type Page } from '../../support/test.ts';
+import { gotoFoundation } from '../../support/shell.ts';
 import { BACKGROUND_RGB, bodyStyle, computedVars, expectHtml, testIdFamily, type Theme } from '../../support/theme.ts';
 
 type Style = {
@@ -35,10 +36,13 @@ const focusedOutline = (page: Page): Promise<{ width: string; style: string; col
   });
 
 test('S3 renderer applies the base style and Bootstrap mapping in both themes (AC-14, AC-15)', async ({ page }) => {
-  await page.goto('/');
+  await gotoFoundation(page);
   await expectHtml(page, 'en', 'dark');
-  await page.keyboard.press('Tab');
-  await expect(page.getByTestId('root-set-language-en')).toBeFocused();
+  const target = page.getByTestId('root-set-language-en');
+  for (let i = 0; i < 30 && !(await target.evaluate((el) => el.matches(':focus'))); i++) {
+    await page.keyboard.press('Tab');
+  }
+  await expect(target).toBeFocused();
   const outline = await focusedOutline(page);
   expect(outline.width).toBe('2px');
   expect(outline.style).toBe('solid');

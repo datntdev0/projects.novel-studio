@@ -1,4 +1,4 @@
-import type { Page } from './test.ts';
+import { expect, type Page } from './test.ts';
 import type { InvokeResult, RendererGlobals } from './renderer-globals.ts';
 
 type LibraryChannels = {
@@ -20,3 +20,6 @@ export const invokeLibrary = <C extends LibraryChannel>(
     ([name, payload]) => (globalThis as unknown as RendererGlobals).novelStudio.invoke(name as string, payload),
     [channel, req],
   );
+
+export const waitForLibrary = (window: Page, expected: Record<string, unknown>, timeout?: number): Promise<void> =>
+  expect.poll(async () => (await invokeLibrary(window, 'library:status')).value, { timeout }).toMatchObject(expected);

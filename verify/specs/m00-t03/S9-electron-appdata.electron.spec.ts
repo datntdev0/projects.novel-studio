@@ -7,9 +7,9 @@ test('S9 electron run leaves %APPDATA% unchanged and logs under appRoot (AC-38)'
   const app = await launchApp(appRoot);
   try {
     const window = await app.firstWindow();
-    await expect(window.getByTestId('app-hello-title')).toBeVisible();
+    await expect(window.getByTestId('app-shell')).toBeVisible();
     await window.reload();
-    await expect(window.getByTestId('app-hello-title')).toBeVisible();
+    await expect(window.getByTestId('app-shell')).toBeVisible();
   } finally {
     await app.close();
   }

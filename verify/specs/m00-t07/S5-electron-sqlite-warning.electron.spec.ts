@@ -1,4 +1,5 @@
 import { test, expect, saveEvidence, launchLibraryApp, probeOutput } from '../../support/library.ts';
+import { waitForLibrary } from '../../support/library-bridge.ts';
 import { readAppLog } from '../../support/app-log.ts';
 
 const WARNING = /SQLite|ExperimentalWarning/i;
@@ -7,8 +8,7 @@ test('S5 a create run emits no SQLite warning on output, window or app.log (AC-2
   const { app, output } = await launchLibraryApp(appRoot, library);
   try {
     const window = await app.firstWindow();
-    await expect(window.getByTestId('root-library-state')).toHaveText('open');
-    await expect(window.getByTestId('root-library-version')).toHaveText('1');
+    await waitForLibrary(window, { state: 'open', version: 1 });
     await probeOutput(app, output);
     expect(output.stdout()).not.toMatch(WARNING);
     expect(output.stderr()).not.toMatch(WARNING);

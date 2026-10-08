@@ -1,7 +1,7 @@
 import { test, expect, saveEvidence } from '../../support/electron.ts';
 
 test('S2 electron window has the title, minimum size and clamped default size (AC-8)', async ({ app, window }) => {
-  await expect(window.getByTestId('app-hello-title')).toBeVisible();
+  await expect(window.getByTestId('app-shell')).toBeVisible();
   const result = await app.evaluate(({ BrowserWindow, screen }) => {
     const windows = BrowserWindow.getAllWindows();
     const area = screen.getPrimaryDisplay().workArea;

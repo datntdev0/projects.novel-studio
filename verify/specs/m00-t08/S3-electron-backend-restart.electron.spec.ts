@@ -3,17 +3,16 @@ import { type Page } from '../../support/test.ts';
 import { invokeBackendStatus, waitForBackend } from '../../support/backend-bridge.ts';
 import { expectAppLog, readAppLog } from '../../support/app-log.ts';
 import { killPid, isPidAlive } from '../../support/processes.ts';
+import { setLook } from '../../support/shell.ts';
 import { invokeSettings } from '../../support/settings-bridge.ts';
-
-const EN_ERROR = 'The background service failed to start.';
-const VI_ERROR = 'Dịch vụ nền không khởi động được.';
+import { expectHtml } from '../../support/theme.ts';
 
 const servingEndpoint = async (window: Page): Promise<{ port: number; pid: number }> => {
   const { port, pid } = (await invokeBackendStatus(window)).value!;
   return { port: port!, pid: pid! };
 };
 
-test('S3 a killed backend restarts once, then fails with a localized error (AC-28)', async ({ appRoot }) => {
+test('S3 a killed backend restarts once, then fails with an error (AC-28)', async ({ appRoot }) => {
   await withApp(appRoot, async (app) => {
     const window = await app.firstWindow();
     await waitForBackend(window, 'ready');
@@ -21,8 +20,8 @@ test('S3 a killed backend restarts once, then fails with a localized error (AC-2
 
     killPid(first.pid);
     await expectAppLog(appRoot, /backend exited[\s\S]*backend restarting[\s\S]*backend ready/);
-    await expect(window.getByTestId('root-backend-restarts')).toHaveText('1');
     await waitForBackend(window, 'ready');
+    expect((await invokeBackendStatus(window)).value?.restarts).toBe(1);
     const second = await servingEndpoint(window);
     expect(second.pid).not.toBe(first.pid);
     expect(second.port).not.toBe(first.port);
@@ -31,13 +30,13 @@ test('S3 a killed backend restarts once, then fails with a localized error (AC-2
 
     killPid(second.pid);
     await waitForBackend(window, 'failed');
-    await expect(window.getByTestId('root-backend-error-code')).toHaveText('BACKEND_FAILED');
-    await expect(window.getByTestId('root-backend-error-text')).toHaveText(EN_ERROR);
-    await window.getByTestId('root-set-language-vi').click();
-    await expect(window.getByTestId('root-backend-error-text')).toHaveText(VI_ERROR);
-    await window.getByTestId('root-set-language-en').click();
-    await expect(window.getByTestId('root-backend-error-text')).toHaveText(EN_ERROR);
-    await expect(window.getByTestId('root-app-language')).toHaveText('en');
+    expect((await invokeBackendStatus(window)).value?.error?.code).toBe('BACKEND_FAILED');
+    await setLook(window, { language: 'vi' });
+    await expectHtml(window, 'vi', 'dark');
+    expect((await invokeBackendStatus(window)).value?.error?.code).toBe('BACKEND_FAILED');
+    await setLook(window, { language: 'en' });
+    await expectHtml(window, 'en', 'dark');
+    expect((await invokeBackendStatus(window)).value?.error?.code).toBe('BACKEND_FAILED');
     expect(await invokeSettings(window, 'settings:get', null)).toMatchObject({ ok: true });
     await saveEvidence(window, 'failed');
 

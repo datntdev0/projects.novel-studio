@@ -1,13 +1,14 @@
 import { writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { test, expect, saveEvidence } from '../../support/test.ts';
+import { gotoFoundation } from '../../support/shell.ts';
 import { computedVars, expectHtml, printTokens, runCheckTokens, withTempFolder } from '../../support/theme.ts';
 
 test('S2 renderer tokens equal the mockup in both themes and only semantic variables change (AC-14, AC-15)', async ({ page }) => {
   const tables = await printTokens();
   const names = [...new Set([...Object.keys(tables.root), ...Object.keys(tables.dark), ...Object.keys(tables.light)])];
 
-  await page.goto('/');
+  await gotoFoundation(page);
   await expectHtml(page, 'en', 'dark');
   const dark = await computedVars(page, names);
   await saveEvidence(page, 'dark');

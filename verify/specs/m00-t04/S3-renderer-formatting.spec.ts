@@ -1,7 +1,8 @@
 import { test, expect } from '../../support/test.ts';
+import { gotoFoundation } from '../../support/shell.ts';
 
 test('S3 renderer formats count, date and number per language (AC-20)', async ({ page }) => {
-  await page.goto('/');
+  await gotoFoundation(page);
   const date = page.getByTestId('root-sample-date');
   await expect(page.getByTestId('root-sample-count-one')).toHaveText('1 chapter');
   await expect(page.getByTestId('root-sample-count-other')).toHaveText('5 chapters');

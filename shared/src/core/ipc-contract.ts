@@ -2,6 +2,8 @@ import type { BackendStatus } from './backend';
 import type { LibraryOpenRequest, LibraryReadRequest, LibraryStatus, LibraryWriteRequest } from './library';
 import type { AppSettings, SettingsPatch } from './settings';
 import type { SystemStatus } from './system';
+import type { JobSummary } from './jobs/job-contract';
+import type { Assignments, CliStatus, LibraryStats, NovelOpenedRequest, NovelSummary } from './shell-contract';
 
 export const LANGUAGES = ['en', 'vi'] as const;
 export const THEMES = ['dark', 'light'] as const;
@@ -35,10 +37,17 @@ export interface IpcContract {
   'library:writeText': { req: LibraryWriteRequest; res: null };
   'backend:getStatus': { req: null; res: BackendStatus };
   'system:status': { req: null; res: SystemStatus };
+  'library:listNovels': { req: null; res: NovelSummary[] };
+  'library:markNovelOpened': { req: NovelOpenedRequest; res: null };
+  'data:libraryStats': { req: null; res: LibraryStats };
+  'services:detect': { req: null; res: CliStatus[] };
+  'settings:assignments': { req: null; res: Assignments };
+  'job:list': { req: null; res: JobSummary[] };
 }
 
 export interface IpcEvents {
   'backend:status': BackendStatus;
+  'job:progress': JobSummary;
 }
 
 export const IPC_CHANNELS: { [C in keyof IpcContract]: true } = {
@@ -53,5 +62,11 @@ export const IPC_CHANNELS: { [C in keyof IpcContract]: true } = {
   'library:writeText': true,
   'backend:getStatus': true,
   'system:status': true,
+  'library:listNovels': true,
+  'library:markNovelOpened': true,
+  'data:libraryStats': true,
+  'services:detect': true,
+  'settings:assignments': true,
+  'job:list': true,
 };
-export const IPC_EVENTS: { [E in keyof IpcEvents]: true } = { 'backend:status': true };
+export const IPC_EVENTS: { [E in keyof IpcEvents]: true } = { 'backend:status': true, 'job:progress': true };

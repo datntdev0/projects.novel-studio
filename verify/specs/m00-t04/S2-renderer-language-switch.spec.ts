@@ -1,10 +1,11 @@
 import { test, expect, saveEvidence } from '../../support/test.ts';
 import { expectRootLanguage } from '../../support/i18n-texts.ts';
+import { gotoFoundation } from '../../support/shell.ts';
 
 type MarkerGlobals = { __marker?: string };
 
 test('S2 renderer switches language at run time without a reload (AC-19)', async ({ page }) => {
-  await page.goto('/');
+  await gotoFoundation(page);
   await page.evaluate(() => ((globalThis as unknown as MarkerGlobals).__marker = 'kept'));
   await expectRootLanguage(page, 'en');
   await expect(page.getByTestId('app-hello-title')).toHaveText('Novel Studio');

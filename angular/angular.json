@@ -28,16 +28,19 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "index.html",
               "outputHashing": "all",
               "optimization": { "scripts": true, "styles": { "minify": true, "inlineCritical": false }, "fonts": false }
             },
             "development": { "optimization": false, "sourceMap": true, "extractLicenses": false },
             "e2e": {
+              "baseHref": "",
               "optimization": false,
               "sourceMap": true,
               "extractLicenses": false,
               "fileReplacements": [
-                { "replace": "src/app/core/bridge/bridge.provider.ts", "with": "src/app/core/bridge/bridge.provider.e2e.ts" }
+                { "replace": "src/app/core/bridge/bridge.provider.ts", "with": "src/app/core/bridge/bridge.provider.e2e.ts" },
+                { "replace": "src/app/shell/registry/extra-entries.ts", "with": "src/app/shell/registry/extra-entries.e2e.ts" }
               ]
             }
           },

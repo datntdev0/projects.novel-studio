@@ -1,5 +1,27 @@
 {
   "ui": { "close": "Đóng", "cancel": "Huỷ", "details": "Chi tiết" },
+  "module": {
+    "home": { "label": "Trang chủ", "description": "Cung cấp khung desktop ổn định cho mọi công cụ." },
+    "library": {
+      "label": "Thư viện",
+      "description": "Quản lý thư viện cá nhân, nhập truyện từ gói ZIP và xuất dữ liệu nguồn của truyện ra lại thành gói."
+    },
+    "reader": { "label": "Nội dung", "description": "Duyệt, đọc, tìm và sửa nội dung nguồn theo chương." },
+    "storyworld": { "label": "Toàn tri", "description": "Xây dựng và duy trì nguồn sự thật chung về thực thể và thuật ngữ." },
+    "translation": { "label": "Dịch", "description": "Dịch hàng loạt, giữ tên nhất quán, biên tập và kiểm tra lỗi." },
+    "storychat": { "label": "Hỏi đáp truyện", "description": "Hỏi đáp có căn cứ trong phạm vi chương người dùng cho phép." },
+    "voicelab": { "label": "Phòng giọng nói", "description": "Tạo, clone, lưu và gán giọng nhất quán cho người dẫn và nhân vật." },
+    "pronunciation": { "label": "Từ điển phát âm", "description": "Chuẩn hóa cách đọc tên riêng, thuật ngữ và từ mượn trong TTS." },
+    "assets": { "label": "Kho tài nguyên", "description": "Quản lý hình ảnh và giọng nhất quán theo thực thể truyện." },
+    "sound": { "label": "Âm thanh & nhạc", "description": "Tạo và quản lý BGM, theme, ambience và SFX cho nội dung chuyển thể." },
+    "audiobook": { "label": "Sách nói", "description": "Biến chương dịch thành audio với giọng nhân vật nhất quán." },
+    "film": { "label": "Phim bộ", "description": "Chuyển truyện thành kịch bản và tập phim ngắn." },
+    "videoeditor": { "label": "Dựng video", "description": "Ghép hình, clip, thoại, nhạc, subtitle và quản lý bản render." },
+    "inbox": { "label": "Hộp thư media", "description": "Nhận và quản lý media bên ngoài do người dùng chỉ định." },
+    "publishing": { "label": "Xuất bản & kênh", "description": "Đóng gói và phân phối thành phẩm theo kênh đích." },
+    "tasks": { "label": "Trung tâm tác vụ", "description": "Chạy, theo dõi và tiếp tục các tác vụ AI dài mà không khóa UI." },
+    "settings": { "label": "Cài đặt", "description": "Quản lý cấu hình ứng dụng và chọn CLI cho từng loại tác vụ." }
+  },
   "dev": {
     "root": {
       "library": "Thư viện",

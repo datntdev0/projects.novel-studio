@@ -5,7 +5,7 @@ import { test, expect, saveEvidence, withApp } from '../../support/electron.ts';
 import { invokeSettings } from '../../support/settings-bridge.ts';
 import { type RendererGlobals } from '../../support/renderer-globals.ts';
 import { readSettingsJson, settingsText, settingsTmpPath, writeSettingsFile } from '../../support/settings-file.ts';
-import { expectRootLanguage } from '../../support/i18n-texts.ts';
+import { expectHtml } from '../../support/theme.ts';
 
 const ROUNDS = 5;
 const SETS_PER_ROUND = 30;
@@ -17,7 +17,8 @@ test('S7a leftover tmp file is ignored and the next save leaves no tmp (AC-21)',
 
   await withApp(appRoot, async (app) => {
     const window = await app.firstWindow();
-    await expectRootLanguage(window, 'vi');
+    await expect(window.getByTestId('app-shell')).toBeVisible();
+    await expectHtml(window, 'vi', 'dark');
     expect(await invokeSettings(window, 'settings:set', { theme: 'light' })).toMatchObject({
       ok: true,
       value: { language: 'vi', theme: 'light' },
@@ -33,7 +34,7 @@ test('S7b a kill during saves never leaves an empty or partial file (AC-21)', as
   for (let round = 0; round < ROUNDS; round++) {
     await withApp(appRoot, async (app) => {
       const window = await app.firstWindow();
-      await expect(window.getByTestId('root-app-language')).toBeVisible();
+      await expect(window.getByTestId('app-shell')).toBeVisible();
       await window.evaluate((count) => {
         const { invoke } = (globalThis as unknown as RendererGlobals).novelStudio;
         for (let i = 0; i < count; i++) void invoke('settings:set', { language: i % 2 === 0 ? 'vi' : 'en' });
@@ -50,7 +51,7 @@ test('S7b a kill during saves never leaves an empty or partial file (AC-21)', as
 
   await withApp(appRoot, async (app) => {
     const window = await app.firstWindow();
-    await expect(window.getByTestId('root-app-language')).toBeVisible();
+    await expect(window.getByTestId('app-shell')).toBeVisible();
     await saveEvidence(window, 'after-kills');
   });
 });

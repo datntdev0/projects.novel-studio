@@ -3,7 +3,7 @@ import { expectAppLog } from '../../support/app-log.ts';
 import { type RendererGlobals } from '../../support/renderer-globals.ts';
 import { invokeSettings } from '../../support/settings-bridge.ts';
 import { readSettingsJson, settingsText, writeSettingsFile } from '../../support/settings-file.ts';
-import { expectRootLanguage } from '../../support/i18n-texts.ts';
+import { expectHtml } from '../../support/theme.ts';
 
 const validText = settingsText({ language: 'vi' });
 const invalidRequests: unknown[] = [{ language: 'fr' }, { backendPid: 1 }, { libraryPath: 'x' }, { version: 2 }, 'x'];
@@ -17,7 +17,8 @@ const test = base.extend<{ appRoot: string }>({
 });
 
 test('S8 settings channels reject bad requests and expose only invoke and on (AC-21)', async ({ window, appRoot }) => {
-  await expectRootLanguage(window, 'vi');
+  await expect(window.getByTestId('app-shell')).toBeVisible();
+  await expectHtml(window, 'vi', 'dark');
 
   for (const req of invalidRequests) {
     expect(await invokeSettings(window, 'settings:set', req)).toEqual(invalid);

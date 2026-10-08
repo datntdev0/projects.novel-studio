@@ -1,0 +1,22 @@
+<div data-testid="probe">
+  <p data-testid="probe-library-state">{{ status()?.state }}</p>
+  <p data-testid="probe-novel-count">{{ store.novels().length }}</p>
+  <p data-testid="probe-novel-first">{{ store.novels()[0]?.title }}</p>
+  <p data-testid="probe-stats-novels">{{ stats()?.novels }}</p>
+  @for (cli of clis(); track cli.name) {
+    <p [attr.data-testid]="'probe-cli-' + cli.name">{{ cli.state }}</p>
+  }
+  @for (item of assignments()?.byTaskType; track item.taskType) {
+    <p [attr.data-testid]="'probe-assignment-' + item.taskType">{{ item.cli ?? 'none' }}</p>
+  }
+  @for (job of jobs(); track job.id) {
+    <p [attr.data-testid]="'probe-job-' + job.id">{{ job.state }}</p>
+  }
+  <p data-testid="probe-open-novel">{{ store.openNovel() ?? 'none' }}</p>
+  <button type="button" data-testid="probe-open-first-novel" (click)="openFirstNovel()">Open first novel</button>
+  <button type="button" data-testid="probe-close-novel" (click)="store.closeNovel()">Close novel</button>
+  <ns-probe-foundation />
+</div>
+<ng-template #left><div data-testid="probe-panel-left">Left</div></ng-template>
+<ng-template #right><div data-testid="probe-panel-right">Right</div></ng-template>
+<ng-template #bottom><div data-testid="probe-panel-bottom">Bottom</div></ng-template>

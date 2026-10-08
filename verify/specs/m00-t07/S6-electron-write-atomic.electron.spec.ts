@@ -2,7 +2,7 @@ import { once } from 'node:events';
 import { readFile, stat } from 'node:fs/promises';
 import { join } from 'node:path';
 import { test, expect, saveEvidence, withApp, libraryArgs } from '../../support/library.ts';
-import { invokeLibrary } from '../../support/library-bridge.ts';
+import { invokeLibrary, waitForLibrary } from '../../support/library-bridge.ts';
 import { type RendererGlobals } from '../../support/renderer-globals.ts';
 import { type ElectronApplication } from '@playwright/test';
 
@@ -30,7 +30,7 @@ const waitForTemp = async (library: string): Promise<void> => {
 
 const expectLibraryOpen = async (app: ElectronApplication) => {
   const window = await app.firstWindow();
-  await expect(window.getByTestId('root-library-state')).toHaveText('open');
+  await waitForLibrary(window, { state: 'open' });
   return window;
 };
 

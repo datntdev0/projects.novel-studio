@@ -39,7 +39,6 @@ test('S2a requests without a valid token get 401 and reach no handler (AC-27)', 
     expect(await fetchBackend(port, '/shutdown', {}, 'POST')).toMatchObject({ status: 401 });
     expect(await fetchBackend(port, '/health')).toMatchObject({ status: 401 });
     expect((await invokeBackendStatus(window)).value?.state).toBe('ready');
-    await expect(window.getByTestId('root-backend-state')).toHaveText('ready');
     await saveEvidence(window, 'token-required');
   });
 });

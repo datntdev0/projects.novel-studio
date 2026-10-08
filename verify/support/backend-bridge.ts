@@ -18,4 +18,4 @@ export const invokeBackendStatus = async (window: Page): Promise<BackendStatusRe
   (await invokeSettings(window, 'backend:getStatus', null)) as BackendStatusResult;
 
 export const waitForBackend = (window: Page, state: BackendState, timeout = 30_000): Promise<void> =>
-  expect(window.getByTestId('root-backend-state')).toHaveText(state, { timeout });
+  expect.poll(async () => (await invokeBackendStatus(window)).value?.state, { timeout }).toBe(state);

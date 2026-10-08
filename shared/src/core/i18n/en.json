@@ -1,5 +1,27 @@
 {
   "ui": { "close": "Close", "cancel": "Cancel", "details": "Details" },
+  "module": {
+    "home": { "label": "Home", "description": "Provide a stable desktop frame for every tool." },
+    "library": {
+      "label": "Library",
+      "description": "Manage the personal library, import novels from ZIP packages and export a novel's source data back as a package."
+    },
+    "reader": { "label": "Content", "description": "Browse, read, search and edit source content by chapter." },
+    "storyworld": { "label": "Omniscient", "description": "Build and maintain a shared source of truth for entities and terms." },
+    "translation": { "label": "Translation", "description": "Translate in batches, keep names consistent, edit and check for errors." },
+    "storychat": { "label": "Story chat", "description": "Grounded Q&A within the chapter range the user allows." },
+    "voicelab": { "label": "Voice Lab", "description": "Create, clone, save and assign consistent voices to the narrator and characters." },
+    "pronunciation": { "label": "Pronunciation", "description": "Standardize how proper names, terms and loanwords are read in TTS." },
+    "assets": { "label": "Media Assets", "description": "Manage consistent images and voices per story entity." },
+    "sound": { "label": "Sound and Music", "description": "Create and manage BGM, themes, ambience and SFX for adapted content." },
+    "audiobook": { "label": "Audiobook", "description": "Turn translated chapters into audio with consistent character voices." },
+    "film": { "label": "Film Series", "description": "Turn a novel into scripts and short episodes." },
+    "videoeditor": { "label": "Video editor", "description": "Combine images, clips, dialogue, music and subtitles, and manage renders." },
+    "inbox": { "label": "Media inbox", "description": "Receive and manage external media the user designates." },
+    "publishing": { "label": "Publishing", "description": "Package and distribute finished works per target channel." },
+    "tasks": { "label": "Task Center", "description": "Run, track and resume long AI tasks without blocking the UI." },
+    "settings": { "label": "Settings", "description": "Manage app settings and choose the CLI for each task type." }
+  },
   "dev": {
     "root": {
       "library": "Library",

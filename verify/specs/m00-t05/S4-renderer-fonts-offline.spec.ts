@@ -1,6 +1,7 @@
 import { readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { test, expect, saveEvidence, type Page } from '../../support/test.ts';
+import { gotoFoundation } from '../../support/shell.ts';
 import { guardRequests } from '../../support/request-guard.ts';
 import { devServerUrl } from '../../support/dev-server.ts';
 import { appDir } from '../../support/paths.ts';
@@ -31,7 +32,7 @@ const countFiles = async (folder: string, pattern: RegExp): Promise<number> =>
 
 test('S4 renderer loads the bundled fonts with every outside request blocked (AC-14)', async ({ page }) => {
   const blocked = guardRequests(page);
-  await page.goto('/');
+  await gotoFoundation(page);
   await expect(page.getByTestId('root-sample-serif')).toHaveText(LOOK_TEXTS.en['root-sample-serif']);
   const fonts = await readFonts(page);
   expect(fonts.inter).toBe(true);

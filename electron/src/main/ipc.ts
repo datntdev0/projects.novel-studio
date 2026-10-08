@@ -8,13 +8,14 @@ import { closeLibrary, getLibraryStatus, openLibrary, readLibraryText, writeLibr
 import { getBackendStatus } from './backend/backend-supervisor';
 import { getSystemStatus } from './system/ffmpeg-check';
 import { getSettings, updateSettings } from './settings-store';
+import { SHELL_MOCKUP_HANDLERS } from './mockup/shell-mockup-handlers';
 
 const MAX_MESSAGE_LENGTH = 2000;
 const MAX_DETAIL_LENGTH = 20000;
 const LOG_LEVELS: readonly unknown[] = ['info', 'warn', 'error'] satisfies LogLevel[];
 const RENDERER_URL = pathToFileURL(path.join(__dirname, 'renderer')).href + '/';
 
-type Handlers = {
+export type Handlers = {
   [C in keyof IpcContract]: {
     validate(req: unknown): boolean;
     handle(req: IpcContract[C]['req']): IpcContract[C]['res'] | Promise<IpcContract[C]['res']>;
@@ -66,6 +67,7 @@ const createHandlers = (loadMigrations: () => Migration[]): Handlers => ({
       return null;
     },
   },
+  ...SHELL_MOCKUP_HANDLERS,
 });
 
 function logFailure(channel: string, error: unknown, failure: NsError): void {
