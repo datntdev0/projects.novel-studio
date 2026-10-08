@@ -1,7 +1,7 @@
 import { Component, DestroyRef, TemplateRef, afterNextRender, inject, signal, viewChild } from '@angular/core';
 import type { Assignments, CliStatus, JobSummary, LibraryStats, LibraryStatus } from '@shared/core';
 import { BRIDGE } from '../../app/core/bridge/bridge.token';
-import type { Command } from '../../app/core/shortcuts/command';
+import { GLOBAL_SCOPE, type Command } from '../../app/core/shortcuts/command';
 import { CommandService } from '../../app/core/shortcuts/command.service';
 import { LayerService } from '../../app/core/shortcuts/layer.service';
 import { ErrorService } from '../../app/core/errors/error.service';
@@ -36,7 +36,11 @@ export class ProbeComponent {
       this.panels.set('bottom', this.bottom());
     });
     void this.loadValues();
-    const dispose = this.commands.register([this.pingCommand('probe.ping'), this.pingCommand('probe.ping-again')]);
+    const dispose = this.commands.register([
+      this.pingCommand('probe.ping'),
+      this.pingCommand('probe.ping-again'),
+      this.pingCommand('probe.home-again', GLOBAL_SCOPE, 'Ctrl+1'),
+    ]);
     const destroyRef = inject(DestroyRef);
     destroyRef.onDestroy(dispose);
     destroyRef.onDestroy(() => this.releases.forEach((release) => release()));
@@ -54,16 +58,8 @@ export class ProbeComponent {
     }
   }
 
-  private pingCommand(id: string): Command {
-    return {
-      id,
-      labelKey: 'module.probe.label',
-      keywords: [],
-      keys: ['Ctrl+Shift+P'],
-      scope: 'probe',
-      needsNovel: false,
-      run: () => this.lastCommand.set(id),
-    };
+  private pingCommand(id: string, scope = 'probe', key = 'Ctrl+Shift+P'): Command {
+    return { id, labelKey: 'module.probe.label', keywords: [], keys: [key], scope, needsNovel: false, run: () => this.lastCommand.set(id) };
   }
 
   protected openFirstNovel(): void {
