@@ -1,10 +1,9 @@
 import { Component, computed, inject } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
-import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { filter, map, startWith } from 'rxjs';
+import { RouterOutlet } from '@angular/router';
 import { findEntry } from './registry/module-registry';
 import { ShellPanels } from './shell-panels';
+import { ShellStore } from './shell.store';
 
 @Component({
   selector: 'ns-shell',
@@ -14,26 +13,22 @@ import { ShellPanels } from './shell-panels';
 })
 export class ShellComponent {
   protected readonly panels = inject(ShellPanels);
-  private readonly router = inject(Router);
-  private readonly url = toSignal(
-    this.router.events.pipe(
-      filter((event) => event instanceof NavigationEnd),
-      map(() => this.router.url),
-      startWith(this.router.url),
-    ),
-    { initialValue: '' },
-  );
-  private readonly entry = computed(() => findEntry(this.url().split(/[/?#]/)[1] ?? ''));
+  private readonly store = inject(ShellStore);
   private readonly shown = computed(() => {
-    const entry = this.entry();
+    const entry = findEntry(this.store.activeModule());
+    const hasContent = !!entry?.load;
     return {
-      left: !!entry?.load && entry.panels.left,
-      right: !!entry?.load && entry.panels.right,
-      bottom: !!entry?.load && entry.panels.bottom,
+      left: hasContent && !!entry?.panels.left,
+      right: hasContent && !!entry?.panels.right,
+      bottom: hasContent && !!entry?.panels.bottom,
     };
   });
   protected readonly columns = computed(
     () => `var(--rail-w) ${this.shown().left ? 'var(--left-w)' : '0'} minmax(0, 1fr) ${this.shown().right ? 'var(--right-w)' : '0'}`,
   );
   protected readonly rows = computed(() => `var(--top-h) minmax(0, 1fr) ${this.shown().bottom ? 'var(--bottom-h)' : '0'} var(--status-h)`);
+
+  constructor() {
+    void this.store.load();
+  }
 }

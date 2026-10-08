@@ -3,6 +3,7 @@ import { NgComponentOutlet } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { findEntry } from './registry/module-registry';
 import { ShellPanels } from './shell-panels';
+import { ShellStore } from './shell.store';
 
 @Component({
   selector: 'ns-module-host',
@@ -15,6 +16,7 @@ export class ModuleHostComponent {
 
   constructor() {
     const panels = inject(ShellPanels);
+    inject(ShellStore).activate(this.id);
     inject(DestroyRef).onDestroy(() => panels.clear());
     findEntry(this.id)
       ?.load?.()
