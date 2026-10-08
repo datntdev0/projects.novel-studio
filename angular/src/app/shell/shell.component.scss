@@ -1,0 +1,60 @@
+:host {
+  display: block;
+  height: 100vh;
+}
+
+.shell {
+  display: grid;
+  grid-template-areas:
+    'top top top top'
+    'rail left work right'
+    'rail left bottom right'
+    'status status status status';
+  height: 100%;
+  background: var(--color-background);
+  color: var(--color-text);
+}
+
+.topbar {
+  grid-area: top;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.rail {
+  grid-area: rail;
+  border-right: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.panel-left,
+.panel-right,
+.panel-bottom {
+  overflow: hidden;
+  background: var(--color-surface);
+}
+
+.panel-left {
+  grid-area: left;
+}
+
+.panel-right {
+  grid-area: right;
+}
+
+.panel-bottom {
+  grid-area: bottom;
+}
+
+.workspace {
+  grid-area: work;
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+}
+
+.statusbar {
+  grid-area: status;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
