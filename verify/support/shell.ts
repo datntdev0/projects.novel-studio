@@ -13,6 +13,31 @@ export async function gotoShell(page: Page, { fixture, probe, hash = 'home' }: S
   await expect(page.getByTestId('app-shell')).toBeVisible();
 }
 
+export const REGISTRY_IDS = [
+  'home',
+  'library',
+  'reader',
+  'storyworld',
+  'translation',
+  'storychat',
+  'voicelab',
+  'pronunciation',
+  'assets',
+  'sound',
+  'audiobook',
+  'film',
+  'videoeditor',
+  'inbox',
+  'publishing',
+  'tasks',
+  'settings',
+] as const;
+
+export async function openFirstNovel(page: Page): Promise<void> {
+  await page.getByTestId('probe-open-first-novel').click();
+  await expect(page.getByTestId('probe-open-novel')).not.toHaveText('none');
+}
+
 export async function gotoFoundation(page: Page): Promise<void> {
   await gotoShell(page, { probe: true, hash: 'probe' });
   await expect(page.getByTestId('app-hello-title')).toBeVisible();
