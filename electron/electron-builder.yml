@@ -1,0 +1,29 @@
+appId: dev.datntdev.novel-studio
+executableName: novel-studio
+directories:
+  app: ../dist/app
+  output: ../dist/package
+  buildResources: assets
+files:
+  - '**/*'
+  - '!**/*.map'
+asar: true
+electronLanguages:
+  - en-US
+  - vi
+npmRebuild: false
+extraResources:
+  - from: ../dist/backend/novel-studio-backend
+    to: backend
+  - from: ../vendor/ffmpeg/bin/ffmpeg.exe
+    to: bin/ffmpeg.exe
+  - from: ../vendor/ffmpeg/LICENSE
+    to: bin/LICENSE-ffmpeg.txt
+win:
+  target:
+    - target: zip
+      arch:
+        - x64
+  icon: assets/icon.ico
+artifactName: ${name}-${version}-win-${arch}.${ext}
+publish: null

@@ -27,13 +27,42 @@ const sleeperCommand = (kind: SleeperKind): { command: string; args: string[] } 
 
 export const isPidAlive = (pid: number): boolean => run('tasklist', ['/FI', `PID eq ${pid}`, '/NH', '/FO', 'CSV']).includes(`"${pid}"`);
 
-export function listeningAddresses(port: number): string[] {
-  const rows = run('netstat', ['-ano'])
-    .split('\n')
+const netstatRows = (): string[][] =>
+  run('netstat', ['-ano'])
+    .split(/\r?\n/)
     .map((line) => line.trim().split(/\s+/));
-  return rows.flatMap(([protocol, local = '', , state]) =>
+
+export function listeningAddresses(port: number): string[] {
+  return netstatRows().flatMap(([protocol, local = '', , state]) =>
     protocol === 'TCP' && state === 'LISTENING' && local.endsWith(`:${port}`) ? [local] : [],
   );
+}
+
+export function remoteAddresses(pids: Set<number>): string[] {
+  return netstatRows().flatMap(([protocol, , remote = '', , pid = '']) => {
+    const unconnected = remote === '0.0.0.0:0' || remote === '[::]:0';
+    return protocol === 'TCP' && !unconnected && pids.has(Number(pid)) ? [remote] : [];
+  });
+}
+
+export function treePids(rootPid: number): Set<number> {
+  const command = 'Get-CimInstance Win32_Process | ForEach-Object { "$($_.ProcessId) $($_.ParentProcessId)" }';
+  const table = run('powershell.exe', ['-NoProfile', '-Command', command])
+    .split(/\r?\n/)
+    .map((line) => line.trim().split(' ').map(Number))
+    .filter((parts) => parts.length === 2 && parts.every((value) => !Number.isNaN(value)));
+  const pids = new Set([rootPid]);
+  let grew = true;
+  while (grew) {
+    grew = false;
+    for (const [pid, parent] of table) {
+      if (pids.has(parent!) && !pids.has(pid!)) {
+        pids.add(pid!);
+        grew = true;
+      }
+    }
+  }
+  return pids;
 }
 
 export const killPid = (pid: number, tree = true): void => {

@@ -9,7 +9,9 @@
   },
   "scripts": {
     "dev": "pnpm --filter ./angular build && pnpm --filter ./electron build && pnpm --dir electron exec electron ../dist/app",
-    "bootstrap": "pnpm install --frozen-lockfile && simple-git-hooks && pnpm --dir verify exec playwright install chromium && node tools/python.mjs setup",
+    "package": "pnpm build && node tools/package.mjs",
+    "bootstrap": "pnpm install --frozen-lockfile && simple-git-hooks && pnpm --dir verify exec playwright install chromium && node tools/python.mjs setup && node tools/fetch-ffmpeg.mjs",
+    "fetch-ffmpeg": "node tools/fetch-ffmpeg.mjs",
     "build": "pnpm -r build && node tools/python.mjs -m compileall -q python/app",
     "verify": "pnpm build && pnpm --dir verify exec playwright test",
     "lint": "eslint . && node tools/check-pins.mjs && node tools/check-i18n-keys.mjs && node tools/python.mjs -m ruff check python",

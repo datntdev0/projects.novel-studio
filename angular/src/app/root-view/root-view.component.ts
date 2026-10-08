@@ -1,5 +1,5 @@
 import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
-import { APP_NAME, type AppInfo, type BackendStatus, type LibraryStatus } from '@shared/core';
+import { APP_NAME, type AppInfo, type BackendStatus, type LibraryStatus, type SystemStatus } from '@shared/core';
 import { BRIDGE } from '../core/bridge/bridge.token';
 import { ErrorService } from '../core/errors/error.service';
 import { I18nService } from '../core/i18n/i18n.service';
@@ -21,6 +21,7 @@ export class RootViewComponent implements OnInit {
   readonly info = signal<AppInfo | null>(null);
   readonly library = signal<LibraryStatus | null>(null);
   readonly backend = signal<BackendStatus | null>(null);
+  readonly system = signal<SystemStatus | null>(null);
   readonly lastError = this.errors.lastError;
 
   async ngOnInit(): Promise<void> {
@@ -29,6 +30,7 @@ export class RootViewComponent implements OnInit {
       this.backend.set(await this.bridge.invoke('backend:getStatus', null));
       this.info.set(await this.bridge.invoke('app:getInfo', null));
       this.library.set(await this.bridge.invoke('library:status', null));
+      this.system.set(await this.bridge.invoke('system:status', null));
     } catch (error) {
       this.errors.report(error);
     }

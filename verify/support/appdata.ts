@@ -23,9 +23,15 @@ async function describeFiles(root: string, dir: string): Promise<string[]> {
   return lines;
 }
 
-export async function snapshotAppData(): Promise<string[]> {
-  const root = process.env.APPDATA ?? '';
-  const lines = await listDir(root);
+const snapshotRoot = async (root: string): Promise<string[]> => {
+  const lines: string[] = [];
   for (const folder of appFolders) lines.push(...(await describeFiles(root, join(root, folder))));
   return lines.sort();
+};
+
+export async function snapshotAppData(): Promise<string[]> {
+  const root = process.env.APPDATA ?? '';
+  return [...(await listDir(root)), ...(await snapshotRoot(root))].sort();
 }
+
+export const snapshotLocalAppData = (): Promise<string[]> => snapshotRoot(process.env.LOCALAPPDATA ?? '');
