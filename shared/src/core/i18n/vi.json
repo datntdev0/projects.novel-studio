@@ -1,5 +1,5 @@
 {
-  "ui": { "close": "Đóng", "cancel": "Huỷ", "details": "Chi tiết" },
+  "ui": { "close": "Đóng", "cancel": "Huỷ", "details": "Chi tiết", "loading": "Đang tải…" },
   "module": {
     "home": { "label": "Trang chủ", "description": "Cung cấp khung desktop ổn định cho mọi công cụ." },
     "library": {
@@ -66,7 +66,12 @@
       "delete": "Xóa chương",
       "deleteTitle": "Xóa “{name}”?",
       "deleteMessage": "Nội dung và ghi chú của chương sẽ bị mất.",
-      "deleteConfirm": "Xóa"
+      "deleteConfirm": "Xóa",
+      "areaReady": "Tiểu thuyết: {count}",
+      "areaEmptyTitle": "Chưa có tiểu thuyết",
+      "areaEmptyText": "Chưa có gì để hiển thị.",
+      "areaReload": "Tải lại",
+      "toastNsError": "Toast NsError"
     }
   },
   "error": {

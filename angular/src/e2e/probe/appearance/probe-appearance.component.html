@@ -15,4 +15,11 @@
   </button>
   <button type="button" data-testid="probe-delete" (click)="deleteChapter()">{{ 'dev.probe.delete' | t }}</button>
   <p data-testid="probe-delete-result">{{ deleteResult() }}</p>
+  <button type="button" data-testid="probe-toast-nserror" (click)="showNsError()">{{ 'dev.probe.toastNsError' | t }}</button>
+  <ns-area-state testId="probe-area" [state]="area.state()" emptyTitleKey="dev.probe.areaEmptyTitle" emptyTextKey="dev.probe.areaEmptyText">
+    <button type="button" data-testid="probe-area-reload" (click)="area.reload()">{{ 'dev.probe.areaReload' | t }}</button>
+  </ns-area-state>
+  @if (area.state().status === 'ready') {
+    <p data-testid="probe-area-ready">{{ 'dev.probe.areaReady' | t: { count: area.state().value?.length ?? 0 } }}</p>
+  }
 </section>

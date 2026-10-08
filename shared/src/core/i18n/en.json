@@ -1,5 +1,5 @@
 {
-  "ui": { "close": "Close", "cancel": "Cancel", "details": "Details" },
+  "ui": { "close": "Close", "cancel": "Cancel", "details": "Details", "loading": "Loading…" },
   "module": {
     "home": { "label": "Home", "description": "Provide a stable desktop frame for every tool." },
     "library": {
@@ -66,7 +66,12 @@
       "delete": "Delete chapter",
       "deleteTitle": "Delete “{name}”?",
       "deleteMessage": "Its text and notes will be lost.",
-      "deleteConfirm": "Delete"
+      "deleteConfirm": "Delete",
+      "areaReady": "Novels: {count}",
+      "areaEmptyTitle": "No novels",
+      "areaEmptyText": "Nothing to show yet.",
+      "areaReload": "Reload",
+      "toastNsError": "NsError toast"
     }
   },
   "error": {

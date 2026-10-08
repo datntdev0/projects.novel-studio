@@ -1,6 +1,7 @@
 import { Injectable, signal } from '@angular/core';
-import type { TranslateParams } from '@shared/core';
+import type { NsError, TranslateParams } from '@shared/core';
 import type { ToastTone } from '../../components/overlay/toasts.component';
+import { errorDetails, errorKey } from './error-text';
 
 export const TOAST_TIMEOUT_MS = 5000;
 export const TOAST_LIMIT = 3;
@@ -40,6 +41,10 @@ export class ToastService {
       );
     }
     return id;
+  }
+
+  error(error: NsError): string {
+    return this.show({ tone: 'danger', titleKey: errorKey(error), details: errorDetails(error) });
   }
 
   dismiss(id: string): void {

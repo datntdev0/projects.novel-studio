@@ -1,5 +1,6 @@
 import { Injectable, inject, signal } from '@angular/core';
-import { isNsError, nsError, type NsError } from '@shared/core';
+import { isNsError, type NsError } from '@shared/core';
+import { toNsError } from '../../shell/feedback/error-text';
 import { BRIDGE } from '../bridge/bridge.token';
 import { writeLog } from './write-log';
 
@@ -10,7 +11,7 @@ export class ErrorService {
   readonly lastError = this.last.asReadonly();
 
   report(error: unknown): void {
-    const normalized = isNsError(error) ? error : nsError('INTERNAL', error instanceof Error ? error.message : 'Internal error');
+    const normalized = toNsError(error);
     const detail = this.detailOf(error, normalized);
     writeLog(this.bridge, { level: 'error', message: normalized.message, detail });
     this.last.set(normalized);
