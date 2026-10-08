@@ -28,6 +28,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "index.html",
               "outputHashing": "all",
               "optimization": { "scripts": true, "styles": { "minify": true, "inlineCritical": false }, "fonts": false }
             },

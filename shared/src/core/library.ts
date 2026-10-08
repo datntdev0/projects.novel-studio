@@ -23,7 +23,7 @@ export interface LibraryWriteRequest {
   text: string;
 }
 
-const isStringFields = (value: unknown, keys: string[]): boolean => {
+export const isStringFields = (value: unknown, keys: string[]): boolean => {
   if (typeof value !== 'object' || value === null || Array.isArray(value)) return false;
   const record = value as Record<string, unknown>;
   return Object.keys(record).length === keys.length && keys.every((key) => typeof record[key] === 'string');

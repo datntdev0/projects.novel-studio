@@ -1,16 +1,18 @@
-import { APP_NAME, isLibraryOpenRequest, isLibraryReadRequest, isLibraryWriteRequest, isSettingsPatch, nsError, readSettingsText, toLibraryPath, writeSettingsText, type BackendStatus, type Bridge, type IpcContract, type LibraryStatus, type LogEntry, type SettingsRead, type SystemStatus } from '@shared/core';
+import { readFixture } from './fixtures/shell-fixtures';
+import { APP_NAME, CLOSED_LIBRARY, isLibraryOpenRequest, isLibraryReadRequest, isLibraryWriteRequest, isNovelOpenedRequest, isSettingsPatch, nsError, markOpened, readSettingsText, toLibraryPath, writeSettingsText, type BackendStatus, type Bridge, type IpcContract, type LibraryStatus, type LogEntry, type NovelSummary, type SettingsRead, type ShellMockupSet, type SystemStatus } from '@shared/core';
 
 type Handlers = { [C in keyof IpcContract]: (req: IpcContract[C]['req']) => IpcContract[C]['res'] };
 
 const SETTINGS_KEY = 'novel-studio.settings';
-const CLOSED: LibraryStatus = { state: 'closed', root: null, version: null, libraryId: null, error: null };
 const READY_BACKEND: BackendStatus = { state: 'ready', port: null, pid: null, restarts: 0, error: null };
 const OK_SYSTEM: SystemStatus = { ffmpeg: { state: 'ok', version: null, error: null } };
 const invalidRequest = () => nsError('IPC_INVALID_REQUEST', 'Invalid request');
 
 export class BrowserBridge implements Bridge {
   readonly logEntries: LogEntry[] = [];
-  private libraryStatus: LibraryStatus = CLOSED;
+  private readonly fixture: ShellMockupSet;
+  private libraryStatus: LibraryStatus;
+  private novels: NovelSummary[];
   private readonly libraryFiles = new Map<string, string>();
 
   private readonly handlers: Handlers = {
@@ -36,10 +38,20 @@ export class BrowserBridge implements Bridge {
       return this.libraryStatus;
     },
     'library:close': () => {
-      this.libraryStatus = CLOSED;
+      this.libraryStatus = CLOSED_LIBRARY;
       return this.libraryStatus;
     },
     'library:status': () => this.libraryStatus,
+    'library:listNovels': () => this.novels,
+    'library:markNovelOpened': (req) => {
+      if (!isNovelOpenedRequest(req)) throw invalidRequest();
+      this.novels = markOpened(this.novels, req.novelId);
+      return null;
+    },
+    'data:libraryStats': () => this.fixture.stats,
+    'services:detect': () => this.fixture.clis,
+    'settings:assignments': () => this.fixture.assignments,
+    'job:list': () => this.fixture.jobs,
     'backend:getStatus': () => READY_BACKEND,
     'system:status': () => OK_SYSTEM,
     'library:readText': (req) => {
@@ -52,6 +64,12 @@ export class BrowserBridge implements Bridge {
       return null;
     },
   };
+
+  constructor(search: string = window.location.search) {
+    this.fixture = readFixture(search);
+    this.libraryStatus = this.fixture.libraryStatus;
+    this.novels = [...this.fixture.novels];
+  }
 
   on: Bridge['on'] = () => () => undefined;
 

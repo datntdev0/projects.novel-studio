@@ -9,6 +9,7 @@ import { readLibraryArg } from './library/library-paths';
 import { setBackendStatusListener, startBackend, stopBackend } from './backend/backend-supervisor';
 import { emitEvent } from './events';
 import { startFfmpegCheck } from './system/ffmpeg-check';
+import { startJobProgressTicker, stopJobProgressTicker } from './mockup/job-progress-ticker';
 import { loadSettings } from './settings-store';
 import { applySessionGuards, createMainWindow, focusMainWindow } from './window';
 
@@ -54,12 +55,14 @@ function start(): void {
     log.info('second-instance focused');
   });
   app.on('will-quit', closeLibrary);
+  app.on('will-quit', stopJobProgressTicker);
   app.on('window-all-closed', () => app.quit());
   void app.whenReady().then(() => {
     log.info(`app started ${app.getVersion()} appRoot=${appRoot}`);
     loadSettings(appRoot);
     applySessionGuards();
     registerIpc(loadMigrations);
+    startJobProgressTicker();
     setBackendStatusListener((status) => emitEvent('backend:status', status));
     openLaunchLibrary();
     createMainWindow();
