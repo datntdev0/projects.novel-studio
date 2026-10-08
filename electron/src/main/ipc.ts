@@ -5,6 +5,7 @@ import { APP_NAME, DEFAULT_SETTINGS, IPC_CHANNELS, SETTINGS_INITIAL_CHANNEL, isL
 import type { Migration } from '@shared/data';
 import { log } from './log';
 import { closeLibrary, getLibraryStatus, openLibrary, readLibraryText, writeLibraryText } from './library/library-service';
+import { getBackendStatus } from './backend/backend-supervisor';
 import { getSettings, updateSettings } from './settings-store';
 
 const MAX_MESSAGE_LENGTH = 2000;
@@ -48,6 +49,7 @@ const createHandlers = (loadMigrations: () => Migration[]): Handlers => ({
   },
   'settings:get': { validate: isNull, handle: getSettings },
   'settings:set': { validate: isSettingsPatch, handle: updateSettings },
+  'backend:getStatus': { validate: isNull, handle: getBackendStatus },
   'library:open': { validate: isLibraryOpenRequest, handle: ({ root }) => openLibrary(root, loadMigrations) },
   'library:close': { validate: isNull, handle: closeLibrary },
   'library:status': { validate: isNull, handle: getLibraryStatus },

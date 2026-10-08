@@ -1,9 +1,10 @@
-import { APP_NAME, isLibraryOpenRequest, isLibraryReadRequest, isLibraryWriteRequest, isSettingsPatch, nsError, readSettingsText, toLibraryPath, writeSettingsText, type Bridge, type IpcContract, type LibraryStatus, type LogEntry, type SettingsRead } from '@shared/core';
+import { APP_NAME, isLibraryOpenRequest, isLibraryReadRequest, isLibraryWriteRequest, isSettingsPatch, nsError, readSettingsText, toLibraryPath, writeSettingsText, type BackendStatus, type Bridge, type IpcContract, type LibraryStatus, type LogEntry, type SettingsRead } from '@shared/core';
 
 type Handlers = { [C in keyof IpcContract]: (req: IpcContract[C]['req']) => IpcContract[C]['res'] };
 
 const SETTINGS_KEY = 'novel-studio.settings';
 const CLOSED: LibraryStatus = { state: 'closed', root: null, version: null, libraryId: null, error: null };
+const READY_BACKEND: BackendStatus = { state: 'ready', port: null, pid: null, restarts: 0, error: null };
 const invalidRequest = () => nsError('IPC_INVALID_REQUEST', 'Invalid request');
 
 export class BrowserBridge implements Bridge {
@@ -38,6 +39,7 @@ export class BrowserBridge implements Bridge {
       return this.libraryStatus;
     },
     'library:status': () => this.libraryStatus,
+    'backend:getStatus': () => READY_BACKEND,
     'library:readText': (req) => {
       if (!isLibraryReadRequest(req)) throw invalidRequest();
       return this.libraryFiles.get(this.libraryKey(req.path)) ?? null;

@@ -6,7 +6,8 @@ import { initLog, log } from './log';
 import { registerIpc } from './ipc';
 import { closeLibrary, openLibrary } from './library/library-service';
 import { readLibraryArg } from './library/library-paths';
-import { startBackend, stopBackend } from './backend/backend-supervisor';
+import { setBackendStatusListener, startBackend, stopBackend } from './backend/backend-supervisor';
+import { emitEvent } from './events';
 import { loadSettings } from './settings-store';
 import { applySessionGuards, createMainWindow, focusMainWindow } from './window';
 
@@ -58,6 +59,7 @@ function start(): void {
     loadSettings(appRoot);
     applySessionGuards();
     registerIpc(loadMigrations);
+    setBackendStatusListener((status) => emitEvent('backend:status', status));
     openLaunchLibrary();
     createMainWindow();
     void startBackend(appRoot);
