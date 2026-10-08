@@ -32,6 +32,20 @@
     <span data-testid="root-library-error-text">{{ 'error.' + error.code | t }}</span>
   </p>
 }
+<h2 data-testid="root-label-backend">{{ 'dev.root.backend' | t }}</h2>
+<dl>
+  <dt data-testid="root-label-backend-state">{{ 'dev.root.backendState' | t }}</dt>
+  <dd data-testid="root-backend-state">{{ backend()?.state }}</dd>
+  <dt data-testid="root-label-backend-restarts">{{ 'dev.root.backendRestarts' | t }}</dt>
+  <dd data-testid="root-backend-restarts">{{ backend()?.restarts }}</dd>
+</dl>
+@if (backend()?.error; as error) {
+  <p role="alert" data-testid="root-backend-error">
+    <span data-testid="root-backend-error-code">{{ error.code }}</span>
+    <span data-testid="root-backend-error-separator">{{ ': ' }}</span>
+    <span data-testid="root-backend-error-text">{{ 'error.' + error.code | t }}</span>
+  </p>
+}
 <h2 data-testid="root-label-samples">{{ 'dev.root.samples' | t }}</h2>
 <dl>
   <dt data-testid="root-label-count">{{ 'dev.root.count' | t }}</dt>

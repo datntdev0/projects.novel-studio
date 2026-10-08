@@ -1,3 +1,4 @@
+import type { BackendStatus } from './backend';
 import type { LibraryOpenRequest, LibraryReadRequest, LibraryStatus, LibraryWriteRequest } from './library';
 import type { AppSettings, SettingsPatch } from './settings';
 
@@ -31,9 +32,12 @@ export interface IpcContract {
   'library:status': { req: null; res: LibraryStatus };
   'library:readText': { req: LibraryReadRequest; res: string | null };
   'library:writeText': { req: LibraryWriteRequest; res: null };
+  'backend:getStatus': { req: null; res: BackendStatus };
 }
 
-export type IpcEvents = Record<never, never>;
+export interface IpcEvents {
+  'backend:status': BackendStatus;
+}
 
 export const IPC_CHANNELS: { [C in keyof IpcContract]: true } = {
   'app:getInfo': true,
@@ -45,5 +49,6 @@ export const IPC_CHANNELS: { [C in keyof IpcContract]: true } = {
   'library:status': true,
   'library:readText': true,
   'library:writeText': true,
+  'backend:getStatus': true,
 };
-export const IPC_EVENTS: { [E in keyof IpcEvents]: true } = {};
+export const IPC_EVENTS: { [E in keyof IpcEvents]: true } = { 'backend:status': true };
