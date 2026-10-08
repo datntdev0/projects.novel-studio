@@ -1,6 +1,8 @@
-import { Component, TemplateRef, afterNextRender, inject, signal, viewChild } from '@angular/core';
+import { Component, DestroyRef, TemplateRef, afterNextRender, inject, signal, viewChild } from '@angular/core';
 import type { Assignments, CliStatus, JobSummary, LibraryStats, LibraryStatus } from '@shared/core';
 import { BRIDGE } from '../../app/core/bridge/bridge.token';
+import type { Command } from '../../app/core/shortcuts/command';
+import { CommandService } from '../../app/core/shortcuts/command.service';
 import { ErrorService } from '../../app/core/errors/error.service';
 import { ShellPanels } from '../../app/shell/shell-panels';
 import { ShellStore } from '../../app/shell/shell.store';
@@ -17,6 +19,8 @@ export class ProbeComponent {
   protected readonly clis = signal<CliStatus[]>([]);
   protected readonly assignments = signal<Assignments | null>(null);
   protected readonly jobs = signal<JobSummary[]>([]);
+  private readonly commands = inject(CommandService);
+  protected readonly lastCommand = signal<string | null>(null);
   private readonly left = viewChild.required<TemplateRef<unknown>>('left');
   private readonly right = viewChild.required<TemplateRef<unknown>>('right');
   private readonly bottom = viewChild.required<TemplateRef<unknown>>('bottom');
@@ -28,6 +32,20 @@ export class ProbeComponent {
       this.panels.set('bottom', this.bottom());
     });
     void this.loadValues();
+    const dispose = this.commands.register([this.pingCommand('probe.ping'), this.pingCommand('probe.ping-again')]);
+    inject(DestroyRef).onDestroy(dispose);
+  }
+
+  private pingCommand(id: string): Command {
+    return {
+      id,
+      labelKey: 'module.probe.label',
+      keywords: [],
+      keys: ['Ctrl+Shift+P'],
+      scope: 'probe',
+      needsNovel: false,
+      run: () => this.lastCommand.set(id),
+    };
   }
 
   protected openFirstNovel(): void {
