@@ -37,10 +37,32 @@ export function backendEnv(endpoint: BackendEndpoint, logDir: string): NodeJS.Pr
 
 export function killProcessTree(pid: number): Promise<void> {
   return new Promise((resolve, reject) => {
-    execFile('taskkill', ['/PID', String(pid), '/T', '/F'], { windowsHide: true }, (error, stdout, stderr) => {
-      const notFound = /not found|no running instance/i.test(`${stdout}${stderr}`);
+    execFile('taskkill', ['/PID', String(pid), '/T', '/F'], { windowsHide: true }, (error) => {
+      const notFound = Number(error?.code) === 128;
       if (error && !notFound) reject(error);
       else resolve();
     });
   });
+}
+
+export function isBackendProcess(pid: number, command: string): Promise<boolean> {
+  if (!Number.isInteger(pid) || pid <= 0) return Promise.resolve(false);
+  const query = `(Get-CimInstance Win32_Process -Filter 'ProcessId=${pid}').CommandLine`;
+  return new Promise((resolve) => {
+    execFile(
+      'powershell.exe',
+      ['-NoProfile', '-NonInteractive', '-Command', query],
+      { windowsHide: true, timeout: 10_000 },
+      (error, stdout) => {
+        resolve(!error && stdout.trim() !== '' && stdout.toLowerCase().includes(command.toLowerCase()));
+      },
+    );
+  });
+}
+
+export async function stopStaleBackend(pid: number): Promise<boolean> {
+  const cmd = resolveBackendCommand();
+  if (!cmd || !(await isBackendProcess(pid, cmd.command))) return false;
+  await killProcessTree(pid);
+  return true;
 }
