@@ -4,8 +4,9 @@ import { BRIDGE } from '../../app/core/bridge/bridge.token';
 import { ErrorService } from '../../app/core/errors/error.service';
 import { ShellPanels } from '../../app/shell/shell-panels';
 import { ShellStore } from '../../app/shell/shell.store';
+import { ProbeFoundationComponent } from './foundation/probe-foundation.component';
 
-@Component({ selector: 'ns-probe', templateUrl: './probe.component.html' })
+@Component({ selector: 'ns-probe', imports: [ProbeFoundationComponent], templateUrl: './probe.component.html' })
 export class ProbeComponent {
   private readonly bridge = inject(BRIDGE);
   private readonly errors = inject(ErrorService);

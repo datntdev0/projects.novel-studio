@@ -1,7 +1,7 @@
 import { mkdir, readdir, readFile, symlink, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { test, expect, saveEvidence, launchLibraryApp, withApp } from '../../support/library.ts';
-import { invokeLibrary } from '../../support/library-bridge.ts';
+import { invokeLibrary, waitForLibrary } from '../../support/library-bridge.ts';
 import { type Page } from '../../support/test.ts';
 
 const SENTINEL_TEXT = 'outside sentinel';
@@ -36,7 +36,7 @@ const checkOutsideUntouchedAfter = async (appRoot: string, outside: string, body
   const { app } = await launchLibraryApp(appRoot, join(outside, 'lib'));
   try {
     const window = await app.firstWindow();
-    await expect(window.getByTestId('root-library-state')).toHaveText('open');
+    await waitForLibrary(window, { state: 'open' });
     await body(window);
   } finally {
     await app.close().catch(() => undefined);
@@ -80,7 +80,7 @@ test.describe('path guard', () => {
 test('S1c with no library open the code is LIBRARY_NOT_OPEN (AC-13)', async ({ appRoot }) => {
   await withApp(appRoot, async (app) => {
     const window = await app.firstWindow();
-    await expect(window.getByTestId('root-app-language')).toBeVisible();
+    await expect(window.getByTestId('app-shell')).toBeVisible();
     expect(await invokeLibrary(window, 'library:readText', { path: 'a.txt' })).toMatchObject({
       ok: false,
       error: { code: 'LIBRARY_NOT_OPEN' },

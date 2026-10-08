@@ -21,7 +21,7 @@ for (const { name, stored, language, theme } of cases) {
       try {
         const window = await app.firstWindow();
         await window.waitForLoadState('load');
-        await expect(window.getByTestId('root-app-name')).toHaveCount(0);
+        await expect(window.getByTestId('app-shell')).toHaveCount(0);
         await expectHtml(window, language, theme);
         await saveEvidence(window, name);
       } finally {

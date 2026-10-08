@@ -1,5 +1,7 @@
 import { expect, type Page } from './test.ts';
 import { waitForBackend } from './backend-bridge.ts';
+import { waitForLibrary } from './library-bridge.ts';
+import { invokeSettings } from './settings-bridge.ts';
 
 export type FfmpegState = 'ok' | 'missing' | 'broken';
 
@@ -8,19 +10,25 @@ export interface FfmpegError {
   text: string;
 }
 
-export const readFfmpegVersion = (window: Page): Promise<string> => window.getByTestId('root-ffmpeg-version').innerText();
+type FfmpegStatus = { state: FfmpegState; version: string | null; error: { code: string; message: string } | null };
+
+const readFfmpeg = async (window: Page): Promise<FfmpegStatus> => {
+  const result = await invokeSettings(window, 'system:status', null);
+  return (result.value as { ffmpeg: FfmpegStatus }).ffmpeg;
+};
+
+export const readFfmpegVersion = async (window: Page): Promise<string> => (await readFfmpeg(window)).version ?? '';
 
 export const waitForFfmpeg = (window: Page, state: FfmpegState, timeout = 30_000): Promise<void> =>
-  expect(window.getByTestId('root-ffmpeg-state')).toHaveText(state, { timeout });
+  expect.poll(async () => (await readFfmpeg(window)).state, { timeout }).toBe(state);
 
 export async function readFfmpegError(window: Page): Promise<FfmpegError> {
-  const code = await window.getByTestId('root-ffmpeg-error-code').innerText();
-  const text = await window.getByTestId('root-ffmpeg-error-text').innerText();
-  return { code, text };
+  const error = (await readFfmpeg(window)).error;
+  return { code: error?.code ?? '', text: error?.message ?? '' };
 }
 
 export async function waitForPackagedReady(window: Page, timeout = 60_000): Promise<void> {
   await waitForBackend(window, 'ready', timeout);
   await waitForFfmpeg(window, 'ok', timeout);
-  await expect(window.getByTestId('root-library-state')).toHaveText('open', { timeout });
+  await waitForLibrary(window, { state: 'open' }, timeout);
 }

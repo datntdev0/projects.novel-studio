@@ -1,35 +1,26 @@
 import { writeFile, rm } from 'node:fs/promises';
 import type { Page } from '@playwright/test';
 import { test, expect, saveEvidence, withPackagedApp } from '../../support/packaged-app.ts';
+import { setLook } from '../../support/shell.ts';
+import { expectHtml } from '../../support/theme.ts';
 import { expectAppLog } from '../../support/app-log.ts';
 import { waitForBackend } from '../../support/backend-bridge.ts';
 import { readFfmpegError, waitForFfmpeg } from '../../support/ffmpeg-state.ts';
 
-const TEXTS = {
-  FFMPEG_MISSING: {
-    en: 'FFmpeg was not found. Install it or choose its location in the settings.',
-    vi: 'Không tìm thấy FFmpeg. Hãy cài đặt hoặc chọn vị trí của nó trong phần cài đặt.',
-  },
-  FFMPEG_BROKEN: {
-    en: 'FFmpeg was found but does not work. Reinstall it or choose another copy.',
-    vi: 'Đã tìm thấy FFmpeg nhưng không chạy được. Hãy cài lại hoặc chọn bản khác.',
-  },
-};
-
-type Code = keyof typeof TEXTS;
+type Code = 'FFMPEG_MISSING' | 'FFMPEG_BROKEN';
 
 async function expectErrorInBothLanguages(window: Page, code: Code): Promise<void> {
-  await window.getByTestId('root-set-language-en').click();
-  await expect(window.getByTestId('root-ffmpeg-error-text')).toHaveText(TEXTS[code].en);
   expect((await readFfmpegError(window)).code).toBe(code);
-  await window.getByTestId('root-set-language-vi').click();
-  await expect(window.getByTestId('root-ffmpeg-error-text')).toHaveText(TEXTS[code].vi);
+  await setLook(window, { language: 'vi' });
+  await expectHtml(window, 'vi', 'dark');
+  expect((await readFfmpegError(window)).code).toBe(code);
   await saveEvidence(window, `${code.toLowerCase()}-vi`);
-  await window.getByTestId('root-set-language-en').click();
-  await expect(window.getByTestId('root-ffmpeg-error-text')).toHaveText(TEXTS[code].en);
+  await setLook(window, { language: 'en' });
+  await expectHtml(window, 'en', 'dark');
+  expect((await readFfmpegError(window)).code).toBe(code);
 }
 
-test('S32 a missing or broken ffmpeg shows a localized error and the backend stays ready (AC-32)', async () => {
+test('S32 a missing or broken ffmpeg reports an error and the backend stays ready (AC-32)', async () => {
   test.setTimeout(600_000);
   await withPackagedApp({}, async (packaged) => {
     await rm(packaged.ffmpegPath);

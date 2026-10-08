@@ -4,7 +4,7 @@ import { expectAppLog } from '../../support/app-log.ts';
 import { type RendererGlobals } from '../../support/renderer-globals.ts';
 
 test('S5 electron blocks remote content and navigation (AC-10)', async ({ app, window, appRoot }) => {
-  await expect(window.getByTestId('app-hello-title')).toBeVisible();
+  await expect(window.getByTestId('app-shell')).toBeVisible();
   const startUrl = window.url();
 
   await window.evaluate(() => {
@@ -37,6 +37,6 @@ test('S5 electron blocks remote content and navigation (AC-10)', async ({ app, w
   expect(await window.evaluate(() => (globalThis as unknown as RendererGlobals).remoteScriptRan)).toBeUndefined();
   expect(app.windows()).toHaveLength(1);
   expect(window.url()).toBe(startUrl);
-  expect(await window.getByTestId('app-hello-title').isVisible()).toBe(true);
+  expect(await window.getByTestId('app-shell').isVisible()).toBe(true);
   await saveEvidence(window, 'blocked');
 });

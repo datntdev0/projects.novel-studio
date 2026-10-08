@@ -8,7 +8,7 @@ test('S3 second instance focuses the existing window (AC-8)', async ({ appRoot }
   let child: ChildProcess | undefined;
   try {
     const window = await app.firstWindow();
-    await expect(window.getByTestId('app-hello-title')).toBeVisible();
+    await expect(window.getByTestId('app-shell')).toBeVisible();
     await app.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows()[0]?.minimize());
     await expect.poll(() => app.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows()[0]?.isMinimized())).toBe(true);
     child = spawn(executablePath, [appDir], { env: { ...process.env, NS_APP_ROOT: appRoot }, stdio: 'ignore' });

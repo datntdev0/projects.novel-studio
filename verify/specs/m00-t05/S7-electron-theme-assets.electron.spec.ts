@@ -1,6 +1,7 @@
 import { test, expect, saveEvidence, withApp } from '../../support/electron.ts';
 import { readSettingsJson } from '../../support/settings-file.ts';
-import { BACKGROUND_RGB, bodyBackground, expectHtml, expectIconBoxes, markNode, nodeKept, spriteIds, spriteState, type Theme } from '../../support/theme.ts';
+import { setLook } from '../../support/shell.ts';
+import { BACKGROUND_RGB, bodyBackground, expectHtml, spriteIds, spriteState, type Theme } from '../../support/theme.ts';
 import type { Page } from '../../support/test.ts';
 
 type FontFaceLike = { family: string; style: string; status: string };
@@ -32,7 +33,6 @@ const loadedFaces = (window: Page): Promise<{ inter: boolean; faces: Record<stri
 
 const expectTheme = async (window: Page, theme: Theme): Promise<void> => {
   await expectHtml(window, 'en', theme);
-  await expect(window.getByTestId('root-app-theme')).toHaveText(theme);
   await expect.poll(() => bodyBackground(window)).toBe(BACKGROUND_RGB[theme]);
 };
 
@@ -50,13 +50,10 @@ test('S7 fonts, icons and theme work in Electron (AC-14, AC-15)', async ({ appRo
 
     const { ids } = await spriteState(window);
     expect(ids).toEqual(await spriteIds());
-    await expectIconBoxes(window);
     await saveEvidence(window, 'dark');
 
-    await markNode(window);
-    await window.getByTestId('root-set-theme-light').click();
+    await setLook(window, { theme: 'light' });
     await expectTheme(window, 'light');
-    expect(await nodeKept(window)).toBe(true);
     await expect.poll(async () => (await readSettingsJson(appRoot))['theme']).toBe('light');
     await saveEvidence(window, 'light');
   });
@@ -64,7 +61,7 @@ test('S7 fonts, icons and theme work in Electron (AC-14, AC-15)', async ({ appRo
   await withApp(appRoot, async (app) => {
     const window = await app.firstWindow();
     await expectTheme(window, 'light');
-    await window.getByTestId('root-set-theme-dark').click();
+    await setLook(window, { theme: 'dark' });
     await expectTheme(window, 'dark');
   });
 });

@@ -30,10 +30,16 @@ function entry(
   };
 }
 
-const HOME_ENTRY: ModuleEntry = {
-  ...entry('home', 'library', 'library', 'home', ['M01', 'M06'], 'app shell first launch library folder', ['Ctrl+1'], NO_PANELS),
-  load: () => import('../../root-view/root-view.component').then((m) => m.RootViewComponent),
-};
+const HOME_ENTRY: ModuleEntry = entry(
+  'home',
+  'library',
+  'library',
+  'home',
+  ['M01', 'M06'],
+  'app shell first launch library folder',
+  ['Ctrl+1'],
+  NO_PANELS,
+);
 
 export const MODULE_ENTRIES: ModuleEntry[] = [
   HOME_ENTRY,

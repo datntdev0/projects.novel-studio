@@ -1,4 +1,5 @@
 import { test, expect, saveEvidence, type Page } from '../../support/test.ts';
+import { gotoFoundation } from '../../support/shell.ts';
 import { bodyStyle, expectHtml, expectIconBoxes, ICON_SIZES, LOOK_TEXTS, spriteIds, spriteState, testIdColor, type Theme } from '../../support/theme.ts';
 
 type IconNode = { getAttribute(name: string): string | null; querySelector(selector: string): IconNode };
@@ -15,7 +16,7 @@ const iconAttributes = (page: Page, testId: string): Promise<{ hidden: string | 
   }, testId);
 
 test('S5 renderer shows the full mockup sprite and the four icon sizes (AC-14)', async ({ page }) => {
-  await page.goto('/');
+  await gotoFoundation(page);
   await expectHtml(page, 'en', 'dark');
   const found = await spriteState(page);
   expect(found.copies).toBe(1);

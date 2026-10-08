@@ -3,6 +3,7 @@ import { test, expect, withApp } from '../../support/electron.ts';
 import { storedSettings } from '../../support/first-paint.ts';
 import { invokeSettings } from '../../support/settings-bridge.ts';
 import { readSettingsJson, writeSettingsFile } from '../../support/settings-file.ts';
+import { setLook } from '../../support/shell.ts';
 import { BACKGROUND_HEX, BACKGROUND_RGB, bodyBackground, expectHtml, htmlState, readHtml, printTokens, type Theme } from '../../support/theme.ts';
 import type { Page } from '../../support/test.ts';
 
@@ -41,8 +42,7 @@ for (const [language, theme] of pairs) {
       const window = await expectFirstPaint(app, language, theme);
       expect(await bridgeKeys(window)).toEqual(['invoke', 'on']);
       expect(await invokeSettings(window, 'settings:initial')).toMatchObject({ ok: false, error: { code: 'IPC_UNKNOWN_CHANNEL' } });
-      await window.getByTestId(`root-set-language-${nextLanguage}`).click();
-      await window.getByTestId(`root-set-theme-${nextTheme}`).click();
+      await setLook(window, { language: nextLanguage, theme: nextTheme });
       await expectHtml(window, nextLanguage, nextTheme);
       await expect.poll(async () => await readSettingsJson(appRoot)).toMatchObject({ language: nextLanguage, theme: nextTheme });
     });

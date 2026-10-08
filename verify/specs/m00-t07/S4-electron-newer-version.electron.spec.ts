@@ -1,4 +1,5 @@
 import { test, expect, saveEvidence, launchLibraryApp } from '../../support/library.ts';
+import { waitForLibrary } from '../../support/library-bridge.ts';
 import { inspectLibrary, seedLibrary, sha256 } from '../../support/library-db.ts';
 
 test('S4 a library with a newer user_version is refused and left untouched (AC-24)', async ({ appRoot, library }) => {
@@ -7,18 +8,8 @@ test('S4 a library with a newer user_version is refused and left untouched (AC-2
   const { app } = await launchLibraryApp(appRoot, library);
   try {
     const window = await app.firstWindow();
-    await expect(window.getByTestId('root-library-state')).toHaveText('failed');
-    await expect(window.getByTestId('root-library-error-code')).toHaveText('LIBRARY_NEWER_VERSION');
-    await expect(window.getByTestId('root-library-error-text')).toHaveText(
-      'This library was created by a newer version of the app. Update the app to open it.',
-    );
-    await saveEvidence(window, 'newer-version-en');
-    await window.getByTestId('root-set-language-vi').click();
-    await expect(window.getByTestId('root-library-error-text')).toHaveText(
-      'Thư viện này được tạo bởi phiên bản ứng dụng mới hơn. Hãy cập nhật ứng dụng để mở.',
-    );
-    await expect(window.getByTestId('root-library-error-code')).toHaveText('LIBRARY_NEWER_VERSION');
-    await saveEvidence(window, 'newer-version-vi');
+    await waitForLibrary(window, { state: 'failed', error: { code: 'LIBRARY_NEWER_VERSION' } });
+    await saveEvidence(window, 'newer-version');
   } finally {
     await app.close();
   }

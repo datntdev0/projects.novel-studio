@@ -1,4 +1,5 @@
 import { test, expect, saveEvidence, type Page } from '../../support/test.ts';
+import { gotoFoundation } from '../../support/shell.ts';
 import { expectHtml, computedVars, markNode, nodeKept, BACKGROUND_HEX, LOOK_TEXTS, SETTINGS_KEY, type Theme } from '../../support/theme.ts';
 
 type StorageGlobals = { localStorage: { getItem(key: string): string | null } };
@@ -27,7 +28,7 @@ const checkIndependentLanguage = async (page: Page): Promise<void> => {
 };
 
 test('S6 renderer switches theme at run time without a reload (AC-15)', async ({ page }) => {
-  await page.goto('/');
+  await gotoFoundation(page);
   await expectTheme(page, 'dark');
   await expectButtons(page, 'en');
   await markNode(page);
