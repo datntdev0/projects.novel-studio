@@ -22,6 +22,8 @@
     "tasks": { "label": "Task Center", "description": "Run, track and resume long AI tasks without blocking the UI." },
     "settings": { "label": "Settings", "description": "Manage app settings and choose the CLI for each task type." }
   },
+  "command": { "toggleLanguage": "Switch language", "toggleTheme": "Switch theme" },
+  "topbar": { "language": "Language", "theme": "Theme" },
   "dev": {
     "root": {
       "library": "Library",
@@ -71,7 +73,9 @@
       "areaEmptyTitle": "No novels",
       "areaEmptyText": "Nothing to show yet.",
       "areaReload": "Reload",
-      "toastNsError": "NsError toast"
+      "toastNsError": "NsError toast",
+      "input": "Text input",
+      "scrollLine": "Scroll line"
     }
   },
   "error": {

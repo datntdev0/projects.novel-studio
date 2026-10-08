@@ -22,4 +22,16 @@
   @if (area.state().status === 'ready') {
     <p data-testid="probe-area-ready">{{ 'dev.probe.areaReady' | t: { count: area.state().value?.length ?? 0 } }}</p>
   }
+  <label>
+    {{ 'dev.probe.input' | t }}
+    <input type="text" data-testid="probe-input" />
+  </label>
+  <div data-testid="probe-scroll" style="height: 80px; overflow: auto">
+    @for (line of scrollLines; track line) {
+      <p>{{ 'dev.probe.scrollLine' | t }} {{ line }}</p>
+    }
+  </div>
+  <p data-testid="probe-sample-text">{{ 'ui.cancel' | t }}</p>
+  <p data-testid="probe-sample-number">{{ i18n.formatNumber(9812) }}</p>
+  <p data-testid="probe-sample-relative">{{ i18n.formatRelative(sampleTime) }}</p>
 </section>

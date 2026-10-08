@@ -22,6 +22,8 @@
     "tasks": { "label": "Trung tâm tác vụ", "description": "Chạy, theo dõi và tiếp tục các tác vụ AI dài mà không khóa UI." },
     "settings": { "label": "Cài đặt", "description": "Quản lý cấu hình ứng dụng và chọn CLI cho từng loại tác vụ." }
   },
+  "command": { "toggleLanguage": "Đổi ngôn ngữ", "toggleTheme": "Đổi giao diện" },
+  "topbar": { "language": "Ngôn ngữ", "theme": "Giao diện" },
   "dev": {
     "root": {
       "library": "Thư viện",
@@ -71,7 +73,9 @@
       "areaEmptyTitle": "Chưa có tiểu thuyết",
       "areaEmptyText": "Chưa có gì để hiển thị.",
       "areaReload": "Tải lại",
-      "toastNsError": "Toast NsError"
+      "toastNsError": "Toast NsError",
+      "input": "Ô nhập văn bản",
+      "scrollLine": "Dòng cuộn"
     }
   },
   "error": {

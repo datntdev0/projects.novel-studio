@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Injectable, computed, effect, inject } from '@angular/core';
-import { formatDate, formatNumber, translate, type Language, type TranslateParams } from '@shared/core';
+import { formatDate, formatNumber, formatRelativeTime, translate, type Language, type TranslateParams } from '@shared/core';
 import { SettingsService } from '../settings/settings.service';
 
 @Injectable({ providedIn: 'root' })
@@ -27,6 +27,10 @@ export class I18nService {
 
   formatDate(value: Date | number, options?: Intl.DateTimeFormatOptions): string {
     return formatDate(this.language(), value, options);
+  }
+
+  formatRelative(value: Date | number | string): string {
+    return formatRelativeTime(this.language(), value);
   }
 
   setLanguage(language: Language): Promise<void> {

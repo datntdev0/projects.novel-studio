@@ -6,10 +6,11 @@ import { ShellPanels } from './shell-panels';
 import { ShellStore } from './shell.store';
 import { ToastOutletComponent } from './feedback/toast-outlet.component';
 import { ConfirmOutletComponent } from './feedback/confirm-outlet.component';
+import { AppearanceButtonsComponent } from './topbar/appearance-buttons.component';
 
 @Component({
   selector: 'ns-shell',
-  imports: [NgTemplateOutlet, RouterOutlet, ToastOutletComponent, ConfirmOutletComponent],
+  imports: [NgTemplateOutlet, RouterOutlet, ToastOutletComponent, ConfirmOutletComponent, AppearanceButtonsComponent],
   templateUrl: './shell.component.html',
   styleUrl: './shell.component.scss',
 })
