@@ -8,6 +8,7 @@ import { closeLibrary, openLibrary } from './library/library-service';
 import { readLibraryArg } from './library/library-paths';
 import { setBackendStatusListener, startBackend, stopBackend } from './backend/backend-supervisor';
 import { emitEvent } from './events';
+import { startFfmpegCheck } from './system/ffmpeg-check';
 import { loadSettings } from './settings-store';
 import { applySessionGuards, createMainWindow, focusMainWindow } from './window';
 
@@ -63,6 +64,7 @@ function start(): void {
     openLaunchLibrary();
     createMainWindow();
     void startBackend(appRoot);
+    startFfmpegCheck();
   });
   app.on('before-quit', quitAfterBackendStop);
 }

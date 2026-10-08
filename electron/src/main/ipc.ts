@@ -6,6 +6,7 @@ import type { Migration } from '@shared/data';
 import { log } from './log';
 import { closeLibrary, getLibraryStatus, openLibrary, readLibraryText, writeLibraryText } from './library/library-service';
 import { getBackendStatus } from './backend/backend-supervisor';
+import { getSystemStatus } from './system/ffmpeg-check';
 import { getSettings, updateSettings } from './settings-store';
 
 const MAX_MESSAGE_LENGTH = 2000;
@@ -14,9 +15,12 @@ const LOG_LEVELS: readonly unknown[] = ['info', 'warn', 'error'] satisfies LogLe
 const RENDERER_URL = pathToFileURL(path.join(__dirname, 'renderer')).href + '/';
 
 type Handlers = {
-  [C in keyof IpcContract]: { validate(req: unknown): boolean; handle(req: IpcContract[C]['req']): IpcContract[C]['res'] };
+  [C in keyof IpcContract]: {
+    validate(req: unknown): boolean;
+    handle(req: IpcContract[C]['req']): IpcContract[C]['res'] | Promise<IpcContract[C]['res']>;
+  };
 };
-type AnyHandler = { validate(req: unknown): boolean; handle(req: unknown): unknown };
+type AnyHandler = { validate(req: unknown): boolean; handle(req: unknown): unknown | Promise<unknown> };
 
 const isNull = (req: unknown): boolean => req === null;
 
@@ -50,6 +54,7 @@ const createHandlers = (loadMigrations: () => Migration[]): Handlers => ({
   'settings:get': { validate: isNull, handle: getSettings },
   'settings:set': { validate: isSettingsPatch, handle: updateSettings },
   'backend:getStatus': { validate: isNull, handle: getBackendStatus },
+  'system:status': { validate: isNull, handle: getSystemStatus },
   'library:open': { validate: isLibraryOpenRequest, handle: ({ root }) => openLibrary(root, loadMigrations) },
   'library:close': { validate: isNull, handle: closeLibrary },
   'library:status': { validate: isNull, handle: getLibraryStatus },
@@ -73,11 +78,11 @@ function isTrustedSender(frame: WebFrameMain | null): boolean {
   return frame?.url.startsWith(RENDERER_URL) ?? false;
 }
 
-function run(channel: string, handler: AnyHandler, event: IpcMainInvokeEvent, req: unknown): IpcResult<unknown> {
+async function run(channel: string, handler: AnyHandler, event: IpcMainInvokeEvent, req: unknown): Promise<IpcResult<unknown>> {
   try {
     if (!isTrustedSender(event.senderFrame)) throw nsError('IPC_INVALID_REQUEST', 'Untrusted sender');
     if (!handler.validate(req)) throw nsError('IPC_INVALID_REQUEST', 'Invalid request');
-    return { ok: true, value: handler.handle(req) };
+    return { ok: true, value: await handler.handle(req) };
   } catch (error) {
     const failure = isNsError(error) ? error : nsError('INTERNAL', 'Internal error');
     logFailure(channel, error, failure);

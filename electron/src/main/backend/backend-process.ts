@@ -1,6 +1,7 @@
 import { app } from 'electron';
 import { execFile, spawn, type ChildProcess } from 'node:child_process';
 import path from 'node:path';
+import { devRepoRoot } from '../paths';
 import type { BackendEndpoint } from './backend-client';
 
 export interface BackendCommand {
@@ -11,7 +12,7 @@ export interface BackendCommand {
 
 export function resolveBackendCommand(): BackendCommand | null {
   if (app.isPackaged) return null;
-  const cwd = path.join(app.getAppPath(), '..', '..', 'python');
+  const cwd = path.join(devRepoRoot(), 'python');
   return { command: path.join(cwd, '.venv', 'Scripts', 'python.exe'), args: ['-m', 'app'], cwd };
 }
 

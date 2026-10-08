@@ -46,6 +46,20 @@
     <span data-testid="root-backend-error-text">{{ 'error.' + error.code | t }}</span>
   </p>
 }
+<h2 data-testid="root-label-ffmpeg">{{ 'dev.root.ffmpeg' | t }}</h2>
+<dl>
+  <dt data-testid="root-label-ffmpeg-state">{{ 'dev.root.ffmpegState' | t }}</dt>
+  <dd data-testid="root-ffmpeg-state">{{ system()?.ffmpeg?.state }}</dd>
+  <dt data-testid="root-label-ffmpeg-version">{{ 'dev.root.ffmpegVersion' | t }}</dt>
+  <dd data-testid="root-ffmpeg-version">{{ system()?.ffmpeg?.version }}</dd>
+</dl>
+@if (system()?.ffmpeg?.error; as error) {
+  <p role="alert" data-testid="root-ffmpeg-error">
+    <span data-testid="root-ffmpeg-error-code">{{ error.code }}</span>
+    <span data-testid="root-ffmpeg-error-separator">{{ ': ' }}</span>
+    <span data-testid="root-ffmpeg-error-text">{{ 'error.' + error.code | t }}</span>
+  </p>
+}
 <h2 data-testid="root-label-samples">{{ 'dev.root.samples' | t }}</h2>
 <dl>
   <dt data-testid="root-label-count">{{ 'dev.root.count' | t }}</dt>

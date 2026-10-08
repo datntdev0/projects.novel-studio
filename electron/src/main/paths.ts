@@ -3,10 +3,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { APP_NAME, en } from '@shared/core';
 
+export function devRepoRoot(): string {
+  return path.join(app.getAppPath(), '..', '..');
+}
+
 export function resolveAppRoot(): string {
   if (process.env.NS_APP_ROOT) return process.env.NS_APP_ROOT;
   if (app.isPackaged) return path.dirname(app.getPath('exe'));
-  return path.join(app.getAppPath(), '..', '..', '.dev-data');
+  return path.join(devRepoRoot(), '.dev-data');
 }
 
 export function applyAppPaths(appRoot: string): boolean {
