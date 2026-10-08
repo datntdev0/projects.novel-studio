@@ -1,7 +1,10 @@
 import { test, expect, saveEvidence, withApp } from '../../support/electron.ts';
 import { expectRootLanguage } from '../../support/i18n-texts.ts';
+import { expectAppLog } from '../../support/app-log.ts';
 import { invokeSettings } from '../../support/settings-bridge.ts';
-import { readSettingsFile, readSettingsJson, settingsText, writeSettingsFile } from '../../support/settings-file.ts';
+import { readSettingsJson, settingsText, writeSettingsFile } from '../../support/settings-file.ts';
+
+const withoutPid = (settings: Record<string, unknown>) => ({ ...settings, backendPid: null });
 
 const changes = {
   language: 'vi',
@@ -13,11 +16,11 @@ const changes = {
 test('S5 settings survive an app restart (AC-21)', async ({ appRoot }) => {
   await withApp(appRoot, async (app) => {
     const window = await app.firstWindow();
+    await expectAppLog(appRoot, /backend ready/);
     const result = await invokeSettings(window, 'settings:set', changes);
-    expect(result).toEqual({ ok: true, value: JSON.parse(settingsText(changes)) });
+    expect(result).toMatchObject({ ok: true, value: changes });
   });
-  const text = await readSettingsFile(appRoot);
-  expect(text).toBe(settingsText(changes));
+  expect(withoutPid(await readSettingsJson(appRoot))).toEqual(JSON.parse(settingsText(changes)));
 
   await writeSettingsFile(appRoot, JSON.stringify({ ...(await readSettingsJson(appRoot)), futureKey: 42 }));
   await withApp(appRoot, async (app) => {

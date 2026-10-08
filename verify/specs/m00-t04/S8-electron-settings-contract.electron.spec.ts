@@ -2,7 +2,7 @@ import { test as base, expect } from '../../support/electron.ts';
 import { expectAppLog } from '../../support/app-log.ts';
 import { type RendererGlobals } from '../../support/renderer-globals.ts';
 import { invokeSettings } from '../../support/settings-bridge.ts';
-import { readSettingsFile, settingsText, writeSettingsFile } from '../../support/settings-file.ts';
+import { readSettingsJson, settingsText, writeSettingsFile } from '../../support/settings-file.ts';
 import { expectRootLanguage } from '../../support/i18n-texts.ts';
 
 const validText = settingsText({ language: 'vi' });
@@ -26,7 +26,8 @@ test('S8 settings channels reject bad requests and expose only invoke and on (AC
     (globalThis as unknown as RendererGlobals).novelStudio.invoke('settings:set', { language: undefined }),
   );
   expect(undefinedResult).toEqual(invalid);
-  expect(await readSettingsFile(appRoot)).toBe(validText);
+  await expectAppLog(appRoot, /backend ready/);
+  expect({ ...(await readSettingsJson(appRoot)), backendPid: null }).toEqual(JSON.parse(validText));
   await expectAppLog(appRoot, /\[warn\]\s+ipc settings:set IPC_INVALID_REQUEST/);
 
   expect(await invokeSettings(window, 'settings:get', { x: 1 })).toEqual(invalid);

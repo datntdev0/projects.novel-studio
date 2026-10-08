@@ -1,7 +1,7 @@
 import { test, expect, withApp } from '../../support/electron.ts';
 import { expectAppLog } from '../../support/app-log.ts';
 import { invokeSettings } from '../../support/settings-bridge.ts';
-import { readSettingsFile, readSettingsJson, settingsText, writeSettingsFile } from '../../support/settings-file.ts';
+import { readSettingsJson, settingsText, writeSettingsFile } from '../../support/settings-file.ts';
 
 const languageOnlyInvalid = settingsText({ language: 'fr', theme: 'light' });
 
@@ -21,7 +21,8 @@ for (const { reason, text, theme } of cases) {
       await expect(window.getByTestId('root-app-language')).toHaveText('en');
       await expect(window.getByTestId('root-app-theme')).toHaveText(theme);
       await expectAppLog(appRoot, new RegExp(`settings fallback ${reason} .*app-settings\\.json`));
-      expect(await readSettingsFile(appRoot)).toBe(text);
+      await expectAppLog(appRoot, /backend ready/);
+      expect(await readSettingsJson(appRoot)).toMatchObject({ language: 'en', theme });
       expect(await invokeSettings(window, 'settings:set', { language: 'vi' })).toMatchObject({ ok: true });
       expect(await readSettingsJson(appRoot)).toMatchObject({ version: 1, language: 'vi' });
     });

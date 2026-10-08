@@ -1,4 +1,4 @@
-import { app } from 'electron';
+import { app, type Event } from 'electron';
 import path from 'node:path';
 import { readMigrationDir, setSqliteWarningHandler, type Migration } from '@shared/data';
 import { applyAppPaths, resolveAppRoot } from './paths';
@@ -6,6 +6,7 @@ import { initLog, log } from './log';
 import { registerIpc } from './ipc';
 import { closeLibrary, openLibrary } from './library/library-service';
 import { readLibraryArg } from './library/library-paths';
+import { startBackend, stopBackend } from './backend/backend-supervisor';
 import { loadSettings } from './settings-store';
 import { applySessionGuards, createMainWindow, focusMainWindow } from './window';
 
@@ -24,6 +25,17 @@ function openLaunchLibrary(): void {
   } catch {
     return;
   }
+}
+
+let backendStopped = false;
+
+function quitAfterBackendStop(event: Event): void {
+  if (backendStopped) return;
+  event.preventDefault();
+  backendStopped = true;
+  stopBackend()
+    .catch((error: unknown) => log.error(`backend stop failed ${String(error)}`))
+    .finally(() => app.quit());
 }
 
 function start(): void {
@@ -48,7 +60,9 @@ function start(): void {
     registerIpc(loadMigrations);
     openLaunchLibrary();
     createMainWindow();
+    void startBackend(appRoot);
   });
+  app.on('before-quit', quitAfterBackendStop);
 }
 
 start();
