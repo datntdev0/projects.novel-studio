@@ -49,6 +49,24 @@
       "number": "Number",
       "look": "Look",
       "serifSample": "Reading font: ẳ ễ ở ự"
+    },
+    "probe": {
+      "toastInfo": "Info toast",
+      "toastSuccess": "Success toast",
+      "toastWarning": "Warning toast",
+      "toastError": "Error toast",
+      "infoTitle": "Information",
+      "infoBody": "This is an info message.",
+      "successTitle": "Saved",
+      "successBody": "Your changes were saved.",
+      "warningTitle": "Careful",
+      "warningBody": "This may take a while.",
+      "errorTitle": "Something failed",
+      "errorBody": "The command could not finish.",
+      "delete": "Delete chapter",
+      "deleteTitle": "Delete “{name}”?",
+      "deleteMessage": "Its text and notes will be lost.",
+      "deleteConfirm": "Delete"
     }
   },
   "error": {

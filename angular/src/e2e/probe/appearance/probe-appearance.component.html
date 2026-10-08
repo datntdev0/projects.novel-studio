@@ -1,0 +1,18 @@
+<section>
+  <button type="button" data-testid="probe-toast-info" (click)="showToast('info', 'info')">{{ 'dev.probe.toastInfo' | t }}</button>
+  <button type="button" data-testid="probe-toast-success" (click)="showToast('success', 'success')">
+    {{ 'dev.probe.toastSuccess' | t }}
+  </button>
+  <button type="button" data-testid="probe-toast-warning" (click)="showToast('warning', 'warning')">
+    {{ 'dev.probe.toastWarning' | t }}
+  </button>
+  <button
+    type="button"
+    data-testid="probe-toast-error"
+    (click)="showToast('danger', 'error', 'codex exec → error: not logged in (run `codex login`)')"
+  >
+    {{ 'dev.probe.toastError' | t }}
+  </button>
+  <button type="button" data-testid="probe-delete" (click)="deleteChapter()">{{ 'dev.probe.delete' | t }}</button>
+  <p data-testid="probe-delete-result">{{ deleteResult() }}</p>
+</section>

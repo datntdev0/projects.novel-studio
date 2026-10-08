@@ -49,6 +49,24 @@
       "number": "Số",
       "look": "Giao diện mẫu",
       "serifSample": "Phông chữ đọc: ẳ ễ ở ự"
+    },
+    "probe": {
+      "toastInfo": "Thông báo thông tin",
+      "toastSuccess": "Thông báo thành công",
+      "toastWarning": "Thông báo cảnh báo",
+      "toastError": "Thông báo lỗi",
+      "infoTitle": "Thông tin",
+      "infoBody": "Đây là một thông báo thông tin.",
+      "successTitle": "Đã lưu",
+      "successBody": "Các thay đổi của bạn đã được lưu.",
+      "warningTitle": "Cẩn thận",
+      "warningBody": "Việc này có thể mất một lúc.",
+      "errorTitle": "Đã xảy ra lỗi",
+      "errorBody": "Không thể hoàn tất lệnh.",
+      "delete": "Xóa chương",
+      "deleteTitle": "Xóa “{name}”?",
+      "deleteMessage": "Nội dung và ghi chú của chương sẽ bị mất.",
+      "deleteConfirm": "Xóa"
     }
   },
   "error": {
