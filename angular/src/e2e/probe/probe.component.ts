@@ -1,6 +1,9 @@
-import { Component, TemplateRef, afterNextRender, inject, signal, viewChild } from '@angular/core';
+import { Component, DestroyRef, TemplateRef, afterNextRender, inject, signal, viewChild } from '@angular/core';
 import type { Assignments, CliStatus, JobSummary, LibraryStats, LibraryStatus } from '@shared/core';
 import { BRIDGE } from '../../app/core/bridge/bridge.token';
+import { GLOBAL_SCOPE, type Command } from '../../app/core/shortcuts/command';
+import { CommandService } from '../../app/core/shortcuts/command.service';
+import { LayerService } from '../../app/core/shortcuts/layer.service';
 import { ErrorService } from '../../app/core/errors/error.service';
 import { ShellPanels } from '../../app/shell/shell-panels';
 import { ShellStore } from '../../app/shell/shell.store';
@@ -17,6 +20,11 @@ export class ProbeComponent {
   protected readonly clis = signal<CliStatus[]>([]);
   protected readonly assignments = signal<Assignments | null>(null);
   protected readonly jobs = signal<JobSummary[]>([]);
+  private readonly commands = inject(CommandService);
+  protected readonly lastCommand = signal<string | null>(null);
+  private readonly layerService = inject(LayerService);
+  private readonly releases: (() => void)[] = [];
+  protected readonly layers = signal<string[]>([]);
   private readonly left = viewChild.required<TemplateRef<unknown>>('left');
   private readonly right = viewChild.required<TemplateRef<unknown>>('right');
   private readonly bottom = viewChild.required<TemplateRef<unknown>>('bottom');
@@ -28,6 +36,30 @@ export class ProbeComponent {
       this.panels.set('bottom', this.bottom());
     });
     void this.loadValues();
+    const dispose = this.commands.register([
+      this.pingCommand('probe.ping'),
+      this.pingCommand('probe.ping-again'),
+      this.pingCommand('probe.home-again', GLOBAL_SCOPE, 'Ctrl+1'),
+    ]);
+    const destroyRef = inject(DestroyRef);
+    destroyRef.onDestroy(dispose);
+    destroyRef.onDestroy(() => this.releases.forEach((release) => release()));
+  }
+
+  protected pushLayers(): void {
+    if (this.layers().length > 0) return;
+    for (const name of ['a', 'b']) {
+      this.layers.update((names) => [...names, name]);
+      const release = this.layerService.push(() => {
+        release();
+        this.layers.update((names) => names.filter((item) => item !== name));
+      });
+      this.releases.push(release);
+    }
+  }
+
+  private pingCommand(id: string, scope = 'probe', key = 'Ctrl+Shift+P'): Command {
+    return { id, labelKey: 'module.probe.label', keywords: [], keys: [key], scope, needsNovel: false, run: () => this.lastCommand.set(id) };
   }
 
   protected openFirstNovel(): void {

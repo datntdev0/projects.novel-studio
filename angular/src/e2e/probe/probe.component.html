@@ -15,6 +15,9 @@
   <p data-testid="probe-open-novel">{{ store.openNovel() ?? 'none' }}</p>
   <button type="button" data-testid="probe-open-first-novel" (click)="openFirstNovel()">Open first novel</button>
   <button type="button" data-testid="probe-close-novel" (click)="store.closeNovel()">Close novel</button>
+  <p data-testid="probe-last-command">{{ lastCommand() ?? 'none' }}</p>
+  <p data-testid="probe-layers">{{ layers().join(' ') || 'none' }}</p>
+  <button type="button" data-testid="probe-push-layers" (click)="pushLayers()">Push layers</button>
   <ns-probe-foundation />
 </div>
 <ng-template #left><div data-testid="probe-panel-left">Left</div></ng-template>
