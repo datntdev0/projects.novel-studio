@@ -4,15 +4,71 @@
 }
 
 .shell {
+  --cur-rail-w: var(--rail-w);
+  --cur-left-w: var(--user-left-w, var(--left-w));
+  --cur-right-w: var(--user-right-w, var(--right-w));
+  --cur-bottom-h: var(--user-bottom-h, var(--bottom-h));
   display: grid;
+  grid-template-columns: var(--cur-rail-w) var(--cur-left-w) var(--gl) minmax(0, 1fr) var(--gr) var(--cur-right-w);
+  grid-template-rows: var(--top-h) minmax(0, 1fr) var(--gb) var(--cur-bottom-h) var(--status-h);
   grid-template-areas:
-    'top top top top'
-    'rail left work right'
-    'rail left bottom right'
-    'status status status status';
+    'top top top top top top'
+    'rail left gl work gr right'
+    'rail left gl gb gr right'
+    'rail left gl bottom gr right'
+    'status status status status status status';
   height: 100%;
   background: var(--color-background);
   color: var(--color-text);
+}
+
+.shell.rail-expanded {
+  --cur-rail-w: var(--rail-w-expanded);
+}
+
+.shell.no-left,
+.shell.collapsed-left {
+  --cur-left-w: 0px;
+  --gl: 0px;
+}
+
+.shell.no-right,
+.shell.collapsed-right {
+  --cur-right-w: 0px;
+  --gr: 0px;
+}
+
+.shell.no-bottom,
+.shell.collapsed-bottom {
+  --cur-bottom-h: 0px;
+  --gb: 0px;
+}
+
+.shell.no-left .panel-left,
+.shell.collapsed-left .panel-left,
+.shell.no-left .resizer.left,
+.shell.collapsed-left .resizer.left,
+.shell.no-right .panel-right,
+.shell.collapsed-right .panel-right,
+.shell.no-right .resizer.right,
+.shell.collapsed-right .resizer.right,
+.shell.no-bottom .panel-bottom,
+.shell.collapsed-bottom .panel-bottom,
+.shell.no-bottom .resizer.bottom,
+.shell.collapsed-bottom .resizer.bottom {
+  display: none;
+}
+
+.resizer.left {
+  grid-area: gl;
+}
+
+.resizer.right {
+  grid-area: gr;
+}
+
+.resizer.bottom {
+  grid-area: gb;
 }
 
 .topbar {

@@ -20,7 +20,8 @@
     "inbox": { "label": "Media inbox", "description": "Receive and manage external media the user designates." },
     "publishing": { "label": "Publishing", "description": "Package and distribute finished works per target channel." },
     "tasks": { "label": "Task Center", "description": "Run, track and resume long AI tasks without blocking the UI." },
-    "settings": { "label": "Settings", "description": "Manage app settings and choose the CLI for each task type." }
+    "settings": { "label": "Settings", "description": "Manage app settings and choose the CLI for each task type." },
+    "probeAlt": { "label": "Probe (left panel)", "description": "Layout probe with one panel" }
   },
   "command": {
     "toggleLanguage": "Switch language",

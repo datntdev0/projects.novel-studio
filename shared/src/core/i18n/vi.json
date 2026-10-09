@@ -20,7 +20,8 @@
     "inbox": { "label": "Hộp thư media", "description": "Nhận và quản lý media bên ngoài do người dùng chỉ định." },
     "publishing": { "label": "Xuất bản & kênh", "description": "Đóng gói và phân phối thành phẩm theo kênh đích." },
     "tasks": { "label": "Trung tâm tác vụ", "description": "Chạy, theo dõi và tiếp tục các tác vụ AI dài mà không khóa UI." },
-    "settings": { "label": "Cài đặt", "description": "Quản lý cấu hình ứng dụng và chọn CLI cho từng loại tác vụ." }
+    "settings": { "label": "Cài đặt", "description": "Quản lý cấu hình ứng dụng và chọn CLI cho từng loại tác vụ." },
+    "probeAlt": { "label": "Probe (panel trái)", "description": "Probe bố cục với một panel" }
   },
   "command": { "toggleLanguage": "Đổi ngôn ngữ", "toggleTheme": "Đổi giao diện", "palette": "Bảng lệnh", "shortcuts": "Phím tắt" },
   "shortcuts": {
