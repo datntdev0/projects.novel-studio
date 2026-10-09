@@ -35,7 +35,7 @@
     "here": "this screen",
     "escape": "Close overlay / leave focus mode"
   },
-  "topbar": { "language": "Language", "theme": "Theme" },
+  "topbar": { "language": "Language", "theme": "Theme", "toggleRail": "Expand or collapse the module rail" },
   "palette": {
     "button": "Search or run a command…",
     "placeholder": "Type a command, screen or novel…",

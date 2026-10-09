@@ -11,6 +11,8 @@ import { PaletteComponent } from './palette/palette.component';
 import { PaletteButtonComponent } from './palette/palette-button.component';
 import { ShortcutSheetComponent } from './shortcut-sheet/shortcut-sheet.component';
 import { RailComponent } from './rail/rail.component';
+import { BrandComponent } from './topbar/brand.component';
+import { LayoutStore } from './layout/layout.store';
 
 @Component({
   selector: 'ns-shell',
@@ -24,12 +26,14 @@ import { RailComponent } from './rail/rail.component';
     PaletteButtonComponent,
     ShortcutSheetComponent,
     RailComponent,
+    BrandComponent,
   ],
   templateUrl: './shell.component.html',
   styleUrl: './shell.component.scss',
 })
 export class ShellComponent {
   protected readonly panels = inject(ShellPanels);
+  protected readonly layout = inject(LayoutStore);
   private readonly store = inject(ShellStore);
   private readonly shown = computed(() => {
     const entry = findEntry(this.store.activeModule());
@@ -41,7 +45,8 @@ export class ShellComponent {
     };
   });
   protected readonly columns = computed(
-    () => `var(--rail-w) ${this.shown().left ? 'var(--left-w)' : '0'} minmax(0, 1fr) ${this.shown().right ? 'var(--right-w)' : '0'}`,
+    () =>
+      `${this.layout.railExpanded() ? 'var(--rail-w-expanded)' : 'var(--rail-w)'} ${this.shown().left ? 'var(--left-w)' : '0'} minmax(0, 1fr) ${this.shown().right ? 'var(--right-w)' : '0'}`,
   );
   protected readonly rows = computed(() => `var(--top-h) minmax(0, 1fr) ${this.shown().bottom ? 'var(--bottom-h)' : '0'} var(--status-h)`);
 

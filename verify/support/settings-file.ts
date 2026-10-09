@@ -7,6 +7,7 @@ const DEFAULT_SETTINGS_FILE = {
   theme: 'dark',
   windowBounds: null,
   layout: {},
+  railExpanded: false,
   libraryPath: null,
   backendPid: null,
 };
