@@ -30,6 +30,11 @@
   flex: none;
 }
 
+.topbar > ns-crumbs {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
 .topbar > .spacer {
   flex: 1;
   min-width: 0;

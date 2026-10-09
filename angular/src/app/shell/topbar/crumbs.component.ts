@@ -10,7 +10,7 @@ import { NovelChipComponent } from './novel-chip.component';
   template: `
     <nav class="crumbs" data-testid="topbar-crumbs" [attr.aria-label]="'topbar.context' | t">
       <b data-testid="topbar-crumb-module">{{ labelKey() | t }}</b>
-      @if (store.openNovel()) {
+      @if (hasNovel()) {
         <span class="sep">·</span>
         <ns-novel-chip />
       }
@@ -46,5 +46,6 @@ import { NovelChipComponent } from './novel-chip.component';
 })
 export class CrumbsComponent {
   protected readonly store = inject(ShellStore);
+  protected readonly hasNovel = computed(() => this.store.novels().some((item) => item.id === this.store.openNovel()));
   protected readonly labelKey = computed(() => findEntry(this.store.activeModule())?.labelKey ?? '');
 }
