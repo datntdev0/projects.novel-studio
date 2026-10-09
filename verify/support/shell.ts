@@ -38,6 +38,21 @@ export async function openFirstNovel(page: Page): Promise<void> {
   await expect(page.getByTestId('probe-open-novel')).not.toHaveText('none');
 }
 
+export const NOVEL_SCOPED_IDS = ['reader', 'storyworld', 'translation', 'storychat', 'audiobook', 'film', 'videoeditor'];
+
+export async function goWithNovel(page: Page, screen: string): Promise<void> {
+  await page.evaluate("location.hash = '#/probe'");
+  await openFirstNovel(page);
+  await page.evaluate(`location.hash = '#/${screen}'`);
+  await expect(page).toHaveURL(new RegExp(`#/${screen}$`));
+}
+
+export async function expectNavTarget(page: Page, from: string, moduleId: string): Promise<void> {
+  const target = from === 'home' && NOVEL_SCOPED_IDS.includes(moduleId) ? 'home' : moduleId;
+  await expect(page.getByTestId(`module-host-${target}`)).toBeAttached();
+  await expect(page).toHaveURL(new RegExp(`#/${target}$`));
+}
+
 export async function gotoFoundation(page: Page): Promise<void> {
   await gotoShell(page, { probe: true, hash: 'probe' });
   await expect(page.getByTestId('app-hello-title')).toBeVisible();

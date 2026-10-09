@@ -30,13 +30,22 @@
     "here": "màn hình này",
     "escape": "Đóng overlay / thoát tập trung"
   },
-  "topbar": { "language": "Ngôn ngữ", "theme": "Giao diện" },
+  "topbar": {
+    "language": "Ngôn ngữ",
+    "theme": "Giao diện",
+    "toggleRail": "Mở rộng hoặc thu gọn thanh module",
+    "context": "Ngữ cảnh",
+    "chapters": "{count} chương",
+    "switchNovel": "đổi truyện",
+    "closeNovel": "Đóng truyện"
+  },
   "palette": {
     "button": "Tìm hoặc chạy lệnh…",
     "placeholder": "Gõ lệnh, màn hình hoặc tên truyện…",
     "module": "Đi tới module · {group}",
     "commands": "Lệnh",
     "novels": "Truyện",
+    "noNovels": "Chưa có truyện",
     "emptyTitle": "Không có kết quả",
     "emptyText": "Thử từ khác hoặc bỏ bộ lọc.",
     "filterNovels": "Chỉ truyện",
@@ -45,6 +54,7 @@
     "close": "Đóng"
   },
   "rail": {
+    "label": "Module",
     "group": {
       "library": "Thư viện",
       "workspace": "Không gian làm việc",

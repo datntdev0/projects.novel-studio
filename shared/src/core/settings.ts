@@ -14,6 +14,7 @@ export interface AppSettings {
   theme: Theme;
   windowBounds: WindowBounds | null;
   layout: ShellLayout;
+  railExpanded: boolean;
   libraryPath: string | null;
   backendPid: number | null;
 }
@@ -22,6 +23,7 @@ export interface SettingsPatch {
   theme?: Theme;
   windowBounds?: WindowBounds | null;
   layout?: ShellLayout;
+  railExpanded?: boolean;
 }
 export interface InitialSettings {
   language: Language;
@@ -41,6 +43,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   theme: DEFAULT_THEME,
   windowBounds: null,
   layout: {},
+  railExpanded: false,
   libraryPath: null,
   backendPid: null,
 };
@@ -68,11 +71,12 @@ const VALIDATORS: Validators = {
   theme: isOneOf(THEMES),
   windowBounds: isNullOr(isWindowBounds),
   layout: isLayout,
+  railExpanded: (value) => typeof value === 'boolean',
   libraryPath: isNullOr((value) => typeof value === 'string'),
   backendPid: isNullOr(Number.isInteger),
 };
 const SETTINGS_KEYS = Object.keys(VALIDATORS) as (keyof AppSettings)[];
-const PATCH_KEYS: string[] = ['language', 'theme', 'windowBounds', 'layout'];
+const PATCH_KEYS: string[] = ['language', 'theme', 'windowBounds', 'layout', 'railExpanded'];
 
 const defaultSettings = (): AppSettings => ({ ...DEFAULT_SETTINGS, layout: {} });
 const failed = (fallback: string): SettingsRead => ({ settings: defaultSettings(), unknown: {}, fallback });

@@ -19,16 +19,25 @@
   grid-area: top;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  padding: 0 8px;
+  gap: var(--sp-sm);
+  padding: 0 var(--sp-sm) 0 var(--sp-md);
+  white-space: nowrap;
   border-bottom: 1px solid var(--color-border);
   background: var(--color-surface);
 }
 
-.rail {
-  grid-area: rail;
-  border-right: 1px solid var(--color-border);
-  background: var(--color-surface);
+.topbar > * {
+  flex: none;
+}
+
+.topbar > ns-crumbs {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.topbar > .spacer {
+  flex: 1;
+  min-width: 0;
 }
 
 .panel-left,

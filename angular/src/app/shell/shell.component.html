@@ -1,6 +1,8 @@
 <div class="shell" data-testid="app-shell" [style.grid-template-columns]="columns()" [style.grid-template-rows]="rows()">
-  <header class="topbar" data-testid="topbar"><ns-palette-button /><ns-appearance-buttons /></header>
-  <nav class="rail" data-testid="rail"></nav>
+  <header class="topbar" data-testid="topbar">
+    <ns-brand /><ns-crumbs /><span class="spacer"></span><ns-palette-button /><ns-appearance-buttons />
+  </header>
+  <ns-rail [expanded]="layout.railExpanded()" />
   <aside class="panel-left" data-testid="panel-left"><ng-container *ngTemplateOutlet="panels.left()" /></aside>
   <main class="workspace" data-testid="workspace"><router-outlet /></main>
   <aside class="panel-right" data-testid="panel-right"><ng-container *ngTemplateOutlet="panels.right()" /></aside>

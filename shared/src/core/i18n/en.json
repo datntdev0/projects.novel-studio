@@ -35,13 +35,22 @@
     "here": "this screen",
     "escape": "Close overlay / leave focus mode"
   },
-  "topbar": { "language": "Language", "theme": "Theme" },
+  "topbar": {
+    "language": "Language",
+    "theme": "Theme",
+    "toggleRail": "Expand or collapse the module rail",
+    "context": "Context",
+    "chapters": "{count} ch.",
+    "switchNovel": "switch novel",
+    "closeNovel": "Close novel"
+  },
   "palette": {
     "button": "Search or run a command…",
     "placeholder": "Type a command, screen or novel…",
     "module": "Go to module · {group}",
     "commands": "Commands",
     "novels": "Novels",
+    "noNovels": "No novels yet",
     "emptyTitle": "No results",
     "emptyText": "Try another word, or clear the filter.",
     "filterNovels": "Novels only",
@@ -50,6 +59,7 @@
     "close": "Close"
   },
   "rail": {
+    "label": "Modules",
     "group": {
       "library": "Library",
       "workspace": "Workspace",

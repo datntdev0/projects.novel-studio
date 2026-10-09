@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
-import { openFirstNovel } from '../../support/shell.ts';
+import { expectNavTarget, goWithNovel, openFirstNovel } from '../../support/shell.ts';
 import { NAV_KEYS } from '../../support/shortcuts.ts';
 import { gotoProbe, openPalette, openSheet } from '../../support/palette.ts';
 import { readHtml } from '../../support/theme.ts';
@@ -43,10 +43,9 @@ for (const screen of SCREENS) {
     await expect.poll(async () => (await readHtml(page)).lang).toBe(before.lang);
 
     for (const { chord, moduleId } of NAV_KEYS) {
-      await goTo(page, screen);
+      await goWithNovel(page, screen);
       await page.keyboard.press(chord);
-      await expect(page).toHaveURL(new RegExp(`#/${moduleId}$`));
-      await expect(page.getByTestId(`module-host-${moduleId}`)).toBeAttached();
+      await expectNavTarget(page, screen, moduleId);
     }
 
     expect(warnings.filter((text) => text.includes('refused') && !text.includes('refused for probe.'))).toEqual([]);

@@ -1,0 +1,149 @@
+:host {
+  grid-area: rail;
+  display: block;
+  min-height: 0;
+}
+
+.rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  padding: var(--sp-sm) 0;
+  background: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.rail-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: inherit;
+  overflow: hidden auto;
+  scrollbar-width: none;
+}
+
+.rail-group {
+  display: flex;
+  flex-direction: column;
+  align-items: inherit;
+  gap: 2px;
+}
+
+.rail-entry {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-sm);
+  width: 32px;
+  height: 32px;
+  flex: none;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-secondary);
+  font: inherit;
+  cursor: pointer;
+}
+
+.label,
+.rail-title {
+  display: none;
+}
+
+.rail-entry:hover {
+  background: var(--color-surface-muted);
+  color: var(--color-text);
+}
+
+.rail-entry.active {
+  background: var(--color-surface-muted);
+  color: var(--color-text);
+}
+
+.rail-entry.active::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--color-primary);
+}
+
+.sep {
+  width: 24px;
+  height: 1px;
+  flex: none;
+  background: var(--color-border);
+  margin: var(--sp-xs) 0;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+}
+
+.badge {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+}
+
+.rail.expanded {
+  align-items: stretch;
+  padding: var(--sp-xs) 0;
+}
+
+.rail.expanded .rail-group {
+  gap: 0;
+  padding: 0 6px;
+}
+
+.rail.expanded .rail-scroll {
+  scrollbar-width: thin;
+}
+
+.rail.expanded .rail-entry {
+  width: auto;
+  height: 30px;
+  justify-content: flex-start;
+  padding: 0 9px;
+  font-size: 13px;
+  text-align: left;
+}
+
+.rail.expanded .label {
+  display: block;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rail.expanded .badge {
+  position: static;
+}
+
+.rail.expanded .sep {
+  display: none;
+}
+
+.rail.expanded .rail-title {
+  display: block;
+  padding: var(--sp-xs) 9px var(--sp-xxs);
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 600;
+  color: var(--color-text-tertiary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
