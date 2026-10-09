@@ -10,10 +10,11 @@ import { ShellStore } from '../../app/shell/shell.store';
 import { ProbeFoundationComponent } from './foundation/probe-foundation.component';
 import { ProbeAppearanceComponent } from './appearance/probe-appearance.component';
 import { ProbeShortcutsComponent } from './shortcuts/probe-shortcuts.component';
+import { ProbeStatusComponent } from './status/probe-status.component';
 
 @Component({
   selector: 'ns-probe',
-  imports: [ProbeFoundationComponent, ProbeAppearanceComponent, ProbeShortcutsComponent],
+  imports: [ProbeFoundationComponent, ProbeAppearanceComponent, ProbeShortcutsComponent, ProbeStatusComponent],
   templateUrl: './probe.component.html',
 })
 export class ProbeComponent {
