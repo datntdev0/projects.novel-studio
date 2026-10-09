@@ -13,15 +13,16 @@
   [style.--user-bottom-h]="layout.current().bottom ? layout.current().bottom + 'px' : null"
 >
   <header class="topbar" data-testid="topbar">
-    <ns-brand /><ns-crumbs /><span class="spacer"></span><ns-palette-button /><ns-appearance-buttons /><ns-settings-button />
+    <ns-brand /><ns-crumbs /><span class="spacer"></span
+    ><ns-palette-button /><ns-panel-toggles /><ns-appearance-buttons /><ns-settings-button />
   </header>
   <ns-rail [expanded]="layout.railExpanded()" />
   <aside class="panel-left" data-testid="panel-left"><ng-container *ngTemplateOutlet="panels.left()" /></aside>
-  <div class="resizer left" data-testid="resizer-left"></div>
+  <div class="resizer left" data-testid="resizer-left" nsResizer="left"></div>
   <main class="workspace" data-testid="workspace"><router-outlet /></main>
-  <div class="resizer right" data-testid="resizer-right"></div>
+  <div class="resizer right" data-testid="resizer-right" nsResizer="right"></div>
   <aside class="panel-right" data-testid="panel-right"><ng-container *ngTemplateOutlet="panels.right()" /></aside>
-  <div class="resizer bottom" data-testid="resizer-bottom"></div>
+  <div class="resizer bottom" data-testid="resizer-bottom" nsResizer="bottom"></div>
   <section class="panel-bottom" data-testid="panel-bottom"><ng-container *ngTemplateOutlet="panels.bottom()" /></section>
   <ns-status-bar />
 </div>

@@ -32,7 +32,7 @@ test('S2 with a novel open all modules are listed in rail group order (AC-31)', 
   await openFirstNovel(page);
   await openPalette(page);
   await expect(page.getByTestId('palette-group-module-workspace')).toBeVisible();
-  const modules = (await paletteRowIds(page)).filter((id) => id.startsWith('palette-module-') && id !== 'palette-module-probe');
+  const modules = (await paletteRowIds(page)).filter((id) => id.startsWith('palette-module-') && !id.startsWith('palette-module-probe'));
   expect(modules).toEqual(REGISTRY_IDS.map((id) => `palette-module-${id}`));
 });
 

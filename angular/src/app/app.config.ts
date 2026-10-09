@@ -8,6 +8,7 @@ import { provideSettings } from './core/settings/settings.provider';
 import { provideShortcuts } from './core/shortcuts/shortcuts.provider';
 import { provideTheme } from './core/theme/theme.provider';
 import { provideAppearanceCommands } from './shell/commands/appearance.commands';
+import { provideLayoutCommands } from './shell/commands/layout.commands';
 import { provideOverlayCommands } from './shell/commands/overlay.commands';
 import { provideNavigationCommands } from './shell/commands/navigation.commands';
 import { provideShortcutContext } from './shell/commands/shortcut-context.provider';
@@ -30,5 +31,6 @@ export const appConfig: ApplicationConfig = {
     provideNavigationCommands(),
     provideAppearanceCommands(),
     provideOverlayCommands(),
+    provideLayoutCommands(),
   ],
 };

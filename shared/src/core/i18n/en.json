@@ -27,8 +27,12 @@
     "toggleLanguage": "Switch language",
     "toggleTheme": "Switch theme",
     "palette": "Command palette",
-    "shortcuts": "Keyboard shortcuts"
+    "shortcuts": "Keyboard shortcuts",
+    "toggleLeft": "Toggle left panel",
+    "toggleRight": "Toggle inspector",
+    "toggleBottom": "Toggle bottom panel"
   },
+  "layout": { "collapse": "Collapse", "resizer": "Drag to resize · double-click to reset" },
   "shortcuts": {
     "title": "Keyboard shortcuts",
     "meta": "Global first, then per module",

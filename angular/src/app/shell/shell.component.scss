@@ -59,16 +59,46 @@
   display: none;
 }
 
+.resizer {
+  background: transparent;
+  position: relative;
+  z-index: 2;
+}
+
+.resizer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transition: background-color 120ms;
+}
+
+.resizer:hover::after,
+.resizer.dragging::after {
+  background: var(--color-primary);
+}
+
 .resizer.left {
   grid-area: gl;
+  cursor: col-resize;
 }
 
 .resizer.right {
   grid-area: gr;
+  cursor: col-resize;
 }
 
 .resizer.bottom {
   grid-area: gb;
+  cursor: row-resize;
+}
+
+.resizer.left::after,
+.resizer.right::after {
+  inset: 0 -2px;
+}
+
+.resizer.bottom::after {
+  inset: -2px 0;
 }
 
 .topbar {
