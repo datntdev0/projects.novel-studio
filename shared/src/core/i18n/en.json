@@ -20,13 +20,25 @@
     "inbox": { "label": "Media inbox", "description": "Receive and manage external media the user designates." },
     "publishing": { "label": "Publishing", "description": "Package and distribute finished works per target channel." },
     "tasks": { "label": "Task Center", "description": "Run, track and resume long AI tasks without blocking the UI." },
-    "settings": { "label": "Settings", "description": "Manage app settings and choose the CLI for each task type." }
+    "settings": { "label": "Settings", "description": "Manage app settings and choose the CLI for each task type." },
+    "probeAlt": { "label": "Probe (left panel)", "description": "Layout probe with one panel" }
   },
   "command": {
     "toggleLanguage": "Switch language",
     "toggleTheme": "Switch theme",
     "palette": "Command palette",
-    "shortcuts": "Keyboard shortcuts"
+    "shortcuts": "Keyboard shortcuts",
+    "toggleLeft": "Toggle left panel",
+    "toggleRight": "Toggle inspector",
+    "toggleBottom": "Toggle bottom panel",
+    "focusMode": "Focus mode",
+    "resetLayout": "Reset layout"
+  },
+  "layout": {
+    "collapse": "Collapse",
+    "resizer": "Drag to resize · double-click to reset",
+    "resetDone": "Layout reset to default",
+    "focusHint": "Focus mode — press Esc to leave"
   },
   "shortcuts": {
     "title": "Keyboard shortcuts",

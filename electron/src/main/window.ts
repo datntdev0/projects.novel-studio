@@ -1,8 +1,9 @@
-import { BrowserWindow, screen, session } from 'electron';
+import { BrowserWindow, session } from 'electron';
 import path from 'node:path';
 import { APP_NAME, THEME_BACKGROUNDS } from '@shared/core';
 import { log } from './log';
 import { getSettings } from './settings-store';
+import { initialBounds, trackWindowState } from './window-state';
 
 const REMOTE_URLS = ['http://*/*', 'https://*/*', 'ws://*/*', 'wss://*/*'];
 
@@ -36,10 +37,8 @@ function applyWindowGuards(window: BrowserWindow): void {
 }
 
 export function createMainWindow(): BrowserWindow {
-  const { width, height } = screen.getPrimaryDisplay().workAreaSize;
   const window = new BrowserWindow({
-    width: Math.min(1440, width),
-    height: Math.min(900, height),
+    ...initialBounds(),
     minWidth: 1280,
     minHeight: 720,
     title: APP_NAME,
@@ -47,6 +46,7 @@ export function createMainWindow(): BrowserWindow {
     icon: path.join(__dirname, 'icon.ico'),
     webPreferences: { preload: path.join(__dirname, 'preload.cjs'), contextIsolation: true, sandbox: true, nodeIntegration: false },
   });
+  trackWindowState(window);
   applyWindowGuards(window);
   window.on('closed', () => (mainWindow = null));
   void window.loadFile(path.join(__dirname, 'renderer/index.html'));

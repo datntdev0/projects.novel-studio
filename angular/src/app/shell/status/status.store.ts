@@ -20,6 +20,10 @@ export class StatusStore {
   readonly backend = this.backendState.asReadonly();
   readonly library = this.libraryState.asReadonly();
   readonly runningJob = computed(() => this.jobsState().find((job) => job.state === 'running') ?? null);
+  readonly runningPercent = computed(() => {
+    const job = this.runningJob();
+    return job?.totalCount ? Math.round((job.completedCount * 100) / job.totalCount) : 0;
+  });
   readonly attentionCount = computed(() => this.jobsState().filter((job) => job.needsAttention).length);
 
   constructor() {

@@ -7,7 +7,14 @@ export interface WindowBounds {
   height: number;
   maximized: boolean;
 }
-export type ShellLayout = Record<string, Record<string, number>>;
+export type PanelSide = 'left' | 'right' | 'bottom';
+export interface ScreenLayout {
+  left?: number;
+  right?: number;
+  bottom?: number;
+  collapsed?: PanelSide[];
+}
+export type ShellLayout = Record<string, ScreenLayout>;
 export interface AppSettings {
   version: 1;
   language: Language;
@@ -36,6 +43,7 @@ export interface SettingsRead {
 }
 
 export const SETTINGS_INITIAL_CHANNEL = 'settings:initial';
+export const PANEL_SIDES: PanelSide[] = ['left', 'right', 'bottom'];
 export const SETTINGS_FILE = 'app-settings.json';
 export const DEFAULT_SETTINGS: AppSettings = {
   version: 1,
@@ -62,8 +70,12 @@ const isNullOr =
     value === null || check(value);
 const isWindowBounds = (value: unknown): boolean =>
   isRecord(value) && ['x', 'y', 'width', 'height'].every((key) => isNumber(value[key])) && typeof value['maximized'] === 'boolean';
-const isPanelSizes = (value: unknown): boolean => isRecord(value) && Object.values(value).every(isNumber);
-const isLayout = (value: unknown): boolean => isRecord(value) && Object.values(value).every(isPanelSizes);
+const isScreenLayoutEntry = ([key, value]: [string, unknown]): boolean =>
+  key === 'collapsed'
+    ? Array.isArray(value) && value.every(isOneOf(PANEL_SIDES))
+    : PANEL_SIDES.includes(key as PanelSide) && isNumber(value);
+const isScreenLayout = (value: unknown): boolean => isRecord(value) && Object.entries(value).every(isScreenLayoutEntry);
+const isLayout = (value: unknown): boolean => isRecord(value) && Object.values(value).every(isScreenLayout);
 
 const VALIDATORS: Validators = {
   version: (value) => value === 1,

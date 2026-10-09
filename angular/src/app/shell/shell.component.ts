@@ -1,7 +1,6 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { findEntry } from './registry/module-registry';
 import { ShellPanels } from './shell-panels';
 import { ShellStore } from './shell.store';
 import { ToastOutletComponent } from './feedback/toast-outlet.component';
@@ -16,6 +15,9 @@ import { BrandComponent } from './topbar/brand.component';
 import { CrumbsComponent } from './topbar/crumbs.component';
 import { LayoutStore } from './layout/layout.store';
 import { StatusBarComponent } from './status/status-bar.component';
+import { ResizerDirective } from './layout/resizer.directive';
+import { PanelTogglesComponent } from './topbar/panel-toggles.component';
+import { FocusBarComponent } from './layout/focus-bar.component';
 
 @Component({
   selector: 'ns-shell',
@@ -33,6 +35,9 @@ import { StatusBarComponent } from './status/status-bar.component';
     BrandComponent,
     CrumbsComponent,
     StatusBarComponent,
+    ResizerDirective,
+    PanelTogglesComponent,
+    FocusBarComponent,
   ],
   templateUrl: './shell.component.html',
   styleUrl: './shell.component.scss',
@@ -41,21 +46,6 @@ export class ShellComponent {
   protected readonly panels = inject(ShellPanels);
   protected readonly layout = inject(LayoutStore);
   private readonly store = inject(ShellStore);
-  private readonly shown = computed(() => {
-    const entry = findEntry(this.store.activeModule());
-    const hasContent = !!entry?.load;
-    return {
-      left: hasContent && !!entry?.panels.left,
-      right: hasContent && !!entry?.panels.right,
-      bottom: hasContent && !!entry?.panels.bottom,
-    };
-  });
-  protected readonly columns = computed(
-    () =>
-      `${this.layout.railExpanded() ? 'var(--rail-w-expanded)' : 'var(--rail-w)'} ${this.shown().left ? 'var(--left-w)' : '0'} minmax(0, 1fr) ${this.shown().right ? 'var(--right-w)' : '0'}`,
-  );
-  protected readonly rows = computed(() => `var(--top-h) minmax(0, 1fr) ${this.shown().bottom ? 'var(--bottom-h)' : '0'} var(--status-h)`);
-
   constructor() {
     void this.store.load();
   }

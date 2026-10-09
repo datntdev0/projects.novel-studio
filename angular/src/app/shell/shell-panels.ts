@@ -1,6 +1,5 @@
 import { Injectable, TemplateRef, signal } from '@angular/core';
-
-export type PanelSide = 'left' | 'right' | 'bottom';
+import type { PanelSide } from '@shared/core';
 
 @Injectable({ providedIn: 'root' })
 export class ShellPanels {

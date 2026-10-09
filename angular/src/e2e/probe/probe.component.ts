@@ -11,10 +11,19 @@ import { ProbeFoundationComponent } from './foundation/probe-foundation.componen
 import { ProbeAppearanceComponent } from './appearance/probe-appearance.component';
 import { ProbeShortcutsComponent } from './shortcuts/probe-shortcuts.component';
 import { ProbeStatusComponent } from './status/probe-status.component';
+import { PanelCollapseDirective } from '../../app/shell/layout/panel-collapse.directive';
+import { IconComponent } from '../../app/components/icon/icon.component';
 
 @Component({
   selector: 'ns-probe',
-  imports: [ProbeFoundationComponent, ProbeAppearanceComponent, ProbeShortcutsComponent, ProbeStatusComponent],
+  imports: [
+    ProbeFoundationComponent,
+    ProbeAppearanceComponent,
+    ProbeShortcutsComponent,
+    ProbeStatusComponent,
+    PanelCollapseDirective,
+    IconComponent,
+  ],
   templateUrl: './probe.component.html',
 })
 export class ProbeComponent {

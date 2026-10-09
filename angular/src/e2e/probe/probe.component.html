@@ -22,7 +22,23 @@
   <ns-probe-appearance />
   <ns-probe-shortcuts />
   <ns-probe-status />
+  <div data-testid="probe-layout-spacer" style="height: 1600px"></div>
 </div>
-<ng-template #left><div data-testid="probe-panel-left">Left</div></ng-template>
-<ng-template #right><div data-testid="probe-panel-right">Right</div></ng-template>
-<ng-template #bottom><div data-testid="probe-panel-bottom">Bottom</div></ng-template>
+<ng-template #left
+  ><header>
+    <button type="button" nsPanelCollapse="left" data-testid="probe-collapse-left"><ns-icon name="panel-left" /></button>
+  </header>
+  <div data-testid="probe-panel-left">Left</div></ng-template
+>
+<ng-template #right
+  ><header>
+    <button type="button" nsPanelCollapse="right" data-testid="probe-collapse-right"><ns-icon name="panel-right" /></button>
+  </header>
+  <div data-testid="probe-panel-right">Right</div></ng-template
+>
+<ng-template #bottom
+  ><header>
+    <button type="button" nsPanelCollapse="bottom" data-testid="probe-collapse-bottom"><ns-icon name="panel-bottom" /></button>
+  </header>
+  <div data-testid="probe-panel-bottom">Bottom</div></ng-template
+>

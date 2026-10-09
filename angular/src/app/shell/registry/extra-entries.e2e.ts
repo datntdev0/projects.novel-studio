@@ -14,4 +14,13 @@ const PROBE_ENTRY: ModuleEntry = {
   load: () => import('../../../e2e/probe/probe.component').then((m) => m.ProbeComponent),
 };
 
-export const EXTRA_ENTRIES: ModuleEntry[] = new URLSearchParams(window.location.search).get('probe') === '1' ? [PROBE_ENTRY] : [];
+const PROBE_ALT_ENTRY: ModuleEntry = {
+  ...PROBE_ENTRY,
+  id: 'probe-alt',
+  labelKey: 'module.probeAlt.label',
+  descriptionKey: 'module.probeAlt.description',
+  panels: { left: true, right: false, bottom: false },
+};
+
+export const EXTRA_ENTRIES: ModuleEntry[] =
+  new URLSearchParams(window.location.search).get('probe') === '1' ? [PROBE_ENTRY, PROBE_ALT_ENTRY] : [];
