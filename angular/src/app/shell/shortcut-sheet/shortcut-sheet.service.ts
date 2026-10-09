@@ -6,11 +6,18 @@ export class ShortcutSheetService {
 
   readonly visible = this.open.asReadonly();
 
+  private opener: Element | null = null;
+
   show(): void {
+    if (!this.open()) {
+      this.opener = document.activeElement;
+    }
     this.open.set(true);
   }
 
-  hide(): void {
+  hide(): Element | null {
+    const opener = this.open() ? this.opener : null;
     this.open.set(false);
+    return opener;
   }
 }

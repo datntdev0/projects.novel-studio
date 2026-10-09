@@ -14,8 +14,7 @@ export const overlayCommands = (palette: PaletteService, sheet: ShortcutSheetSer
     scope: GLOBAL_SCOPE,
     needsNovel: false,
     run: () => {
-      sheet.hide();
-      palette.open();
+      palette.open('all', sheet.hide());
     },
   },
   {

@@ -15,9 +15,9 @@ export class PaletteService {
 
   readonly state = this.current.asReadonly();
 
-  open(filter: PaletteFilter = 'all'): void {
+  open(filter: PaletteFilter = 'all', opener: Element | null = null): void {
     if (this.current() === null) {
-      this.opener = document.activeElement;
+      this.opener = opener ?? document.activeElement;
       this.releaseLayer = this.layers.push(() => this.close());
     }
     this.setFilter(filter);
