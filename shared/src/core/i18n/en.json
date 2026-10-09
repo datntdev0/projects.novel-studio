@@ -22,8 +22,31 @@
     "tasks": { "label": "Task Center", "description": "Run, track and resume long AI tasks without blocking the UI." },
     "settings": { "label": "Settings", "description": "Manage app settings and choose the CLI for each task type." }
   },
-  "command": { "toggleLanguage": "Switch language", "toggleTheme": "Switch theme" },
+  "command": { "toggleLanguage": "Switch language", "toggleTheme": "Switch theme", "palette": "Command palette" },
   "topbar": { "language": "Language", "theme": "Theme" },
+  "palette": {
+    "button": "Search or run a command…",
+    "placeholder": "Type a command, screen or novel…",
+    "module": "Go to module · {group}",
+    "commands": "Commands",
+    "novels": "Novels",
+    "emptyTitle": "No results",
+    "emptyText": "Try another word, or clear the filter.",
+    "filterNovels": "Novels only",
+    "navigate": "Navigate",
+    "run": "Run",
+    "close": "Close"
+  },
+  "rail": {
+    "group": {
+      "library": "Library",
+      "workspace": "Workspace",
+      "media": "Media",
+      "production": "Production",
+      "distribution": "Distribution",
+      "system": "System"
+    }
+  },
   "shell": { "openNovelFirst": "Open a novel first" },
   "dev": {
     "root": {
@@ -78,7 +101,8 @@
       "input": "Text input",
       "scrollLine": "Scroll line",
       "moduleAction": "Module action",
-      "registerModuleCommand": "Register module command"
+      "registerModuleCommand": "Register module command",
+      "openPaletteNovels": "Open palette (novels)"
     }
   },
   "error": {
