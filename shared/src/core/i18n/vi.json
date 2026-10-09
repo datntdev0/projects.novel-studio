@@ -123,6 +123,10 @@
     }
   },
   "status": {
+    "noLibrary": "Chưa mở thư viện",
+    "chapter": "Ch. {number} · {chars} ký tự",
+    "hint": { "palette": "lệnh", "shortcuts": "phím tắt" },
+    "theme": { "dark": "tối", "light": "sáng" },
     "cli": {
       "title": "CLI {name} · Cài đặt",
       "missing": "không tìm thấy",

@@ -33,7 +33,14 @@ export interface PaletteSource {
 
 export const PALETTE_COMMAND_ID = 'overlay.palette';
 
+export const SHORTCUTS_COMMAND_ID = 'overlay.shortcuts';
+
 export const commandKeys = (commands: Command[], id: string): string[] => commands.find((command) => command.id === id)?.keys ?? [];
+
+export const commandTitle = (label: string, commands: Command[], id: string): string => {
+  const keys = commandKeys(commands, id);
+  return keys.length === 0 ? label : `${label} · ${keys.join(', ')}`;
+};
 
 export function normalizeSearch(text: string): string {
   return text.normalize('NFD').replace(/\p{M}/gu, '').replace(/[đĐ]/g, 'd').toLowerCase().trim().replace(/\s+/g, ' ');

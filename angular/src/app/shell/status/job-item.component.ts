@@ -3,7 +3,7 @@ import { DotComponent, type DotState } from '../../components/status/dot.compone
 import { I18nService } from '../../core/i18n/i18n.service';
 import { CommandService } from '../../core/shortcuts/command.service';
 import { navCommandId } from '../commands/navigation.commands';
-import { commandKeys } from '../palette/palette-search';
+import { commandTitle } from '../palette/palette-search';
 import { StatusStore } from './status.store';
 
 @Component({
@@ -33,9 +33,7 @@ export class JobItemComponent {
     const count = this.store.attentionCount();
     return count > 0 ? this.i18n.t('status.job.attention', { count }) : '';
   });
-  protected readonly title = computed(
-    () => `${this.i18n.t('module.tasks.label')} · ${commandKeys(this.commands.commands(), this.tasksId).join(', ')}`,
-  );
+  protected readonly title = computed(() => commandTitle(this.i18n.t('module.tasks.label'), this.commands.commands(), this.tasksId));
   protected readonly text = computed(() => {
     const job = this.store.runningJob();
     if (!job) return this.i18n.t('status.job.idle');

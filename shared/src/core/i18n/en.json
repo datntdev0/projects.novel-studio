@@ -128,6 +128,10 @@
     }
   },
   "status": {
+    "noLibrary": "No library open",
+    "chapter": "Ch. {number} · {chars} chars",
+    "hint": { "palette": "commands", "shortcuts": "shortcuts" },
+    "theme": { "dark": "dark", "light": "light" },
     "cli": {
       "title": "{name} CLI · Settings",
       "missing": "not found",

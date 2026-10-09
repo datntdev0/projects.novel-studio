@@ -7,6 +7,7 @@ import { ShellStore } from './shell.store';
 import { ToastOutletComponent } from './feedback/toast-outlet.component';
 import { ConfirmOutletComponent } from './feedback/confirm-outlet.component';
 import { AppearanceButtonsComponent } from './topbar/appearance-buttons.component';
+import { SettingsButtonComponent } from './topbar/settings-button.component';
 import { PaletteComponent } from './palette/palette.component';
 import { PaletteButtonComponent } from './palette/palette-button.component';
 import { ShortcutSheetComponent } from './shortcut-sheet/shortcut-sheet.component';
@@ -24,6 +25,7 @@ import { StatusBarComponent } from './status/status-bar.component';
     ToastOutletComponent,
     ConfirmOutletComponent,
     AppearanceButtonsComponent,
+    SettingsButtonComponent,
     PaletteComponent,
     PaletteButtonComponent,
     ShortcutSheetComponent,

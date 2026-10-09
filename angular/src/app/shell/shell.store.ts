@@ -5,6 +5,11 @@ import { BRIDGE } from '../core/bridge/bridge.token';
 import { ErrorService } from '../core/errors/error.service';
 import { StatusStore } from './status/status.store';
 
+export interface OpenChapter {
+  number: number;
+  charCount: number;
+}
+
 @Injectable({ providedIn: 'root' })
 export class ShellStore {
   private readonly bridge = inject(BRIDGE);
@@ -14,7 +19,7 @@ export class ShellStore {
   private readonly activeModuleState = signal('');
   private readonly openNovelState = signal<string | null>(null);
   private readonly novelsState = signal<NovelSummary[]>([]);
-  private readonly openChapterState = signal<number | null>(null);
+  private readonly openChapterState = signal<OpenChapter | null>(null);
   readonly recentNovels = computed(() => {
     const opened = this.novelsState().filter((novel) => novel.lastOpenedAt);
     const unopened = this.novelsState().filter((novel) => !novel.lastOpenedAt);
@@ -49,6 +54,10 @@ export class ShellStore {
     } catch (error) {
       this.errors.report(error);
     }
+  }
+
+  setOpenChapter(chapter: OpenChapter | null): void {
+    this.openChapterState.set(chapter);
   }
 
   closeNovel(): void {

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, booleanAttribute, input } from '@angular/core';
 
 @Component({
   selector: 'ns-keys',
@@ -12,8 +12,18 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
       <span> · </span>
     }
   }`,
+  styles: `
+    :host(.compact) kbd {
+      font-size: 10px;
+      line-height: 13px;
+      padding: 0 4px;
+      min-width: 16px;
+    }
+  `,
+  host: { '[class.compact]': 'compact()' },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KeysComponent {
   readonly chords = input.required<string[]>();
+  readonly compact = input(false, { transform: booleanAttribute });
 }
