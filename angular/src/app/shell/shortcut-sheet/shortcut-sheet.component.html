@@ -1,0 +1,21 @@
+<ns-dialog wide testId="shortcuts" [title]="i18n.t('shortcuts.title')" [open]="sheet.visible()" (closed)="sheet.hide()">
+  <p class="meta">{{ i18n.t('shortcuts.meta') }}</p>
+  <div class="groups">
+    @for (group of groups(); track group.scope) {
+      <div [attr.data-testid]="'shortcuts-group-' + group.scope">
+        <h4>
+          {{ group.title }}
+          @if (group.here) {
+            <span class="pill info" [attr.data-testid]="'shortcuts-group-' + group.scope + '-here'">{{ i18n.t('shortcuts.here') }}</span>
+          }
+        </h4>
+        @for (row of group.rows; track row.testId) {
+          <div class="sc" [class.muted]="!row.active" [attr.data-testid]="row.testId" [attr.data-active]="row.active">
+            <span>{{ row.label }}</span>
+            <ns-keys class="keys" [chords]="row.keys" />
+          </div>
+        }
+      </div>
+    }
+  </div>
+</ns-dialog>

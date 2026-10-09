@@ -22,7 +22,14 @@
     "tasks": { "label": "Trung tâm tác vụ", "description": "Chạy, theo dõi và tiếp tục các tác vụ AI dài mà không khóa UI." },
     "settings": { "label": "Cài đặt", "description": "Quản lý cấu hình ứng dụng và chọn CLI cho từng loại tác vụ." }
   },
-  "command": { "toggleLanguage": "Đổi ngôn ngữ", "toggleTheme": "Đổi giao diện", "palette": "Bảng lệnh" },
+  "command": { "toggleLanguage": "Đổi ngôn ngữ", "toggleTheme": "Đổi giao diện", "palette": "Bảng lệnh", "shortcuts": "Phím tắt" },
+  "shortcuts": {
+    "title": "Phím tắt",
+    "meta": "Toàn cục trước, sau đó theo module",
+    "global": "Toàn cục",
+    "here": "màn hình này",
+    "escape": "Đóng overlay / thoát tập trung"
+  },
   "topbar": { "language": "Ngôn ngữ", "theme": "Giao diện" },
   "palette": {
     "button": "Tìm hoặc chạy lệnh…",

@@ -22,7 +22,19 @@
     "tasks": { "label": "Task Center", "description": "Run, track and resume long AI tasks without blocking the UI." },
     "settings": { "label": "Settings", "description": "Manage app settings and choose the CLI for each task type." }
   },
-  "command": { "toggleLanguage": "Switch language", "toggleTheme": "Switch theme", "palette": "Command palette" },
+  "command": {
+    "toggleLanguage": "Switch language",
+    "toggleTheme": "Switch theme",
+    "palette": "Command palette",
+    "shortcuts": "Keyboard shortcuts"
+  },
+  "shortcuts": {
+    "title": "Keyboard shortcuts",
+    "meta": "Global first, then per module",
+    "global": "Global",
+    "here": "this screen",
+    "escape": "Close overlay / leave focus mode"
+  },
   "topbar": { "language": "Language", "theme": "Theme" },
   "palette": {
     "button": "Search or run a command…",

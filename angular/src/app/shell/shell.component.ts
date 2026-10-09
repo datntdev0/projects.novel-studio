@@ -9,6 +9,7 @@ import { ConfirmOutletComponent } from './feedback/confirm-outlet.component';
 import { AppearanceButtonsComponent } from './topbar/appearance-buttons.component';
 import { PaletteComponent } from './palette/palette.component';
 import { PaletteButtonComponent } from './palette/palette-button.component';
+import { ShortcutSheetComponent } from './shortcut-sheet/shortcut-sheet.component';
 
 @Component({
   selector: 'ns-shell',
@@ -20,6 +21,7 @@ import { PaletteButtonComponent } from './palette/palette-button.component';
     AppearanceButtonsComponent,
     PaletteComponent,
     PaletteButtonComponent,
+    ShortcutSheetComponent,
   ],
   templateUrl: './shell.component.html',
   styleUrl: './shell.component.scss',
