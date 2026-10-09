@@ -7,6 +7,7 @@ import { LayoutStore } from '../layout/layout.store';
   imports: [TranslatePipe],
   template: `
     <button
+      type="button"
       class="brand"
       data-testid="topbar-brand"
       [attr.aria-pressed]="layout.railExpanded()"

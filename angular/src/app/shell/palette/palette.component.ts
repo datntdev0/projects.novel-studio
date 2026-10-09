@@ -32,6 +32,7 @@ export class PaletteComponent {
   private readonly input = viewChild<ElementRef<HTMLInputElement>>('searchInput');
   protected readonly query = signal('');
   protected readonly selected = signal(0);
+  protected readonly noNovels = computed(() => this.palette.state()?.filter === 'novels' && this.store.novels().length === 0);
   private readonly isOpen = computed(() => this.palette.state() !== null);
 
   private readonly sections = computed(() => {
@@ -42,7 +43,7 @@ export class PaletteComponent {
     const source = {
       modules: MODULE_REGISTRY,
       commands: this.commands.commands(),
-      novels: this.store.novels(),
+      novels: this.store.recentNovels(),
       novelOpen: this.context.novelOpen(),
       activeScope: this.context.activeScope(),
       filter: state.filter,

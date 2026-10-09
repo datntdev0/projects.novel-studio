@@ -1,4 +1,4 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import type { NovelSummary } from '@shared/core';
 import { BRIDGE } from '../core/bridge/bridge.token';
@@ -14,6 +14,13 @@ export class ShellStore {
   private readonly novelsState = signal<NovelSummary[]>([]);
   private readonly badgesState = signal<Record<string, number>>({});
   private readonly openChapterState = signal<number | null>(null);
+  readonly recentNovels = computed(() => {
+    const opened = this.novelsState().filter((novel) => novel.lastOpenedAt);
+    const unopened = this.novelsState().filter((novel) => !novel.lastOpenedAt);
+    opened.sort((a, b) => (b.lastOpenedAt ?? '').localeCompare(a.lastOpenedAt ?? ''));
+    unopened.sort((a, b) => a.title.localeCompare(b.title));
+    return [...opened, ...unopened];
+  });
   readonly activeModule = this.activeModuleState.asReadonly();
   readonly openNovel = this.openNovelState.asReadonly();
   readonly novels = this.novelsState.asReadonly();
@@ -34,6 +41,7 @@ export class ShellStore {
 
   async open(novelId: string): Promise<void> {
     this.openNovelState.set(novelId);
+    if (this.activeModuleState() === 'home') this.go('reader');
     try {
       await this.bridge.invoke('library:markNovelOpened', { novelId });
       await this.load();
@@ -49,5 +57,6 @@ export class ShellStore {
 
   activate(moduleId: string): void {
     this.activeModuleState.set(moduleId);
+    if (moduleId === 'home') this.closeNovel();
   }
 }

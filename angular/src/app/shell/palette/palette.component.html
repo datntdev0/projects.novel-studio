@@ -50,8 +50,12 @@
           }
         } @empty {
           <div class="empty" data-testid="palette-empty">
-            <strong>{{ i18n.t('palette.emptyTitle') }}</strong>
-            <span>{{ i18n.t('palette.emptyText') }}</span>
+            @if (noNovels()) {
+              <strong>{{ i18n.t('palette.noNovels') }}</strong>
+            } @else {
+              <strong>{{ i18n.t('palette.emptyTitle') }}</strong>
+              <span>{{ i18n.t('palette.emptyText') }}</span>
+            }
           </div>
         }
       </div>

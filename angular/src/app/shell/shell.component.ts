@@ -12,6 +12,7 @@ import { PaletteButtonComponent } from './palette/palette-button.component';
 import { ShortcutSheetComponent } from './shortcut-sheet/shortcut-sheet.component';
 import { RailComponent } from './rail/rail.component';
 import { BrandComponent } from './topbar/brand.component';
+import { CrumbsComponent } from './topbar/crumbs.component';
 import { LayoutStore } from './layout/layout.store';
 
 @Component({
@@ -27,6 +28,7 @@ import { LayoutStore } from './layout/layout.store';
     ShortcutSheetComponent,
     RailComponent,
     BrandComponent,
+    CrumbsComponent,
   ],
   templateUrl: './shell.component.html',
   styleUrl: './shell.component.scss',

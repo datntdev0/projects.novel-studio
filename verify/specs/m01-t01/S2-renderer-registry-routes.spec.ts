@@ -11,6 +11,11 @@ test('S2 registry holds 17 entries and each route opens its module host (AC-58)'
   for (const id of REGISTRY_IDS) {
     await setHash(page, id);
     await expect(page.getByTestId(`module-host-${id}`)).toBeAttached();
+    if (id === 'home') {
+      await setHash(page, 'probe');
+      await expect(page.getByTestId('probe-open-novel')).toHaveText('none');
+      await openFirstNovel(page);
+    }
   }
   await setHash(page, 'unknown-module');
   await expect(page.getByTestId('module-host-home')).toBeAttached();
