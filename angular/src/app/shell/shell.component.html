@@ -8,6 +8,7 @@
   [class.collapsed-left]="layout.shown().left && !layout.open().left"
   [class.collapsed-right]="layout.shown().right && !layout.open().right"
   [class.collapsed-bottom]="layout.shown().bottom && !layout.open().bottom"
+  [class.focus]="layout.focusMode()"
   [style.--user-left-w]="layout.current().left ? layout.current().left + 'px' : null"
   [style.--user-right-w]="layout.current().right ? layout.current().right + 'px' : null"
   [style.--user-bottom-h]="layout.current().bottom ? layout.current().bottom + 'px' : null"
@@ -25,6 +26,7 @@
   <div class="resizer bottom" data-testid="resizer-bottom" nsResizer="bottom"></div>
   <section class="panel-bottom" data-testid="panel-bottom"><ng-container *ngTemplateOutlet="panels.bottom()" /></section>
   <ns-status-bar />
+  <ns-focus-bar />
 </div>
 <ns-toast-outlet />
 <ns-confirm-outlet />

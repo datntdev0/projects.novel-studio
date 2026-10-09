@@ -17,6 +17,7 @@ import { LayoutStore } from './layout/layout.store';
 import { StatusBarComponent } from './status/status-bar.component';
 import { ResizerDirective } from './layout/resizer.directive';
 import { PanelTogglesComponent } from './topbar/panel-toggles.component';
+import { FocusBarComponent } from './layout/focus-bar.component';
 
 @Component({
   selector: 'ns-shell',
@@ -36,6 +37,7 @@ import { PanelTogglesComponent } from './topbar/panel-toggles.component';
     StatusBarComponent,
     ResizerDirective,
     PanelTogglesComponent,
+    FocusBarComponent,
   ],
   templateUrl: './shell.component.html',
   styleUrl: './shell.component.scss',

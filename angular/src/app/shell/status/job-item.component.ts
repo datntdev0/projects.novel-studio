@@ -37,12 +37,11 @@ export class JobItemComponent {
   protected readonly text = computed(() => {
     const job = this.store.runningJob();
     if (!job) return this.i18n.t('status.job.idle');
-    const percent = job.totalCount ? Math.round((job.completedCount * 100) / job.totalCount) : 0;
     return this.i18n.t('status.job.progress', {
       label: this.i18n.t(job.labelKey),
       done: job.completedCount,
       total: job.totalCount,
-      percent,
+      percent: this.store.runningPercent(),
     });
   });
 

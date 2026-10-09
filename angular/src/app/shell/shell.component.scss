@@ -27,21 +27,40 @@
 }
 
 .shell.no-left,
-.shell.collapsed-left {
+.shell.collapsed-left,
+.shell.focus {
   --cur-left-w: 0px;
   --gl: 0px;
 }
 
 .shell.no-right,
-.shell.collapsed-right {
+.shell.collapsed-right,
+.shell.focus {
   --cur-right-w: 0px;
   --gr: 0px;
 }
 
 .shell.no-bottom,
-.shell.collapsed-bottom {
+.shell.collapsed-bottom,
+.shell.focus {
   --cur-bottom-h: 0px;
   --gb: 0px;
+}
+
+.shell.focus {
+  --cur-rail-w: 0px;
+  --top-h: 0px;
+  --status-h: 0px;
+}
+
+.shell.focus .topbar,
+.shell.focus ns-rail,
+.shell.focus ns-status-bar,
+.shell.focus .panel-left,
+.shell.focus .panel-right,
+.shell.focus .panel-bottom,
+.shell.focus .resizer {
+  display: none;
 }
 
 .shell.no-left .panel-left,

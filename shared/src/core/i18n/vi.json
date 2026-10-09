@@ -30,9 +30,16 @@
     "shortcuts": "Phím tắt",
     "toggleLeft": "Ẩn/hiện panel trái",
     "toggleRight": "Ẩn/hiện inspector",
-    "toggleBottom": "Ẩn/hiện panel dưới"
+    "toggleBottom": "Ẩn/hiện panel dưới",
+    "focusMode": "Chế độ tập trung",
+    "resetLayout": "Khôi phục bố cục"
   },
-  "layout": { "collapse": "Thu gọn", "resizer": "Kéo để đổi kích thước · nhấp đúp để đặt lại" },
+  "layout": {
+    "collapse": "Thu gọn",
+    "resizer": "Kéo để đổi kích thước · nhấp đúp để đặt lại",
+    "resetDone": "Đã khôi phục bố cục mặc định",
+    "focusHint": "Chế độ tập trung — nhấn Esc để thoát"
+  },
   "shortcuts": {
     "title": "Phím tắt",
     "meta": "Toàn cục trước, sau đó theo module",

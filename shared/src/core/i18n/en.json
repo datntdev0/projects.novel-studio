@@ -30,9 +30,16 @@
     "shortcuts": "Keyboard shortcuts",
     "toggleLeft": "Toggle left panel",
     "toggleRight": "Toggle inspector",
-    "toggleBottom": "Toggle bottom panel"
+    "toggleBottom": "Toggle bottom panel",
+    "focusMode": "Focus mode",
+    "resetLayout": "Reset layout"
   },
-  "layout": { "collapse": "Collapse", "resizer": "Drag to resize · double-click to reset" },
+  "layout": {
+    "collapse": "Collapse",
+    "resizer": "Drag to resize · double-click to reset",
+    "resetDone": "Layout reset to default",
+    "focusHint": "Focus mode — press Esc to leave"
+  },
   "shortcuts": {
     "title": "Keyboard shortcuts",
     "meta": "Global first, then per module",

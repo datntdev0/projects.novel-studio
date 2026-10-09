@@ -1,6 +1,8 @@
-import { Injectable, Signal, computed, inject, linkedSignal } from '@angular/core';
+import { Injectable, Signal, computed, inject, linkedSignal, signal } from '@angular/core';
 import { PANEL_SIDES, PanelSide, ScreenLayout } from '@shared/core';
+import { LayerService } from '../../core/shortcuts/layer.service';
 import { SettingsService } from '../../core/settings/settings.service';
+import { ToastService } from '../feedback/toast.service';
 import { PanelSet, findEntry } from '../registry/module-registry';
 import { ShellStore } from '../shell.store';
 
@@ -20,6 +22,11 @@ export const TOGGLE_COMMAND_IDS: Record<PanelSide, string> = {
 export class LayoutStore {
   private readonly settings = inject(SettingsService);
   private readonly shell = inject(ShellStore);
+  private readonly layers = inject(LayerService);
+  private readonly toast = inject(ToastService);
+  private releaseLayer: (() => void) | null = null;
+  private readonly focus = signal(false);
+  readonly focusMode = this.focus.asReadonly();
   private readonly layouts = linkedSignal(() => this.settings.settings().layout);
   readonly railExpanded = computed(() => this.settings.settings().railExpanded);
   readonly shown: Signal<PanelSet> = computed(() => {
@@ -68,6 +75,27 @@ export class LayoutStore {
     const next = collapsed.includes(side) ? collapsed.filter((s) => s !== side) : [...collapsed, side];
     this.setCurrent({ ...this.current(), collapsed: PANEL_SIDES.filter((s) => next.includes(s)) });
     return this.save();
+  }
+
+  toggleFocus(): void {
+    if (this.focus()) {
+      this.leaveFocus();
+      return;
+    }
+    this.releaseLayer = this.layers.push(() => this.leaveFocus());
+    this.focus.set(true);
+  }
+
+  leaveFocus(): void {
+    this.releaseLayer?.();
+    this.releaseLayer = null;
+    this.focus.set(false);
+  }
+
+  async reset(): Promise<void> {
+    this.leaveFocus();
+    await this.settings.update({ layout: {}, railExpanded: false });
+    this.toast.show({ tone: 'success', titleKey: 'layout.resetDone' });
   }
 
   private setCurrent(screen: ScreenLayout): void {
