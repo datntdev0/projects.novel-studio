@@ -122,6 +122,22 @@
       "openPaletteNovels": "Mở bảng lệnh (truyện)"
     }
   },
+  "status": {
+    "cli": {
+      "title": "CLI {name} · Cài đặt",
+      "missing": "không tìm thấy",
+      "unknown": "chưa rõ trạng thái",
+      "warning": "cần kiểm tra",
+      "problem": { "BACKEND_UNAUTHORIZED": "chưa đăng nhập" }
+    },
+    "job": {
+      "progress": "{label} {done}/{total} · {percent}%",
+      "idle": "Không có tác vụ đang chạy",
+      "attention": { "other": "{count} cần xử lý" }
+    },
+    "backend": { "starting": "Đang khởi động backend cục bộ…", "failed": "Backend cục bộ lỗi: {reason}" }
+  },
+  "job": { "translation": "Đang dịch", "analysis": "Đang phân tích" },
   "error": {
     "INTERNAL": "Đã xảy ra lỗi. Vui lòng thử lại.",
     "IPC_INVALID_REQUEST": "Yêu cầu không hợp lệ.",

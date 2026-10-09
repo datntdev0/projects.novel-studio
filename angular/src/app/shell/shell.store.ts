@@ -3,16 +3,17 @@ import { Router } from '@angular/router';
 import type { NovelSummary } from '@shared/core';
 import { BRIDGE } from '../core/bridge/bridge.token';
 import { ErrorService } from '../core/errors/error.service';
+import { StatusStore } from './status/status.store';
 
 @Injectable({ providedIn: 'root' })
 export class ShellStore {
   private readonly bridge = inject(BRIDGE);
   private readonly errors = inject(ErrorService);
   private readonly router = inject(Router);
+  private readonly status = inject(StatusStore);
   private readonly activeModuleState = signal('');
   private readonly openNovelState = signal<string | null>(null);
   private readonly novelsState = signal<NovelSummary[]>([]);
-  private readonly badgesState = signal<Record<string, number>>({});
   private readonly openChapterState = signal<number | null>(null);
   readonly recentNovels = computed(() => {
     const opened = this.novelsState().filter((novel) => novel.lastOpenedAt);
@@ -24,7 +25,7 @@ export class ShellStore {
   readonly activeModule = this.activeModuleState.asReadonly();
   readonly openNovel = this.openNovelState.asReadonly();
   readonly novels = this.novelsState.asReadonly();
-  readonly badges = this.badgesState.asReadonly();
+  readonly badges = computed<Record<string, number>>(() => ({ tasks: this.status.attentionCount() }));
   readonly openChapter = this.openChapterState.asReadonly();
 
   async load(): Promise<void> {

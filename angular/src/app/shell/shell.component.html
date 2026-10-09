@@ -7,7 +7,7 @@
   <main class="workspace" data-testid="workspace"><router-outlet /></main>
   <aside class="panel-right" data-testid="panel-right"><ng-container *ngTemplateOutlet="panels.right()" /></aside>
   <section class="panel-bottom" data-testid="panel-bottom"><ng-container *ngTemplateOutlet="panels.bottom()" /></section>
-  <footer class="statusbar" data-testid="statusbar"></footer>
+  <ns-status-bar />
 </div>
 <ns-toast-outlet />
 <ns-confirm-outlet />

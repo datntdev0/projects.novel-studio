@@ -14,6 +14,7 @@ import { RailComponent } from './rail/rail.component';
 import { BrandComponent } from './topbar/brand.component';
 import { CrumbsComponent } from './topbar/crumbs.component';
 import { LayoutStore } from './layout/layout.store';
+import { StatusBarComponent } from './status/status-bar.component';
 
 @Component({
   selector: 'ns-shell',
@@ -29,6 +30,7 @@ import { LayoutStore } from './layout/layout.store';
     RailComponent,
     BrandComponent,
     CrumbsComponent,
+    StatusBarComponent,
   ],
   templateUrl: './shell.component.html',
   styleUrl: './shell.component.scss',

@@ -65,9 +65,3 @@
   min-height: 0;
   overflow: auto;
 }
-
-.statusbar {
-  grid-area: status;
-  border-top: 1px solid var(--color-border);
-  background: var(--color-surface);
-}
