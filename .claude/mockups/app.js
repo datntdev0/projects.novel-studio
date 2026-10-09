@@ -226,12 +226,26 @@
     "clear-novel": () => { setNovel(null); show("library"); },
     "open-novel": () => show(novelScreens.includes(state.screen) ? state.screen : "reader"),
     "shortcuts": () => openOverlay("shortcuts"),
-    "save": () => { markSaved(); toast("Chapter 12 saved", "Đã lưu chương 12", "success"); },
-    "undo": () => toast("Undo", "Hoàn tác"),
-    "redo": () => toast("Redo", "Làm lại"),
+    "save": () => { if (state.screen === "reader") saveChapter(); },
+    "undo": () => stepHistory("undo", "redo"),
+    "redo": () => stepHistory("redo", "undo"),
+    "find-next": () => stepFind(1),
+    "find-prev": () => stepFind(-1),
+    "find-close": () => closeFind(),
+    "replace-one": () => replaceInChapter(false),
+    "replace-all-chapter": () => replaceInChapter(true),
+    "search-replace-all": () => guardChapter(() => { applyMode("#dlg-replace-all", "", "confirm"); openOverlay("dlg-replace-all"); }),
+    "replace-all-confirm": () => replaceAllInNovel(),
+    "search-replace-chapter": (btn) => replaceInNovel(btn.closest(".hit-block"), btn.dataset.count),
+    "search-replace-hit": (btn) => replaceInNovel(btn.closest(".hit"), 1),
+    "search-dismiss": (btn) => btn.closest(".hit, .hit-block").classList.add("hidden"),
     "edit-mode": () => toggleEdit(),
-    "prev-chapter": () => toast("Opening chapter 11 …", "Đang mở chương 11 …"),
-    "next-chapter": () => toast("Opening chapter 13 …", "Đang mở chương 13 …"),
+    "prev-chapter": () => openChapter("0011"),
+    "next-chapter": () => openChapter("0013"),
+    "open-chapter": (row) => openChapter(row.dataset.chapter, row),
+    "open-hit": (hit) => openHit(hit),
+    "chapter-discard": () => leaveChapter(false),
+    "chapter-save-continue": () => leaveChapter(true),
     "job-pause": (btn) => pauseJob(jobOf(btn)),
     "job-resume": (btn) => resumeJob(jobOf(btn)),
     "jobs-pause-all": () => eachJob(["running", "queued"], pauseJob),
@@ -279,6 +293,7 @@
     if (note) toast(note.dataset.toast, note.dataset.toastVi || note.dataset.toast, note.dataset.toastKind, { sticky: note.hasAttribute("data-toast-sticky"), job: note.dataset.toastJob, details: note.dataset.toastDetails });
     const go = t.closest("[data-go]");
     if (t.closest("[data-select-novel]") || (go && novelScreens.includes(go.dataset.go))) { const key = novelFrom(t); if (novels[key]) { setNovel(key); renderContext(); } }
+    if (go && state.screen === "reader" && readerDirty() && go.dataset.go !== "reader") { e.preventDefault(); guardChapter(() => show(go.dataset.go)); return; }
     if (go) { e.preventDefault(); if (go.disabled) return; show(go.dataset.go); if (go.dataset.goMode && state.screen === go.dataset.go) screenMode(go.dataset.go, go.dataset.goMode); return; }
     const open = t.closest("[data-open]"); if (open) { e.preventDefault(); if (open.disabled) return; prepareOverlay(open); openOverlay(open.dataset.open); return; }
     if (t.closest("[data-close]") || (t.classList.contains("scrim") && t.classList.contains("open"))) { closeOverlay(t.closest(".scrim")); return; }
@@ -340,6 +355,8 @@
     }));
     if (scopeSel === "#library" && key === "import") { state.importMode = mode; renderImport(); }
     if (scopeSel === "#library" && key === "library") { state.libraryEmpty = mode === "empty"; renderJob(); }
+    if (scopeSel === READER && key === "reader") syncReader(mode);
+    if (scopeSel === READER && key === "find") syncFindState(mode);
   }
   // Only 庆余年 shows the import demo in the inspector; every other novel is fully imported
   function modeOn(el, mode) {
@@ -393,22 +410,171 @@
     setTimeout(() => { reply.querySelector(".bubble").innerHTML = bi("Searching the chapters inside the spoiler boundary… the grounded answer streams here with its source chapters.", "Đang tìm trong các chương thuộc ranh giới spoiler… câu trả lời có dẫn nguồn sẽ hiện dần ở đây kèm chương nguồn."); }, 1400);
   }
 
-  // Reader edit mode -------------------------------------------------
-  function toggleEdit(force) {
-    const reader = document.querySelector("#reader .reader");
-    if (!reader) return;
-    const on = typeof force === "boolean" ? force : !reader.classList.contains("editing");
-    reader.classList.toggle("editing", on);
-    reader.querySelector(".ms").contentEditable = on ? "true" : "false";
-    document.querySelectorAll("[data-edit-only]").forEach((el) => el.classList.toggle("hidden", !on));
-    document.querySelectorAll("[data-read-only]").forEach((el) => el.classList.toggle("hidden", on));
-    document.querySelectorAll("[data-action='edit-mode']").forEach((b) => b.setAttribute("aria-pressed", String(on)));
-    if (on) markDirty(); else markSaved();
+  // Reader modes (#reader, key "reader"): read · edit (clean) · dirty · invalid (title empty) · refused (Save refused, chapter busy) · error
+  // Busy flag (key "busy": off · on): with "on", a job is processing the chapters in BUSY, so writing them is refused
+  const READER = "#reader";
+  const READ_ONLY = ["read", "error"];
+  const BUSY = ["0012", "0018"];
+  const BUSY_JOB = { id: "j-2026-10-04-0017", en: "Translate 0001–0100 · 凡人修仙传", vi: "Dịch 0001–0100 · 凡人修仙传" };
+  function isBusy(chapter) { return modes[READER + "|busy"] === "on" && BUSY.includes(chapter); }
+  const history = { undo: 0, redo: 0 };
+  let pendingChapter = null;
+  function readerMode() { return modes[READER + "|reader"] || "read"; }
+  function readerDirty() { return ["dirty", "invalid", "refused"].includes(readerMode()); }
+  function setReader(mode) { applyMode(READER, "reader", mode); }
+  function syncReader(mode) {
+    document.querySelectorAll("[data-action='edit-mode']").forEach((b) => { b.setAttribute("aria-pressed", String(!READ_ONLY.includes(mode))); });
+    if (READ_ONLY.includes(mode)) { history.undo = 0; history.redo = 0; }
+    if (readerDirty() && !history.undo) history.undo = 1;
+    syncHistory();
+    const field = document.querySelector("#reader [data-title-field]"); if (!field) return;
+    const input = field.querySelector("input");
+    if (mode === "invalid" && document.activeElement !== input) input.value = "";
+    if (mode !== "invalid" && !input.value.trim()) input.value = input.defaultValue;
+    field.classList.toggle("error", mode === "invalid");
+    field.querySelectorAll("[data-title-count]").forEach((el) => { el.textContent = `${input.value.length} / 200`; });
   }
-  function markDirty() { document.querySelectorAll("[data-dirty]").forEach((el) => el.classList.remove("hidden")); }
-  function markSaved() { document.querySelectorAll("[data-dirty]").forEach((el) => el.classList.add("hidden")); }
+  function guardChapter(next) {
+    if (!readerDirty()) { next(); return; }
+    pendingChapter = next;
+    openOverlay("dlg-unsaved-chapter");
+  }
+  function toggleEdit(force) {
+    const on = typeof force === "boolean" ? force : READ_ONLY.includes(readerMode());
+    if (on) setReader("edit"); else guardChapter(() => setReader("read"));
+  }
+  function saveChapter() {
+    const mode = readerMode();
+    if (mode === "invalid") { toast("Enter a chapter title before saving", "Hãy nhập tiêu đề chương trước khi lưu", "danger"); return false; }
+    if (mode !== "dirty" && mode !== "refused") { toast("No changes to save", "Không có thay đổi để lưu"); return false; }
+    if (isBusy("0012")) { setReader("refused"); return false; }
+    document.querySelectorAll("#reader [data-source-field]").forEach((f) => { f.defaultValue = f.value; });
+    setReader("edit"); clearHistory();
+    toast("Chapter 0012 saved", "Đã lưu chương 0012", "success");
+    return true;
+  }
+  function resetChapter() {
+    document.querySelectorAll("#reader [data-source-field]").forEach((f) => { f.value = f.defaultValue; });
+    setReader("edit");
+  }
+  function leaveChapter(save) {
+    closeOverlays();
+    if (save && !saveChapter()) { pendingChapter = null; return; }
+    if (!save) { resetChapter(); clearHistory(); toast("Changes to chapter 0012 discarded", "Đã bỏ thay đổi ở chương 0012"); }
+    const next = pendingChapter; pendingChapter = null;
+    if (next) next();
+  }
+  // Undo / redo: one history per chapter for title and content, cleared by Save
+  function syncHistory() {
+    ["undo", "redo"].forEach((k) => document.querySelectorAll(`#reader [data-action='${k}']`).forEach((b) => { b.disabled = !history[k]; }));
+  }
+  function clearHistory() { history.undo = 0; history.redo = 0; syncHistory(); }
+  function pushHistory() { history.undo++; history.redo = 0; syncHistory(); }
+  function stepHistory(from, to) {
+    if (!history[from]) return;
+    history[from]--; history[to]++;
+    if (history.undo) setReader("dirty"); else resetChapter();
+    syncHistory();
+  }
+  function openChapter(n, row) {
+    guardChapter(() => {
+      if (row) selectIn(row);
+      toast(`Opening chapter ${n} …`, `Đang mở chương ${n} …`);
+    });
+  }
+  function openHit(hit) {
+    guardChapter(() => {
+      document.querySelectorAll("#reader .search-hits .hit").forEach((h) => h.classList.toggle("selected", h === hit));
+      const mark = hit.dataset.hit && document.querySelector(`#reader .reader mark[data-hit="${hit.dataset.hit}"]`);
+      if (!mark) { toast(`Opening chapter ${hit.dataset.chapter} at the match …`, `Đang mở chương ${hit.dataset.chapter} tại vị trí khớp …`); return; }
+      if (findMode() === "off") applyMode(READER, "find", "replace");
+      setCurrentMark(readerMarks().indexOf(mark));
+    });
+  }
+  function openNovelSearch() {
+    if (needsNovel("reader")) return;
+    show("reader"); togglePanel("right", false);
+    switchTab(document.querySelector("#reader [data-tab='search']"));
+    const input = document.querySelector("#reader [data-novel-search]"); if (input) input.focus();
+  }
+  function markChapterDirty(field) {
+    const titleEmpty = field.dataset.sourceField === "title" ? !field.value.trim() : readerMode() === "invalid";
+    setReader(titleEmpty ? "invalid" : readerMode() === "refused" ? "refused" : "dirty");
+    pushHistory();
+  }
+
+  // Find widget in the chapter (key "find": off · replace · none) and replace in the novel (Search tab)
+  const find = { index: 0 };
+  function findMode() { return modes[READER + "|find"] || "off"; }
+  function readerMarks() { return Array.from(document.querySelectorAll("#reader article mark[data-hit]")); }
+  function findTerm() { const input = document.querySelector("#reader [data-find-input]"); return input ? input.value : ""; }
+  function contentField() { return document.querySelector("#reader [data-source-field='content']"); }
+  function findTotal() {
+    const term = findTerm(); if (!term) return 0;
+    if (!READ_ONLY.includes(readerMode())) return contentField().value.split(term).length - 1;
+    const input = document.querySelector("#reader [data-find-input]");
+    return term === input.defaultValue ? readerMarks().length : document.querySelector("#reader article").textContent.split(term).length - 1;
+  }
+  function syncFind() {
+    const total = findTotal();
+    if (findMode() === "replace" && !total) { applyMode(READER, "find", "none"); return; }
+    find.index = Math.min(find.index, Math.max(total - 1, 0));
+    document.querySelectorAll("#reader [data-find-index]").forEach((el) => { el.textContent = total ? find.index + 1 : 0; });
+    document.querySelectorAll("#reader [data-find-total]").forEach((el) => { el.textContent = total; });
+  }
+  function syncFindState(mode) {
+    const input = document.querySelector("#reader [data-find-input]"); if (!input) return;
+    if (mode === "none" && findTotal()) input.value = "血魔剑";
+    if (mode !== "none" && !findTotal()) input.value = input.defaultValue;
+    document.querySelector(READER).dataset.findState = mode;
+    document.querySelectorAll("#reader [data-find-field]").forEach((f) => f.classList.toggle("no-match", mode === "none"));
+    syncFind();
+  }
+  function setCurrentMark(i) {
+    const marks = readerMarks(); if (i < 0 || !marks[i]) return;
+    find.index = i;
+    marks.forEach((m, n) => m.classList.toggle("current", n === i));
+    marks[i].scrollIntoView({ block: "center", behavior: "smooth" });
+    syncFind();
+  }
+  function openFind() {
+    if (needsNovel("reader") || state.screen !== "reader") return;
+    applyMode(READER, "find", "replace");
+    const input = document.querySelector("#reader [data-find-input]"); if (input) { input.focus(); input.select(); }
+  }
+  function closeFind() { applyMode(READER, "find", "off"); }
+  function stepFind(dir) {
+    const total = findTotal(); if (!total) return;
+    const i = (find.index + dir + total) % total;
+    if (READ_ONLY.includes(readerMode())) setCurrentMark(i); else { find.index = i; syncFind(); }
+  }
+  function replaceInChapter(all) {
+    if (READ_ONLY.includes(readerMode())) setReader("edit");
+    const field = contentField(), term = findTerm(), input = document.querySelector("#reader [data-replace-input]");
+    const count = field.value.split(term).length - 1; if (!term || !count) return;
+    field.value = all ? field.value.split(term).join(input.value) : field.value.replace(term, input.value);
+    markChapterDirty(field); syncFind();
+    if (all) toast(`Replaced ${count} matches in chapter 0012 — not saved yet`, `Đã thay ${count} kết quả trong chương 0012 — chưa lưu`);
+  }
+  function replaceInNovel(item, count) {
+    const n = Number(count) === 1 ? "1 match" : `${count} matches`;
+    const ch = item.dataset.chapter;
+    guardChapter(() => {
+      if (isBusy(ch)) { toast(`Not replaced: chapter ${ch} is being processed by “${BUSY_JOB.en}”`, `Chưa thay: chương ${ch} đang được job “${BUSY_JOB.vi}” xử lý`, "danger", { job: BUSY_JOB.id }); return; }
+      item.classList.add("hidden"); toast(`Replaced ${n} in chapter ${ch}`, `Đã thay ${count} kết quả trong chương ${ch}`, "success");
+    });
+  }
+  function replaceAllInNovel() {
+    const blocks = Array.from(document.querySelectorAll("#reader .search-hits .hit-block"));
+    if (!blocks.some((b) => isBusy(b.dataset.chapter))) { closeOverlays(); applyMode(READER, "results", "none"); toast("Replaced 37 matches in 12 chapters", "Đã thay 37 kết quả trong 12 chương", "success"); return; }
+    applyMode(READER, "results", "results");
+    blocks.forEach((b) => b.classList.toggle("hidden", !isBusy(b.dataset.chapter)));
+    document.querySelectorAll("#reader .search-hits .virtual-note").forEach((el) => el.classList.add("hidden"));
+    applyMode("#dlg-replace-all", "", "done");
+  }
   document.addEventListener("input", (e) => {
-    if (e.target.closest("#reader .ms")) markDirty();
+    if (e.target.closest("#reader [data-source-field]")) markChapterDirty(e.target);
+    if (e.target.matches("#reader [data-find-input]")) { find.index = 0; syncFind(); }
     markImportDirty(e.target);
     if (e.target.matches("[data-confirm-title]")) document.querySelectorAll("[data-confirm-target]").forEach((b) => { b.disabled = !titleConfirmed(e.target.value); });
     const out = e.target.dataset.output; if (out) { document.querySelectorAll(`[data-value="${out}"]`).forEach((el) => { const d = e.target.dataset; el.textContent = (d.decimals ? Number(e.target.value).toFixed(Number(d.decimals)) : e.target.value) + (d.unit || ""); }); }
@@ -998,7 +1164,9 @@
     if (e.key === "Enter" && e.target.matches("[data-tag-entry]")) { e.preventDefault(); addTag(e.target); return; }
     if (!typing && !mod && e.key === "/") { const field = document.querySelector(".screen.active [data-search-slash]"); if (field) { e.preventDefault(); field.focus(); return; } }
     if (!typing && !mod && e.key === "Enter" && state.screen === "library" && !document.querySelector(".scrim.open")) { const sel = document.querySelector("#library .novel-card.selected:not(.hidden), #library tbody tr.selected:not(.hidden)"); if (sel) { e.preventDefault(); openNovel(sel); return; } }
-    if (e.key === "Escape") { const drawer = document.querySelector(".proto-drawer.open"); const overlay = document.querySelector(".scrim.open"); if (overlay) closeTopOverlay(); else if (drawer) drawer.classList.remove("open"); else app.classList.remove("zen"); return; }
+    if (e.key === "Enter" && e.target.matches("#reader [data-find-input]")) { e.preventDefault(); stepFind(e.shiftKey ? -1 : 1); return; }
+    if (e.key === "Enter" && e.target.matches("#reader [data-replace-input]")) { e.preventDefault(); replaceInChapter(false); return; }
+    if (e.key === "Escape") { const drawer = document.querySelector(".proto-drawer.open"); const overlay = document.querySelector(".scrim.open"); if (overlay) closeTopOverlay(); else if (drawer) drawer.classList.remove("open"); else if (state.screen === "reader" && findMode() !== "off") closeFind(); else app.classList.remove("zen"); return; }
     if (mod && e.key.toLowerCase() === "k") { e.preventDefault(); openOverlay("palette"); return; }
     if (mod && e.key === "/") { e.preventDefault(); openOverlay("shortcuts"); return; }
     if (mod && e.key.toLowerCase() === "b" && !e.altKey) { e.preventDefault(); togglePanel("left"); return; }
@@ -1008,7 +1176,8 @@
     if (mod && e.shiftKey && e.key.toLowerCase() === "l") { e.preventDefault(); actions["toggle-theme"](); return; }
     if (mod && e.shiftKey && e.key.toLowerCase() === "u") { e.preventDefault(); actions["toggle-lang"](); return; }
     if (mod && e.shiftKey && e.key.toLowerCase() === "t") { e.preventDefault(); show("tasks"); return; }
-    if (mod && e.shiftKey && e.key.toLowerCase() === "f") { e.preventDefault(); if (needsNovel("reader")) return; show("reader"); togglePanel("right", false); switchTab(document.querySelector("#reader [data-tab='search']")); return; }
+    if (mod && e.shiftKey && e.key.toLowerCase() === "f") { e.preventDefault(); openNovelSearch(); return; }
+    if (mod && state.screen === "reader" && (e.key.toLowerCase() === "h" || (!e.shiftKey && e.key.toLowerCase() === "f"))) { e.preventDefault(); openFind(); return; }
     if (mod && e.key.toLowerCase() === "o") { e.preventDefault(); show("import"); if (state.screen === "import") screenMode("import", "start"); return; }
     if (mod && e.key.toLowerCase() === "s") { e.preventDefault(); actions.save(); return; }
     if (mod && e.key.toLowerCase() === "e" && state.screen === "reader") { e.preventDefault(); toggleEdit(); return; }

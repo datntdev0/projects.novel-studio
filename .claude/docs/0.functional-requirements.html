@@ -385,13 +385,15 @@
   <tr><td>M04-F02 · <span lang="en">Import preview</span><span lang="vi">Xem trước khi nhập</span></td><td><ul class="function-list">
     <li lang="en">Choose or drop a ZIP package; it is the only import source in Release 1 · Part 2.</li>
     <li lang="vi">Chọn hoặc thả một gói ZIP; đây là nguồn nhập duy nhất trong Release 1 · Part 2.</li>
-    <li lang="en">Preview one row per chapter file and fix chapter titles and numbers, or untick rows, before anything is saved.</li>
-    <li lang="vi">Xem trước mỗi tệp chương một dòng và sửa tiêu đề, số chương hoặc bỏ chọn dòng trước khi có gì được lưu.</li>
+    <li lang="en">The package holds each chapter's content in <code>chapters/*.txt</code> and a required <code>chapters.json</code> with the number, title and file of every chapter; title and content are stored separately.</li>
+    <li lang="vi">Gói chứa nội dung từng chương trong <code>chapters/*.txt</code> và <code>chapters.json</code> bắt buộc với số, tiêu đề và tệp của mọi chương; tiêu đề và nội dung được lưu riêng.</li>
+    <li lang="en">Preview one row per chapter of <code>chapters.json</code> and fix chapter titles, or untick rows, before anything is saved; chapter numbers come from <code>chapters.json</code> and cannot be edited.</li>
+    <li lang="vi">Xem trước mỗi chương trong <code>chapters.json</code> một dòng và sửa tiêu đề chương hoặc bỏ chọn dòng trước khi có gì được lưu; số chương lấy từ <code>chapters.json</code> và không sửa được.</li>
     <li lang="en">Fill in and fix the novel's metadata on the same preview screen.</li>
     <li lang="vi">Điền và sửa thông tin truyện trên cùng màn hình xem trước.</li>
-    <li lang="en">Check the package: refuse unsafe or unreadable packages and flag duplicate, missing-number, non-UTF-8 or empty chapters.</li>
-    <li lang="vi">Kiểm tra gói: từ chối gói không an toàn hoặc không đọc được và đánh dấu chương trùng, thiếu số, không phải UTF-8 hoặc rỗng.</li>
-  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span> <span lang="en">M04 solution, 2026-10-06</span><span lang="vi">giải pháp M04, 2026-10-06</span></td></tr>
+    <li lang="en">Check the package: refuse unsafe, unreadable or not-in-format packages as a whole, listing every problem, and flag number gaps, duplicate, non-UTF-8 or empty chapters.</li>
+    <li lang="vi">Kiểm tra gói: từ chối toàn bộ gói không an toàn, không đọc được hoặc sai định dạng, liệt kê mọi vấn đề, và đánh dấu chỗ trống trong dãy số, chương trùng, không phải UTF-8 hoặc rỗng.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span> <span lang="en">M04 solution, 2026-10-06</span><span lang="vi">giải pháp M04, 2026-10-06</span> <span class="status review"><span lang="en">Changed by the PO, 2026-10-09 (package format, M05 solution)</span><span lang="vi">PO thay đổi, 2026-10-09 (định dạng gói, giải pháp M05)</span></span></td></tr>
   <tr><td>M04-F03 · <span lang="en">Novel information</span><span lang="vi">Thông tin truyện</span></td><td><ul class="function-list">
     <li lang="en">View and edit the allowed metadata, including the display title.</li>
     <li lang="vi">Xem và sửa metadata được cho phép, gồm cả tên hiển thị.</li>
@@ -407,13 +409,13 @@
     <li lang="vi">Xóa vĩnh viễn truyện sau xác nhận liệt kê những gì bị xóa và được giữ; thư mục <code>exports\</code> được giữ lại.</li>
   </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span> <span lang="en">M04 solution, 2026-10-06</span><span lang="vi">giải pháp M04, 2026-10-06</span></td></tr>
   <tr><td>M04-F05 · <span lang="en">Export source package</span><span lang="vi">Xuất gói nguồn</span></td><td><ul class="function-list">
-    <li lang="en">Export the novel's source data as a ZIP package with the import layout, so it can be imported again.</li>
-    <li lang="vi">Xuất dữ liệu nguồn của truyện thành gói ZIP cùng cấu trúc với gói nhập, để có thể nhập lại.</li>
+    <li lang="en">Export the novel's source data as a ZIP package in the import format (<code>chapters.json</code> with the titles, <code>chapters/</code> with the content), so it can be imported again.</li>
+    <li lang="vi">Xuất dữ liệu nguồn của truyện thành gói ZIP đúng định dạng gói nhập (<code>chapters.json</code> chứa tiêu đề, <code>chapters/</code> chứa nội dung), để có thể nhập lại.</li>
     <li lang="en">Choose the chapter range (all chapters by default) and the output folder.</li>
     <li lang="vi">Chọn phạm vi chương (mặc định mọi chương) và thư mục đầu ra.</li>
     <li lang="en">Run as an Export job in the Task Center; cancel leaves no partial package.</li>
     <li lang="vi">Chạy như một job Xuất trong Task Center; huỷ không để lại gói dở.</li>
-  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span> <span lang="en">M04 solution, 2026-10-06</span><span lang="vi">giải pháp M04, 2026-10-06</span> · Release 1 · Part 2</td></tr>
+  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span> <span lang="en">M04 solution, 2026-10-06</span><span lang="vi">giải pháp M04, 2026-10-06</span> · Release 1 · Part 2 <span class="status review"><span lang="en">Changed by the PO, 2026-10-09 (package format, M05 solution)</span><span lang="vi">PO thay đổi, 2026-10-09 (định dạng gói, giải pháp M05)</span></span></td></tr>
   <tr><td>M04-F06 · <span lang="en">Import run</span><span lang="vi">Chạy nhập</span> <span class="status open">new</span></td><td><ul class="function-list">
     <li lang="en">Run every import, including Import more, as a background Import job in the Task Center with progress on the novel and the status bar.</li>
     <li lang="vi">Chạy mọi lần nhập, kể cả Nhập thêm chương, như một job Nhập nền trong Task Center, có tiến độ trên truyện và thanh trạng thái.</li>
@@ -423,15 +425,15 @@
     <li lang="vi">Chạy tiếp sau khi tạm dừng, đóng ứng dụng hoặc bị sập mà không nhập chương nào hai lần.</li>
   </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span> <span lang="en">M04 solution, 2026-10-06</span><span lang="vi">giải pháp M04, 2026-10-06</span></td></tr>
   <tr><td>M04-F08 · <span lang="en">Import more chapters</span><span lang="vi">Nhập thêm chương</span> <span class="status open">new</span></td><td><ul class="function-list">
-    <li lang="en">Import more chapters into an existing novel from another ZIP package, using the same import screen with chapter numbers taken from the file names.</li>
-    <li lang="vi">Nhập thêm chương vào truyện hiện có từ một gói ZIP khác, dùng cùng màn hình nhập với số chương lấy từ tên tệp.</li>
+    <li lang="en">Import more chapters into an existing novel from another ZIP package, using the same import screen with chapter numbers and titles taken from its <code>chapters.json</code>.</li>
+    <li lang="vi">Nhập thêm chương vào truyện hiện có từ một gói ZIP khác, dùng cùng màn hình nhập với số và tiêu đề chương lấy từ <code>chapters.json</code> của gói.</li>
     <li lang="en">Compare current and new metadata field by field; the current value is kept unless the new one is chosen.</li>
     <li lang="vi">So sánh thông tin hiện tại và mới theo từng trường; giữ giá trị hiện tại trừ khi chọn giá trị mới.</li>
-    <li lang="en">Flag files already in the novel or duplicating an existing chapter; they start unticked.</li>
-    <li lang="vi">Đánh dấu tệp đã có trong truyện hoặc trùng với chương đã có; các tệp này bắt đầu ở trạng thái bỏ chọn.</li>
+    <li lang="en">Flag chapters already in the novel or duplicating an existing chapter; they start unticked.</li>
+    <li lang="vi">Đánh dấu chương đã có trong truyện hoặc trùng với chương đã có; các chương này bắt đầu ở trạng thái bỏ chọn.</li>
     <li lang="en">Rerun an Import job as Import more for the same novel.</li>
     <li lang="vi">Chạy lại một job Nhập dưới dạng Nhập thêm chương cho đúng truyện đó.</li>
-  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span> <span lang="en">M04 solution, 2026-10-06 (split from M04-F04, M04-F06)</span><span lang="vi">giải pháp M04, 2026-10-06 (tách từ M04-F04, M04-F06)</span></td></tr>
+  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span> <span lang="en">M04 solution, 2026-10-06 (split from M04-F04, M04-F06)</span><span lang="vi">giải pháp M04, 2026-10-06 (tách từ M04-F04, M04-F06)</span> <span class="status review"><span lang="en">Changed by the PO, 2026-10-09 (package format, M05 solution)</span><span lang="vi">PO thay đổi, 2026-10-09 (định dạng gói, giải pháp M05)</span></span></td></tr>
 </tbody></table>
 
 <h3>M05 · Chapter Reader &amp; Editor</h3>
@@ -439,33 +441,39 @@
   <tr><td>M05-F01 · <span lang="en">Chapter list</span><span lang="vi">Danh sách chương</span></td><td><ul class="function-list">
     <li lang="en">Virtualized list for up to about 3,000 chapters.</li>
     <li lang="vi">Danh sách ảo hóa cho tối đa khoảng 3.000 chương.</li>
-    <li lang="en">Search by number or title; filter by analysis, translation and error status.</li>
-    <li lang="vi">Tìm theo số hoặc tiêu đề; lọc theo trạng thái phân tích, dịch và lỗi.</li>
-    <li lang="en">Go to the previous/next chapter and return to the last reading position.</li>
-    <li lang="vi">Điều hướng chương trước/sau và quay lại vị trí đọc gần nhất.</li>
-  </ul></td><td><span class="status approved"><span lang="en">Scale confirmed</span><span lang="vi">Quy mô xác nhận</span></span> <span class="status review"><span lang="en">UX proposed</span><span lang="vi">UX đề xuất</span></span></td></tr>
+    <li lang="en">Search by number or title.</li>
+    <li lang="vi">Tìm theo số hoặc tiêu đề.</li>
+    <li lang="en">Go to the previous/next chapter.</li>
+    <li lang="vi">Điều hướng chương trước/sau.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Scale confirmed</span><span lang="vi">Quy mô xác nhận</span></span> <span class="status review"><span lang="en">UX proposed</span><span lang="vi">UX đề xuất</span></span> <span class="status approved"><span lang="en">Changed by the PO, 2026-10-09 (M05 solution): no status filters, no return to the last reading position</span><span lang="vi">PO thay đổi, 2026-10-09 (giải pháp M05): không lọc theo trạng thái, không quay lại vị trí đọc gần nhất</span></span></td></tr>
   <tr><td>M05-F02 · <span lang="en">Reading</span><span lang="vi">Đọc</span></td><td><ul class="function-list">
     <li lang="en">Show the source text optimized for long reading sessions.</li>
     <li lang="vi">Hiển thị văn bản nguồn tối ưu cho phiên đọc dài.</li>
     <li lang="en">Options for font size, line width and line spacing.</li>
     <li lang="vi">Tùy chọn cỡ chữ, độ rộng dòng và khoảng cách dòng.</li>
-    <li lang="en">Quickly open entities or terms that appear in the chapter.</li>
-    <li lang="vi">Mở nhanh thực thể hoặc thuật ngữ xuất hiện trong chương.</li>
-  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span> <code>D7</code></td></tr>
+  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span> <code>D7</code> <span class="status approved"><span lang="en">Changed by the PO, 2026-10-09 (M05 requirements, D22): opening entities or terms from the chapter moves to M07</span><span lang="vi">PO thay đổi, 2026-10-09 (yêu cầu M05, D22): mở thực thể hoặc thuật ngữ từ chương chuyển sang M07</span></span></td></tr>
   <tr><td>M05-F03 · <span lang="en">Source editing</span><span lang="vi">Sửa nguồn</span></td><td><ul class="function-list">
     <li lang="en">Edit the source content, save it and warn about unsaved changes.</li>
     <li lang="vi">Chỉnh sửa nội dung nguồn, lưu và cảnh báo thay đổi chưa lưu.</li>
     <li lang="en">Undo/redo within the session.</li>
     <li lang="vi">Hoàn tác/làm lại trong phiên.</li>
-    <li lang="en">Mark related analysis results and translations as needing a re-check when the source content changes.</li>
-    <li lang="vi">Đánh dấu kết quả phân tích và bản dịch liên quan là cần kiểm tra lại khi nội dung nguồn thay đổi.</li>
-  </ul></td><td><span class="status approved"><span lang="en">Source editing confirmed</span><span lang="vi">Sửa nguồn xác nhận</span></span> <span class="status review"><span lang="en">Status propagation proposed</span><span lang="vi">Lan truyền trạng thái đề xuất</span></span></td></tr>
-  <tr><td>M05-F04 · <span lang="en">Search in novel</span><span lang="vi">Tìm kiếm trong truyện</span></td><td><ul class="function-list">
-    <li lang="en">Search text in the current chapter or the whole novel.</li>
-    <li lang="vi">Tìm văn bản trên chương hiện tại hoặc toàn truyện.</li>
+    <li lang="en">Closing the app with unsaved chapter edits asks Keep editing, Discard changes or Save and continue, as when leaving a chapter.</li>
+    <li lang="vi">Đóng ứng dụng khi chương còn thay đổi chưa lưu sẽ hỏi Tiếp tục sửa, Bỏ thay đổi hoặc Lưu và tiếp tục, như khi rời chương.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Source editing confirmed</span><span lang="vi">Sửa nguồn xác nhận</span></span> <span class="status approved"><span lang="en">Changed by the PO, 2026-10-09 (M05 solution): saving does not mark analysis results or translations for a re-check</span><span lang="vi">PO thay đổi, 2026-10-09 (giải pháp M05): lưu không đánh dấu kết quả phân tích hay bản dịch cần kiểm tra lại</span></span> <span class="status approved"><span lang="en">Changed by the PO, 2026-10-09 (M05 solution): app-close guard added</span><span lang="vi">PO thay đổi, 2026-10-09 (giải pháp M05): thêm cảnh báo khi đóng ứng dụng</span></span></td></tr>
+  <tr><td>M05-F04 · <span lang="en">Search &amp; replace in novel</span><span lang="vi">Tìm &amp; thay trong truyện</span></td><td><ul class="function-list">
+    <li lang="en">Find and replace in the whole novel: results grouped by chapter, replace one hit, one chapter or all after a confirmation.</li>
+    <li lang="vi">Tìm và thay thế trong toàn truyện: kết quả nhóm theo chương, thay một kết quả, một chương hoặc tất cả sau khi xác nhận.</li>
+    <li lang="en">Options Match case and Whole word; no regular expressions.</li>
+    <li lang="vi">Tuỳ chọn Khớp chữ hoa/thường và Nguyên từ; không dùng biểu thức chính quy.</li>
     <li lang="en">Open a result at the right chapter and match position.</li>
     <li lang="vi">Mở kết quả đúng chương và vị trí khớp.</li>
-  </ul></td><td><span class="status review"><span lang="en">Proposed, high value</span><span lang="vi">Đề xuất giá trị cao</span></span></td></tr>
+  </ul></td><td><span class="status review"><span lang="en">Proposed, high value</span><span lang="vi">Đề xuất giá trị cao</span></span> <span class="status approved"><span lang="en">Changed by the PO, 2026-10-09 (M05 solution): renamed from Search in novel, replace added</span><span lang="vi">PO thay đổi, 2026-10-09 (giải pháp M05): đổi tên từ Tìm kiếm trong truyện, thêm thay thế</span></span> <span class="status approved"><span lang="en">Changed in the M05 solution, 2026-10-09: find &amp; replace in the chapter split off into M05-F05, re-approved by the PO with Gate 2 on 2026-10-09</span><span lang="vi">Thay đổi ở giải pháp M05, 2026-10-09: tìm &amp; thay trong chương tách sang M05-F05, PO đã duyệt lại cùng Gate 2 ngày 2026-10-09</span></span></td></tr>
+  <tr><td>M05-F05 · <span lang="en">Find &amp; replace in chapter</span><span lang="vi">Tìm &amp; thay trong chương</span> <span class="status open">new</span></td><td><ul class="function-list">
+    <li lang="en">Find and replace in the current chapter: replace one match or all matches in the chapter, as unsaved, undoable edits.</li>
+    <li lang="vi">Tìm và thay thế trong chương hiện tại: thay một kết quả hoặc mọi kết quả trong chương, như chỉnh sửa chưa lưu, hoàn tác được.</li>
+    <li lang="en">Options Match case and Whole word; no regular expressions.</li>
+    <li lang="vi">Tuỳ chọn Khớp chữ hoa/thường và Nguyên từ; không dùng biểu thức chính quy.</li>
+  </ul></td><td><span class="status review"><span lang="en">Proposed, high value</span><span lang="vi">Đề xuất giá trị cao</span></span> <span class="status approved"><span lang="en">Changed in the M05 solution, 2026-10-09 (split from M05-F04), re-approved by the PO with Gate 2 on 2026-10-09</span><span lang="vi">Thay đổi ở giải pháp M05, 2026-10-09 (tách từ M05-F04), PO đã duyệt lại cùng Gate 2 ngày 2026-10-09</span></span></td></tr>
 </tbody></table>
 
 <h3>M06 · Local Data</h3>
@@ -774,7 +782,7 @@
 <table class="compact">
   <thead><tr><th>ID</th><th><span lang="en">Decision to make</span><span lang="vi">Quyết định cần chốt</span></th><th><span lang="en">Affected modules</span><span lang="vi">Module bị ảnh hưởng</span></th><th><span lang="en">Suitable time</span><span lang="vi">Thời điểm phù hợp</span></th></tr></thead>
   <tbody>
-    <tr><td><code>Q8</code></td><td><span lang="en">Import formats and chapter-splitting rules.</span><span lang="vi">Định dạng nhập và quy tắc tách chương.</span></td><td>M04</td><td><span class="status approved"><span lang="en">Answered</span><span lang="vi">Đã trả lời</span></span> <span lang="en">M04 solution, 2026-10-06: ZIP package only, one file per chapter, no text splitting</span><span lang="vi">giải pháp M04, 2026-10-06: chỉ gói ZIP, mỗi tệp một chương, không tách văn bản</span></td></tr>
+    <tr><td><code>Q8</code></td><td><span lang="en">Import formats and chapter-splitting rules.</span><span lang="vi">Định dạng nhập và quy tắc tách chương.</span></td><td>M04</td><td><span class="status approved"><span lang="en">Answered</span><span lang="vi">Đã trả lời</span></span> <span lang="en">M04 solution, 2026-10-06: ZIP package only, one file per chapter, no text splitting; changed by the PO on 2026-10-09 (M05 solution, M04 Q38): chapter files hold the content only and a required <code>chapters.json</code> gives each chapter's number, title and file; packages not in this format are refused</span><span lang="vi">giải pháp M04, 2026-10-06: chỉ gói ZIP, mỗi tệp một chương, không tách văn bản; PO thay đổi ngày 2026-10-09 (giải pháp M05, M04 Q38): tệp chương chỉ chứa nội dung và <code>chapters.json</code> bắt buộc cho biết số, tiêu đề và tệp của từng chương; gói không đúng định dạng này bị từ chối</span></td></tr>
     <tr><td><code>Q9</code></td><td><span lang="en">Novel metadata to store and display.</span><span lang="vi">Metadata truyện cần lưu và hiển thị.</span></td><td>M04</td><td><span class="status approved"><span lang="en">Answered</span><span lang="vi">Đã trả lời</span></span> <span lang="en">M04 solution, 2026-10-06 (M04 Q8, Q18)</span><span lang="vi">giải pháp M04, 2026-10-06 (M04 Q8, Q18)</span></td></tr>
     <tr><td><code>Q10</code></td><td><span lang="en">Name/term translation policy and how to override it.</span><span lang="vi">Chính sách dịch tên/thuật ngữ và cách override.</span></td><td>M07, M09</td><td>Flow 05A</td></tr>
     <tr><td><code>Q11</code></td><td><span lang="en">Whether unanalysed chapters can be translated, and the level of consistency promised.</span><span lang="vi">Có cho dịch chương chưa phân tích và mức cam kết nhất quán.</span></td><td>M09</td><td>Flow 05A</td></tr>

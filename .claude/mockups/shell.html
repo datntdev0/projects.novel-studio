@@ -103,6 +103,10 @@
   <symbol id="i-scissors" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><path d="M8 7.5L20 18M8 16.5L20 6"/></symbol>
   <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5"/></symbol>
   <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></symbol>
+  <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></symbol>
+  <symbol id="i-replace" viewBox="0 0 24 24"><path d="M3 6h9M9 3l3 3-3 3M5 10v5a2 2 0 0 0 2 2h4"/><rect x="14" y="13" width="7" height="8" rx="1.5"/></symbol>
+  <symbol id="i-replace-all" viewBox="0 0 24 24"><path d="M3 6h9M9 3l3 3-3 3M5 10v5a2 2 0 0 0 2 2h4"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><path d="M16 11h6v6"/></symbol>
   <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></symbol>
   <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
   <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/></symbol>
@@ -333,7 +337,8 @@
         </div>
         <div data-sheet-scope="reader"><h4><span lang="en">Content & editor</span><span lang="vi">Nội dung & sửa</span> <span class="pill info hidden" data-sheet-here><span lang="en">this screen</span><span lang="vi">màn hình này</span></span></h4>
           <div class="sc"><span><span lang="en">Previous / next chapter</span><span lang="vi">Chương trước / sau</span></span><span class="keys"><kbd>Alt</kbd><kbd>←</kbd> <kbd>Alt</kbd><kbd>→</kbd></span></div>
-          <div class="sc"><span><span lang="en">Find in chapter</span><span lang="vi">Tìm trong chương</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>F</kbd></span></div>
+          <div class="sc"><span><span lang="en">Find & replace in chapter</span><span lang="vi">Tìm & thay trong chương</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>F</kbd> <kbd>Ctrl</kbd><kbd>H</kbd></span></div>
+          <div class="sc"><span><span lang="en">Next / previous match</span><span lang="vi">Kết quả sau / trước</span></span><span class="keys"><kbd>Enter</kbd> <kbd>Shift</kbd><kbd>Enter</kbd></span></div>
           <div class="sc"><span><span lang="en">Search whole novel</span><span lang="vi">Tìm toàn truyện</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>F</kbd></span></div>
           <div class="sc"><span><span lang="en">Edit source on/off</span><span lang="vi">Bật/tắt sửa nguồn</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>E</kbd></span></div>
           <div class="sc"><span><span lang="en">Save</span><span lang="vi">Lưu</span></span><span class="keys"><kbd>Ctrl</kbd><kbd>S</kbd></span></div>
@@ -364,6 +369,36 @@
   </div>
 </div>
 
+<!-- Leaving a chapter with unsaved source edits (M05-F03) -->
+<div class="scrim" id="dlg-unsaved-chapter" data-testid="dlg-unsaved-chapter">
+  <div class="dialog" role="alertdialog" aria-label="Unsaved changes">
+    <div class="dialog-head"><svg class="icon lg warning"><use href="#i-alert-triangle"/></svg><h2><span lang="en">Save changes to chapter 0012?</span><span lang="vi">Lưu thay đổi ở chương 0012?</span></h2><button class="btn ghost icon" data-close aria-label="Close" data-testid="dlg-unsaved-chapter-close"><svg class="icon"><use href="#i-x"/></svg></button></div>
+    <div class="dialog-body">
+      <p lang="en">The title or content of 第十二章 夜探药园 has changed since 14:20 and is not saved yet.</p>
+      <p lang="vi">Tiêu đề hoặc nội dung của 第十二章 夜探药园 đã thay đổi từ 14:20 và chưa được lưu.</p>
+    </div>
+    <div class="dialog-foot"><button class="btn" data-close autofocus data-testid="dlg-unsaved-chapter-cancel"><span lang="en">Keep editing</span><span lang="vi">Tiếp tục sửa</span></button><button class="btn danger" data-action="chapter-discard" data-testid="dlg-unsaved-chapter-discard"><span lang="en">Discard changes</span><span lang="vi">Bỏ thay đổi</span></button><button class="btn primary" data-action="chapter-save-continue" data-testid="dlg-unsaved-chapter-save"><span lang="en">Save and continue</span><span lang="vi">Lưu và tiếp tục</span></button></div>
+  </div>
+</div>
+
+<div class="scrim" id="dlg-replace-all" data-testid="dlg-replace-all">
+  <div class="dialog" role="alertdialog" aria-label="Replace in the whole novel">
+    <div class="dialog-head"><svg class="icon lg warning"><use href="#i-alert-triangle"/></svg><h2 data-mode-only="confirm"><span lang="en">Replace 37 matches in 12 chapters?</span><span lang="vi">Thay 37 kết quả trong 12 chương?</span></h2><h2 class="hidden" data-mode-only="done" data-testid="dlg-replace-all-done-title"><span lang="en">Replaced 33 matches in 11 chapters</span><span lang="vi">Đã thay 33 kết quả trong 11 chương</span></h2><button class="btn ghost icon" data-close aria-label="Close" data-testid="dlg-replace-all-close"><svg class="icon"><use href="#i-x"/></svg></button></div>
+    <div class="dialog-body" data-mode-only="confirm">
+      <p><span lang="en">Replace </span><span lang="vi">Thay </span><code>采霞山</code> → <code>彩霞山</code> <span lang="en">in titles and content of 凡人修仙传.</span><span lang="vi">trong tiêu đề và nội dung của 凡人修仙传.</span></p>
+      <p class="meta" lang="en">The chapters are written directly. This cannot be undone with Undo.</p>
+      <p class="meta" lang="vi">Các chương được ghi thẳng. Không thể hoàn tác bằng Hoàn tác.</p>
+    </div>
+    <div class="dialog-body hidden" data-mode-only="done" data-testid="dlg-replace-all-skipped">
+      <p lang="en">1 chapter was skipped because a job is processing it. Its matches stay in the Search results.</p>
+      <p lang="vi">Đã bỏ qua 1 chương vì một job đang xử lý chương đó. Các kết quả khớp của chương vẫn còn trong kết quả Tìm.</p>
+      <div class="issue-row warn" data-testid="dlg-replace-all-skipped-0018"><svg class="icon"><use href="#i-alert-triangle"/></svg><div><b>0018 · 第十八章 采霞山夜雨</b> — 4 <span lang="en">matches</span><span lang="vi">kết quả</span><div class="where"><span lang="en">in use by “Translate 0001–0100 · 凡人修仙传”</span><span lang="vi">đang được job “Dịch 0001–0100 · 凡人修仙传” dùng</span></div></div></div>
+    </div>
+    <div class="dialog-foot hidden" data-mode-only="done"><button class="btn primary" data-close data-testid="dlg-replace-all-done"><span lang="en">Close</span><span lang="vi">Đóng</span></button></div>
+    <div class="dialog-foot" data-mode-only="confirm"><button class="btn" data-close autofocus data-testid="dlg-replace-all-cancel"><span lang="en">Cancel</span><span lang="vi">Huỷ</span></button><button class="btn primary" data-action="replace-all-confirm" data-testid="dlg-replace-all-confirm"><span lang="en">Replace all</span><span lang="vi">Thay tất cả</span></button></div>
+  </div>
+</div>
+
 <div class="scrim" id="dlg-export" data-testid="dlg-export">
   <div class="dialog" role="dialog" aria-label="Export novel">
     <div class="dialog-head"><svg class="icon lg"><use href="#i-upload"/></svg><h2><span lang="en">Export </span><span lang="vi">Xuất </span><span data-exp-title>庆余年</span></h2><button class="btn ghost icon" data-close aria-label="Close" data-testid="dlg-export-close"><svg class="icon"><use href="#i-x"/></svg></button></div>
@@ -380,7 +415,7 @@
       <div class="field"><label for="dlg-export-folder"><span lang="en">Output folder</span><span lang="vi">Thư mục đầu ra</span></label><div class="row"><input class="input mono grow" id="dlg-export-folder" readonly value="D:\NovelStudio\Library\novels\n-0006\exports\" data-exp-folder data-testid="dlg-export-folder"><button class="btn" data-action="choose-folder" data-testid="dlg-export-choose"><span lang="en">Choose…</span><span lang="vi">Chọn…</span></button></div></div>
       <div class="field"><label for="dlg-export-file"><span lang="en">File name</span><span lang="vi">Tên tệp</span></label><input class="input" id="dlg-export-file" value="庆余年.zip" autocomplete="off" data-exp-file data-testid="dlg-export-file"></div>
       <div class="callout warning hidden" data-exp-exists data-testid="dlg-export-exists"><svg class="icon"><use href="#i-alert-triangle"/></svg><div class="col" style="gap:var(--sp-xs)"><span><b data-exp-file-name>庆余年.zip</b><span lang="en"> already exists in this folder.</span><span lang="vi"> đã có trong thư mục này.</span></span><label class="check"><input type="radio" name="dlg-export-conflict" value="replace" data-exp-conflict data-testid="dlg-export-replace"><span lang="en">Replace the existing file</span><span lang="vi">Thay tệp có sẵn</span></label><label class="check"><input type="radio" name="dlg-export-conflict" value="keep" checked data-exp-conflict data-testid="dlg-export-keep"><span><span lang="en">Keep both — save as </span><span lang="vi">Giữ cả hai — lưu thành </span><code data-exp-file-alt>庆余年-2.zip</code></span></label></div></div>
-      <p class="meta" data-testid="dlg-export-contents"><span lang="en">Package contains: </span><span lang="vi">Gói gồm: </span><code>novel.json</code> · <span lang="en">cover</span><span lang="vi">ảnh bìa</span> · <span class="num" data-exp-n>746</span> <span lang="en">chapter files</span><span lang="vi">tệp chương</span> (<code>chapters\NNNN.txt</code>)</p>
+      <p class="meta" data-testid="dlg-export-contents"><span lang="en">Package contains: </span><span lang="vi">Gói gồm: </span><code>chapters.json</code> <span lang="en">(numbers and titles)</span><span lang="vi">(số và tiêu đề chương)</span> · <code>novel.json</code> · <span lang="en">cover</span><span lang="vi">ảnh bìa</span> · <span class="num" data-exp-n>746</span> <span lang="en">chapter files</span><span lang="vi">tệp chương</span> (<code>chapters/NNNN.txt</code>, <span lang="en">content only</span><span lang="vi">chỉ nội dung</span>)</p>
     </div>
     <div class="dialog-foot"><button class="btn" data-close data-testid="dlg-export-cancel"><span lang="en">Cancel</span><span lang="vi">Huỷ</span></button><button class="btn primary" data-action="export-start" data-exp-start data-testid="dlg-export-start"><svg class="icon sm"><use href="#i-upload"/></svg><span lang="en">Start export</span><span lang="vi">Bắt đầu xuất</span></button></div>
   </div>
@@ -604,6 +639,8 @@ https://novel-reader.example/book/fanren/chapter-12</textarea></div>
     <h4><span lang="en">Dialogs</span><span lang="vi">Hộp thoại</span></h4>
     <div class="col proto-dialogs" data-testid="proto-dialogs">
       <div class="proto-dlg" data-testid="dlg-delete-state-preview"><span class="label"><span lang="en">Delete novel</span><span lang="vi">Xoá truyện</span></span><div class="row"><button class="btn sm" data-open="dlg-delete" data-novel="斗破苍穹" data-preview="confirm" data-testid="dlg-delete-state-confirm"><span lang="en">Confirm</span><span lang="vi">Xác nhận</span></button><button class="btn sm" data-open="dlg-delete" data-novel="凡人修仙传" data-preview="refused" data-testid="dlg-delete-state-refused"><span lang="en">Refused</span><span lang="vi">Bị từ chối</span></button></div></div>
+      <div class="proto-dlg" data-testid="dlg-unsaved-chapter-state-preview"><span class="label"><span lang="en">Unsaved chapter</span><span lang="vi">Chương chưa lưu</span></span><div class="row"><button class="btn sm" data-open="dlg-unsaved-chapter" data-testid="dlg-unsaved-chapter-open"><span lang="en">Open</span><span lang="vi">Mở</span></button></div></div>
+      <div class="proto-dlg" data-testid="dlg-replace-all-state-preview"><span class="label"><span lang="en">Replace in novel</span><span lang="vi">Thay trong truyện</span></span><div class="row"><button class="btn sm" data-open="dlg-replace-all" data-preview="confirm" data-testid="dlg-replace-all-open"><span lang="en">Confirm</span><span lang="vi">Xác nhận</span></button><button class="btn sm" data-open="dlg-replace-all" data-preview="done" data-testid="dlg-replace-all-state-done"><span lang="en">Chapters skipped</span><span lang="vi">Có chương bỏ qua</span></button></div></div>
       <div class="proto-dlg" data-testid="dlg-export-state-preview"><span class="label"><span lang="en">Export novel</span><span lang="vi">Xuất truyện</span></span><div class="row"><button class="btn sm" data-open="dlg-export" data-novel="斗破苍穹" data-preview="ready" data-testid="dlg-export-state-ready"><span lang="en">Ready</span><span lang="vi">Sẵn sàng</span></button><button class="btn sm" data-open="dlg-export" data-novel="斗破苍穹" data-preview="invalid" data-testid="dlg-export-state-invalid"><span lang="en">Range invalid</span><span lang="vi">Khoảng không hợp lệ</span></button><button class="btn sm" data-open="dlg-export" data-novel="凡人修仙传" data-preview="exists" data-testid="dlg-export-state-exists"><span lang="en">File exists</span><span lang="vi">Tệp đã có</span></button></div></div>
       <div class="proto-dlg" data-testid="dlg-job-preflight-state-preview"><span class="label"><span lang="en">Job preflight · translate</span><span lang="vi">Kiểm tra job · dịch</span></span><div class="row"><button class="btn sm" data-open="dlg-job-preflight" data-preflight="translate" data-preview="ready" data-testid="dlg-job-preflight-state-ready"><span lang="en">Ready</span><span lang="vi">Sẵn sàng</span></button><button class="btn sm" data-open="dlg-job-preflight" data-preflight="translate" data-preview="invalid" data-testid="dlg-job-preflight-state-invalid"><span lang="en">Invalid</span><span lang="vi">Không hợp lệ</span></button><button class="btn sm" data-open="dlg-job-preflight" data-preflight="translate" data-preview="overlap" data-testid="dlg-job-preflight-state-overlap"><span lang="en">Overlap</span><span lang="vi">Trùng</span></button></div></div>
       <div class="proto-dlg"><span class="label"><span lang="en">Job preflight · import</span><span lang="vi">Kiểm tra job · nhập</span></span><div class="row"><button class="btn sm" data-open="dlg-job-preflight" data-preflight="import" data-preview="ready" data-testid="proto-dlg-import-ready"><span lang="en">Ready</span><span lang="vi">Sẵn sàng</span></button></div></div>
