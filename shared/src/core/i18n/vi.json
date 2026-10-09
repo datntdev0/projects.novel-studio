@@ -1,5 +1,5 @@
 {
-  "ui": { "close": "Đóng", "cancel": "Huỷ", "details": "Chi tiết" },
+  "ui": { "close": "Đóng", "cancel": "Huỷ", "details": "Chi tiết", "loading": "Đang tải…" },
   "module": {
     "home": { "label": "Trang chủ", "description": "Cung cấp khung desktop ổn định cho mọi công cụ." },
     "library": {
@@ -22,6 +22,8 @@
     "tasks": { "label": "Trung tâm tác vụ", "description": "Chạy, theo dõi và tiếp tục các tác vụ AI dài mà không khóa UI." },
     "settings": { "label": "Cài đặt", "description": "Quản lý cấu hình ứng dụng và chọn CLI cho từng loại tác vụ." }
   },
+  "command": { "toggleLanguage": "Đổi ngôn ngữ", "toggleTheme": "Đổi giao diện" },
+  "topbar": { "language": "Ngôn ngữ", "theme": "Giao diện" },
   "dev": {
     "root": {
       "library": "Thư viện",
@@ -49,6 +51,31 @@
       "number": "Số",
       "look": "Giao diện mẫu",
       "serifSample": "Phông chữ đọc: ẳ ễ ở ự"
+    },
+    "probe": {
+      "toastInfo": "Thông báo thông tin",
+      "toastSuccess": "Thông báo thành công",
+      "toastWarning": "Thông báo cảnh báo",
+      "toastError": "Thông báo lỗi",
+      "infoTitle": "Thông tin",
+      "infoBody": "Đây là một thông báo thông tin.",
+      "successTitle": "Đã lưu",
+      "successBody": "Các thay đổi của bạn đã được lưu.",
+      "warningTitle": "Cẩn thận",
+      "warningBody": "Việc này có thể mất một lúc.",
+      "errorTitle": "Đã xảy ra lỗi",
+      "errorBody": "Không thể hoàn tất lệnh.",
+      "delete": "Xóa chương",
+      "deleteTitle": "Xóa “{name}”?",
+      "deleteMessage": "Nội dung và ghi chú của chương sẽ bị mất.",
+      "deleteConfirm": "Xóa",
+      "areaReady": "Tiểu thuyết: {count}",
+      "areaEmptyTitle": "Chưa có tiểu thuyết",
+      "areaEmptyText": "Chưa có gì để hiển thị.",
+      "areaReload": "Tải lại",
+      "toastNsError": "Toast NsError",
+      "input": "Ô nhập văn bản",
+      "scrollLine": "Dòng cuộn"
     }
   },
   "error": {

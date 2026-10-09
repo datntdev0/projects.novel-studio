@@ -1,5 +1,5 @@
 {
-  "ui": { "close": "Close", "cancel": "Cancel", "details": "Details" },
+  "ui": { "close": "Close", "cancel": "Cancel", "details": "Details", "loading": "Loading…" },
   "module": {
     "home": { "label": "Home", "description": "Provide a stable desktop frame for every tool." },
     "library": {
@@ -22,6 +22,8 @@
     "tasks": { "label": "Task Center", "description": "Run, track and resume long AI tasks without blocking the UI." },
     "settings": { "label": "Settings", "description": "Manage app settings and choose the CLI for each task type." }
   },
+  "command": { "toggleLanguage": "Switch language", "toggleTheme": "Switch theme" },
+  "topbar": { "language": "Language", "theme": "Theme" },
   "dev": {
     "root": {
       "library": "Library",
@@ -49,6 +51,31 @@
       "number": "Number",
       "look": "Look",
       "serifSample": "Reading font: ẳ ễ ở ự"
+    },
+    "probe": {
+      "toastInfo": "Info toast",
+      "toastSuccess": "Success toast",
+      "toastWarning": "Warning toast",
+      "toastError": "Error toast",
+      "infoTitle": "Information",
+      "infoBody": "This is an info message.",
+      "successTitle": "Saved",
+      "successBody": "Your changes were saved.",
+      "warningTitle": "Careful",
+      "warningBody": "This may take a while.",
+      "errorTitle": "Something failed",
+      "errorBody": "The command could not finish.",
+      "delete": "Delete chapter",
+      "deleteTitle": "Delete “{name}”?",
+      "deleteMessage": "Its text and notes will be lost.",
+      "deleteConfirm": "Delete",
+      "areaReady": "Novels: {count}",
+      "areaEmptyTitle": "No novels",
+      "areaEmptyText": "Nothing to show yet.",
+      "areaReload": "Reload",
+      "toastNsError": "NsError toast",
+      "input": "Text input",
+      "scrollLine": "Scroll line"
     }
   },
   "error": {

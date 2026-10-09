@@ -1,17 +1,11 @@
 import { test, expect } from '../../support/test.ts';
 import { expectHtml, SETTINGS_KEY, type Theme } from '../../support/theme.ts';
+import { htmlWrites, recordHtmlWrites, type HtmlWrite } from '../../support/appearance.ts';
 import { storedSettings } from '../../support/first-paint.ts';
 
-type Write = { name: string; value: string };
-type Mutation = { attributeName: string; target: { getAttribute(name: string): string } };
-type PaintGlobals = {
-  __writes: Write[];
-  localStorage: { setItem(key: string, value: string): void };
-  document: unknown;
-  MutationObserver: new (callback: (records: Mutation[]) => void) => { observe(target: unknown, options: object): void };
-};
+type StorageGlobals = { localStorage: { setItem(key: string, value: string): void } };
 
-const cases: { language: 'en' | 'vi'; theme: Theme; forbidden: Write[] }[] = [
+const cases: { language: 'en' | 'vi'; theme: Theme; forbidden: HtmlWrite[] }[] = [
   {
     language: 'vi',
     theme: 'light',
@@ -32,24 +26,15 @@ const cases: { language: 'en' | 'vi'; theme: Theme; forbidden: Write[] }[] = [
 
 test('S10 renderer never writes the default language or theme over stored settings (AC-39)', async ({ page }) => {
   await page.goto('/');
-  await page.addInitScript(() => {
-    const g = globalThis as unknown as PaintGlobals;
-    g.__writes = [];
-    const record = (r: Mutation): number => g.__writes.push({ name: r.attributeName, value: r.target.getAttribute(r.attributeName) });
-    new g.MutationObserver((records) => records.forEach(record)).observe(g.document, {
-      subtree: true,
-      attributes: true,
-      attributeFilter: ['lang', 'data-theme'],
-    });
-  });
+  await recordHtmlWrites(page);
   for (const { language, theme, forbidden } of cases) {
-    await page.evaluate(([key, value]) => (globalThis as unknown as PaintGlobals).localStorage.setItem(key, value), [
+    await page.evaluate(([key, value]) => (globalThis as unknown as StorageGlobals).localStorage.setItem(key, value), [
       SETTINGS_KEY,
       storedSettings(language, theme),
     ] as const);
     await page.reload();
     await expectHtml(page, language, theme);
-    const writes = await page.evaluate(() => (globalThis as unknown as PaintGlobals).__writes);
+    const writes = await htmlWrites(page);
     expect(writes.length).toBeGreaterThan(0);
     for (const bad of forbidden) expect(writes).not.toContainEqual(bad);
   }

@@ -1,5 +1,5 @@
 <div class="shell" data-testid="app-shell" [style.grid-template-columns]="columns()" [style.grid-template-rows]="rows()">
-  <header class="topbar" data-testid="topbar"></header>
+  <header class="topbar" data-testid="topbar"><ns-appearance-buttons /></header>
   <nav class="rail" data-testid="rail"></nav>
   <aside class="panel-left" data-testid="panel-left"><ng-container *ngTemplateOutlet="panels.left()" /></aside>
   <main class="workspace" data-testid="workspace"><router-outlet /></main>
@@ -7,3 +7,5 @@
   <section class="panel-bottom" data-testid="panel-bottom"><ng-container *ngTemplateOutlet="panels.bottom()" /></section>
   <footer class="statusbar" data-testid="statusbar"></footer>
 </div>
+<ns-toast-outlet />
+<ns-confirm-outlet />

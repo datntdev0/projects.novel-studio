@@ -7,6 +7,7 @@ import { provideI18n } from './core/i18n/i18n.provider';
 import { provideSettings } from './core/settings/settings.provider';
 import { provideShortcuts } from './core/shortcuts/shortcuts.provider';
 import { provideTheme } from './core/theme/theme.provider';
+import { provideAppearanceCommands } from './shell/commands/appearance.commands';
 import { provideNavigationCommands } from './shell/commands/navigation.commands';
 import { provideShortcutContext } from './shell/commands/shortcut-context.provider';
 import { provideIconSprite } from './components/icon/icon-sprite.provider';
@@ -24,5 +25,6 @@ export const appConfig: ApplicationConfig = {
     provideShortcutContext(),
     provideShortcuts(),
     provideNavigationCommands(),
+    provideAppearanceCommands(),
   ],
 };

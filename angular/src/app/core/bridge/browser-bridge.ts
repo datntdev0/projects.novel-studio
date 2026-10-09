@@ -1,4 +1,4 @@
-import { readFixture } from './fixtures/shell-fixtures';
+import { AREA_CHANNELS, FAIL_ERROR, SLOW_MS, readFixture, readFixtureMode, type FixtureMode } from './fixtures/shell-fixtures';
 import { APP_NAME, CLOSED_LIBRARY, isLibraryOpenRequest, isLibraryReadRequest, isLibraryWriteRequest, isNovelOpenedRequest, isSettingsPatch, nsError, markOpened, readSettingsText, toLibraryPath, writeSettingsText, type BackendStatus, type Bridge, type IpcContract, type LibraryStatus, type LogEntry, type NovelSummary, type SettingsRead, type ShellMockupSet, type SystemStatus } from '@shared/core';
 
 type Handlers = { [C in keyof IpcContract]: (req: IpcContract[C]['req']) => IpcContract[C]['res'] };
@@ -11,6 +11,7 @@ const invalidRequest = () => nsError('IPC_INVALID_REQUEST', 'Invalid request');
 export class BrowserBridge implements Bridge {
   readonly logEntries: LogEntry[] = [];
   private readonly fixture: ShellMockupSet;
+  private readonly mode: FixtureMode;
   private libraryStatus: LibraryStatus;
   private novels: NovelSummary[];
   private readonly libraryFiles = new Map<string, string>();
@@ -67,6 +68,7 @@ export class BrowserBridge implements Bridge {
 
   constructor(search: string = window.location.search) {
     this.fixture = readFixture(search);
+    this.mode = readFixtureMode(search);
     this.libraryStatus = this.fixture.libraryStatus;
     this.novels = [...this.fixture.novels];
   }
@@ -74,7 +76,14 @@ export class BrowserBridge implements Bridge {
   on: Bridge['on'] = () => () => undefined;
 
   async invoke<C extends keyof IpcContract>(channel: C, req: IpcContract[C]['req']): Promise<IpcContract[C]['res']> {
+    await this.applyMode(channel);
     return this.handlers[channel](req);
+  }
+
+  private async applyMode(channel: keyof IpcContract): Promise<void> {
+    if (!AREA_CHANNELS.includes(channel)) return;
+    if (this.mode === 'fail') throw FAIL_ERROR;
+    if (this.mode === 'slow') await new Promise((resolve) => setTimeout(resolve, SLOW_MS));
   }
 
   private libraryKey(input: string): string {

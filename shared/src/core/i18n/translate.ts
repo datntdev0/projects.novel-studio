@@ -13,6 +13,24 @@ export function formatDate(language: Language, value: Date | number, options: In
   return new Intl.DateTimeFormat(INTL_LOCALES[language], options).format(value);
 }
 
+const RELATIVE_UNITS: [Intl.RelativeTimeFormatUnit, number][] = [
+  ['year', 31536000],
+  ['month', 2592000],
+  ['day', 86400],
+  ['hour', 3600],
+  ['minute', 60],
+  ['second', 1],
+];
+
+export function formatRelativeTime(language: Language, value: Date | number | string, now: number = Date.now()): string {
+  const seconds = (new Date(value).getTime() - now) / 1000;
+  const [unit, size] = RELATIVE_UNITS.find(([, unitSize]) => Math.abs(seconds) >= unitSize) ?? ['second', 1];
+  return new Intl.RelativeTimeFormat(INTL_LOCALES[language], { numeric: 'always', style: 'narrow' }).format(
+    Math.trunc(seconds / size),
+    unit,
+  );
+}
+
 function isPlural(value: DictionaryValue | undefined): value is PluralText {
   return typeof value === 'object' && typeof value.other === 'string';
 }
