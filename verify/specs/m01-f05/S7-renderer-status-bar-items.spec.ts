@@ -1,13 +1,21 @@
-import { expect, test } from '../../support/test.ts';
+import { expect, test, type Page } from '../../support/test.ts';
 import { appearanceText, toggleLanguage, toggleTheme } from '../../support/appearance.ts';
 import { gotoShell } from '../../support/shell.ts';
 import { statusText } from '../../support/status.ts';
+
+type PageGlobals = { document: { documentElement: { scrollWidth: number; clientWidth: number } } };
 
 const LIBRARY = 'C:\\NovelStudio\\Library';
 const SAMPLE = { en: '3,208', vi: '3.208' };
 const look = (language: 'en' | 'vi', theme: 'dark' | 'light'): string =>
   `${language.toUpperCase()} · ${appearanceText(language, `status.theme.${theme}`)}`;
 const chapter = (language: 'en' | 'vi'): string => appearanceText(language, 'status.chapter', { number: '0012', chars: SAMPLE[language] });
+
+const pageFits = (page: Page): Promise<boolean> =>
+  page.evaluate(() => {
+    const { scrollWidth, clientWidth } = (globalThis as unknown as PageGlobals).document.documentElement;
+    return scrollWidth <= clientWidth;
+  });
 
 test('S7 the status bar shows library, hints, language and theme, and the chapter (AC-46)', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 720 });
@@ -41,8 +49,7 @@ test('S7 the status bar shows library, hints, language and theme, and the chapte
   expect((await page.getByTestId('statusbar').boundingBox())?.height).toBe(height);
   const statusbarFits = await page.getByTestId('statusbar').evaluate((element) => element.scrollWidth <= element.clientWidth);
   expect(statusbarFits).toBe(true);
-  const pageFits = await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth);
-  expect(pageFits).toBe(true);
+  expect(await pageFits(page)).toBe(true);
 
   await page.getByTestId('topbar-novel-clear').click();
   await expect(page.getByTestId('statusbar-chapter')).toHaveCount(0);
