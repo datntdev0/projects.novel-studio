@@ -22,8 +22,39 @@
     "tasks": { "label": "Trung tâm tác vụ", "description": "Chạy, theo dõi và tiếp tục các tác vụ AI dài mà không khóa UI." },
     "settings": { "label": "Cài đặt", "description": "Quản lý cấu hình ứng dụng và chọn CLI cho từng loại tác vụ." }
   },
-  "command": { "toggleLanguage": "Đổi ngôn ngữ", "toggleTheme": "Đổi giao diện" },
+  "command": { "toggleLanguage": "Đổi ngôn ngữ", "toggleTheme": "Đổi giao diện", "palette": "Bảng lệnh", "shortcuts": "Phím tắt" },
+  "shortcuts": {
+    "title": "Phím tắt",
+    "meta": "Toàn cục trước, sau đó theo module",
+    "global": "Toàn cục",
+    "here": "màn hình này",
+    "escape": "Đóng overlay / thoát tập trung"
+  },
   "topbar": { "language": "Ngôn ngữ", "theme": "Giao diện" },
+  "palette": {
+    "button": "Tìm hoặc chạy lệnh…",
+    "placeholder": "Gõ lệnh, màn hình hoặc tên truyện…",
+    "module": "Đi tới module · {group}",
+    "commands": "Lệnh",
+    "novels": "Truyện",
+    "emptyTitle": "Không có kết quả",
+    "emptyText": "Thử từ khác hoặc bỏ bộ lọc.",
+    "filterNovels": "Chỉ truyện",
+    "navigate": "Di chuyển",
+    "run": "Chạy",
+    "close": "Đóng"
+  },
+  "rail": {
+    "group": {
+      "library": "Thư viện",
+      "workspace": "Không gian làm việc",
+      "media": "Media",
+      "production": "Sản xuất",
+      "distribution": "Phân phối",
+      "system": "Hệ thống"
+    }
+  },
+  "shell": { "openNovelFirst": "Hãy mở một truyện trước" },
   "dev": {
     "root": {
       "library": "Thư viện",
@@ -75,7 +106,10 @@
       "areaReload": "Tải lại",
       "toastNsError": "Toast NsError",
       "input": "Ô nhập văn bản",
-      "scrollLine": "Dòng cuộn"
+      "scrollLine": "Dòng cuộn",
+      "moduleAction": "Hành động của mô-đun",
+      "registerModuleCommand": "Đăng ký lệnh mô-đun",
+      "openPaletteNovels": "Mở bảng lệnh (truyện)"
     }
   },
   "error": {

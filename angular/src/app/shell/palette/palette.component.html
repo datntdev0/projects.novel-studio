@@ -1,0 +1,65 @@
+@if (palette.state(); as state) {
+  <div class="scrim open" data-testid="palette" (click)="palette.close()">
+    <div class="palette" role="dialog" aria-modal="true" [attr.aria-label]="i18n.t('command.palette')" (click)="$event.stopPropagation()">
+      <div class="search">
+        <ns-icon name="search" />
+        <input
+          #searchInput
+          class="input"
+          data-testid="palette-input"
+          [placeholder]="i18n.t('palette.placeholder')"
+          [value]="query()"
+          (input)="setQuery($event)"
+          (keydown)="onKeydown($event)"
+        />
+        @if (state.filter === 'novels') {
+          <span class="pill" data-testid="palette-filter">
+            {{ i18n.t('palette.filterNovels') }}
+            <button
+              type="button"
+              class="clear"
+              data-testid="palette-filter-clear"
+              [attr.aria-label]="i18n.t('palette.close')"
+              (click)="clearFilter()"
+            >
+              <ns-icon name="x" size="sm" />
+            </button>
+          </span>
+        }
+      </div>
+      <div class="results">
+        @for (group of groups(); track group.id) {
+          <div class="group" [attr.data-testid]="'palette-group-' + group.id">{{ group.title }}</div>
+          @for (row of group.items; track row.item.testId) {
+            <div
+              class="cmd"
+              role="option"
+              [class.focus]="row.index === selected()"
+              [attr.aria-selected]="row.index === selected()"
+              [attr.data-testid]="row.item.testId"
+              (mouseenter)="selected.set(row.index)"
+              (click)="run(row.index)"
+            >
+              <ns-icon [name]="row.item.icon" />
+              <span class="text">{{ row.item.label }}</span>
+              @if (row.item.hint) {
+                <code class="mod-id">{{ row.item.hint }}</code>
+              }
+              <ns-keys class="keys" [chords]="row.item.keys" />
+            </div>
+          }
+        } @empty {
+          <div class="empty" data-testid="palette-empty">
+            <strong>{{ i18n.t('palette.emptyTitle') }}</strong>
+            <span>{{ i18n.t('palette.emptyText') }}</span>
+          </div>
+        }
+      </div>
+      <div class="foot">
+        <span><kbd>↑</kbd><kbd>↓</kbd> {{ i18n.t('palette.navigate') }}</span>
+        <span><kbd>Enter</kbd> {{ i18n.t('palette.run') }}</span>
+        <span><kbd>Esc</kbd> {{ i18n.t('palette.close') }}</span>
+      </div>
+    </div>
+  </div>
+}

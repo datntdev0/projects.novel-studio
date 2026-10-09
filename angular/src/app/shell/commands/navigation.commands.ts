@@ -4,9 +4,11 @@ import { CommandService } from '../../core/shortcuts/command.service';
 import { MODULE_REGISTRY } from '../registry/module-registry';
 import { ShellStore } from '../shell.store';
 
+export const navCommandId = (moduleId: string): string => `nav.${moduleId}`;
+
 export const navigationCommands = (store: ShellStore): Command[] =>
   MODULE_REGISTRY.map((entry) => ({
-    id: `nav.${entry.id}`,
+    id: navCommandId(entry.id),
     labelKey: entry.labelKey,
     keywords: entry.keywords,
     keys: entry.keys,

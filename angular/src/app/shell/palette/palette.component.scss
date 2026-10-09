@@ -1,0 +1,110 @@
+.scrim {
+  z-index: 55;
+  align-items: flex-start;
+}
+.palette {
+  width: min(640px, 100%);
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-3);
+  overflow: hidden;
+  margin-top: 12vh;
+}
+.search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border);
+}
+.search > .icon {
+  position: absolute;
+  left: 14px;
+  width: 18px;
+  height: 18px;
+  color: var(--color-text-tertiary);
+  pointer-events: none;
+}
+.search .input {
+  height: 44px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-size: 14px;
+  padding-left: 40px;
+}
+.search .input:focus {
+  outline: none;
+}
+.search .pill {
+  flex: none;
+  margin-right: var(--sp-md);
+}
+.clear {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.results {
+  max-height: 50vh;
+  overflow: auto;
+  padding: var(--sp-xs);
+}
+.group {
+  padding: var(--sp-sm) var(--sp-md) var(--sp-xs);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-tertiary);
+}
+.cmd {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-md);
+  padding: 7px var(--sp-md);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 13px;
+}
+.cmd .icon {
+  color: var(--color-text-tertiary);
+}
+.cmd .text {
+  flex: 1;
+  min-width: 0;
+}
+.cmd .mod-id {
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+  background: transparent;
+  padding: 0;
+  white-space: nowrap;
+}
+.cmd .keys {
+  display: flex;
+  gap: 3px;
+}
+.cmd:hover,
+.cmd.focus {
+  background: var(--color-surface-muted);
+}
+.empty {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xs);
+  align-items: center;
+  padding: var(--sp-xl) var(--sp-md);
+  font-size: 13px;
+  color: var(--color-text-tertiary);
+}
+.foot {
+  display: flex;
+  gap: var(--sp-lg);
+  padding: var(--sp-sm) var(--sp-md);
+  border-top: 1px solid var(--color-border);
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+}
