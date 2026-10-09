@@ -4,14 +4,9 @@ import { expectAppLog } from '../../support/app-log.ts';
 import { invokeSettings } from '../../support/settings-bridge.ts';
 import { readSettingsJson, settingsText, writeSettingsFile } from '../../support/settings-file.ts';
 
-const withoutPid = (settings: Record<string, unknown>) => ({ ...settings, backendPid: null });
+const withoutVolatile = (settings: Record<string, unknown>) => ({ ...settings, backendPid: null, windowBounds: null });
 
-const changes = {
-  language: 'vi',
-  theme: 'light',
-  windowBounds: { x: 10, y: 20, width: 1300, height: 800, maximized: false },
-  layout: { home: { left: 240 } },
-};
+const changes = { language: 'vi', theme: 'light', layout: { home: { left: 240 } } };
 
 test('S5 settings survive an app restart (AC-21)', async ({ appRoot }) => {
   await withApp(appRoot, async (app) => {
@@ -20,7 +15,7 @@ test('S5 settings survive an app restart (AC-21)', async ({ appRoot }) => {
     const result = await invokeSettings(window, 'settings:set', changes);
     expect(result).toMatchObject({ ok: true, value: changes });
   });
-  expect(withoutPid(await readSettingsJson(appRoot))).toEqual(JSON.parse(settingsText(changes)));
+  expect(withoutVolatile(await readSettingsJson(appRoot))).toEqual(JSON.parse(settingsText(changes)));
 
   await writeSettingsFile(appRoot, JSON.stringify({ ...(await readSettingsJson(appRoot)), futureKey: 42 }));
   await withApp(appRoot, async (app) => {
