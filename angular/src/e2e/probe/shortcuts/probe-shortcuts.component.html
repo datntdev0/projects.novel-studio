@@ -1,0 +1,6 @@
+<section>
+  <button type="button" data-testid="probe-register-module-command" (click)="moduleCommands.register()">
+    {{ 'dev.probe.registerModuleCommand' | t }}
+  </button>
+  <p data-testid="probe-module-runs">{{ moduleCommands.runs() }}</p>
+</section>

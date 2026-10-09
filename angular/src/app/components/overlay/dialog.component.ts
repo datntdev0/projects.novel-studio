@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, Injector, afterNextRender, booleanAttribute, effect, inject, input, model, output, viewChild, ElementRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, Injector, afterNextRender, booleanAttribute, effect, inject, input, model, output, viewChild, ElementRef } from '@angular/core';
+import { LayerService } from '../../core/shortcuts/layer.service';
 import { TranslatePipe } from '../../core/i18n/t.pipe';
 import { ButtonDirective } from '../button/button.directive';
 import { IconComponent } from '../icon/icon.component';
@@ -47,6 +48,8 @@ let nextId = 0;
 })
 export class DialogComponent {
   private readonly injector = inject(Injector);
+  private readonly layers = inject(LayerService);
+  private releaseLayer: (() => void) | null = null;
   private readonly dialog = viewChild<ElementRef<HTMLElement>>('dialog');
   private opener: HTMLElement | null = null;
 
@@ -59,7 +62,9 @@ export class DialogComponent {
 
   constructor() {
     effect(() => {
+      this.releaseHeldLayer();
       if (this.open()) {
+        this.releaseLayer = this.layers.push(() => this.close());
         this.opener = document.activeElement as HTMLElement | null;
         afterNextRender(() => this.focusInitial(), { injector: this.injector });
       } else {
@@ -67,6 +72,7 @@ export class DialogComponent {
         this.opener = null;
       }
     });
+    inject(DestroyRef).onDestroy(() => this.releaseHeldLayer());
   }
 
   protected close(): void {
@@ -85,11 +91,14 @@ export class DialogComponent {
     if (!this.open() || !container) {
       return;
     }
-    if (event.key === 'Escape') {
-      this.close();
-    } else if (event.key === 'Tab') {
+    if (event.key === 'Tab' && !event.defaultPrevented) {
       trapTab(event, container);
     }
+  }
+
+  private releaseHeldLayer(): void {
+    this.releaseLayer?.();
+    this.releaseLayer = null;
   }
 
   private focusInitial(): void {

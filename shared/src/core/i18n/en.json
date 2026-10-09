@@ -24,6 +24,7 @@
   },
   "command": { "toggleLanguage": "Switch language", "toggleTheme": "Switch theme" },
   "topbar": { "language": "Language", "theme": "Theme" },
+  "shell": { "openNovelFirst": "Open a novel first" },
   "dev": {
     "root": {
       "library": "Library",
@@ -75,7 +76,9 @@
       "areaReload": "Reload",
       "toastNsError": "NsError toast",
       "input": "Text input",
-      "scrollLine": "Scroll line"
+      "scrollLine": "Scroll line",
+      "moduleAction": "Module action",
+      "registerModuleCommand": "Register module command"
     }
   },
   "error": {

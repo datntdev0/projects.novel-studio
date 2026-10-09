@@ -10,6 +10,7 @@ import { provideTheme } from './core/theme/theme.provider';
 import { provideAppearanceCommands } from './shell/commands/appearance.commands';
 import { provideNavigationCommands } from './shell/commands/navigation.commands';
 import { provideShortcutContext } from './shell/commands/shortcut-context.provider';
+import { provideNovelGuardToast } from './shell/commands/novel-guard.provider';
 import { provideIconSprite } from './components/icon/icon-sprite.provider';
 
 export const appConfig: ApplicationConfig = {
@@ -24,6 +25,7 @@ export const appConfig: ApplicationConfig = {
     provideIconSprite(),
     provideShortcutContext(),
     provideShortcuts(),
+    provideNovelGuardToast(),
     provideNavigationCommands(),
     provideAppearanceCommands(),
   ],

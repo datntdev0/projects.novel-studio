@@ -9,8 +9,13 @@ import { ShellPanels } from '../../app/shell/shell-panels';
 import { ShellStore } from '../../app/shell/shell.store';
 import { ProbeFoundationComponent } from './foundation/probe-foundation.component';
 import { ProbeAppearanceComponent } from './appearance/probe-appearance.component';
+import { ProbeShortcutsComponent } from './shortcuts/probe-shortcuts.component';
 
-@Component({ selector: 'ns-probe', imports: [ProbeFoundationComponent, ProbeAppearanceComponent], templateUrl: './probe.component.html' })
+@Component({
+  selector: 'ns-probe',
+  imports: [ProbeFoundationComponent, ProbeAppearanceComponent, ProbeShortcutsComponent],
+  templateUrl: './probe.component.html',
+})
 export class ProbeComponent {
   private readonly bridge = inject(BRIDGE);
   private readonly errors = inject(ErrorService);

@@ -24,6 +24,7 @@
   },
   "command": { "toggleLanguage": "Đổi ngôn ngữ", "toggleTheme": "Đổi giao diện" },
   "topbar": { "language": "Ngôn ngữ", "theme": "Giao diện" },
+  "shell": { "openNovelFirst": "Hãy mở một truyện trước" },
   "dev": {
     "root": {
       "library": "Thư viện",
@@ -75,7 +76,9 @@
       "areaReload": "Tải lại",
       "toastNsError": "Toast NsError",
       "input": "Ô nhập văn bản",
-      "scrollLine": "Dòng cuộn"
+      "scrollLine": "Dòng cuộn",
+      "moduleAction": "Hành động của mô-đun",
+      "registerModuleCommand": "Đăng ký lệnh mô-đun"
     }
   },
   "error": {
