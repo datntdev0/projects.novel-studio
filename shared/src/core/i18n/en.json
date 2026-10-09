@@ -127,6 +127,26 @@
       "openPaletteNovels": "Open palette (novels)"
     }
   },
+  "status": {
+    "noLibrary": "No library open",
+    "chapter": "Ch. {number} · {chars} chars",
+    "hint": { "palette": "commands", "shortcuts": "shortcuts" },
+    "theme": { "dark": "dark", "light": "light" },
+    "cli": {
+      "title": "{name} CLI · Settings",
+      "missing": "not found",
+      "unknown": "status unknown",
+      "warning": "needs attention",
+      "problem": { "BACKEND_UNAUTHORIZED": "not logged in" }
+    },
+    "job": {
+      "progress": "{label} {done}/{total} · {percent}%",
+      "idle": "No running tasks",
+      "attention": { "one": "{count} needs attention", "other": "{count} need attention" }
+    },
+    "backend": { "starting": "Starting local backend…", "failed": "Local backend failed: {reason}" }
+  },
+  "job": { "translation": "Translating", "analysis": "Analysing" },
   "error": {
     "INTERNAL": "Something went wrong. Please try again.",
     "IPC_INVALID_REQUEST": "The request was not valid.",

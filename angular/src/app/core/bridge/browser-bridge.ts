@@ -1,6 +1,7 @@
-import { AREA_CHANNELS, FAIL_ERROR, SLOW_MS, readFixture, readFixtureMode, type FixtureMode } from './fixtures/shell-fixtures';
-import { APP_NAME, CLOSED_LIBRARY, isLibraryOpenRequest, isLibraryReadRequest, isLibraryWriteRequest, isNovelOpenedRequest, isSettingsPatch, nsError, markOpened, readSettingsText, toLibraryPath, writeSettingsText, type BackendStatus, type Bridge, type IpcContract, type LibraryStatus, type LogEntry, type NovelSummary, type SettingsRead, type ShellMockupSet, type SystemStatus } from '@shared/core';
+import { AREA_CHANNELS, FAIL_ERROR, FLOOD_MS, SLOW_MS, readFixture, readFixtureMode, type FixtureMode } from './fixtures/shell-fixtures';
+import { APP_NAME, CLOSED_LIBRARY, isLibraryOpenRequest, isLibraryReadRequest, isLibraryWriteRequest, isNovelOpenedRequest, isSettingsPatch, nsError, markOpened, readSettingsText, toLibraryPath, writeSettingsText, type BackendStatus, type Bridge, type IpcContract, type IpcEvents, type LibraryStatus, type LogEntry, type NovelSummary, type SettingsRead, type ShellMockupSet, type SystemStatus } from '@shared/core';
 
+type Listener<E extends keyof IpcEvents> = (payload: IpcEvents[E]) => void;
 type Handlers = { [C in keyof IpcContract]: (req: IpcContract[C]['req']) => IpcContract[C]['res'] };
 
 const SETTINGS_KEY = 'novel-studio.settings';
@@ -15,6 +16,7 @@ export class BrowserBridge implements Bridge {
   private libraryStatus: LibraryStatus;
   private novels: NovelSummary[];
   private readonly libraryFiles = new Map<string, string>();
+  private readonly listeners: { [E in keyof IpcEvents]: Set<Listener<E>> } = { 'backend:status': new Set(), 'job:progress': new Set() };
 
   private readonly handlers: Handlers = {
     'app:getInfo': () => {
@@ -71,9 +73,29 @@ export class BrowserBridge implements Bridge {
     this.mode = readFixtureMode(search);
     this.libraryStatus = this.fixture.libraryStatus;
     this.novels = [...this.fixture.novels];
+    if (this.mode === 'flood') this.startFlood();
   }
 
-  on: Bridge['on'] = () => () => undefined;
+  on: Bridge['on'] = (event, handler) => {
+    const handlers: Set<typeof handler> = this.listeners[event];
+    handlers.add(handler);
+    return () => void handlers.delete(handler);
+  };
+
+  emit<E extends keyof IpcEvents>(event: E, payload: IpcEvents[E]): void {
+    const handlers: Set<Listener<E>> = this.listeners[event];
+    handlers.forEach((handler) => handler(payload));
+  }
+
+  private startFlood(): void {
+    const running = this.fixture.jobs.find((job) => job.state === 'running');
+    if (!running) return;
+    let completedCount = running.completedCount;
+    setInterval(() => {
+      completedCount = completedCount + 1 >= running.totalCount ? 0 : completedCount + 1;
+      this.emit('job:progress', { ...running, completedCount });
+    }, FLOOD_MS);
+  }
 
   async invoke<C extends keyof IpcContract>(channel: C, req: IpcContract[C]['req']): Promise<IpcContract[C]['res']> {
     await this.applyMode(channel);

@@ -1,7 +1,7 @@
 import { inject, provideEnvironmentInitializer, type EnvironmentProviders } from '@angular/core';
 import { GLOBAL_SCOPE, type Command } from '../../core/shortcuts/command';
 import { CommandService } from '../../core/shortcuts/command.service';
-import { PALETTE_COMMAND_ID } from '../palette/palette-search';
+import { PALETTE_COMMAND_ID, SHORTCUTS_COMMAND_ID } from '../palette/palette-search';
 import { PaletteService } from '../palette/palette.service';
 import { ShortcutSheetService } from '../shortcut-sheet/shortcut-sheet.service';
 
@@ -18,7 +18,7 @@ export const overlayCommands = (palette: PaletteService, sheet: ShortcutSheetSer
     },
   },
   {
-    id: 'overlay.shortcuts',
+    id: SHORTCUTS_COMMAND_ID,
     labelKey: 'command.shortcuts',
     keywords: ['keyboard', 'shortcuts', 'keys', 'help'],
     keys: ['Ctrl+/', '?'],

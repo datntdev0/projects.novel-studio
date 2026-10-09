@@ -1,0 +1,12 @@
+<section>
+  <p data-testid="probe-status-running">{{ status.runningJob()?.id ?? 'none' }}</p>
+  <p data-testid="probe-status-progress">{{ status.runningJob()?.completedCount ?? 'none' }}</p>
+  <p data-testid="probe-status-attention">{{ status.attentionCount() }}</p>
+  <p data-testid="probe-status-backend">{{ status.backend()?.state ?? 'none' }}</p>
+  <button type="button" data-testid="probe-clear-attention" (click)="clearAttention()">Clear attention</button>
+  <button type="button" data-testid="probe-finish-job" (click)="finishJob()">Finish job</button>
+  <button type="button" data-testid="probe-backend-starting" (click)="setBackend('starting')">Backend starting</button>
+  <button type="button" data-testid="probe-backend-failed" (click)="setBackend('failed')">Backend failed</button>
+  <button type="button" data-testid="probe-backend-ready" (click)="setBackend('ready')">Backend ready</button>
+  <button type="button" data-testid="probe-open-chapter" (click)="openChapter()">Open chapter</button>
+</section>
