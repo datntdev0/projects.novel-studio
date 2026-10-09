@@ -27,3 +27,8 @@ export const MODULE_REGISTRY: ModuleEntry[] = [...MODULE_ENTRIES, ...EXTRA_ENTRI
 export function findEntry(id: string): ModuleEntry | undefined {
   return MODULE_REGISTRY.find((entry) => entry.id === id);
 }
+
+export const RAIL_GROUPS: RailGroup[] = ['library', 'workspace', 'media', 'production', 'distribution', 'system'];
+
+export const groupEntries = (entries: ModuleEntry[], group: RailGroup, novelOpen: boolean): ModuleEntry[] =>
+  entries.filter((entry) => entry.group === group && (entry.scope !== 'novel' || novelOpen));

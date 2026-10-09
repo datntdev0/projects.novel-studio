@@ -10,6 +10,7 @@ import { AppearanceButtonsComponent } from './topbar/appearance-buttons.componen
 import { PaletteComponent } from './palette/palette.component';
 import { PaletteButtonComponent } from './palette/palette-button.component';
 import { ShortcutSheetComponent } from './shortcut-sheet/shortcut-sheet.component';
+import { RailComponent } from './rail/rail.component';
 
 @Component({
   selector: 'ns-shell',
@@ -22,6 +23,7 @@ import { ShortcutSheetComponent } from './shortcut-sheet/shortcut-sheet.componen
     PaletteComponent,
     PaletteButtonComponent,
     ShortcutSheetComponent,
+    RailComponent,
   ],
   templateUrl: './shell.component.html',
   styleUrl: './shell.component.scss',

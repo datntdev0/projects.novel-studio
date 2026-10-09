@@ -1,0 +1,37 @@
+<nav class="rail" data-testid="rail" [class.expanded]="expanded()" [attr.aria-label]="'rail.label' | t">
+  <ng-container [ngTemplateOutlet]="groups" [ngTemplateOutletContext]="{ $implicit: top() }" />
+  <div class="rail-scroll" data-testid="rail-scroll">
+    <ng-container [ngTemplateOutlet]="groups" [ngTemplateOutletContext]="{ $implicit: scrollable() }" />
+  </div>
+  <ng-container [ngTemplateOutlet]="groups" [ngTemplateOutletContext]="{ $implicit: bottom() }" />
+</nav>
+
+<ng-template #groups let-sections>
+  @for (section of sections; track section.group) {
+    <div class="rail-group" [attr.data-testid]="'rail-group-' + section.group">
+      @if (section.group !== 'library') {
+        <span class="sep"></span>
+      }
+      <span class="rail-title">{{ 'rail.group.' + section.group | t }}</span>
+      @for (entry of section.entries; track entry.id) {
+        @let active = entry.id === store.activeModule();
+        @let badge = store.badges()[entry.id] ?? 0;
+        <button
+          type="button"
+          class="rail-entry"
+          [class.active]="active"
+          [attr.aria-current]="active ? 'page' : null"
+          [attr.data-testid]="'rail-' + entry.id"
+          [attr.title]="tooltip(entry)"
+          (click)="go(entry)"
+        >
+          <ns-icon [name]="entry.icon" />
+          <span class="label">{{ entry.labelKey | t }}</span>
+          @if (badge > 0) {
+            <span class="badge danger" [attr.data-testid]="'rail-badge-' + entry.id">{{ badge }}</span>
+          }
+        </button>
+      }
+    </div>
+  }
+</ng-template>

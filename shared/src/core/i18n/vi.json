@@ -45,6 +45,7 @@
     "close": "Đóng"
   },
   "rail": {
+    "label": "Module",
     "group": {
       "library": "Thư viện",
       "workspace": "Không gian làm việc",

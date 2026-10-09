@@ -50,6 +50,7 @@
     "close": "Close"
   },
   "rail": {
+    "label": "Modules",
     "group": {
       "library": "Library",
       "workspace": "Workspace",

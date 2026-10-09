@@ -1,7 +1,7 @@
 import { translate, type Language, type NovelSummary } from '@shared/core';
 import { GLOBAL_SCOPE, type Command } from '../../core/shortcuts/command';
 import { navCommandId } from '../commands/navigation.commands';
-import type { ModuleEntry, RailGroup } from '../registry/module-registry';
+import { groupEntries, RAIL_GROUPS, type ModuleEntry } from '../registry/module-registry';
 
 export type PaletteFilter = 'all' | 'novels';
 export type PaletteAction = { kind: 'command'; id: string } | { kind: 'novel'; id: string };
@@ -33,8 +33,6 @@ export interface PaletteSource {
 
 export const PALETTE_COMMAND_ID = 'overlay.palette';
 
-const RAIL_GROUPS: RailGroup[] = ['library', 'workspace', 'media', 'production', 'distribution', 'system'];
-
 export const commandKeys = (commands: Command[], id: string): string[] => commands.find((command) => command.id === id)?.keys ?? [];
 
 export function normalizeSearch(text: string): string {
@@ -48,17 +46,15 @@ function moduleSections(source: PaletteSource, language: Language): PaletteSecti
   return RAIL_GROUPS.map((group) => ({
     id: `module-${group}`,
     title: translate(language, 'palette.module', { group: translate(language, `rail.group.${group}`) }),
-    items: source.modules
-      .filter((entry) => entry.group === group && (entry.scope !== 'novel' || source.novelOpen))
-      .map((entry) => ({
-        testId: `palette-module-${entry.id}`,
-        icon: entry.icon,
-        label: translate(language, entry.labelKey),
-        hint: entry.moduleIds.join(' · '),
-        keys: commandKeys(source.commands, navCommandId(entry.id)),
-        terms: buildTerms(entry.labelKey, [...entry.keywords, ...entry.moduleIds]),
-        action: { kind: 'command', id: navCommandId(entry.id) },
-      })),
+    items: groupEntries(source.modules, group, source.novelOpen).map((entry) => ({
+      testId: `palette-module-${entry.id}`,
+      icon: entry.icon,
+      label: translate(language, entry.labelKey),
+      hint: entry.moduleIds.join(' · '),
+      keys: commandKeys(source.commands, navCommandId(entry.id)),
+      terms: buildTerms(entry.labelKey, [...entry.keywords, ...entry.moduleIds]),
+      action: { kind: 'command', id: navCommandId(entry.id) },
+    })),
   }));
 }
 
