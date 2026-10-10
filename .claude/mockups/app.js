@@ -95,7 +95,7 @@
     const layout = (section.dataset.layout || "").split(/\s+/).filter(Boolean);
     ["left", "right", "bottom"].forEach((side) => app.classList.toggle("no-" + side, layout.includes("no-" + side) || !section.querySelector(`:scope > .panel.${side}`)));
     app.classList.remove("zen");
-    document.title = `${section.dataset.title || id} · Novel Studio prototype`;
+    document.title = `${section.dataset.title || id} · Dreamer Studio prototype`;
     if (location.hash !== `#${id}`) history.replaceState(null, "", `#${id}`);
     renderDrawer(section);
     renderContext();
@@ -840,7 +840,7 @@
     expEl(`[data-exp-scope][value="${invalid ? "range" : "all"}"]`).checked = true;
     expEl("[data-exp-from]").value = invalid ? exp.count - 99 : 1;
     expEl("[data-exp-to]").value = invalid ? exp.count + 100 : exp.count;
-    expEl("[data-exp-folder]").value = `D:\\NovelStudio\\Library\\novels\\${n.id}\\exports\\`;
+    expEl("[data-exp-folder]").value = `D:\\DreamerStudio\\Library\\novels\\${n.id}\\exports\\`;
     expEl("[data-exp-file]").value = `${key}.zip`;
     expEl('[data-exp-conflict][value="keep"]').checked = true;
     expEl("[data-exp-partial]").classList.toggle("hidden", !partial);
