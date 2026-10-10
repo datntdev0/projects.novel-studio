@@ -260,7 +260,9 @@
     "job-cancel": (btn) => askCancelJob(jobOf(btn)),
     "retry-failed": () => toast("1 failed item re-queued", "Đã xếp lại 1 mục lỗi", "success"),
     "test-cli": (btn) => testCli(btn),
-    "rescan": (btn) => { btn.classList.add("loading"); setTimeout(() => { btn.classList.remove("loading"); toast("Rescan finished — 3 CLIs found", "Quét lại xong — tìm thấy 3 CLI", "success"); }, 900); },
+    "rescan": (btn) => busy(btn, "Rescan finished — 2 of 3 CLIs found", "Quét lại xong — tìm thấy 2 trên 3 CLI", "success"),
+    "check-library": (btn) => busy(btn, "Library check finished — 1 novel needs attention", "Kiểm tra thư viện xong — 1 truyện cần chú ý", "warning"),
+    "self-check": (btn) => busy(btn, "Self-check finished — 4 passed, 1 failed", "Tự kiểm tra xong — 4 đạt, 1 lỗi", "warning"),
     "import-choose": () => { applyMode("#import", "import", "loading"); setTimeout(() => applyMode("#import", "import", "new"), 1200); },
     "import-cancel": () => show("library"),
     "import-discard": () => { state.importDirty = false; closeOverlays(); if (pendingScreen.id === "app-close") askCloseApp(); else show(pendingScreen.id || "library"); },
@@ -294,7 +296,7 @@
     const go = t.closest("[data-go]");
     if (t.closest("[data-select-novel]") || (go && novelScreens.includes(go.dataset.go))) { const key = novelFrom(t); if (novels[key]) { setNovel(key); renderContext(); } }
     if (go && state.screen === "reader" && readerDirty() && go.dataset.go !== "reader") { e.preventDefault(); guardChapter(() => show(go.dataset.go)); return; }
-    if (go) { e.preventDefault(); if (go.disabled) return; show(go.dataset.go); if (go.dataset.goMode && state.screen === go.dataset.go) screenMode(go.dataset.go, go.dataset.goMode); return; }
+    if (go) { e.preventDefault(); if (go.disabled) return; show(go.dataset.go); if (go.dataset.goMode && state.screen === go.dataset.go) screenMode(go.dataset.go, go.dataset.goMode); if (go.dataset.goTab) goTab(go.dataset.go, go.dataset.goTab); return; }
     const open = t.closest("[data-open]"); if (open) { e.preventDefault(); if (open.disabled) return; prepareOverlay(open); openOverlay(open.dataset.open); return; }
     if (t.closest("[data-close]") || (t.classList.contains("scrim") && t.classList.contains("open"))) { closeOverlay(t.closest(".scrim")); return; }
     const theme = t.closest("[data-set-theme]"); if (theme) { setTheme(theme.dataset.setTheme); return; }
@@ -355,6 +357,7 @@
     }));
     if (scopeSel === "#library" && key === "import") { state.importMode = mode; renderImport(); }
     if (scopeSel === "#library" && key === "library") { state.libraryEmpty = mode === "empty"; renderJob(); }
+    if (scopeSel === "#home" && key === "") { state.noLibrary = mode.startsWith("first"); renderJob(); }
     if (scopeSel === READER && key === "reader") syncReader(mode);
     if (scopeSel === READER && key === "find") syncFindState(mode);
   }
@@ -417,15 +420,15 @@
   const BUSY = ["0012", "0018"];
   const BUSY_JOB = { id: "j-2026-10-04-0017", en: "Translate 0001–0100 · 凡人修仙传", vi: "Dịch 0001–0100 · 凡人修仙传" };
   function isBusy(chapter) { return modes[READER + "|busy"] === "on" && BUSY.includes(chapter); }
-  const history = { undo: 0, redo: 0 };
+  const editHistory = { undo: 0, redo: 0 };
   let pendingChapter = null;
   function readerMode() { return modes[READER + "|reader"] || "read"; }
   function readerDirty() { return ["dirty", "invalid", "refused"].includes(readerMode()); }
   function setReader(mode) { applyMode(READER, "reader", mode); }
   function syncReader(mode) {
     document.querySelectorAll("[data-action='edit-mode']").forEach((b) => { b.setAttribute("aria-pressed", String(!READ_ONLY.includes(mode))); });
-    if (READ_ONLY.includes(mode)) { history.undo = 0; history.redo = 0; }
-    if (readerDirty() && !history.undo) history.undo = 1;
+    if (READ_ONLY.includes(mode)) { editHistory.undo = 0; editHistory.redo = 0; }
+    if (readerDirty() && !editHistory.undo) editHistory.undo = 1;
     syncHistory();
     const field = document.querySelector("#reader [data-title-field]"); if (!field) return;
     const input = field.querySelector("input");
@@ -466,14 +469,14 @@
   }
   // Undo / redo: one history per chapter for title and content, cleared by Save
   function syncHistory() {
-    ["undo", "redo"].forEach((k) => document.querySelectorAll(`#reader [data-action='${k}']`).forEach((b) => { b.disabled = !history[k]; }));
+    ["undo", "redo"].forEach((k) => document.querySelectorAll(`#reader [data-action='${k}']`).forEach((b) => { b.disabled = !editHistory[k]; }));
   }
-  function clearHistory() { history.undo = 0; history.redo = 0; syncHistory(); }
-  function pushHistory() { history.undo++; history.redo = 0; syncHistory(); }
+  function clearHistory() { editHistory.undo = 0; editHistory.redo = 0; syncHistory(); }
+  function pushHistory() { editHistory.undo++; editHistory.redo = 0; syncHistory(); }
   function stepHistory(from, to) {
-    if (!history[from]) return;
-    history[from]--; history[to]++;
-    if (history.undo) setReader("dirty"); else resetChapter();
+    if (!editHistory[from]) return;
+    editHistory[from]--; editHistory[to]++;
+    if (editHistory.undo) setReader("dirty"); else resetChapter();
     syncHistory();
   }
   function openChapter(n, row) {
@@ -676,8 +679,10 @@
     document.querySelectorAll("[data-when-paused]").forEach((el) => el.classList.toggle("hidden", key !== "paused" && key !== "interrupted"));
     document.querySelectorAll("[data-count-of]").forEach((el) => { el.textContent = countOf(el.dataset.countOf); });
     document.querySelectorAll("[data-zero-of]").forEach((el) => el.classList.toggle("hidden", countOf(el.dataset.zeroOf) > 0));
-    const attention = state.libraryEmpty ? 0 : countOf("attention");
-    document.querySelectorAll("[data-hide-library-empty]").forEach((el) => el.classList.toggle("hidden", Boolean(state.libraryEmpty)));
+    const noJobs = Boolean(state.libraryEmpty || state.noLibrary);
+    const attention = noJobs ? 0 : countOf("attention");
+    document.querySelectorAll("[data-hide-library-empty]").forEach((el) => el.classList.toggle("hidden", noJobs));
+    document.querySelectorAll("[data-hide-no-library]").forEach((el) => el.classList.toggle("hidden", Boolean(state.noLibrary)));
     setText("[data-job-attention]", attention);
     document.querySelectorAll("[data-attention-label]").forEach((el) => { el.innerHTML = bi(attention === 1 ? "needs attention" : "need attention", "cần xử lý"); });
     document.querySelectorAll("[data-when-attention]").forEach((el) => el.classList.toggle("hidden", !attention));
@@ -813,7 +818,7 @@
     toast(`Job queued — Import ${imp.total} chapters · 庆余年 appears in the Task Center`, `Đã xếp hàng job — Nhập ${imp.total} chương · 庆余年 hiện trong Trung tâm tác vụ`, "success", { job: IMPORT });
   }
   function tickJob(id, progress, step, onDone) {
-    if (statusOf(id) !== "running") return;
+    if (statusOf(id) !== "running" || !progress.total) return;
     progress.done = Math.min(progress.total, progress.done + step);
     if (progress.done < progress.total) { renderJob(); return; }
     setStatus(id, "completed");
@@ -1111,6 +1116,15 @@
   if (firstJob) showJob(firstJob);
   refreshAttention();
 
+  function busy(btn, en, vi, kind) {
+    btn.classList.add("loading");
+    setTimeout(() => { btn.classList.remove("loading"); toast(en, vi, kind); }, 900);
+  }
+  function goTab(screen, tab) {
+    closeOverlays();
+    const btn = document.querySelector(`#${screen} [data-tab="${tab}"]`);
+    if (btn) switchTab(btn);
+  }
   function testCli(btn) {
     btn.classList.add("loading");
     setTimeout(() => {
@@ -1147,7 +1161,9 @@
     const blocks = protoStates.querySelectorAll(".proto-states");
     blocks.forEach((b) => { b.hidden = b.dataset.forScreen !== section.id; });
     protoStates.querySelector("[data-proto-empty]").hidden = Array.from(blocks).some((b) => !b.hidden);
-    document.querySelectorAll(".proto-drawer .screens a").forEach((a) => a.classList.toggle("active", a.dataset.screen === section.id));
+    const dialogs = document.querySelectorAll(".proto-dialogs .proto-dlg");
+    dialogs.forEach((d) => { d.hidden = section.id !== "components" && Boolean(d.dataset.screens) && !d.dataset.screens.split(" ").includes(section.id); });
+    document.querySelector("[data-proto-dlg-empty]").hidden = Array.from(dialogs).some((d) => !d.hidden);
   }
 
   // Keyboard shortcuts -----------------------------------------------

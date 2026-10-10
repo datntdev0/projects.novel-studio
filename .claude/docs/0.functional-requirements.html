@@ -107,7 +107,7 @@
     <span class="pill"><span lang="en">Analysed</span><span lang="vi">Ngày phân tích</span>: <b>2026-10-04</b></span>
     <span class="pill"><span lang="en">Input</span><span lang="vi">Đầu vào</span>: <b><a href="0.high-level-requirements.html">High-level Requirements</a></b></span>
     <span class="pill"><span lang="en">Scope</span><span lang="vi">Phạm vi</span>: <b><span lang="en">Whole product lifecycle</span><span lang="vi">Toàn bộ vòng đời sản phẩm</span></b></span>
-    <span class="pill"><span lang="en">Plan</span><span lang="vi">Kế hoạch</span>: <b><span lang="en">23 modules · 100 function groups</span><span lang="vi">23 module · 100 nhóm chức năng</span></b></span>
+    <span class="pill"><span lang="en">Plan</span><span lang="vi">Kế hoạch</span>: <b><span lang="en">21 modules (M06, M22 retired 2026-10-10) · 103 function groups</span><span lang="vi">21 module (M06, M22 đã bỏ ngày 2026-10-10) · 103 nhóm chức năng</span></b></span>
   </div>
 </header>
 
@@ -140,12 +140,12 @@
 ├── A. Workspace
 │   ├── M00. Foundation (new)
 │   ├── M01. App Shell &amp; Workspace
-│   ├── M02. Settings &amp; AI Backends
+│   ├── M02. Settings
 │   └── M03. Task Center
 ├── B. Source content
 │   ├── M04. Novel Library
 │   ├── M05. Chapter Reader &amp; Editor
-│   └── M06. Local Data
+│   └── M06. (retired: merged into M02, 2026-10-10)
 ├── C. Story knowledge
 │   ├── M07. Story World Catalog
 │   ├── M08. Relationship Map &amp; Timeline
@@ -164,18 +164,18 @@
 └── F. Ecosystem &amp; operations
     ├── M19. External Media Inbox
     ├── M20. Publishing &amp; Channel Hub
-    ├── M21. Models, Integrations &amp; Extensions
-    └── M22. System Information &amp; Support</pre>
+    ├── M21. Settings – Part 2
+    └── M22. (retired: merged into M02 and M21, 2026-10-10)</pre>
 <pre class="map" lang="vi">NOVEL STUDIO
 ├── A. Không gian làm việc
 │   ├── M00. Foundation (mới)
 │   ├── M01. App Shell &amp; Workspace
-│   ├── M02. Settings &amp; AI Backends
+│   ├── M02. Settings
 │   └── M03. Task Center
 ├── B. Nội dung nguồn
 │   ├── M04. Novel Library
 │   ├── M05. Chapter Reader &amp; Editor
-│   └── M06. Local Data
+│   └── M06. (đã bỏ: gộp vào M02, 2026-10-10)
 ├── C. Tri thức truyện
 │   ├── M07. Story World Catalog
 │   ├── M08. Relationship Map &amp; Timeline
@@ -194,8 +194,8 @@
 └── F. Hệ sinh thái &amp; vận hành
     ├── M19. External Media Inbox
     ├── M20. Publishing &amp; Channel Hub
-    ├── M21. Models, Integrations &amp; Extensions
-    └── M22. System Information &amp; Support</pre>
+    ├── M21. Settings – Part 2
+    └── M22. (đã bỏ: gộp vào M02 và M21, 2026-10-10)</pre>
 
 <h2 id="modules">3. <span lang="en">Module catalog</span><span lang="vi">Danh mục module</span></h2>
 
@@ -205,11 +205,11 @@
   <tbody>
     <tr><td class="module-id">M00</td><td>Foundation</td><td><span lang="en">Build the shared technical base that no functional Story owns, before M01, so every module plugs into a tested skeleton.</span><span lang="vi">Xây nền kỹ thuật dùng chung mà không Story chức năng nào sở hữu, trước M01, để mọi module cắm vào một bộ khung đã kiểm thử.</span></td><td><span class="status approved">Release 1 · Part 1</span> <span class="status open">new</span></td><td><code>TH-01</code>, <code>G8</code>, <code>G10</code>, <code>NG4</code>, <code>A5–A6</code>, <code>A10–A11</code>, <code>M6–M7</code></td><td>—</td></tr>
     <tr><td class="module-id">M01</td><td>App Shell &amp; Workspace</td><td><span lang="en">Provide a stable desktop frame for every tool.</span><span lang="vi">Cung cấp khung desktop ổn định cho mọi công cụ.</span></td><td><span class="status approved">Release 1 · Part 1</span></td><td><code>TH-01</code>, <code>G8</code>, <code>A4–A5</code>, <code>Q5</code></td><td>Studio shell, command palette, task tray <span lang="en">(the status-bar job item plus the Task Center screen, design decision D9; the top bar has no progress button, M01 Q12)</span><span lang="vi">(mục job trên thanh trạng thái cộng màn hình Task Center, quyết định thiết kế D9; thanh trên không có nút tiến độ, M01 Q12)</span></td></tr>
-    <tr><td class="module-id">M02</td><td>Settings &amp; AI Backends</td><td><span lang="en">Manage app settings and choose the CLI for each task type.</span><span lang="vi">Quản lý cấu hình ứng dụng và chọn CLI cho từng loại tác vụ.</span></td><td><span class="status approved">Release 1 · Part 3</span></td><td><code>TH-03</code>, <code>G6</code>, <code>A3</code>, <code>A8</code></td><td>General, AI tools, shortcuts</td></tr>
+    <tr><td class="module-id">M02</td><td>Settings</td><td><span lang="en">Manage app settings, the installed AI CLIs and the CLI for each task type, the library folder, and diagnostics and about information.</span><span lang="vi">Quản lý cấu hình ứng dụng, các CLI AI đã cài và CLI cho từng loại tác vụ, thư mục thư viện, cùng thông tin chẩn đoán và giới thiệu.</span></td><td><span class="status approved">Release 1 · Part 3</span> <span lang="en">(restructured by the PO, 2026-10-10: absorbs M06 and M22-F02/F03)</span><span lang="vi">(PO tái cấu trúc ngày 2026-10-10: gộp M06 và M22-F02/F03)</span></td><td><code>TH-03</code>, <code>G6</code>, <code>G8</code>, <code>NG1</code>, <code>NG4</code>, <code>A3</code>, <code>A6–A10</code></td><td>Installed CLIs, General &amp; Tasks, Library folder, Diagnostics &amp; about</td></tr>
     <tr><td class="module-id">M03</td><td>Task Center</td><td><span lang="en">Run, track and resume long AI tasks without blocking the UI.</span><span lang="vi">Chạy, theo dõi và tiếp tục các tác vụ AI dài mà không khóa UI.</span></td><td><span class="status approved">Release 1 · Part 1</span></td><td><code>TH-01</code>, <code>A11</code>, <code>M1</code></td><td>Task tray <span lang="en">(the status-bar job item plus the Task Center screen, design decision D9; the top bar has no progress button, M01 Q12)</span><span lang="vi">(mục job trên thanh trạng thái cộng màn hình Task Center, quyết định thiết kế D9; thanh trên không có nút tiến độ, M01 Q12)</span>, task detail, history</td></tr>
     <tr><td class="module-id">M04</td><td>Novel Library</td><td><span lang="en">Manage the personal library, import novels from ZIP packages and export a novel's source data back as a package.</span><span lang="vi">Quản lý thư viện cá nhân, nhập truyện từ gói ZIP và xuất dữ liệu nguồn của truyện ra lại thành gói.</span></td><td><span class="status approved">Release 1 · Part 2</span></td><td><code>TH-02</code>, <code>G1</code>, <code>A2</code> <span lang="en">(<code>Q8–Q9</code> answered in the M04 solution)</span><span lang="vi">(<code>Q8–Q9</code> đã trả lời trong giải pháp M04)</span></td><td>Library grid/list, import (ZIP), novel inspector, export dialog</td></tr>
     <tr><td class="module-id">M05</td><td>Chapter Reader &amp; Editor</td><td><span lang="en">Browse, read, search and edit source content by chapter.</span><span lang="vi">Duyệt, đọc, tìm và sửa nội dung nguồn theo chương.</span></td><td><span class="status approved">Release 1 · Part 2</span></td><td><code>TH-02</code>, <code>G1</code>, <code>A7</code>, <code>Q7</code></td><td>Chapter workspace</td></tr>
-    <tr><td class="module-id">M06</td><td>Local Data</td><td><span lang="en">Keep data transparent and safe on the machine: every file write is atomic (M00 <code>AC-40</code>), no telemetry is sent and no CLI credentials are stored.</span><span lang="vi">Giữ dữ liệu minh bạch và an toàn trên máy: mọi lần ghi tệp đều nguyên tử (M00 <code>AC-40</code>), không gửi telemetry và không lưu credential của CLI.</span></td><td><span class="status approved"><span lang="en">Release 1 · Part 2, after M04</span><span lang="vi">Release 1 · Part 2, sau M04</span></span> <span lang="en">(PO: M04 first so M06 is tested on real data)</span><span lang="vi">(PO: làm M04 trước để M06 được kiểm thử trên dữ liệu thật)</span></td><td><code>TH-01</code>, <code>NG1</code>, <code>NG4</code>, <code>A6–A10</code></td><td>Library location, library check</td></tr>
+    <tr><td class="module-id">M06</td><td>Local Data</td><td><span lang="en">Retired by the PO on 2026-10-10: merged into M02. M06-F01 Library folder is now M02-F05 · Library folder and M06-F03 Backup &amp; migration is now M02-F08 · Switch &amp; check library. The ID M06 is not reused.</span><span lang="vi">PO bỏ ngày 2026-10-10: gộp vào M02. M06-F01 Thư mục thư viện nay là M02-F05 · Thư mục thư viện và M06-F03 Sao lưu &amp; di chuyển nay là M02-F08 · Đổi &amp; kiểm tra thư viện. ID M06 không được dùng lại.</span></td><td><span class="status todo">retired</span></td><td>→ <code>M02</code></td><td>—</td></tr>
     <tr><td class="module-id">M07</td><td>Story World Catalog</td><td><span lang="en">Build and maintain a shared source of truth for entities and terms.</span><span lang="vi">Xây dựng và duy trì nguồn sự thật chung về thực thể và thuật ngữ.</span></td><td><span class="status approved"><span lang="en">Release 2 · Part 1 (advanced: Part 3)</span><span lang="vi">Release 2 · Part 1 (nâng cao: Part 3)</span></span></td><td><code>TH-04</code>, <code>G2–G3</code>, <code>M2</code></td><td>Entity catalog, review queue, entity detail</td></tr>
     <tr><td class="module-id">M08</td><td>Relationship Map &amp; Timeline</td><td><span lang="en">Look up relationships at a chapter point without revealing unread parts.</span><span lang="vi">Tra cứu quan hệ theo mốc chương mà không lộ phần chưa đọc.</span></td><td><span class="status approved"><span lang="en">Release 2 · Part 1 (advanced: Part 3)</span><span lang="vi">Release 2 · Part 1 (nâng cao: Part 3)</span></span></td><td><code>TH-04</code>, <code>G4</code>, <code>Q6</code></td><td>Relationship graph, chapter timeline</td></tr>
     <tr><td class="module-id">M09</td><td>Translation Workspace &amp; Quality</td><td><span lang="en">Translate in batches, keep names consistent, edit and check for errors.</span><span lang="vi">Dịch hàng loạt, giữ tên nhất quán, biên tập và kiểm tra lỗi.</span></td><td><span class="status approved">Release 2 · Part 2</span></td><td><code>TH-05</code>, <code>G5</code>, <code>M1–M3</code>, <code>Q10–Q12</code></td><td>Batch setup, side-by-side review, QA summary, export dialog</td></tr>
@@ -224,8 +224,8 @@
     <tr><td class="module-id">M18</td><td>Video Editor &amp; Render Library</td><td><span lang="en">Combine images, clips, dialogue, music and subtitles, and manage renders.</span><span lang="vi">Ghép hình, clip, thoại, nhạc, subtitle và quản lý bản render.</span></td><td><span class="status todo">Release 6 · Part 1–2 · Release 8 · Part 2–3</span></td><td><code>TH-14</code></td><td>Timeline, inspector, rendered videos</td></tr>
     <tr><td class="module-id">M19</td><td>External Media Inbox</td><td><span lang="en">Receive and manage external media the user designates.</span><span lang="vi">Nhận và quản lý media bên ngoài do người dùng chỉ định.</span></td><td><span class="status todo">Release 9 · Part 1</span></td><td><code>TH-11</code>, <code>NG3</code></td><td>Link intake, download queue, media vault</td></tr>
     <tr><td class="module-id">M20</td><td>Publishing &amp; Channel Hub</td><td><span lang="en">Package and distribute finished works per target channel.</span><span lang="vi">Đóng gói và phân phối thành phẩm theo kênh đích.</span></td><td><span class="status todo">Release 9 · Part 2–3</span></td><td><code>TH-12</code>, <code>G9</code></td><td>Export presets, channel queue, publish history</td></tr>
-    <tr><td class="module-id">M21</td><td>Models, Integrations &amp; Extensions</td><td><span lang="en">Extend backends, models and modules as the product matures.</span><span lang="vi">Mở rộng backend, model và module khi sản phẩm trưởng thành.</span></td><td><span class="status todo">Release 10 · Part 2–3</span></td><td><code>TH-13</code>, <code>G10</code>, <code>Q13</code></td><td>Provider/model manager, extension catalog</td></tr>
-    <tr><td class="module-id">M22</td><td>System Information &amp; Support</td><td><span lang="en">Show system status, version, diagnostics and legal information.</span><span lang="vi">Hiển thị trạng thái hệ thống, phiên bản, chẩn đoán và thông tin pháp lý.</span></td><td><span class="status approved"><span lang="en">Release 1–10 · per part</span><span lang="vi">Release 1–10 · theo từng part</span></span></td><td><code>TH-01</code>, <code>TH-13</code>, <code>G8</code>, <code>NG4</code></td><td>Diagnostics, About, acknowledgements</td></tr>
+    <tr><td class="module-id">M21</td><td>Settings – Part 2</td><td><span lang="en">Extend Settings as the product matures: providers and models, extensions, updates, speech / image / video backends and runtime status.</span><span lang="vi">Mở rộng Cài đặt khi sản phẩm trưởng thành: nhà cung cấp và model, module mở rộng, cập nhật, backend giọng đọc / hình ảnh / video và trạng thái hệ thống.</span></td><td><span class="status todo">Release 10 · Part 2–4</span> <span lang="en">(renamed by the PO, 2026-10-10)</span><span lang="vi">(PO đổi tên ngày 2026-10-10)</span></td><td><code>TH-13</code>, <code>G8</code>, <code>G10</code>, <code>NG4</code>, <code>Q13</code></td><td>Provider/model manager, extension catalog, sound &amp; speech, images &amp; videos, runtime status</td></tr>
+    <tr><td class="module-id">M22</td><td>System Information &amp; Support</td><td><span lang="en">Retired by the PO on 2026-10-10: M22-F02 Diagnostics and M22-F03 About are now M02-F06 · Diagnostics &amp; about; M22-F01 Runtime status is now M21-F07. The ID M22 is not reused.</span><span lang="vi">PO bỏ ngày 2026-10-10: M22-F02 Chẩn đoán và M22-F03 Giới thiệu nay là M02-F06 · Chẩn đoán &amp; giới thiệu; M22-F01 Trạng thái hệ thống nay là M21-F07. ID M22 không được dùng lại.</span></td><td><span class="status todo">retired</span></td><td>→ <code>M02</code>, <code>M21</code></td><td>—</td></tr>
   </tbody>
 </table>
 </div>
@@ -302,11 +302,13 @@
   </ul></td><td><span class="status review"><span lang="en">Proposed</span><span lang="vi">Đề xuất</span></span></td></tr>
 </tbody></table>
 
-<h3>M02 · Settings &amp; AI Backends</h3>
+<h3>M02 · Settings</h3>
 <table class="compact"><thead><tr><th><span lang="en">Function group</span><span lang="vi">Nhóm chức năng</span></th><th><span lang="en">Functions</span><span lang="vi">Chức năng</span></th><th><span lang="en">Status</span><span lang="vi">Trạng thái</span></th></tr></thead><tbody>
-  <tr><td>M02-F03 · <span lang="en">Backend management &amp; assignment</span><span lang="vi">Quản lý &amp; gán backend</span></td><td><ul class="function-list">
-    <li lang="en">Detect Codex CLI and Claude CLI on the machine.</li>
-    <li lang="vi">Phát hiện Codex CLI và Claude CLI trên máy.</li>
+  <tr><td>M02-F03 · <span lang="en">Installed CLIs</span><span lang="vi">CLI đã cài</span></td><td><ul class="function-list">
+    <li lang="en">Detect Codex CLI, Claude CLI and Antigravity CLI on the machine.</li>
+    <li lang="vi">Phát hiện Codex CLI, Claude CLI và Antigravity CLI trên máy.</li>
+    <li lang="en">Turn each CLI on or off with an Enabled switch.</li>
+    <li lang="vi">Bật hoặc tắt từng CLI bằng công tắc Enabled.</li>
     <li lang="en">Show the path, version, availability and a warning for unverified versions.</li>
     <li lang="vi">Hiển thị đường dẫn, phiên bản, trạng thái khả dụng và cảnh báo phiên bản chưa kiểm chứng.</li>
     <li lang="en">Allow rescanning and overriding the executable path.</li>
@@ -315,19 +317,53 @@
     <li lang="vi">Chạy kiểm tra ngắn để xác nhận CLI có thể thực thi.</li>
     <li lang="en">Show login, quota or configuration errors using the CLI's own messages.</li>
     <li lang="vi">Hiển thị lỗi đăng nhập, quota hoặc cấu hình bằng thông báo của CLI.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span> <span class="status review"><span lang="en">Changed by the PO, 2026-10-10 (module restructure; backend assignment split to M02-F07)</span><span lang="vi">PO thay đổi, 2026-10-10 (tái cấu trúc module; phần gán backend tách sang M02-F07)</span></span></td></tr>
+  <tr><td>M02-F07 · <span lang="en">Backend assignment</span><span lang="vi">Gán backend</span></td><td><ul class="function-list">
     <li lang="en">Choose a separate backend for Analysis and Translation.</li>
     <li lang="vi">Chọn backend riêng cho Phân tích và Dịch.</li>
-    <li lang="en">Extend the same backend assignment to Speech, Image and Video.</li>
-    <li lang="vi">Mở rộng cùng cơ chế gán backend cho Speech, Image và Video.</li>
     <li lang="en">Lock the backend choice into each job when it starts so it resumes with the same configuration.</li>
     <li lang="vi">Khóa lựa chọn backend vào từng job khi job bắt đầu để resume đúng cấu hình.</li>
-  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span></td></tr>
-  <tr><td>M02-F04 · <span lang="en">Appearance &amp; behavior</span><span lang="vi">Giao diện &amp; hành vi</span></td><td><ul class="function-list">
-    <li lang="en">Language, theme and layout.</li>
-    <li lang="vi">Ngôn ngữ, theme và bố cục.</li>
-    <li lang="en">Limit the number of AI processes running at the same time.</li>
-    <li lang="vi">Giới hạn số tiến trình AI chạy đồng thời.</li>
-  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span> <span lang="en">no custom shortcuts</span><span lang="vi">không tùy chỉnh phím tắt</span></td></tr>
+    <li lang="en">Speech, Image and Video backend assignment moves to M21-F05 and M21-F06.</li>
+    <li lang="vi">Việc gán backend cho Speech, Image và Video chuyển sang M21-F05 và M21-F06.</li>
+  </ul></td><td><span class="status open">new</span> <span lang="en">PO, 2026-10-10: split from M02-F03 at M02 Solution step 3</span><span lang="vi">PO, 2026-10-10: tách từ M02-F03 ở bước 3 của Giải pháp M02</span></td></tr>
+  <tr><td>M02-F04 · <span lang="en">General &amp; Tasks</span><span lang="vi">Chung &amp; Tác vụ</span></td><td><ul class="function-list">
+    <li lang="en">Language, theme (Dark / Light) and layout reset.</li>
+    <li lang="vi">Ngôn ngữ, giao diện (Tối / Sáng) và đặt lại bố cục.</li>
+    <li lang="en">Limit the number of jobs running in parallel.</li>
+    <li lang="vi">Giới hạn số job chạy song song.</li>
+    <li lang="en">Notify the user when a job finishes.</li>
+    <li lang="vi">Thông báo cho người dùng khi một job kết thúc.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Confirmed</span><span lang="vi">Xác nhận</span></span> <span lang="en">no custom shortcuts</span><span lang="vi">không tùy chỉnh phím tắt</span> <span class="status review"><span lang="en">Changed by the PO, 2026-10-10 (module restructure)</span><span lang="vi">PO thay đổi, 2026-10-10 (tái cấu trúc module)</span></span></td></tr>
+  <tr><td>M02-F05 · <span lang="en">Library folder</span><span lang="vi">Thư mục thư viện</span></td><td><ul class="function-list">
+    <li lang="en">Choose or create the library folder on first launch.</li>
+    <li lang="vi">Chọn hoặc tạo thư mục thư viện khi khởi động lần đầu.</li>
+    <li lang="en">Check read/write permission and free space.</li>
+    <li lang="vi">Kiểm tra quyền đọc/ghi và dung lượng khả dụng.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Local first confirmed</span><span lang="vi">Local first xác nhận</span></span> <span class="status open">new</span> <span lang="en">PO, 2026-10-10: from former M06-F01 Library folder; switch and check split to M02-F08</span><span lang="vi">PO, 2026-10-10: từ M06-F01 Thư mục thư viện cũ; phần đổi và kiểm tra tách sang M02-F08</span></td></tr>
+  <tr><td>M02-F08 · <span lang="en">Switch &amp; check library</span><span lang="vi">Đổi &amp; kiểm tra thư viện</span></td><td><ul class="function-list">
+    <li lang="en">Open or switch local libraries.</li>
+    <li lang="vi">Mở hoặc chuyển thư viện cục bộ.</li>
+    <li lang="en">When a library is opened or switched, check its structure and manifests; if data is missing or inconsistent, show the problem and the recovery steps.</li>
+    <li lang="vi">Khi mở hoặc chuyển thư viện, kiểm tra cấu trúc và manifest; nếu dữ liệu thiếu hoặc không nhất quán, hiển thị vấn đề và các bước phục hồi.</li>
+    <li lang="en">Show instructions for copying the whole library folder.</li>
+    <li lang="vi">Hiển thị hướng dẫn sao chép toàn bộ thư mục thư viện.</li>
+    <li lang="en">Check the library after it is moved to a new machine or location, reusing the same library check.</li>
+    <li lang="vi">Kiểm tra thư viện sau khi được chuyển sang máy hoặc vị trí mới, dùng lại cùng phép kiểm tra thư viện.</li>
+  </ul></td><td><span class="status approved"><span lang="en">Local first confirmed</span><span lang="vi">Local first xác nhận</span></span> <span class="status open">new</span> <span lang="en">PO, 2026-10-10: from former M06-F03 Backup &amp; migration; split from M02-F05 at M02 Solution step 3</span><span lang="vi">PO, 2026-10-10: từ M06-F03 Sao lưu &amp; di chuyển cũ; tách từ M02-F05 ở bước 3 của Giải pháp M02</span></td></tr>
+  <tr><td>M02-F06 · <span lang="en">Diagnostics &amp; about</span><span lang="vi">Chẩn đoán &amp; giới thiệu</span></td><td><ul class="function-list">
+    <li lang="en">View app, Electron/Node, database schema and CLI versions.</li>
+    <li lang="vi">Xem phiên bản app, Electron/Node, database schema và CLI.</li>
+    <li lang="en">Run self-checks for library, database, folder permissions and backend.</li>
+    <li lang="vi">Chạy self-check cho library, database, folder permission và backend.</li>
+    <li lang="en">Open the logs folder and copy diagnostic info.</li>
+    <li lang="vi">Mở thư mục log và sao chép thông tin chẩn đoán.</li>
+    <li lang="en">Open-source licence list of the dependencies.</li>
+    <li lang="vi">Danh sách giấy phép mã nguồn mở của các dependency.</li>
+    <li lang="en">Author information and website / support links.</li>
+    <li lang="vi">Thông tin tác giả và liên kết website / hỗ trợ.</li>
+    <li lang="en">The diagnostic bundle and model licences come later in M21 (Release 10 · Part 4).</li>
+    <li lang="vi">Diagnostic bundle và giấy phép model làm sau trong M21 (Release 10 · Part 4).</li>
+  </ul></td><td><span class="status open">new</span> <span lang="en">PO, 2026-10-10: from former M22-F02 Diagnostics and M22-F03 About, Release 1 · Part 3 scope</span><span lang="vi">PO, 2026-10-10: từ M22-F02 Chẩn đoán và M22-F03 Giới thiệu cũ, phạm vi Release 1 · Part 3</span></td></tr>
 </tbody></table>
 
 <h3>M03 · Task Center</h3>
@@ -474,26 +510,6 @@
     <li lang="en">Options Match case and Whole word; no regular expressions.</li>
     <li lang="vi">Tuỳ chọn Khớp chữ hoa/thường và Nguyên từ; không dùng biểu thức chính quy.</li>
   </ul></td><td><span class="status review"><span lang="en">Proposed, high value</span><span lang="vi">Đề xuất giá trị cao</span></span> <span class="status approved"><span lang="en">Changed in the M05 solution, 2026-10-09 (split from M05-F04), re-approved by the PO with Gate 2 on 2026-10-09</span><span lang="vi">Thay đổi ở giải pháp M05, 2026-10-09 (tách từ M05-F04), PO đã duyệt lại cùng Gate 2 ngày 2026-10-09</span></span></td></tr>
-</tbody></table>
-
-<h3>M06 · Local Data</h3>
-<table class="compact"><thead><tr><th><span lang="en">Function group</span><span lang="vi">Nhóm chức năng</span></th><th><span lang="en">Functions</span><span lang="vi">Chức năng</span></th><th><span lang="en">Status</span><span lang="vi">Trạng thái</span></th></tr></thead><tbody>
-  <tr><td>M06-F01 · <span lang="en">Library folder</span><span lang="vi">Thư mục thư viện</span></td><td><ul class="function-list">
-    <li lang="en">Choose or create the library folder on first launch.</li>
-    <li lang="vi">Chọn hoặc tạo thư mục thư viện khi khởi động lần đầu.</li>
-    <li lang="en">Check read/write permission and free space.</li>
-    <li lang="vi">Kiểm tra quyền đọc/ghi và dung lượng khả dụng.</li>
-    <li lang="en">Open or switch local libraries.</li>
-    <li lang="vi">Mở hoặc chuyển thư viện cục bộ.</li>
-    <li lang="en">When a library is opened or switched, check its structure and manifests; if data is missing or inconsistent, show the problem and the recovery steps.</li>
-    <li lang="vi">Khi mở hoặc chuyển thư viện, kiểm tra cấu trúc và manifest; nếu dữ liệu thiếu hoặc không nhất quán, hiển thị vấn đề và các bước phục hồi.</li>
-  </ul></td><td><span class="status approved"><span lang="en">Local first confirmed</span><span lang="vi">Local first xác nhận</span></span></td></tr>
-  <tr><td>M06-F03 · <span lang="en">Backup &amp; migration</span><span lang="vi">Sao lưu &amp; di chuyển</span></td><td><ul class="function-list">
-    <li lang="en">Show instructions for copying the whole library folder.</li>
-    <li lang="vi">Hiển thị hướng dẫn sao chép toàn bộ thư mục thư viện.</li>
-    <li lang="en">Check the library after it is moved to a new machine or location, reusing the library check of M06-F01.</li>
-    <li lang="vi">Kiểm tra thư viện sau khi được chuyển sang máy hoặc vị trí mới, dùng lại phép kiểm tra thư viện của M06-F01.</li>
-  </ul></td><td><span class="status review"><span lang="en">Proposed from the local-first architecture</span><span lang="vi">Đề xuất từ kiến trúc local first</span></span></td></tr>
 </tbody></table>
 
 <h3>M07 · Story World Catalog</h3>
@@ -741,19 +757,15 @@
   <tr><td>M20-F04 · External credentials</td><td><span lang="en">Store integration credentials in the OS secret store; no Novel Studio account is created and there is no internal cloud sync.</span><span lang="vi">Lưu credential tích hợp bằng kho bí mật của hệ điều hành; không tạo tài khoản Novel Studio và không đồng bộ cloud nội bộ.</span></td></tr>
 </tbody></table>
 
-<h3>M21 · Models, Integrations &amp; Extensions <span class="status todo">Release 10 · Part 2–3</span></h3>
+<h3>M21 · Settings – Part 2 <span class="status todo">Release 10 · Part 2–4</span></h3>
 <table class="compact"><thead><tr><th><span lang="en">Function group</span><span lang="vi">Nhóm chức năng</span></th><th><span lang="en">Planned functions</span><span lang="vi">Chức năng theo kế hoạch</span></th></tr></thead><tbody>
-  <tr><td>M21-F01 · Provider manager</td><td><ul class="function-list"><li lang="en">Manage CLIs, local model runtimes and direct API providers by capability.</li><li lang="vi">Quản lý CLI, local model runtime và direct API provider theo capability.</li><li lang="en">Test, enable/disable, set default and assign providers per task type.</li><li lang="vi">Test, enable/disable, set default và gán provider theo task type.</li><li lang="en">If direct API is approved: multiple keys, status, quota and key rotation.</li><li lang="vi">Nếu direct API được duyệt: nhiều key, trạng thái, quota và key rotation.</li></ul></td></tr>
-  <tr><td>M21-F02 · Model catalog</td><td><ul class="function-list"><li lang="en">List of text, vision, speech, image and video models.</li><li lang="vi">Danh sách text, vision, speech, image và video model.</li><li lang="en">Show license, download size, RAM/VRAM, capability and ready status.</li><li lang="vi">Hiển thị license, dung lượng tải, RAM/VRAM, capability và trạng thái ready.</li><li lang="en">Download, pause/resume, verify checksum, activate, update or remove models.</li><li lang="vi">Tải, pause/resume, verify checksum, activate, update hoặc remove model.</li></ul></td></tr>
-  <tr><td>M21-F03 · Extension modules</td><td><ul class="function-list"><li lang="en">Catalog of add-on modules, versions, dependencies and compatibility.</li><li lang="vi">Danh mục module cài thêm, phiên bản, dependency và compatibility.</li><li lang="en">Enable/disable, configure file/process/network access permissions and uninstall modules.</li><li lang="vi">Bật/tắt, cấu hình quyền truy cập tệp/process/network và gỡ module.</li><li lang="en">Register new screens, task types, exporters or AI backends through extension points.</li><li lang="vi">Đăng ký màn hình, task type, exporter hoặc AI backend mới qua extension point.</li></ul></td></tr>
-  <tr><td>M21-F04 · Update strategy</td><td><ul class="function-list"><li lang="en">Check for new versions manually and open the release download page.</li><li lang="vi">Kiểm tra phiên bản thủ công và mở trang tải bản phát hành.</li><li lang="en">Auto update is enabled only if the product owner changes <code>NG4</code>.</li><li lang="vi">Auto update chỉ được bật nếu product owner thay đổi <code>NG4</code>.</li></ul></td></tr>
-</tbody></table>
-
-<h3>M22 · System Information &amp; Support <span class="status approved">Incremental</span></h3>
-<table class="compact"><thead><tr><th><span lang="en">Function group</span><span lang="vi">Nhóm chức năng</span></th><th><span lang="en">Planned functions</span><span lang="vi">Chức năng theo kế hoạch</span></th></tr></thead><tbody>
-  <tr><td>M22-F01 · Runtime status</td><td><ul class="function-list"><li lang="en">CPU/GPU status, RAM, library size, running workers and CLI readiness.</li><li lang="vi">Trạng thái CPU/GPU, RAM, dung lượng thư viện, worker đang chạy và CLI sẵn sàng.</li><li lang="en">Quick counts of novels, chapters, jobs, audio assets, video projects and renders.</li><li lang="vi">Đếm nhanh novel, chapter, job, audio asset, video project và render.</li><li lang="en">Warnings for low disk space, failing backends or jobs needing attention.</li><li lang="vi">Cảnh báo thiếu dung lượng, backend lỗi hoặc job cần xử lý.</li></ul></td></tr>
-  <tr><td>M22-F02 · Diagnostics</td><td><ul class="function-list"><li lang="en">View app, Electron/Node, database schema, CLI and model versions.</li><li lang="vi">Xem phiên bản app, Electron/Node, database schema, CLI và model.</li><li lang="en">Open logs, copy diagnostic info or export a diagnostic bundle with credentials removed.</li><li lang="vi">Mở log, sao chép thông tin chẩn đoán hoặc xuất diagnostic bundle đã loại credential.</li><li lang="en">Run self-checks for library, database, folder permissions and backend.</li><li lang="vi">Chạy self-check cho library, database, folder permission và backend.</li></ul></td></tr>
-  <tr><td>M22-F03 · About</td><td><ul class="function-list"><li lang="en">Product introduction, build/version/architecture and website/support links.</li><li lang="vi">Giới thiệu sản phẩm, build/version/architecture và liên kết website/support.</li><li lang="en">Open-source acknowledgements and dependency and model licenses.</li><li lang="vi">Open-source acknowledgements, license của dependency và model.</li><li lang="en">Author information, support channels and a guide to reporting bugs.</li><li lang="vi">Thông tin tác giả, kênh hỗ trợ và hướng dẫn báo lỗi.</li></ul></td></tr>
+  <tr><td>M21-F01 · Provider manager · Release 10 · Part 2</td><td><ul class="function-list"><li lang="en">LLM integrations other than the Release 1 CLIs, including cloud API and local runtime.</li><li lang="vi">Các tích hợp LLM khác ngoài các CLI của Release 1, gồm cloud API và local runtime.</li><li lang="en">Manage CLIs, local model runtimes and direct API providers by capability.</li><li lang="vi">Quản lý CLI, local model runtime và direct API provider theo capability.</li><li lang="en">Test, enable/disable, set default and assign providers per task type.</li><li lang="vi">Test, enable/disable, set default và gán provider theo task type.</li><li lang="en">If direct API is approved: multiple keys, status, quota and key rotation.</li><li lang="vi">Nếu direct API được duyệt: nhiều key, trạng thái, quota và key rotation.</li></ul></td></tr>
+  <tr><td>M21-F02 · Model catalog · Release 10 · Part 2</td><td><ul class="function-list"><li lang="en">List of text, vision, speech, image and video models.</li><li lang="vi">Danh sách text, vision, speech, image và video model.</li><li lang="en">Show license, download size, RAM/VRAM, capability and ready status.</li><li lang="vi">Hiển thị license, dung lượng tải, RAM/VRAM, capability và trạng thái ready.</li><li lang="en">Download, pause/resume, verify checksum, activate, update or remove models.</li><li lang="vi">Tải, pause/resume, verify checksum, activate, update hoặc remove model.</li></ul></td></tr>
+  <tr><td>M21-F03 · Extension modules · Release 10 · Part 3</td><td><ul class="function-list"><li lang="en">Catalog of add-on modules, versions, dependencies and compatibility.</li><li lang="vi">Danh mục module cài thêm, phiên bản, dependency và compatibility.</li><li lang="en">Enable/disable, configure file/process/network access permissions and uninstall modules.</li><li lang="vi">Bật/tắt, cấu hình quyền truy cập tệp/process/network và gỡ module.</li><li lang="en">Register new screens, task types, exporters or AI backends through extension points.</li><li lang="vi">Đăng ký màn hình, task type, exporter hoặc AI backend mới qua extension point.</li></ul></td></tr>
+  <tr><td>M21-F04 · Update strategy · Release 10 · Part 4</td><td><ul class="function-list"><li lang="en">Check for new versions manually and open the release download page.</li><li lang="vi">Kiểm tra phiên bản thủ công và mở trang tải bản phát hành.</li><li lang="en">Auto update is enabled only if the product owner changes <code>NG4</code>.</li><li lang="vi">Auto update chỉ được bật nếu product owner thay đổi <code>NG4</code>.</li></ul></td></tr>
+  <tr><td>M21-F05 · Sound and Speech · Release 10 · Part 2 <span class="status open">new</span></td><td><ul class="function-list"><li lang="en">Choose the backend for speech and sound tasks, with the same assignment and job lock as M02-F07.</li><li lang="vi">Chọn backend cho tác vụ giọng đọc và âm thanh, cùng cơ chế gán và khóa vào job như M02-F07.</li></ul></td></tr>
+  <tr><td>M21-F06 · Images and Videos · Release 10 · Part 2 <span class="status open">new</span></td><td><ul class="function-list"><li lang="en">Choose the backend for image and video tasks, with the same assignment and job lock as M02-F07.</li><li lang="vi">Chọn backend cho tác vụ hình ảnh và video, cùng cơ chế gán và khóa vào job như M02-F07.</li></ul></td></tr>
+  <tr><td>M21-F07 · Runtime status · Release 10 · Part 4 <span class="status open">new</span></td><td><ul class="function-list"><li lang="en">CPU/GPU status, RAM, library size, running workers and CLI readiness.</li><li lang="vi">Trạng thái CPU/GPU, RAM, dung lượng thư viện, worker đang chạy và CLI sẵn sàng.</li><li lang="en">Quick counts of novels, chapters, jobs, audio assets, video projects and renders.</li><li lang="vi">Đếm nhanh novel, chapter, job, audio asset, video project và render.</li><li lang="en">Warnings for low disk space, failing backends or jobs needing attention.</li><li lang="vi">Cảnh báo thiếu dung lượng, backend lỗi hoặc job cần xử lý.</li><li lang="en">Export a diagnostic bundle with credentials removed.</li><li lang="vi">Xuất diagnostic bundle đã loại credential.</li><li lang="en">Model versions and model licences.</li><li lang="vi">Phiên bản và giấy phép của model.</li><li lang="en">Former M22-F01 Runtime status (PO, 2026-10-10).</li><li lang="vi">Trước đây là M22-F01 Trạng thái hệ thống (PO, 2026-10-10).</li></ul></td></tr>
 </tbody></table>
 
 </div>
@@ -763,7 +775,7 @@
 <table class="compact">
   <thead><tr><th>Journey</th><th><span lang="en">Function sequence</span><span lang="vi">Chuỗi chức năng</span></th><th><span lang="en">Expected outcome</span><span lang="vi">Kết quả mong đợi</span></th></tr></thead>
   <tbody>
-    <tr><td><span lang="en">J1 · First-time setup</span><span lang="vi">J1 · Thiết lập lần đầu</span></td><td><span lang="en">M01 → M06 choose library → M02 detect CLI → choose backend</span><span lang="vi">M01 → M06 chọn thư viện → M02 phát hiện CLI → chọn backend</span></td><td><span lang="en">The app is ready to import novels and run AI.</span><span lang="vi">Ứng dụng sẵn sàng nhập truyện và chạy AI.</span></td></tr>
+    <tr><td><span lang="en">J1 · First-time setup</span><span lang="vi">J1 · Thiết lập lần đầu</span></td><td><span lang="en">M01 → M02 choose library → M02 detect CLI → choose backend</span><span lang="vi">M01 → M02 chọn thư viện → M02 phát hiện CLI → chọn backend</span></td><td><span lang="en">The app is ready to import novels and run AI.</span><span lang="vi">Ứng dụng sẵn sàng nhập truyện và chạy AI.</span></td></tr>
     <tr><td><span lang="en">J2 · Import and read a novel</span><span lang="vi">J2 · Nhập và đọc truyện</span></td><td><span lang="en">M04 choose ZIP package → preview chapters and metadata → import job → M05 read/edit</span><span lang="vi">M04 chọn gói ZIP → xem trước chương và thông tin → job nhập → M05 đọc/sửa</span></td><td><span lang="en">Large novels are stored locally and open quickly.</span><span lang="vi">Truyện lớn được lưu cục bộ và truy cập nhanh.</span></td></tr>
     <tr><td><span lang="en">J3 · Build the story world</span><span lang="vi">J3 · Dựng thế giới truyện</span></td><td><span lang="en">M07 choose chapters → M03 run job → M07 review/merge/rename → M08 view relationships</span><span lang="vi">M07 chọn chương → M03 chạy job → M07 review/gộp/đổi tên → M08 xem quan hệ</span></td><td><span lang="en">A clean enough knowledge source exists for lookup and for use in translation.</span><span lang="vi">Có nguồn tri thức đủ sạch để tra cứu và dùng khi dịch.</span></td></tr>
     <tr><td><span lang="en">J4 · Batch translation</span><span lang="vi">J4 · Dịch hàng loạt</span></td><td><span lang="en">M09 preflight → M03 run job → M09 QA → side-by-side edit → M09 export</span><span lang="vi">M09 preflight → M03 chạy job → M09 QA → sửa song song → M09 xuất</span></td><td><span lang="en">Multi-chapter translations have consistent names and few paragraph errors.</span><span lang="vi">Bản dịch nhiều chương có tên nhất quán và ít lỗi đoạn.</span></td></tr>
@@ -772,7 +784,7 @@
     <tr><td><span lang="en">J7 · Prepare character voices</span><span lang="vi">J7 · Chuẩn bị giọng nhân vật</span></td><td><span lang="en">M07 choose character → M14 design/clone voice → M15 normalise pronunciation → save to M10</span><span lang="vi">M07 chọn nhân vật → M14 thiết kế/clone voice → M15 chuẩn hóa phát âm → lưu M10</span></td><td><span lang="en">Each character has a standard, reusable voice that pronounces names and terms correctly.</span><span lang="vi">Mỗi nhân vật có giọng chuẩn, tái sử dụng được và phát âm đúng tên/thuật ngữ.</span></td></tr>
     <tr><td><span lang="en">J8 · Produce an audiobook</span><span lang="vi">J8 · Sản xuất audiobook</span></td><td><span lang="en">M11 split dialogue → M14 assign cast → generate speech → M16 add BGM/SFX → M17 mix/master → M11 export</span><span lang="vi">M11 tách thoại → M14 gán cast → tạo speech → M16 thêm BGM/SFX → M17 mix/master → M11 export</span></td><td><span lang="en">A chapter becomes complete audio with no missing passages and consistent voices.</span><span lang="vi">Chương trở thành audio hoàn chỉnh, không thiếu đoạn và nhất quán giọng.</span></td></tr>
     <tr><td><span lang="en">J9 · Produce an episode</span><span lang="vi">J9 · Sản xuất tập phim</span></td><td><span lang="en">M12 script/storyboard → M10/M16/M19 gather assets → M18 build timeline → render → M20 package/distribute</span><span lang="vi">M12 script/storyboard → M10/M16/M19 gom asset → M18 dựng timeline → render → M20 đóng gói/phân phối</span></td><td><span lang="en">Episodes share characters, settings, voices and sound palette.</span><span lang="vi">Tập phim dùng chung nhân vật, bối cảnh, giọng và sound palette.</span></td></tr>
-    <tr><td><span lang="en">J10 · Extend capabilities</span><span lang="vi">J10 · Mở rộng năng lực</span></td><td><span lang="en">M21 install provider/model/module → M02 assign backend → M22 self-check → use in M03</span><span lang="vi">M21 cài provider/model/module → M02 gán backend → M22 self-check → sử dụng trong M03</span></td><td><span lang="en">New capabilities are added in a controlled way without breaking existing workflows.</span><span lang="vi">Năng lực mới được thêm có kiểm soát mà không phá vỡ workflow hiện có.</span></td></tr>
+    <tr><td><span lang="en">J10 · Extend capabilities</span><span lang="vi">J10 · Mở rộng năng lực</span></td><td><span lang="en">M21 install provider/model/module → M02 / M21 assign backend → M02 self-check → use in M03</span><span lang="vi">M21 cài provider/model/module → M02 / M21 gán backend → M02 self-check → sử dụng trong M03</span></td><td><span lang="en">New capabilities are added in a controlled way without breaking existing workflows.</span><span lang="vi">Năng lực mới được thêm có kiểm soát mà không phá vỡ workflow hiện có.</span></td></tr>
   </tbody>
 </table>
 </div>
