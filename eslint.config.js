@@ -20,12 +20,12 @@ const builtinMessage = 'The renderer must not import Node built-ins.';
 const restrictedImports = {
   paths: [
     { name: '@shared/data', message: dataMessage },
-    { name: '@novel-studio/shared/data', message: dataMessage },
+    { name: '@dreamer-studio/shared/data', message: dataMessage },
     { name: 'electron', message: electronMessage },
     ...nodeBuiltins.map((name) => ({ name, message: builtinMessage })),
   ],
   patterns: [
-    { group: ['@shared/data/*', '@novel-studio/shared/data/*'], message: dataMessage },
+    { group: ['@shared/data/*', '@dreamer-studio/shared/data/*'], message: dataMessage },
     { group: ['electron/*'], message: electronMessage },
     { group: ['node:*'], message: builtinMessage },
   ],

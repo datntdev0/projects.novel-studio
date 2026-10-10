@@ -41,7 +41,7 @@ const COLOR_TOKENS = [
     <div class="types" data-testid="kit-base-type">
       <div class="type-row">
         <small>sans</small>
-        <div>Novel Studio, dense UI copy and controls.</div>
+        <div>Dreamer Studio, dense UI copy and controls.</div>
       </div>
       <div class="type-row">
         <small>serif</small>

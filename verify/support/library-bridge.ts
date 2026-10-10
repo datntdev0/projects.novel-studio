@@ -17,7 +17,7 @@ export const invokeLibrary = <C extends LibraryChannel>(
   req: LibraryChannels[C] = null as LibraryChannels[C],
 ): Promise<InvokeResult> =>
   window.evaluate(
-    ([name, payload]) => (globalThis as unknown as RendererGlobals).novelStudio.invoke(name as string, payload),
+    ([name, payload]) => (globalThis as unknown as RendererGlobals).dreamerStudio.invoke(name as string, payload),
     [channel, req],
   );
 

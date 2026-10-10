@@ -57,13 +57,13 @@ export async function createPackagedApp(options: PackagedOptions = {}): Promise<
   const libraryDir = join(baseDir, 'library');
   await mkdir(libraryDir, { recursive: true });
   await cp(extractedDir, appRoot, { recursive: true });
-  const exePath = join(appRoot, 'novel-studio.exe');
+  const exePath = join(appRoot, 'dreamer-studio.exe');
   const launched: ElectronApplication[] = [];
   return {
     appRoot,
     exePath,
     libraryDir,
-    backendExePath: join(appRoot, 'resources', 'backend', 'novel-studio-backend.exe'),
+    backendExePath: join(appRoot, 'resources', 'backend', 'dreamer-studio-backend.exe'),
     ffmpegPath: join(appRoot, 'resources', 'bin', 'ffmpeg.exe'),
     launch: async (launchOptions = {}) => {
       const app = await _electron.launch({

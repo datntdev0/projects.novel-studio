@@ -3,6 +3,6 @@ import type { InvokeResult, RendererGlobals } from './renderer-globals.ts';
 
 export const invokeSettings = (window: Page, channel: string, req?: unknown): Promise<InvokeResult> =>
   window.evaluate(
-    ([name, payload]) => (globalThis as unknown as RendererGlobals).novelStudio.invoke(name as string, payload),
+    ([name, payload]) => (globalThis as unknown as RendererGlobals).dreamerStudio.invoke(name as string, payload),
     [channel, req],
   );

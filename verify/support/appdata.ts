@@ -1,7 +1,7 @@
 import { readdir, stat } from 'node:fs/promises';
 import { join } from 'node:path';
 
-const appFolders = ['novel-studio', 'Electron', '@novel-studio'];
+const appFolders = ['dreamer-studio', 'Electron', '@dreamer-studio'];
 
 const listDir = async (dir: string): Promise<string[]> => {
   try {

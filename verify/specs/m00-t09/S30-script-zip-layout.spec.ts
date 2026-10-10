@@ -3,9 +3,9 @@ import { test, expect } from '../../support/test.ts';
 import { ensurePackage, listZip, packageDir } from '../../support/package.ts';
 
 const required = [
-  'novel-studio.exe',
+  'dreamer-studio.exe',
   'resources/app.asar',
-  'resources/backend/novel-studio-backend.exe',
+  'resources/backend/dreamer-studio-backend.exe',
   'resources/backend/_internal',
   'resources/bin/ffmpeg.exe',
   'resources/bin/LICENSE-ffmpeg.txt',

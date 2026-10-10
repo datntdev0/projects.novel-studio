@@ -56,7 +56,7 @@ async function extractOnce(zipPath: string): Promise<string> {
     if (name.startsWith('ns-package-') && name !== targetName)
       await rm(join(tmpdir(), name), { recursive: true, force: true, maxRetries: 5 });
   }
-  if (existsSync(join(target, 'novel-studio.exe'))) return target;
+  if (existsSync(join(target, 'dreamer-studio.exe'))) return target;
   const partial = `${target}.partial`;
   await rm(partial, { recursive: true, force: true });
   await mkdir(partial, { recursive: true });

@@ -7,9 +7,9 @@ test('S4 renderer is isolated and exposes only the bridge (AC-9)', async ({ app,
   await expect(window.getByTestId('app-shell')).toBeVisible();
   const globals = await window.evaluate(() => [typeof require, typeof process, typeof module]);
   expect(globals).toEqual(['undefined', 'undefined', 'undefined']);
-  const members = await window.evaluate(() => Object.keys((globalThis as unknown as RendererGlobals).novelStudio).sort());
+  const members = await window.evaluate(() => Object.keys((globalThis as unknown as RendererGlobals).dreamerStudio).sort());
   expect(members).toEqual(['invoke', 'on']);
-  const unknown = await window.evaluate(() => (globalThis as unknown as RendererGlobals).novelStudio.invoke('nope:channel'));
+  const unknown = await window.evaluate(() => (globalThis as unknown as RendererGlobals).dreamerStudio.invoke('nope:channel'));
   expect(unknown.ok).toBe(false);
   expect(unknown.error.code).toBe('IPC_UNKNOWN_CHANNEL');
   const prefs = await app.evaluate(({ BrowserWindow }) => {

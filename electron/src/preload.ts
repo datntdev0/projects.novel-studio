@@ -1,5 +1,5 @@
 import { contextBridge, ipcRenderer } from 'electron';
-import { IPC_CHANNELS, IPC_EVENTS, SETTINGS_INITIAL_CHANNEL, applyTheme, nsError, type InitialSettings, type NovelStudioApi } from '@shared/core';
+import { IPC_CHANNELS, IPC_EVENTS, SETTINGS_INITIAL_CHANNEL, applyTheme, nsError, type InitialSettings, type DreamerStudioApi } from '@shared/core';
 
 const initial: InitialSettings = ipcRenderer.sendSync(SETTINGS_INITIAL_CHANNEL);
 
@@ -11,7 +11,7 @@ function applyInitial(): void {
 if (document.documentElement) applyInitial();
 else document.addEventListener('readystatechange', applyInitial, { once: true });
 
-const api: NovelStudioApi = {
+const api: DreamerStudioApi = {
   invoke: (channel, req) =>
     Object.hasOwn(IPC_CHANNELS, channel)
       ? ipcRenderer.invoke(channel, req)
@@ -24,4 +24,4 @@ const api: NovelStudioApi = {
   },
 };
 
-contextBridge.exposeInMainWorld('novelStudio', api);
+contextBridge.exposeInMainWorld('dreamerStudio', api);

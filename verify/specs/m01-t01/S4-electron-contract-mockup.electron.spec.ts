@@ -12,8 +12,8 @@ const nextProgress = (window: Parameters<typeof invokeSettings>[0]): Promise<Pro
     () =>
       new Promise<ProgressPayload>((resolve) => {
         const api = (
-          globalThis as unknown as { novelStudio: { on(event: string, handler: (payload: ProgressPayload) => void): () => void } }
-        ).novelStudio;
+          globalThis as unknown as { dreamerStudio: { on(event: string, handler: (payload: ProgressPayload) => void): () => void } }
+        ).dreamerStudio;
         const off = api.on('job:progress', (payload) => {
           off();
           resolve(payload);

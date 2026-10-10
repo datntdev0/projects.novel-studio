@@ -5,7 +5,7 @@ import { statusText } from '../../support/status.ts';
 
 type PageGlobals = { document: { documentElement: { scrollWidth: number; clientWidth: number } } };
 
-const LIBRARY = 'C:\\NovelStudio\\Library';
+const LIBRARY = 'C:\\DreamerStudio\\Library';
 const SAMPLE = { en: '3,208', vi: '3.208' };
 const look = (language: 'en' | 'vi', theme: 'dark' | 'light'): string =>
   `${language.toUpperCase()} · ${appearanceText(language, `status.theme.${theme}`)}`;

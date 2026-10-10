@@ -8,7 +8,7 @@ export interface Bridge {
   on: EventSubscriber;
 }
 
-export interface NovelStudioApi {
+export interface DreamerStudioApi {
   invoke<C extends keyof IpcContract>(channel: C, req: IpcContract[C]['req']): Promise<IpcResult<IpcContract[C]['res']>>;
   on: EventSubscriber;
 }

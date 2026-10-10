@@ -8,13 +8,13 @@ import { BACKGROUND_HEX, BACKGROUND_RGB, bodyBackground, expectHtml, htmlState, 
 import type { Page } from '../../support/test.ts';
 
 type Language = 'en' | 'vi';
-type PageGlobals = { novelStudio: object };
+type PageGlobals = { dreamerStudio: object };
 
 const windowColor = (app: ElectronApplication): Promise<string> =>
   app.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows()[0]!.getBackgroundColor());
 
 const bridgeKeys = (window: Page): Promise<string[]> =>
-  window.evaluate(() => Object.keys((globalThis as unknown as PageGlobals).novelStudio).sort());
+  window.evaluate(() => Object.keys((globalThis as unknown as PageGlobals).dreamerStudio).sort());
 
 async function expectFirstPaint(app: ElectronApplication, language: Language, theme: Theme): Promise<Page> {
   const window = await app.firstWindow();

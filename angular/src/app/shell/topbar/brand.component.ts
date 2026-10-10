@@ -14,9 +14,9 @@ import { LayoutStore } from '../layout/layout.store';
       [title]="'topbar.toggleRail' | t"
       (click)="layout.toggleRail()"
     >
-      <img class="mark mark-dark" src="brand/novel-studio-mark-dark.svg" alt="" data-testid="topbar-brand-mark-dark" />
-      <img class="mark mark-light" src="brand/novel-studio-mark-light.svg" alt="" data-testid="topbar-brand-mark-light" />
-      <span>Novel Studio</span>
+      <img class="mark mark-dark" src="brand/dreamer-studio-mark-dark.svg" alt="" data-testid="topbar-brand-mark-dark" />
+      <img class="mark mark-light" src="brand/dreamer-studio-mark-light.svg" alt="" data-testid="topbar-brand-mark-light" />
+      <span>Dreamer Studio</span>
     </button>
   `,
   styles: `

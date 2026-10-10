@@ -43,7 +43,7 @@ const RECENT_NOVELS: NovelSummary[] = [
 
 const OPEN_LIBRARY: LibraryStatus = {
   state: 'open',
-  root: 'C:\\NovelStudio\\Library',
+  root: 'C:\\DreamerStudio\\Library',
   version: 1,
   libraryId: 'mockup-library',
   error: null,

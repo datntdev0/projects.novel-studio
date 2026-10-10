@@ -1,7 +1,7 @@
 export type InvokeResult = { ok: boolean; value?: unknown; error: { code: string; message: string } };
 
 export type RendererGlobals = {
-  novelStudio: { invoke(channel: string, req?: unknown): Promise<InvokeResult>; on: unknown };
+  dreamerStudio: { invoke(channel: string, req?: unknown): Promise<InvokeResult>; on: unknown };
   document: {
     head: { appendChild(node: unknown): void };
     body: { appendChild(node: unknown): void; innerText: string };

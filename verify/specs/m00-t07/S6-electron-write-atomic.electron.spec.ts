@@ -41,7 +41,7 @@ const killDuringWrite = async (app: ElectronApplication, library: string): Promi
   const fired = window
     .evaluate(
       ({ size, file }) => {
-        const { invoke } = (globalThis as unknown as RendererGlobals).novelStudio;
+        const { invoke } = (globalThis as unknown as RendererGlobals).dreamerStudio;
         void invoke('library:writeText', { path: file, text: 'B'.repeat(size) });
       },
       { size: BIG_SIZE, file: FILE },

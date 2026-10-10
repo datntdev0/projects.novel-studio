@@ -13,7 +13,7 @@ export interface BackendCommand {
 export function resolveBackendCommand(): BackendCommand | null {
   if (app.isPackaged) {
     const cwd = path.join(process.resourcesPath, 'backend');
-    return { command: path.join(cwd, 'novel-studio-backend.exe'), args: [], cwd };
+    return { command: path.join(cwd, 'dreamer-studio-backend.exe'), args: [], cwd };
   }
   const cwd = path.join(devRepoRoot(), 'python');
   return { command: path.join(cwd, '.venv', 'Scripts', 'python.exe'), args: ['-m', 'app'], cwd };

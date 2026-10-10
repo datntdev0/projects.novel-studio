@@ -24,7 +24,7 @@ test('S8 settings channels reject bad requests and expose only invoke and on (AC
     expect(await invokeSettings(window, 'settings:set', req)).toEqual(invalid);
   }
   const undefinedResult = await window.evaluate(() =>
-    (globalThis as unknown as RendererGlobals).novelStudio.invoke('settings:set', { language: undefined }),
+    (globalThis as unknown as RendererGlobals).dreamerStudio.invoke('settings:set', { language: undefined }),
   );
   expect(undefinedResult).toEqual(invalid);
   await expectAppLog(appRoot, /backend ready/);
@@ -36,7 +36,7 @@ test('S8 settings channels reject bad requests and expose only invoke and on (AC
     ok: false,
     error: { code: 'IPC_UNKNOWN_CHANNEL', message: expect.any(String) },
   });
-  expect(await window.evaluate(() => Object.keys((globalThis as unknown as { novelStudio: object }).novelStudio).sort())).toEqual([
+  expect(await window.evaluate(() => Object.keys((globalThis as unknown as { dreamerStudio: object }).dreamerStudio).sort())).toEqual([
     'invoke',
     'on',
   ]);

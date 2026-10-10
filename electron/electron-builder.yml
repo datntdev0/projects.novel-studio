@@ -1,5 +1,5 @@
-appId: dev.datntdev.novel-studio
-executableName: novel-studio
+appId: dev.datntdev.dreamer-studio
+executableName: dreamer-studio
 directories:
   app: ../dist/app
   output: ../dist/package
@@ -13,7 +13,7 @@ electronLanguages:
   - vi
 npmRebuild: false
 extraResources:
-  - from: ../dist/backend/novel-studio-backend
+  - from: ../dist/backend/dreamer-studio-backend
     to: backend
   - from: ../vendor/ffmpeg/bin/ffmpeg.exe
     to: bin/ffmpeg.exe

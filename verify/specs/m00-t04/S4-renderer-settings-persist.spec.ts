@@ -4,7 +4,7 @@ import { gotoFoundation } from '../../support/shell.ts';
 
 type StorageGlobals = { localStorage: { getItem(key: string): string | null; setItem(key: string, value: string): void } };
 
-const KEY = 'novel-studio.settings';
+const KEY = 'dreamer-studio.settings';
 
 const seedAndReload = async (page: Page, text: string): Promise<void> => {
   await page.evaluate(([key, value]) => (globalThis as unknown as StorageGlobals).localStorage.setItem(key, value), [KEY, text] as const);

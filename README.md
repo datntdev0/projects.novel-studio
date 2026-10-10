@@ -1,4 +1,4 @@
-# projects.novel-studio
+# projects.dreamer-studio
 
 ## Setup
 

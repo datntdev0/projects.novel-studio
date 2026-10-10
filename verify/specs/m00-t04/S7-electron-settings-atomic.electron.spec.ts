@@ -36,7 +36,7 @@ test('S7b a kill during saves never leaves an empty or partial file (AC-21)', as
       const window = await app.firstWindow();
       await expect(window.getByTestId('app-shell')).toBeVisible();
       await window.evaluate((count) => {
-        const { invoke } = (globalThis as unknown as RendererGlobals).novelStudio;
+        const { invoke } = (globalThis as unknown as RendererGlobals).dreamerStudio;
         for (let i = 0; i < count; i++) void invoke('settings:set', { language: i % 2 === 0 ? 'vi' : 'en' });
       }, SETS_PER_ROUND);
       const child = app.process();

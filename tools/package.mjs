@@ -66,7 +66,9 @@ function megabytes(bytes) {
 
 function reportSizes(zip) {
   console.log(`size zip ${megabytes(statSync(path.join(packageDir, zip)).size)} MB dist/package/${zip}`);
-  console.log(`size backend ${megabytes(folderSize(path.join(backendDir, 'novel-studio-backend')))} MB dist/backend/novel-studio-backend`);
+  console.log(
+    `size backend ${megabytes(folderSize(path.join(backendDir, 'dreamer-studio-backend')))} MB dist/backend/dreamer-studio-backend`,
+  );
   console.log(`size ffmpeg ${megabytes(statSync(ffmpegPath).size)} MB vendor/ffmpeg/bin/ffmpeg.exe`);
 }
 

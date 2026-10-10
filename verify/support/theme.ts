@@ -31,7 +31,7 @@ type HtmlGlobals = {
 const run = promisify(execFile);
 const script = join(repoRoot, 'tools', 'check-tokens.mjs');
 
-export const SETTINGS_KEY = 'novel-studio.settings';
+export const SETTINGS_KEY = 'dreamer-studio.settings';
 export const ICON_SIZES: Record<string, number> = { 'root-icon-sm': 14, 'root-icon-md': 16, 'root-icon-lg': 20, 'root-icon-xl': 28 };
 
 export const BACKGROUND_RGB: Record<Theme, string> = { dark: 'rgb(16, 18, 17)', light: 'rgb(255, 255, 255)' };

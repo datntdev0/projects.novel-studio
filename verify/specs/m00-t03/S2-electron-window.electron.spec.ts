@@ -15,7 +15,7 @@ test('S2 electron window has the title, minimum size and clamped default size (A
     };
   });
   expect(result.count).toBe(1);
-  expect(result.title).toBe('Novel Studio');
+  expect(result.title).toBe('Dreamer Studio');
   expect(result.minimumSize).toEqual([1280, 720]);
   expect(Math.abs((result.size?.width ?? 0) - result.expected.width)).toBeLessThanOrEqual(2);
   expect(Math.abs((result.size?.height ?? 0) - result.expected.height)).toBeLessThanOrEqual(2);

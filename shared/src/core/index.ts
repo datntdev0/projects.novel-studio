@@ -1,4 +1,4 @@
-export const APP_NAME = 'Novel Studio';
+export const APP_NAME = 'Dreamer Studio';
 
 export * from './ipc-contract';
 export * from './settings';

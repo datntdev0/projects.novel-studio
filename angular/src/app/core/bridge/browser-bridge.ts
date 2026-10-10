@@ -4,7 +4,7 @@ import { APP_NAME, CLOSED_LIBRARY, isLibraryOpenRequest, isLibraryReadRequest, i
 type Listener<E extends keyof IpcEvents> = (payload: IpcEvents[E]) => void;
 type Handlers = { [C in keyof IpcContract]: (req: IpcContract[C]['req']) => IpcContract[C]['res'] };
 
-const SETTINGS_KEY = 'novel-studio.settings';
+const SETTINGS_KEY = 'dreamer-studio.settings';
 const READY_BACKEND: BackendStatus = { state: 'ready', port: null, pid: null, restarts: 0, error: null };
 const OK_SYSTEM: SystemStatus = { ffmpeg: { state: 'ok', version: null, error: null } };
 const invalidRequest = () => nsError('IPC_INVALID_REQUEST', 'Invalid request');

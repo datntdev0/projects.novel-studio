@@ -7,7 +7,9 @@ const stackFrame = /\bat \S.*:\d+:\d+/;
 test('S8 electron errors keep the shape and log the stack (AC-12)', async ({ app, window, appRoot }) => {
   await expect(window.getByTestId('app-shell')).toBeVisible();
 
-  const result = await window.evaluate(() => (globalThis as unknown as RendererGlobals).novelStudio.invoke('log:write', { level: 'nope' }));
+  const result = await window.evaluate(() =>
+    (globalThis as unknown as RendererGlobals).dreamerStudio.invoke('log:write', { level: 'nope' }),
+  );
   expect(result).toEqual({ ok: false, error: { code: 'IPC_INVALID_REQUEST', message: expect.any(String) } });
   await expectAppLog(appRoot, /\[warn\]\s+ipc log:write IPC_INVALID_REQUEST/);
 
